@@ -1593,8 +1593,15 @@ export default function App() {
     setSpotIndex(nextIndex);
   };
 
-  const handleSelectSpace = (space) => {
-    
+const handleSelectSpace = (space) => {
+    // Nếu bấm đúng Tủ sách ngoài sảnh chính (hoặc item có type là library/book) mới mở sách
+    if (space && (space.type === "library" || space.name === "Tủ sách")) {
+      setShowLibrary(true);
+      return;
+    }
+
+    // Tất cả các Khu trong phòng 2 (Bao gồm Khu 3 âm thanh) thì KHÔNG mở sách, vào thẳng phòng 3D
+    setShowLibrary(false); // 👈 Tắt thư viện sách nếu đang mở
     setShowPDF(false);
     setShowPadlet(false);
     setSelectedSpace(space);
