@@ -534,7 +534,7 @@ useEffect(() => {
 
       {/* Khung chứa video7 nhúng trực tiếp bám sát tường giữa */}
       <Html
-        position={[0, -0.3, 0.03]} // Nổi lên một chút so với ảnh nền
+        position={[0, -0.2, 0.03]} // Nổi lên một chút so với ảnh nền
         transform
         distanceFactor={1.5}    // Điều chỉnh độ lớn hiển thị trong không gian 3D
         occlude
