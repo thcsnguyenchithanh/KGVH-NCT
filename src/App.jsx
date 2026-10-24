@@ -552,14 +552,20 @@ useEffect(() => {
 
   {/* KHU 6: Tường giữa hiển thị ảnh và thanh audio tương tác khi click */}
   {space.id === 6 && (
-    <WallAudioSection
+  <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
+    <mesh position={[0, 0, -0.01]}>
+      <planeGeometry args={[9, 3.8]} />
+      <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+    </mesh>
+    <WallImageAudioSection
       title="Thuyết minh Tường Giữa - Phòng 6"
       imgSrc={SPACE_CONTENT[6].bgWall6}
       audioSrc={SPACE_CONTENT[6].audioBg6}
       width={6.8}
       height={3.0}
     />
-  )}
+  </group>
+)}
 
   {/* KHU 7: Hiển thị ảnh nền bgWall7 kết hợp khung video7 ở giữa */}
   {space.id === 7 && (
@@ -744,16 +750,21 @@ useEffect(() => {
       ))}
     </>
     
- ) : space.id === 6 ? (
-    /* KHU 6: Tường trái hiển thị ảnh và thanh audio tương tác khi click */
-    <WallAudioSection
+ ) : space.id === 6 && (
+  <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+    <mesh position={[0, 0, -0.02]}>
+      <planeGeometry args={[6.5, 3.8]} />
+      <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+    </mesh>
+    <WallImageAudioSection
       title="Thuyết minh Tường Trái - Phòng 6"
       imgSrc={SPACE_CONTENT[6].imageTrai6}
       audioSrc={SPACE_CONTENT[6].audioTrai6}
       width={5.5}
       height={2.8}
     />
-  ) : space.id === 8 ? (
+  </group>
+) : space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
           <>
             <mesh position={[0, 1.4, 0.01]}>
@@ -835,22 +846,21 @@ useEffect(() => {
       width={6.5}
       height={3.8}
     />
-) : space.id === 6 ? (
-    <>
-      <mesh position={[0, 0, -0.02]}>
-        <planeGeometry args={[6.5, 3.8]} />
-        <meshStandardMaterial color="#f4efe6" roughness={0.9} />
-      </mesh>
-      {/* KHU 6: Tường phải hiển thị ảnh và thanh audio tương tác khi click */}
-      <WallAudioSection
-        title="Thuyết minh Tường Phải - Phòng 6"
-        imgSrc={SPACE_CONTENT[6].imagePhai6}
-        audioSrc={SPACE_CONTENT[6].audioPhai6}
-        width={5.5}
-        height={2.8}
-      />
-    </>
-  ) : space.id === 8 ? (
+) : space.id === 6 && (
+  <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+    <mesh position={[0, 0, -0.02]}>
+      <planeGeometry args={[6.5, 3.8]} />
+      <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+    </mesh>
+    <WallImageAudioSection
+      title="Thuyết minh Tường Phải - Phòng 6"
+      imgSrc={SPACE_CONTENT[6].imagePhai6}
+      audioSrc={SPACE_CONTENT[6].audioPhai6}
+      width={5.5}
+      height={2.8}
+    />
+  </group>
+) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
          <>
             <mesh position={[0, 0, -0.02]}>
