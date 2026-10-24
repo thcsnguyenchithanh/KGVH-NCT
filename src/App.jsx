@@ -730,12 +730,7 @@ useEffect(() => {
 {/* Tường phải: Video YouTube Khu 3 bám chặt vào tường */}
 <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
 
-  {/* 1. Một mesh phẳng nền tường bọc lót phía sau */}
-  <mesh position={[0, 0, -0.01]}>
-    <planeGeometry args={[6.5, 3.8]} />
-    <meshBasicMaterial color="#000" />
-  </mesh>
-
+  
   {space.id === 3 ? (
     <Html
       position={[0, 0, 0.01]}
