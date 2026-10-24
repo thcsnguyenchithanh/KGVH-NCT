@@ -727,22 +727,26 @@ useEffect(() => {
   )}
 </group>
 
-{/* Tường phải: Đưa vào group chung để ghim chặt vào bề mặt tường phải */}
+{/* Tường phải: Video YouTube Khu 3 bám chặt vào tường */}
 <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
 
-  {/* Lớp nền tường (giúp tạo khung nền vững chắc phía sau video) */}
- 
+  {/* 1. Một mesh phẳng nền tường bọc lót phía sau */}
+  <mesh position={[0, 0, -0.01]}>
+    <planeGeometry args={[6.5, 3.8]} />
+    <meshBasicMaterial color="#000" />
+  </mesh>
 
   {space.id === 3 ? (
     <Html
-      position={[0, 0, 0.02]} // Áp sát ngay mặt tường phải
+      position={[0, 0, 0.01]}
       transform
       distanceFactor={1.0}
+      occlude // <--- QUAN TRỌNG: Giúp HTML khóa chặt theo không gian 3D, không bị lơ lửng trôi nổi
       style={{
         width: "1250px",
         height: "700px",
         overflow: "hidden",
-        border: "2px solid #70472e",  {/* ĐÃ GIẢM TỪ 4px XUỐNG 2px (hoặc xóa dòng border này luôn nếu không thích viền) */}
+        border: "2px solid #70472e",
         borderRadius: "8px",
         boxSizing: "border-box",
         background: "#000",
