@@ -1296,9 +1296,9 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           document.body.style.cursor = "default";
         }}
       >
-        {/* 1. Khung nền gỗ/kim loại phía sau (Làm viền cho bảng preview) */}
+        {/* 1. Khung nền gỗ/kim loại phía sau (Phóng to kích thước lên) */}
         <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[3.4, 2.0, 0.08]} />
+          <boxGeometry args={[4.6, 2.8, 0.08]} />
           <meshStandardMaterial
             color="#5c1717"
             metalness={0.25}
@@ -1306,24 +1306,24 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           />
         </mesh>
 
-        {/* 2. Màn hình ảnh Preview bên trong (Thay 'anh-preview-baotang.png' bằng ảnh thực tế của bạn) */}
-        <mesh position={[0, 0.15, 0.045]}>
-          <planeGeometry args={[3.1, 1.3]} />
+        {/* 2. Màn hình ảnh Preview bên trong (Tăng kích thước rộng và cao hơn) */}
+        <mesh position={[0, 0.25, 0.045]}>
+          <planeGeometry args={[4.3, 2.0]} />
           <meshBasicMaterial 
-            map={useTexture(`${import.meta.env.BASE_URL}images/Baotang3D.png`)} 
+            map={useTexture(`${import.meta.env.BASE_URL}room/preview-baotang.png`)} 
           />
         </mesh>
 
-        {/* 3. Dải lót nền chữ để chữ "BẢO TÀNG 3D" nổi bật không bị lẫn vào ảnh */}
-        <mesh position={[0, -0.7, 0.045]}>
-          <planeGeometry args={[3.1, 0.45]} />
+        {/* 3. Dải lót nền chữ để chữ "BẢO TÀNG 3D" nổi bật */}
+        <mesh position={[0, -1.05, 0.045]}>
+          <planeGeometry args={[4.3, 0.55]} />
           <meshBasicMaterial color="#3a0d0d" />
         </mesh>
 
-        {/* 4. Text tiêu đề chính */}
+        {/* 4. Text tiêu đề chính (Tăng font size cho rõ ràng) */}
         <Text
-          position={[0, -0.7, 0.055]}
-          fontSize={0.22}
+          position={[0, -1.05, 0.055]}
+          fontSize={0.32}
           color="#ffd700"
           anchorX="center"
           anchorY="middle"
