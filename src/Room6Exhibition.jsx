@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Html } from "@react-three/drei";
 
 // Component con xử lý ảnh qua thẻ img (an toàn tuyệt đối, không lỗi texture)
-function WallImageAudioSection({ title, imgSrc, audioSrc, width = 5.5, height = 2.8 }) {
+export default function WallImageAudioSection({ title, imgSrc, audioSrc, width = 5.5, height = 2.8 }) {
   const [showAudio, setShowAudio] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const audioRef = useRef(null);
