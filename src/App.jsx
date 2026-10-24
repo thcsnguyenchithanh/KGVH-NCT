@@ -9,7 +9,7 @@ import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from './BookShelf';
 import Room8 from './Room8';
 import Room6Exhibition from './Room6Exhibition';
-import { WallAudioSection } from "./Room6Exhibition"; // Điều chỉnh đường dẫn ./ cho đúng với thư mục thực tế của bạn
+import { WallImageAudioSection } from "./Room6Exhibition"; // Điều chỉnh đường dẫn ./ cho đúng với thư mục thực tế của bạn
 import {
   Environment,
   OrbitControls,
