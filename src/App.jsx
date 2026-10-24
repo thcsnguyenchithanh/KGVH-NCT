@@ -7,6 +7,7 @@ import  WallImage  from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from './BookShelf';
+import Room8 from './Room8';
 import {
   Environment,
   OrbitControls,
@@ -123,8 +124,24 @@ const SPACE_CONTENT = {
     video7: `${import.meta.env.BASE_URL}room7/video7.mp4`,
   },
   8: {
-    video: "https://www.youtube.com/embed/R5wsX7xQsxY",
-    pdf: `${import.meta.env.BASE_URL}doc/Khu1.pdf`,
+    video8: "https://www.youtube.com/embed/w00l2J2e34c"
+    imageTrai8: [
+      `${import.meta.env.BASE_URL}room8/trai1.jpg`,
+      `${import.meta.env.BASE_URL}room8/trai2.jpg`,
+      `${import.meta.env.BASE_URL}room8/trai3.jpg`,
+      `${import.meta.env.BASE_URL}room8/trai4.jpg`,
+      `${import.meta.env.BASE_URL}room8/trai5.jpg`,
+      `${import.meta.env.BASE_URL}room8/trai6.jpg`,
+    ],
+    // Danh sách 6 ảnh tường phải (phai1.jpg đến phai6.jpg)
+    imagePhai8: [
+      `${import.meta.env.BASE_URL}room8/phai1.jpg`,
+      `${import.meta.env.BASE_URL}room8/phai2.jpg`,
+      `${import.meta.env.BASE_URL}room8/phai3.jpg`,
+      `${import.meta.env.BASE_URL}room8/phai4.jpg`,
+      `${import.meta.env.BASE_URL}room8/phai5.jpg`,
+      `${import.meta.env.BASE_URL}room8/phai6.jpg`,
+      ],
   },
 };
 
@@ -505,7 +522,7 @@ useEffect(() => {
   </mesh>
 
   {/* 1. Ảnh tường đối diện (Dành cho Khu 1, 3 và Khu 7) */}
-  {space.id !== 2 && (
+  {space.id !== 2 && space.id !== 7 && space.id !== 8 && (
     <WallImage
       src={
         space.id === 7
@@ -562,6 +579,40 @@ useEffect(() => {
       </Html>
     </>
   )}
+  {/* KHU 8: Tường giữa hiển thị Video nhúng YouTube */}
+        {space.id === 8 && (
+          <group position={[0, 0, 0.02]} onClick={() => onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)}>
+            <mesh>
+              <planeGeometry args={[7.5, 3.2]} />
+              <meshStandardMaterial color="#111" />
+            </mesh>
+            <Html
+              position={[0, 0, 0.01]}
+              transform
+              distanceFactor={1.5}
+              occlude
+              style={{
+                width: "960px",
+                height: "540px",
+                overflow: "hidden",
+                border: "3px solid #70472e",
+                borderRadius: "8px",
+                background: "#000",
+                pointerEvents: "auto",
+              }}
+            >
+              <div style={{ width: "100%", height: "100%" }}>
+                <iframe
+                  src={SPACE_CONTENT[8].video8}
+                  title="Video Khu 8"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  style={{ width: "100%", height: "100%", border: 0 }}
+                />
+              </div>
+            </Html>
+          </group>
+        )}
 
   {/* 2. Padlet trên tường đối diện (Dành riêng cho Khu 2) */}
   {space.id === 2 && !isPadletFullScreen && (
@@ -652,7 +703,25 @@ useEffect(() => {
         />
       ))}
     </>
-  ) : (
+  ): space.id === 8 ? (
+          // KHU 8: Trải đều 6 ảnh tường trái (imageTrai8)
+          <group position={[0, 0, 0.01]}>
+            {SPACE_CONTENT[8].imageTrai8.map((imgSrc, idx) => {
+              const xPos = -2.2 + idx * 0.88; // Căn chỉnh khoảng cách rải đều 6 ảnh
+              return (
+                <group key={`trai8-${idx}`} position={[xPos, 0, 0]}>
+                  <WallImage
+                    src={imgSrc}
+                    alt={`Tranh trái 8 - ${idx + 1}`}
+                    position={[0, 0, 0]}
+                    width={0.82}
+                    height={2.2}
+                  />
+                </group>
+              );
+            })}
+          </group>
+        ) : (
     <WallImage
       src={
         space.id === 7
@@ -680,7 +749,25 @@ useEffect(() => {
       width={6.5}
       height={3.8}
     />
-  ) : space.id === 3 ? (
+  ) : space.id === 8 ? (
+          // KHU 8: Trải đều 6 ảnh tường phải (imagePhai8)
+          <group position={[0, 0, 0.01]}>
+            {SPACE_CONTENT[8].imagePhai8.map((imgSrc, idx) => {
+              const xPos = -2.2 + idx * 0.88;
+              return (
+                <group key={`phai8-${idx}`} position={[xPos, 0, 0]}>
+                  <WallImage
+                    src={imgSrc}
+                    alt={`Tranh phải 8 - ${idx + 1}`}
+                    position={[0, 0, 0]}
+                    width={0.82}
+                    height={2.2}
+                  />
+                </group>
+              );
+            })}
+          </group>
+        ): space.id === 3 ? (
     <Html
       position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
       transform
