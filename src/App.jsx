@@ -599,7 +599,7 @@ useEffect(() => {
             </Text>
 
             {/* Khung video chính giữa */}
-            {!isVideoHidden && (
+           {!wallImageFull && !isVideoHidden && (
             <group position={[0, -0.2, 0.02]} onClick={() => onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)}>
               
               <Html
@@ -751,10 +751,7 @@ useEffect(() => {
                     position={[xPos, yPos, 0]}
                     onClick={(e) => {
     e.stopPropagation();
-    setIsVideoHidden(true); // Ẩn video tường giữa đi khi đang xem ảnh phóng to
-    if (wallImageFull) {
-      wallImageFull(imgSrc); // Gọi hàm phóng to ảnh của bạn (nếu có)
-    }
+    setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
   }}
                     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
                     onPointerOut={() => { document.body.style.cursor = "default"; }}
