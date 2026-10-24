@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Html } from "@react-three/drei";
 
 // Component con xử lý từng tường có ảnh và audio tương tác
-function WallAudioSection({ title, imgSrc, audioSrc, width = 6.8, height = 3.2 }) {
+export default function WallAudioSection({ title, imgSrc, audioSrc, width = 6.8, height = 3.2 }) {
   const [showAudio, setShowAudio] = useState(false);
   const audioRef = useRef(null);
 
