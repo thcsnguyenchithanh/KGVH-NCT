@@ -565,10 +565,14 @@ useEffect(() => {
   return (
     <group position={[-22, 0, 5.75]}>
 
-{/* Ảnh tường đối diện ------------------------------------------------------------- */}
+{/* Ảnh tường đối diện (Khu 1 & Khu 3) ------------------------------------------------------------- */}
 {space.id !== 2 && (
   <WallImage
-    src={SPACE_CONTENT[1].imageBg1}
+    src={
+      space.id === 3
+        ? SPACE_CONTENT[3].bgWall
+        : SPACE_CONTENT[1].imageBg1
+    }
     alt="Hình tường đối diện"
     position={[0, 2, -3.82]}
     width={9}
@@ -710,16 +714,17 @@ useEffect(() => {
     position={[4.78, 2, 0]}
     rotation={[0, -Math.PI / 2, 0]}
     transform
-    distanceFactor={1.5}
+    distanceFactor={1.2} /* Giảm distanceFactor để khung nhìn to & rõ nét hơn */
     style={{
-      width: "850px",
-      height: "480px",
+      width: "1100px",  /* Tăng từ 850px lên 1100px */
+      height: "620px",  /* Tăng từ 480px lên 620px (giữ đúng tỉ lệ 16:9) */
       overflow: "hidden",
-      border: "3px solid #70472e",
-      borderRadius: "10px",
+      border: "4px solid #70472e",
+      borderRadius: "12px",
       boxSizing: "border-box",
       background: "#000",
       pointerEvents: "auto",
+      boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
     }}
   >
     <div style={{ width: "100%", height: "100%" }}>
