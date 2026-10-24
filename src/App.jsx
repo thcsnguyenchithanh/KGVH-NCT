@@ -638,7 +638,7 @@ useEffect(() => {
       width={6.5}
       height={3.8}
     />
-  ) :{space.id === 3 ? (
+  ) : space.id === 3 ? (
     <Html
       position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
       transform
