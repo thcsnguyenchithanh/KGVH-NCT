@@ -564,193 +564,219 @@ useEffect(() => {
 
   return (
     <group position={[-22, 0, 5.75]}>
+{/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
+<group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
 
-{/* Ảnh tường đối diện (Khu 1 & Khu 3) ------------------------------------------------------------- */}
-{space.id !== 2 && (
-  <WallImage
-    src={
-      space.id === 3
-        ? SPACE_CONTENT[3].bgWall
-        : SPACE_CONTENT[1].imageBg1
-    }
-    alt="Hình tường đối diện"
-    position={[0, 2, -3.82]}
-    width={9}
-    height={3.8}
-  />
-)}
-{/* Padlet trên tường đối diện */}
-{space.id === 2 && !isPadletFullScreen && (
-  <Html
-    position={[0, 2, -3.78]}
-    transform
-   distanceFactor={2}
-    style={{
-     width: "1280px",
-     height: "720px",
-      overflow: "hidden",
-      border: "3px solid #70472e",
-      borderRadius: "10px",
-      boxSizing: "border-box",
-      background: "#fff",
-      pointerEvents: "auto",
-    }}
-  >
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
-      <iframe
-        src={SPACE_CONTENT[2].padlet}
-        title="Padlet Khu 2"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowFullScreen
+  {/* Lớp nền tường đối diện (giúp tạo mặt phẳng tường 3D phía sau ảnh nền hoặc padlet) */}
+  <mesh position={[0, 0, -0.01]}>
+    <planeGeometry args={[9, 3.8]} />
+    <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+  </mesh>
+
+  {/* 1. Ảnh tường đối diện (Dành cho Khu 1 & Khu 3) */}
+  {space.id !== 2 && (
+    <WallImage
+      src={
+        space.id === 3
+          ? SPACE_CONTENT[3].bgWall
+          : SPACE_CONTENT[1].imageBg1
+      }
+      alt="Hình tường đối diện"
+      position={[0, 0, 0.01]} // Áp sát mặt tường
+      width={7.5}   
+      height={3.2}  
+    />
+  )}
+
+  {/* 2. Padlet trên tường đối diện (Dành riêng cho Khu 2) */}
+  {space.id === 2 && !isPadletFullScreen && (
+    <Html
+      position={[0, 0, 0.04]} // Áp sát mặt tường, nằm đè lên trên nền
+      transform
+      distanceFactor={2}
+      style={{
+        width: "1280px",
+        height: "720px",
+        overflow: "hidden",
+        border: "3px solid #70472e",
+        borderRadius: "10px",
+        boxSizing: "border-box",
+        background: "#fff",
+        pointerEvents: "auto",
+      }}
+    >
+      <div style={{ width: "100%", height: "100%", position: "relative" }}>
+        <iframe
+          src={SPACE_CONTENT[2].padlet}
+          title="Padlet Khu 2"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          style={{
+            width: "100%",
+            height: "100%",
+            border: 0,
+            pointerEvents: "none",
+          }}
+        />
+
+        <button
+          onPointerDown={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsPadletFullScreen(true);
+            setShowPadlet(true);
+          }}
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            zIndex: 9999999,
+            padding: "8px 10px",
+            border: 0,
+            borderRadius: 6,
+            background: "#70472e",
+            color: "#fff",
+            cursor: "pointer",
+            pointerEvents: "auto",
+            touchAction: "manipulation",
+          }}
+        >
+          ⛶ Toàn màn hình
+        </button>
+      </div>
+    </Html>
+  )}
+</group>
+{/* Tường trái: Đưa tất cả vào group chung để ghim chặt vào tường */}
+<group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+  
+  {/* Lớp nền tường (giúp tạo cảm giác có bức tường thật phía sau giao diện) */}
+  <mesh position={[0, 0, -0.01]}>
+    <planeGeometry args={[6.5, 3.8]} />
+    <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+  </mesh>
+
+  {space.id === 3 ? (
+    <Html
+      position={[0, 0, 0.02]} // Áp sát ngay mặt tường
+      transform
+      distanceFactor={1.5}
+      style={{ width: "850px", height: "500px", pointerEvents: "auto" }}
+    >
+      <div
         style={{
           width: "100%",
           height: "100%",
-          border: 0,
-          pointerEvents: "none",
-        }}
-      />
-
-      <button
-        onPointerDown={(e) => e.stopPropagation()}
-        onMouseDown={(e) => e.stopPropagation()}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setIsPadletFullScreen(true);
-          setShowPadlet(true);
-        }}
-        style={{
-          position: "absolute",
-          top: 10,
-          right: 10,
-          zIndex: 9999999,
-          padding: "8px 10px",
-          border: 0,
-          borderRadius: 6,
-          background: "#70472e",
-          color: "#fff",
-          cursor: "pointer",
-          pointerEvents: "auto",
-          touchAction: "manipulation",
+          borderRadius: "12px",
+          padding: "20px",
+          boxSizing: "border-box",
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "16px",
+          alignContent: "center",
+          justifyItems: "center",
         }}
       >
-        ⛶ Toàn màn hình
-      </button>
-    </div>
-  </Html>
-)}
+        {SPACE_CONTENT[3].topics.map((topic) => (
+          <div
+            key={topic.id}
+            onClick={() => {
+              if (topic.id === 1) {
+                setSelectedKhu3Topic(topic);
+              } else {
+                alert(`Chủ đề ${topic.id} đang cập nhật!`);
+              }
+            }}
+            style={{
+              cursor: "pointer",
+              width: "100%",
+              height: "100%",
+              borderRadius: "10px",
+              overflow: "hidden",
+              boxShadow: "0 6px 16px rgba(0,0,0,0.3)",
+              border: "2px solid #d4af37",
+              background: "#fff",
+              transition: "transform 0.2s",
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.03)"}
+            onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+          >
+            <img 
+              src={topic.image} 
+              alt={topic.title} 
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} 
+            />
+          </div>
+        ))}
+      </div>
+    </Html>
+  ) : (
+    <WallImage
+      src={
+        space.id === 2
+          ? SPACE_CONTENT[2].imageTrai2
+          : SPACE_CONTENT[1].imageTrai1
+      }
+      alt="Hình tường trái"
+      position={[0, 0, 0]}
+      width={6.5}
+      height={3.8}
+    />
+  )}
+</group>
 
-{/* Tường trái: Nếu là Khu 3 thì hiện 6 chủ đề, các khu khác hiện ảnh tường bình thường */}
-{space.id === 3 ? (
-  <Html
-    position={[-4.8, 2, 0]}
-    rotation={[0, Math.PI / 2, 0]}
-    transform
-    distanceFactor={1.5}
-    style={{ width: "850px", height: "500px", pointerEvents: "auto" }}
-  >
-    <div
+{/* Tường phải: Đưa vào group chung để ghim chặt vào bề mặt tường phải */}
+<group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+
+  {/* Lớp nền tường (giúp tạo khung nền vững chắc phía sau video) */}
+  <mesh position={[0, 0, -0.01]}>
+    <planeGeometry args={[6.5, 3.8]} />
+    <meshStandardMaterial color="#000" roughness={0.9} />
+  </mesh>
+
+  {space.id === 3 ? (
+    <Html
+      position={[0, 0, 0.02]} // Áp sát ngay mặt tường phải
+      transform
+      distanceFactor={1.0}
       style={{
-        width: "100%",
-        height: "100%",
-        backgroundImage: `url(${SPACE_CONTENT[3].bgWall})`,
-        backgroundSize: "cover",
+        width: "1250px",
+        height: "700px",
+        overflow: "hidden",
+        border: "4px solid #70472e",
         borderRadius: "12px",
-        padding: "20px",
         boxSizing: "border-box",
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "16px",
-        alignContent: "center",
+        background: "#000",
+        pointerEvents: "auto",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
       }}
     >
-      {SPACE_CONTENT[3].topics.map((topic) => (
-        <div
-          key={topic.id}
-          onClick={() => {
-            if (topic.id === 1) {
-              setSelectedKhu3Topic(topic);
-            } else {
-              alert(`Chủ đề ${topic.id} đang cập nhật!`);
-            }
-          }}
-          style={{
-            cursor: "pointer",
-            borderRadius: "10px",
-            overflow: "hidden",
-            boxShadow: "0 6px 16px rgba(0,0,0,0.3)",
-            border: "2px solid #d4af37",
-            background: "#fff",
-          }}
-        >
-          <img 
-            src={topic.image} 
-            alt={topic.title} 
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} 
-          />
-        </div>
-      ))}
-    </div>
-  </Html>
-) : (
-  <WallImage
-    src={
-      space.id === 2
-        ? SPACE_CONTENT[2].imageTrai2
-        : SPACE_CONTENT[1].imageTrai1
-    }
-    alt="Hình tường trái"
-    position={[-4.82, 2, 0]}
-    rotation={[0, Math.PI / 2, 0]}
-    width={6.5}
-    height={3.8}
-  />
-)}
-
-{/* Ảnh tường phải */}
-{/* Tường phải */}
-{space.id === 3 ? (
-  <Html
-    position={[4.78, 2, 0]}
-    rotation={[0, -Math.PI / 2, 0]}
-    transform
-    distanceFactor={1.2} /* Giảm distanceFactor để khung nhìn to & rõ nét hơn */
-    style={{
-      width: "1100px",  /* Tăng từ 850px lên 1100px */
-      height: "620px",  /* Tăng từ 480px lên 620px (giữ đúng tỉ lệ 16:9) */
-      overflow: "hidden",
-      border: "4px solid #70472e",
-      borderRadius: "12px",
-      boxSizing: "border-box",
-      background: "#000",
-      pointerEvents: "auto",
-      boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
-    }}
-  >
-    <div style={{ width: "100%", height: "100%" }}>
-      <iframe
-        src={SPACE_CONTENT[3].video3}
-        title="Video tường phải Khu 3"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowFullScreen
-        style={{ width: "100%", height: "100%", border: 0 }}
-      />
-    </div>
-  </Html>
-) : (
-  <WallImage
-    src={
-      space.id === 2
-        ? SPACE_CONTENT[2].imagePhai2
-        : SPACE_CONTENT[1].imagePhai
-    }
-    alt="Hình tường phải"
-    position={[4.82, 2, 0]}
-    rotation={[0, -Math.PI / 2, 0]}
-    width={6.5}
-    height={3.8}
-  />
-)}
+      <div style={{ width: "100%", height: "100%" }}>
+        <iframe
+          src={SPACE_CONTENT[3].video3}
+          title="Video tường phải Khu 3"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          style={{ width: "100%", height: "100%", border: 0 }}
+        />
+      </div>
+    </Html>
+  ) : (
+    <WallImage
+      src={
+        space.id === 2
+          ? SPACE_CONTENT[2].imagePhai2
+          : SPACE_CONTENT[1].imagePhai
+      }
+      alt="Hình tường phải"
+      position={[0, 0, 0]}
+      width={6.5}
+      height={3.8}
+    />
+  )}
+</group>
 
 
       {/* Sàn phòng */}
@@ -801,74 +827,70 @@ useEffect(() => {
         {space.title}
       </Text>
 
-           {/* Bàn tròn giữa phòng */}
-      <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[1.25, 1.25, 0.15, 64]} />
-        <meshStandardMaterial color="#70472e" roughness={0.55} />
-      </mesh>
+         {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
+{space.id !== 3 && (
+  <>
+    {/* Bàn tròn giữa phòng */}
+    <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
+      <cylinderGeometry args={[1.25, 1.25, 0.15, 64]} />
+      <meshStandardMaterial color="#70472e" roughness={0.55} />
+    </mesh>
 
-      {/* Trụ bàn */}
-      <mesh position={[0, 0.43, 0]} castShadow>
-        <cylinderGeometry args={[0.18, 0.3, 0.7, 32]} />
-        <meshStandardMaterial color="#503321" />
-      </mesh>
+    {/* Trụ bàn */}
+    <mesh position={[0, 0.43, 0]} castShadow>
+      <cylinderGeometry args={[0.18, 0.3, 0.7, 32]} />
+      <meshStandardMaterial color="#503321" />
+    </mesh>
 
-      {/* Đế bàn */}
-      <mesh position={[0, 0.1, 0]} castShadow>
-        <cylinderGeometry args={[0.65, 0.65, 0.12, 48]} />
-        <meshStandardMaterial color="#503321" />
-      </mesh>
+    {/* Đế bàn */}
+    <mesh position={[0, 0.1, 0]} castShadow>
+      <cylinderGeometry args={[0.65, 0.65, 0.12, 48]} />
+      <meshStandardMaterial color="#503321" />
+    </mesh>
 
-      {/* Khung màn hình video */}
-     
-
-           {/* Màn hình video trên bàn tròn -----------------------------------------------------------------------*/}
-   {/* Màn hình video trên bàn tròn */}
-{!wallImageFull && !isPadletFullScreen && (
-    <Html
-      position={[0, 1.05, 0]}
-      transform
-      distanceFactor={1.5}
-      style={{
-        width: "320px",
-        height: "200px",
-        overflow: "hidden",
-        border: "3px solid #70472e",
-        borderRadius: "10px",
-        boxSizing: "border-box",
-        background: "#000",
-        zIndex: 1000,
-        pointerEvents: "auto",
-      }}
-    >
-      <div style={{ width: "100%", height: "100%" }}>
-        <iframe
-          src={
-            space.id === 1
-              ? SPACE_CONTENT[1].video
-              : space.id === 2
-                ? SPACE_CONTENT[2].video2
-                : SPACE_CONTENT[space.id].video
-          }
-          title="Video trên bàn"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-          style={{
-            width: "100%",
-            height: "100%",
-            border: 0,
-          }}
-        />
-      </div>
-    </Html>
+    {/* Màn hình video trên bàn tròn */}
+    {!wallImageFull && !isPadletFullScreen && (
+      <Html
+        position={[0, 1.05, 0]}
+        transform
+        distanceFactor={1.5}
+        style={{
+          width: "320px",
+          height: "200px",
+          overflow: "hidden",
+          border: "3px solid #70472e",
+          borderRadius: "10px",
+          boxSizing: "border-box",
+          background: "#000",
+          zIndex: 1000,
+          pointerEvents: "auto",
+        }}
+      >
+        <div style={{ width: "100%", height: "100%" }}>
+          <iframe
+            src={
+              space.id === 1
+                ? SPACE_CONTENT[1].video
+                : space.id === 2
+                  ? SPACE_CONTENT[2].video2
+                  : SPACE_CONTENT[space.id].video
+            }
+            title="Video trên bàn"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            style={{
+              width: "100%",
+              height: "100%",
+              border: 0,
+            }}
+          />
+        </div>
+      </Html>
+    )}
+  </>
 )}
 
   
-
-
-
-
-
 
       {/* Nút quay lại */}
       {!isPadletFullScreen && (
