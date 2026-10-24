@@ -650,6 +650,8 @@ useEffect(() => {
     </Html>
   )}
 </group>
+
+
 {/* Tường trái: Đưa tất cả vào group chung để ghim chặt vào tường */}
 <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
   

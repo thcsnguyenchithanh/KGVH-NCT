@@ -21,6 +21,16 @@ export default function TopicMeshCard({ topic, index, onClick }) {
       <mesh
         onClick={(e) => {
           e.stopPropagation();
+
+          // 👉 THÊM LOGIC PHÁT AUDIO TRỰC TIẾP TẠI ĐÂY
+          if (topic.audio) {
+            const sound = new Audio(topic.audio);
+            sound.play().catch((err) => {
+              console.log("Không phát được audio:", err);
+            });
+          }
+
+          // Gọi tiếp hàm xử lý logic bên ngoài (mở modal, set state...)
           onClick(topic);
         }}
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
