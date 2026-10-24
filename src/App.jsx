@@ -766,6 +766,75 @@ useEffect(() => {
         {space.title}
       </Text>
 
+           {/* Bàn tròn giữa phòng */}
+      <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[1.25, 1.25, 0.15, 64]} />
+        <meshStandardMaterial color="#70472e" roughness={0.55} />
+      </mesh>
+
+      {/* Trụ bàn */}
+      <mesh position={[0, 0.43, 0]} castShadow>
+        <cylinderGeometry args={[0.18, 0.3, 0.7, 32]} />
+        <meshStandardMaterial color="#503321" />
+      </mesh>
+
+      {/* Đế bàn */}
+      <mesh position={[0, 0.1, 0]} castShadow>
+        <cylinderGeometry args={[0.65, 0.65, 0.12, 48]} />
+        <meshStandardMaterial color="#503321" />
+      </mesh>
+
+      {/* Khung màn hình video */}
+     
+
+           {/* Màn hình video trên bàn tròn -----------------------------------------------------------------------*/}
+   {/* Màn hình video trên bàn tròn */}
+{!wallImageFull && !isPadletFullScreen && (
+    <Html
+      position={[0, 1.05, 0]}
+      transform
+      distanceFactor={1.5}
+      style={{
+        width: "320px",
+        height: "200px",
+        overflow: "hidden",
+        border: "3px solid #70472e",
+        borderRadius: "10px",
+        boxSizing: "border-box",
+        background: "#000",
+        zIndex: 1000,
+        pointerEvents: "auto",
+      }}
+    >
+      <div style={{ width: "100%", height: "100%" }}>
+        <iframe
+          src={
+            space.id === 1
+              ? SPACE_CONTENT[1].video
+              : space.id === 2
+                ? SPACE_CONTENT[2].video2
+                : SPACE_CONTENT[space.id].video
+          }
+          title="Video trên bàn"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          style={{
+            width: "100%",
+            height: "100%",
+            border: 0,
+          }}
+        />
+      </div>
+    </Html>
+)}
+
+  
+
+
+
+
+
+
       {/* Nút quay lại */}
       {!isPadletFullScreen && (
       <group
@@ -801,6 +870,7 @@ useEffect(() => {
     </group>
   );
 }
+
 
 ///căn phòng thứ 2
 
