@@ -862,7 +862,7 @@ useEffect(() => {
               })}
             </group>
          </>
-        ): space.id === 3 ? (
+        ): space.id === 3 && !isVideoHidden && !wallImageFull ? (
     <Html
       position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
       transform
