@@ -663,7 +663,7 @@ useEffect(() => {
       position={[0, 0, 0.02]} // Áp sát ngay mặt tường
       transform
       distanceFactor={1.5}
-      style={{ width: "850px", height: "500px", pointerEvents: "auto" }}
+      style={{ width: "1050px", height: "700px", pointerEvents: "auto" }}
     >
       <div
         style={{
@@ -738,8 +738,8 @@ useEffect(() => {
       distanceFactor={1.0}
       occlude // <--- QUAN TRỌNG: Giúp HTML khóa chặt theo không gian 3D, không bị lơ lửng trôi nổi
       style={{
-        width: "1250px",
-        height: "700px",
+        width: "1550px",
+        height: "1000px",
         overflow: "hidden",
         border: "2px solid #70472e",
         borderRadius: "8px",
