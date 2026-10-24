@@ -105,7 +105,7 @@ const SPACE_CONTENT = {
     video3: "https://www.youtube.com/embed/WmeF59b1wMY?list=PLIivaUnyJ_yFHIBP1ONslg9roo4HocPEH",
     
     // Nền tường trái khu 3
-    bgWall: `${import.meta.env.BASE_URL}khu3/Nền tường.png`,
+    bgWall: `${import.meta.env.BASE_URL}khu3/bg3.png`,
 
     // 6 chủ đề trên tường trái khu 3
     topics: [
