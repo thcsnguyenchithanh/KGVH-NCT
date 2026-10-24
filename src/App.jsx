@@ -102,7 +102,7 @@ const SPACE_CONTENT = {
   },
   3: {
     // Video tường phải của khu 3
-    video: "https://www.youtube.com/embed/WmeF59b1wMY?list=PLIivaUnyJ_yFHIBP1ONslg9roo4HocPEH",
+    video3: "https://www.youtube.com/embed/WmeF59b1wMY?list=PLIivaUnyJ_yFHIBP1ONslg9roo4HocPEH",
     
     // Nền tường trái khu 3
     bgWall: `${import.meta.env.BASE_URL}khu3/Nền tường.png`,
@@ -114,10 +114,10 @@ const SPACE_CONTENT = {
         title: "Lối sống giản dị",
         image: `${import.meta.env.BASE_URL}khu3/Chủ đề 1.png`,
         stories: [
-          { title: "Ba bộ quần áo của Bác", file: "CĐ1. Ba bộ quần áo của Bác.m4a" },
-          { title: "Ba chiếc ba lô", file: "CĐ1. Ba chiếc ba lô.m4a" },
-          { title: "Bác có phải là vua đâu", file: "CĐ1. Bác có phải là vua đâu.m4a" },
-          { title: "Bác đi thăm rừng Cúc Phương", file: "CĐ1. Bác đi thăm rừng Cúc Phương.m4a" },
+          { title: "Ba bộ quần áo của Bác", file: `${import.meta.env.BASE_URL}khu3/CĐ1. Ba bộ quần áo của Bác.m4a` },          
+          { title: "Ba chiếc ba lô", file: `${import.meta.env.BASE_URL}khu3/CĐ1. Ba chiếc ba lô.m4a` },
+          { title: "Bác có phải là vua đâu", file: `${import.meta.env.BASE_URL}khu3/CĐ1. Bác có phải là vua đâu.m4a` },
+          { title: "Bác đi thăm rừng Cúc Phương", file: `${import.meta.env.BASE_URL}khu3/CĐ1. Bác đi thăm rừng Cúc Phương.m4a` },
         ],
       },
       { id: 2, title: "Chủ đề 2", image: `${import.meta.env.BASE_URL}khu3/Chủ đề 2.png`, stories: [] },
@@ -704,18 +704,48 @@ useEffect(() => {
 )}
 
 {/* Ảnh tường phải */}
-<WallImage
-  src={
-    space.id === 2
-      ? SPACE_CONTENT[2].imagePhai2
-      : SPACE_CONTENT[1].imagePhai
-  }
-  alt="Hình tường phải"
-  position={[4.82, 2, 0]}
-  rotation={[0, -Math.PI / 2, 0]}
-  width={6.5}
-  height={3.8}
-/>
+{/* Tường phải */}
+{space.id === 3 ? (
+  <Html
+    position={[4.78, 2, 0]}
+    rotation={[0, -Math.PI / 2, 0]}
+    transform
+    distanceFactor={1.5}
+    style={{
+      width: "850px",
+      height: "480px",
+      overflow: "hidden",
+      border: "3px solid #70472e",
+      borderRadius: "10px",
+      boxSizing: "border-box",
+      background: "#000",
+      pointerEvents: "auto",
+    }}
+  >
+    <div style={{ width: "100%", height: "100%" }}>
+      <iframe
+        src={SPACE_CONTENT[3].video3}
+        title="Video tường phải Khu 3"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowFullScreen
+        style={{ width: "100%", height: "100%", border: 0 }}
+      />
+    </div>
+  </Html>
+) : (
+  <WallImage
+    src={
+      space.id === 2
+        ? SPACE_CONTENT[2].imagePhai2
+        : SPACE_CONTENT[1].imagePhai
+    }
+    alt="Hình tường phải"
+    position={[4.82, 2, 0]}
+    rotation={[0, -Math.PI / 2, 0]}
+    width={6.5}
+    height={3.8}
+  />
+)}
 
 
       {/* Sàn phòng */}
