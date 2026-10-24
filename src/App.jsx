@@ -5,6 +5,7 @@ import { useVideoTexture } from "@react-three/drei";
 import  ImageFullscreen  from "./ImageFullscreen";
 import  WallImage  from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
+import TopicMeshCard from "./TopicMeshCard";
 import {
   Environment,
   OrbitControls,
@@ -554,7 +555,6 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 
 function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
-const wallMeshRef = useRef();
 useEffect(() => {
   if (!showPadlet) {
     setIsPadletFullScreen(false);
@@ -652,68 +652,31 @@ useEffect(() => {
 </group>
 {/* Tường trái: Đưa tất cả vào group chung để ghim chặt vào tường */}
 <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
-
-  {/* Lớp mesh nền làm mốc tọa độ không gian 3D */}
-  <mesh ref={wallMeshRef} position={[0, 0, 0]}>
+  
+  {/* Lớp nền tường (giúp tạo cảm giác có bức tường thật phía sau giao diện) */}
+  {/* Lớp nền tường trái */}
+  <mesh position={[0, 0, -0.02]}>
     <planeGeometry args={[6.5, 3.8]} />
-    <meshBasicMaterial visible={false} /> {/* Ẩn mesh đi, chỉ dùng làm mốc neo */}
+    <meshStandardMaterial color="#f4efe6" roughness={0.9} />
   </mesh>
 
   {space.id === 3 ? (
-    <Html
-      position={[0, 0, 0.02]} 
-      transform
-      distanceFactor={1.5}
-      occlude={[wallMeshRef]} /* <--- QUAN TRỌNG: Khóa chặt HTML vào mesh mốc này, chống lơ lửng */
-      style={{ width: "1050px", height: "700px", pointerEvents: "auto" }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "12px",
-          padding: "20px",
-          boxSizing: "border-box",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "16px",
-          alignContent: "center",
-          justifyItems: "center",
-        }}
-      >
-        {SPACE_CONTENT[3].topics.map((topic) => (
-          <div
-            key={topic.id}
-            onClick={() => {
-              if (topic.id === 1) {
-                setSelectedKhu3Topic(topic);
-              } else {
-                alert(`Chủ đề ${topic.id} đang cập nhật!`);
-              }
-            }}
-            style={{
-              cursor: "pointer",
-              width: "100%",
-              height: "100%",
-              borderRadius: "10px",
-              overflow: "hidden",
-              boxShadow: "0 6px 16px rgba(0,0,0,0.3)",
-              border: "2px solid #d4af37",
-              background: "#fff",
-              transition: "transform 0.2s",
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.03)"}
-            onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-          >
-            <img 
-              src={topic.image} 
-              alt={topic.title} 
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} 
-            />
-          </div>
-        ))}
-      </div>
-    </Html>
+    <>
+      {SPACE_CONTENT[3].topics.map((topic, index) => (
+        <TopicMeshCard
+          key={topic.id}
+          topic={topic}
+          index={index}
+          onClick={(t) => {
+            if (t.id === 1) {
+              setSelectedKhu3Topic(t);
+            } else {
+              alert(`Chủ đề ${t.id} đang cập nhật!`);
+            }
+          }}
+        />
+      ))}
+    </>
   ) : (
     <WallImage
       src={
