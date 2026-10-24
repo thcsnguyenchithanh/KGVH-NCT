@@ -1600,16 +1600,16 @@ export default function App() {
     setSpotIndex(nextIndex);
   };
 
-  const handleSelectSpace = (space) => {
-    
-    setShowPDF(false);
-    setShowPadlet(false);
-    setSelectedSpace(space);
-    setActiveSpace(space);
-    setRoom2Active(true);
-    setInsideSpaceRoom(true);
-  };
-
+ // Đặt hàm handleSelectSpace ra ngoài component App (ngang hàng với các component khác)
+const handleSelectSpace = (space, setters) => {
+  const { setShowPDF, setShowPadlet, setSelectedSpace, setActiveSpace, setRoom2Active, setInsideSpaceRoom } = setters;
+  setShowPDF(false);
+  setShowPadlet(false);
+  setSelectedSpace(space);
+  setActiveSpace(space);
+  setRoom2Active(true);
+  setInsideSpaceRoom(true);
+};
   // Chọn một vị trí trong phòng đầu
   const handleNavigateSpot = (index) => {
     setSelectedSpace(null);
