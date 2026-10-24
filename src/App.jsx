@@ -47,7 +47,7 @@ export const CONTENT_LIST = [
 ];
 
 const spots = [
-  { id: 0, name: "Lối vào", position: [0, 1.6, 6.5] },
+ { id: 0, name: "Lối vào", position: [0, 1.6, 2.0] }
   { id: 1, name: "Hình ảnh về Bác Hồ", position: [-8.5, 1.6, -3] },
   { id: 2, name: "Video tư liệu", position: [0, 1.6, 0] },
   { id: 3, name: "Tủ sách", position: [8.5, 1.6, -3] },
@@ -2439,7 +2439,7 @@ max-width: 1400px;
         )}
              
       </div>
-           
+   {/** -----------------------------------------------------------------------------------------------*/} 
       <div className="controls">
                 <div>🖱 Kéo chuột: Xoay góc nhìn 360°</div>       
         <div>📍 Nhấp biển chỉ dẫn: Di chuyển đến khu vực</div>       
