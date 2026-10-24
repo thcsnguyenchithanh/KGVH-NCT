@@ -1434,6 +1434,8 @@ function Scene({
     )
   }
 />
+
+
       {room2Active && !insideSpaceRoom && (
         <SecondRoom onSpaceClick={onSpaceClick}  
         setKhu1Content={setKhu1Content}/>
@@ -2007,77 +2009,84 @@ export default function App() {
   </div>
 )}
 
+{/* --- MODAL HIỂN THỊ DANH SÁCH CÂU CHUYỆN VÀ AUDIO CỦA KHU 3 --- */}
 {selectedKhu3Topic && (
   <div
     style={{
       position: "fixed",
-      inset: 0,
-      zIndex: 99999,
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
       background: "rgba(0, 0, 0, 0.8)",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      padding: "20px",
+      zIndex: 999999,
     }}
+    onClick={() => setSelectedKhu3Topic(null)} // Bấm ra ngoài để đóng modal
   >
     <div
       style={{
-        width: "650px",
-        maxWidth: "95vw",
-        background: "#fffaf0",
-        borderRadius: "16px",
+        width: "90%",
+        maxWidth: "600px",
+        background: "#f4efe6",
+        border: "3px solid #70472e",
+        borderRadius: "12px",
         padding: "24px",
-        border: "3px solid #805b32",
-        boxShadow: "0 10px 35px rgba(0,0,0,0.6)",
+        boxSizing: "border-box",
+        position: "relative",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
       }}
+      onClick={(e) => e.stopPropagation()} // Chặn sự kiện click lan ra ngoài
     >
-      <div
+      {/* Nút đóng Modal */}
+      <button
+        onClick={() => setSelectedKhu3Topic(null)}
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderBottom: "2px solid #d8c9ad",
-          paddingBottom: "12px",
-          marginBottom: "16px",
+          position: "absolute",
+          top: 12,
+          right: 12,
+          background: "#70472e",
+          color: "#fff",
+          border: 0,
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontWeight: "bold",
         }}
       >
-        <h3 style={{ margin: 0, color: "#7c2929", fontSize: "18px" }}>
-          🎧 {selectedKhu3Topic.title} (4 Câu chuyện)
-        </h3>
-        <button
-          onClick={() => setSelectedKhu3Topic(null)}
-          style={{
-            border: "none",
-            background: "#7c2929",
-            color: "#fff",
-            padding: "8px 14px",
-            borderRadius: "6px",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
-        >
-          ✕ Đóng
-        </button>
-      </div>
+        ✕ Đóng
+      </button>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "14px", maxHeight: "60vh", overflowY: "auto" }}>
-        {selectedKhu3Topic.stories.map((story, index) => (
+      {/* Tiêu đề Chủ đề */}
+      <h2 style={{ color: "#70472e", marginTop: 0, marginBottom: "16px", fontSize: "22px" }}>
+        {selectedKhu3Topic.title}
+      </h2>
+
+      {/* Danh sách các câu chuyện bên trong chủ đề */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxHeight: "400px", overflowY: "auto" }}>
+        {selectedKhu3Topic.stories && selectedKhu3Topic.stories.map((story, idx) => (
           <div
-            key={index}
+            key={idx}
             style={{
               background: "#fff",
               padding: "12px 16px",
-              borderRadius: "10px",
-              border: "1px solid #e0d0b8",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+              borderRadius: "8px",
+              border: "1px solid #d4af37",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
             }}
           >
-            <div style={{ fontWeight: "bold", fontSize: "14px", color: "#4a2c11", marginBottom: "8px" }}>
-              📖 {index + 1}. {story.title}
-            </div>
+            <span style={{ fontWeight: "600", color: "#333", fontSize: "16px" }}>
+              {idx + 1}. {story.title}
+            </span>
+            
+            {/* Thanh điều khiển audio (Play, Pause, Tua, Thanh âm lượng) */}
             <audio
               controls
-              src={`${import.meta.env.BASE_URL}khu3/${encodeURIComponent(story.file)}`}
+              src={story.file}
               style={{ width: "100%", height: "36px" }}
             />
           </div>
