@@ -554,6 +554,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 
 function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
+const wallMeshRef = useRef();
 useEffect(() => {
   if (!showPadlet) {
     setIsPadletFullScreen(false);
@@ -651,18 +652,19 @@ useEffect(() => {
 </group>
 {/* Tường trái: Đưa tất cả vào group chung để ghim chặt vào tường */}
 <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
-  
-  {/* Lớp nền tường (giúp tạo cảm giác có bức tường thật phía sau giao diện) */}
-  <mesh position={[0, 0, -0.01]}>
+
+  {/* Lớp mesh nền làm mốc tọa độ không gian 3D */}
+  <mesh ref={wallMeshRef} position={[0, 0, 0]}>
     <planeGeometry args={[6.5, 3.8]} />
-    <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+    <meshBasicMaterial visible={false} /> {/* Ẩn mesh đi, chỉ dùng làm mốc neo */}
   </mesh>
 
   {space.id === 3 ? (
     <Html
-      position={[0, 0, 0.02]} // Áp sát ngay mặt tường
+      position={[0, 0, 0.02]} 
       transform
       distanceFactor={1.5}
+      occlude={[wallMeshRef]} /* <--- QUAN TRỌNG: Khóa chặt HTML vào mesh mốc này, chống lơ lửng */
       style={{ width: "1050px", height: "700px", pointerEvents: "auto" }}
     >
       <div
