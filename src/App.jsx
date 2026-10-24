@@ -579,39 +579,57 @@ useEffect(() => {
       </Html>
     </>
   )}
-  {/* KHU 8: Tường giữa hiển thị Video nhúng YouTube */}
+  {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
         {space.id === 8 && (
-          <group position={[0, 0, 0.02]} onClick={() => onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)}>
-            <mesh>
-              <planeGeometry args={[7.5, 3.2]} />
-              <meshStandardMaterial color="#111" />
+          <>
+            {/* Banner đỏ phía trên tường giữa */}
+            <mesh position={[0, 1.4, 0.01]}>
+              <planeGeometry args={[8.6, 0.7]} />
+              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
             </mesh>
-            <Html
-              position={[0, 0, 0.01]}
-              transform
-              distanceFactor={1.5}
-              occlude
-              style={{
-                width: "960px",
-                height: "540px",
-                overflow: "hidden",
-                border: "3px solid #70472e",
-                borderRadius: "8px",
-                background: "#000",
-                pointerEvents: "auto",
-              }}
+            <Text
+              position={[0, 1.4, 0.02]}
+              fontSize={0.24}
+              color="#ffd700"
+              anchorX="center"
+              anchorY="middle"
             >
-              <div style={{ width: "100%", height: "100%" }}>
-                <iframe
-                  src={SPACE_CONTENT[8].video8}
-                  title="Video Khu 8"
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                  style={{ width: "100%", height: "100%", border: 0 }}
-                />
-              </div>
-            </Html>
-          </group>
+              BÁC HỒ TRONG TRÁI TIM THẦY VÀ TRÒ NHÀ TRƯỜNG
+            </Text>
+
+            {/* Khung video chính giữa */}
+            <group position={[0, -0.2, 0.02]} onClick={() => onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)}>
+              <mesh>
+                <boxGeometry args={[5.2, 3.0, 0.08]} />
+                <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+              </mesh>
+              <Html
+                position={[0, 0, 0.05]}
+                transform
+                distanceFactor={1.5}
+                occlude
+                style={{
+                  width: "960px",
+                  height: "540px",
+                  overflow: "hidden",
+                  border: "2px solid #ffd700",
+                  borderRadius: "6px",
+                  background: "#000",
+                  pointerEvents: "auto",
+                }}
+              >
+                <div style={{ width: "100%", height: "100%" }}>
+                  <iframe
+                    src={SPACE_CONTENT[8].video8}
+                    title="Thước phim nhà trường"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    style={{ width: "100%", height: "100%", border: 0 }}
+                  />
+                </div>
+              </Html>
+            </group>
+          </>
         )}
 
   {/* 2. Padlet trên tường đối diện (Dành riêng cho Khu 2) */}
@@ -703,47 +721,53 @@ useEffect(() => {
         />
       ))}
     </>
-  ): space.id === 8 && (
-  <group position={[0, 0, 0.01]}>
-    {SPACE_CONTENT[8].imageTrai8.map((imgSrc, idx) => {
-      // Rải đều 6 tranh với khoảng cách hợp lý
-      const xPos = -2.5 + idx * 1.0; 
-      return (
-        <group 
-          key={`trai8-${idx}`} 
-          position={[xPos, 0, 0]}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            document.body.style.cursor = "pointer";
-          }}
-          onPointerOut={() => {
-            document.body.style.cursor = "default";
-          }}
-        >
-          {/* 1. Khung tranh gỗ nổi bật phía sau */}
-          <mesh position={[0, 0, -0.01]}>
-            <boxGeometry args={[0.92, 1.42, 0.05]} />
-            <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-          </mesh>
+  ) : space.id === 8 ? (
+          // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
+          <>
+            <mesh position={[0, 1.4, 0.01]}>
+              <planeGeometry args={[6.2, 0.7]} />
+              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
+            </mesh>
+            <Text
+              position={[0, 1.4, 0.02]}
+              fontSize={0.28}
+              color="#ffd700"
+              anchorX="center"
+              anchorY="middle"
+            >
+              KỂ CHUYỆN VỀ BÁC
+            </Text>
 
-          {/* 2. Lớp nền lót bên trong khung */}
-          <mesh position={[0, 0, 0.01]}>
-            <planeGeometry args={[0.86, 1.36]} />
-            <meshBasicMaterial color="#ffffff" />
-          </mesh>
+            <group position={[0, -0.3, 0.01]}>
+              {SPACE_CONTENT[8].imageTrai8.map((imgSrc, idx) => {
+                const col = idx % 3;
+                const row = Math.floor(idx / 3);
+                const xPos = -1.8 + col * 1.8;
+                const yPos = row === 0 ? 0.6 : -0.6;
 
-          {/* 3. Bức ảnh hiển thị với tỷ lệ cân đối, không bị kéo dãn */}
-          <WallImage
-            src={imgSrc}
-            alt={`Tranh trái 8 - ${idx + 1}`}
-            position={[0, 0, 0.02]}
-            width={0.84}
-            height={1.34}
-          />
-        </group>
-      );
-    })}
-  </group>
+                return (
+                  <group 
+                    key={`trai8-${idx}`} 
+                    position={[xPos, yPos, 0]}
+                    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+                    onPointerOut={() => { document.body.style.cursor = "default"; }}
+                  >
+                    <mesh position={[0, 0, -0.01]}>
+                      <boxGeometry args={[1.65, 1.15, 0.04]} />
+                      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+                    </mesh>
+                    <WallImage
+                      src={imgSrc}
+                      alt={`Kể chuyện về Bác ${idx + 1}`}
+                      position={[0, 0, 0.01]}
+                      width={1.55}
+                      height={1.05}
+                    />
+                  </group>
+                );
+              })}
+            </group>
+          </>
         ) : (
     <WallImage
       src={
@@ -773,23 +797,57 @@ useEffect(() => {
       height={3.8}
     />
   ) : space.id === 8 ? (
-          // KHU 8: Trải đều 6 ảnh tường phải (imagePhai8)
-          <group position={[0, 0, 0.01]}>
-            {SPACE_CONTENT[8].imagePhai8.map((imgSrc, idx) => {
-              const xPos = -2.2 + idx * 0.88;
-              return (
-                <group key={`phai8-${idx}`} position={[xPos, 0, 0]}>
-                  <WallImage
-                    src={imgSrc}
-                    alt={`Tranh phải 8 - ${idx + 1}`}
-                    position={[0, 0, 0]}
-                    width={0.82}
-                    height={2.2}
-                  />
-                </group>
-              );
-            })}
-          </group>
+          // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
+         
+            <mesh position={[0, 0, -0.02]}>
+              <planeGeometry args={[6.5, 3.8]} />
+              <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+            </mesh>
+
+            <mesh position={[0, 1.4, 0.01]}>
+              <planeGeometry args={[6.2, 0.7]} />
+              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
+            </mesh>
+            <Text
+              position={[0, 1.4, 0.02]}
+              fontSize={0.28}
+              color="#ffd700"
+              anchorX="center"
+              anchorY="middle"
+            >
+              LÀM THEO LỜI BÁC
+            </Text>
+
+            <group position={[0, -0.3, 0.01]}>
+              {SPACE_CONTENT[8].imagePhai8.map((imgSrc, idx) => {
+                const col = idx % 3;
+                const row = Math.floor(idx / 3);
+                const xPos = -1.8 + col * 1.8;
+                const yPos = row === 0 ? 0.6 : -0.6;
+
+                return (
+                  <group 
+                    key={`phai8-${idx}`} 
+                    position={[xPos, yPos, 0]}
+                    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+                    onPointerOut={() => { document.body.style.cursor = "default"; }}
+                  >
+                    <mesh position={[0, 0, -0.01]}>
+                      <boxGeometry args={[1.65, 1.15, 0.04]} />
+                      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+                    </mesh>
+                    <WallImage
+                      src={imgSrc}
+                      alt={`Làm theo lời Bác ${idx + 1}`}
+                      position={[0, 0, 0.01]}
+                      width={1.55}
+                      height={1.05}
+                    />
+                  </group>
+                );
+              })}
+            </group>
+         
         ): space.id === 3 ? (
     <Html
       position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
