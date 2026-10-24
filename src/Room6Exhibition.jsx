@@ -19,7 +19,7 @@ export default function WallAudioSection({ title, imgSrc, audioSrc, width = 6.8,
       }
     }
   };
-
+  
   return (
     <group>
       {/* Khung tranh chứa ảnh (Click để bật/tắt và phát audio) */}
