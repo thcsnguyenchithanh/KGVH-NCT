@@ -520,6 +520,48 @@ useEffect(() => {
     />
   )}
 
+  {/* KHU 7: Hiển thị ảnh nền bgWall7 kết hợp khung video7 ở giữa */}
+  {space.id === 7 && (
+    <>
+      {/* Ảnh nền tường giữa Khu 7 */}
+      <WallImage
+        src={SPACE_CONTENT[7].bgWall7}
+        alt="Nền tường giữa Khu 7"
+        position={[0, 0, 0.01]}
+        width={7.5}
+        height={3.2}
+      />
+
+      {/* Khung chứa video7 nhúng trực tiếp bám sát tường giữa */}
+      <Html
+        position={[0, 0, 0.03]} // Nổi lên một chút so với ảnh nền
+        transform
+        distanceFactor={1.5}    // Điều chỉnh độ lớn hiển thị trong không gian 3D
+        occlude
+        style={{
+          width: "960px",     // Kích thước khung video (có thể chỉnh lại tuỳ ý)
+          height: "540px",
+          overflow: "hidden",
+          border: "3px solid #70472e",
+          borderRadius: "8px",
+          background: "#000",
+          pointerEvents: "auto",
+        }}
+      >
+        <div style={{ width: "100%", height: "100%" }}>
+          <video
+            src={SPACE_CONTENT[7].video7}
+            controls
+            autoPlay
+            muted
+            loop
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+      </Html>
+    </>
+  )}
+
   {/* 2. Padlet trên tường đối diện (Dành riêng cho Khu 2) */}
   {space.id === 2 && !isPadletFullScreen && (
     <Html
@@ -583,11 +625,10 @@ useEffect(() => {
 </group>
 
 
-{/* Tường trái: Đưa tất cả vào group chung để ghim chặt vào tường */}
+{/* Tường trái:  */}
 <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
   
-  {/* Lớp nền tường (giúp tạo cảm giác có bức tường thật phía sau giao diện) */}
-  {/* Lớp nền tường trái */}
+
   <mesh position={[0, 0, -0.02]}>
     <planeGeometry args={[6.5, 3.8]} />
     <meshStandardMaterial color="#f4efe6" roughness={0.9} />
