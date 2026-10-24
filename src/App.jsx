@@ -60,32 +60,7 @@ const targets = [
   [8, 2.2, -8.1], // id 3: tủ sách
   [11.5, 2.7, 1.5], // id 4: khu trưng bày bên phải
 ];
-const exhibits = [
-  {
-    title: "Chân dung Chủ tịch Hồ Chí Minh",
-    description:
-      "Không gian giới thiệu hình ảnh và những dấu ấn tiêu biểu trong cuộc đời, sự nghiệp của Chủ tịch Hồ Chí Minh.",
-    position: [-8, 2.7, -8.7],
-  },
-  {
-    title: "Video tư liệu",
-    description:
-      "Khu vực trình chiếu video, hình ảnh và tư liệu phục vụ tham quan.",
-    position: [0, 2.8, -8.7],
-  },
-  {
-    title: "Tủ sách",
-    description:
-      "Nơi trưng bày sách và tài liệu tìm hiểu về cuộc đời, tư tưởng, đạo đức và phong cách Hồ Chí Minh.",
-    position: [8, 2.4, -8.2],
-  },
-  {
-    title: "Bảo tàng 3D",
-    description:
-      "Các hiện vật và tư liệu được sắp xếp theo chủ đề để người tham quan khám phá.",
-    position: [9.5, 1.4, 1],
-  },
-];
+
 
 
 const SPACE_CONTENT = {
@@ -300,53 +275,7 @@ function FixedLookControls() {
   return null;
 }
 
-function ArrowMarker({ position, onClick, label }) {
-  const [hovered, setHovered] = useState(false);
 
-  return (
-    <group
-      position={[position[0], 0, position[2]]}
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick();
-      }}
-      onPointerOver={(e) => {
-        e.stopPropagation();
-        setHovered(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerOut={() => {
-        setHovered(false);
-        document.body.style.cursor = "auto";
-      }}
-      scale={hovered ? 1.06 : 1}
-    >
-            {/* Tấm biển đỏ nằm ngang, sát mặt đất */}     
-      <mesh position={[0, 0.65, 0]}>
-                <boxGeometry args={[1.5, 0.42, 0.1]} />       
-        <meshStandardMaterial
-          color={hovered ? "#c62828" : "#8b0000"}
-          emissive="#5c0000"
-          emissiveIntensity={hovered ? 0.3 : 0.1}
-        />
-             
-      </mesh>
-            {/* Chữ vàng nhỏ */}     
-      <Text
-        position={[0, 0.65, 0.056]}
-        fontSize={0.12}
-        color="#ffd700"
-        anchorX="center"
-        anchorY="middle"
-        maxWidth={1.4}
-        textAlign="center"
-      >
-                {label}     
-      </Text>
-         
-    </group>
-  );
-}
 
 
 function VideoScreen({ onOpen }) {
@@ -1370,30 +1299,7 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
   );
 }
 
-function NavigationMarkers({ current, onMove }) {
-  const signs = [
-    { id: 0, position: [0, 0, 4.2] },
-    { id: 1, position: [-3.5, 0, 1.2] },
-    { id: 2, position: [0, 0, 1.2] },
-    { id: 3, position: [3.5, 0, 1.2] },
-    { id: 4, position: [5, 0, 2.7] },
-  ];
 
-  return (
-    <group>
-         
-      {signs.map((sign) => (
-        <ArrowMarker
-          key={sign.id}
-          position={sign.position}
-          label={spots[sign.id].name}
-          onClick={() => onMove(sign.id)}
-        />
-      ))}
-         
-    </group>
-  );
-}
 
 function Scene({
   spotIndex,
