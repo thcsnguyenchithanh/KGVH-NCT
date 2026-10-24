@@ -6,6 +6,7 @@ import  ImageFullscreen  from "./ImageFullscreen";
 import  WallImage  from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
+import BookShelf from './BookShelf';
 import {
   Environment,
   OrbitControls,
@@ -1226,57 +1227,11 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
 
   <VideoScreen onOpen={onOpenVideo} />
 </group>
-          {/* Tủ sách gắn ảnh bìa thực tế */}
-      <group
-        position={[8, 2.2, -8.1]}
-        onClick={(e) => {
-          e.stopPropagation();
-          onOpenLibrary();
-        }}
-        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-        onPointerOut={() => { document.body.style.cursor = "auto"; }}
-      >
-        {/* Khung tủ chính */}
-        <mesh>
-          <boxGeometry args={[3.6, 4.3, 0.65]} />
-          <meshStandardMaterial color="#71472d" roughness={0.6} />
-        </mesh>
-
-        {/* Các tầng kệ sách */}
-        {[0.8, 1.5, 2.2, 2.9].map((y, shelfIdx) => (
-          <group key={shelfIdx}>
-            {/* Tấm ván kệ */}
-            <mesh position={[0, -2.15 + y, 0.36]}>
-              <boxGeometry args={[3.2, 0.09, 0.55]} />
-              <meshStandardMaterial color="#432b1c" roughness={0.7} />
-            </mesh>
-
-            {/* Sách trên kệ (có thể gán ảnh bìa sách vào đây) */}
-            {[...Array(8)].map((_, i) => {
-              const startX = -1.25;
-              const xPos = startX + i * 0.36;
-
-              return (
-                <group key={i} position={[xPos, -1.65 + y, 0.38]}>
-                  {/* Thân cuốn sách */}
-                  <mesh castShadow receiveShadow>
-                    <boxGeometry args={[0.28, 1.0, 0.42]} />
-                    {/* Bạn có thể thay màu bằng map={textureBiaSach} nếu muốn dán ảnh */}
-                    <meshStandardMaterial color={i % 2 === 0 ? "#8b2626" : "#294c60"} roughness={0.5} />
-                  </mesh>
-
-                  {/* Mặt gáy/bìa sách phía trước để hiển thị tựa đề/hình ảnh */}
-                  <mesh position={[0, 0, 0.211]}>
-                    <planeGeometry args={[0.26, 0.96]} />
-                    {/* Dán ảnh bìa sách tại đây: map={anhBiaSach} */}
-                    <meshBasicMaterial color="#f4efe6" />
-                  </mesh>
-                </group>
-              );
-            })}
-          </group>
-        ))}
-      </group>
+         
+      <BookShelf 
+        position={[8, 2.2, -8.1]} 
+        onOpenLibrary={onOpenLibrary} 
+      />
             {/* Tủ trưng bày */}            {/* Bàn */}     {/* Bàn */}
       <group position={[10, 0, 1.5]}>
         {/* Mặt bàn */}
