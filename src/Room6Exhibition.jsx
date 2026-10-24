@@ -3,7 +3,7 @@ import { Html } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 
-// Component con cho từng tường: Dùng mesh ảnh, click vào phóng to và hiện audio
+// Định nghĩa component con xử lý hiển thị ảnh bằng mesh và bật/tắt audio khi click
 function WallImageAudioSection({ title, imgSrc, audioSrc, width = 5.5, height = 2.8 }) {
   const [showAudio, setShowAudio] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
