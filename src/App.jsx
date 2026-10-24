@@ -1310,7 +1310,7 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
         <mesh position={[0, 0.25, 0.045]}>
           <planeGeometry args={[4.3, 2.0]} />
           <meshBasicMaterial 
-            map={useTexture(`${import.meta.env.BASE_URL}room/preview-baotang.png`)} 
+            map={useTexture(`${import.meta.env.BASE_URL}images/Baotang3D.png`)} 
           />
         </mesh>
 
