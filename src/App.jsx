@@ -751,7 +751,10 @@ useEffect(() => {
                     position={[xPos, yPos, 0]}
                     onClick={(e) => {
     e.stopPropagation();
-    setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
+    setIsVideoHidden(true); // Ẩn video tường giữa đi khi đang xem ảnh phóng to
+    if (wallImageFull) {
+      wallImageFull(imgSrc); // Gọi hàm phóng to ảnh của bạn (nếu có)
+    }
   }}
                     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
                     onPointerOut={() => { document.body.style.cursor = "default"; }}
