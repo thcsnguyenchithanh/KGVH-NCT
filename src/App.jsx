@@ -695,13 +695,7 @@ useEffect(() => {
 {/* Tường phải: Video YouTube Khu 3 áp sát tường tối đa */}
 <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
 
-  {/* Lớp nền tường phía sau */}
-  <mesh position={[0, 0, -0.01]}>
-    <planeGeometry args={[6.5, 3.8]} />
-    <meshStandardMaterial color="#111" roughness={0.9} />
-  </mesh>
-
-  {space.id === 3 ? (
+    {space.id === 3 ? (
     <Html
       position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
       transform
