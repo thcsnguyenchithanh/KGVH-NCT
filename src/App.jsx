@@ -727,46 +727,39 @@ useEffect(() => {
   )}
 </group>
 
-{/* Tường phải: Dùng Mesh 3D chuẩn, không bao giờ lơ lửng */}
+{/* Tường phải: Đưa vào group chung để ghim chặt vào bề mặt tường phải */}
 <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+
+  {/* Lớp nền tường (giúp tạo khung nền vững chắc phía sau video) */}
+ 
+
   {space.id === 3 ? (
-    <mesh 
-      position={[0, 0, 0]}
-      onClick={(e) => {
-        e.stopPropagation();
-        setShowVideoKhu3Modal(true); // Bấm vào để mở popup xem video
+    <Html
+      position={[0, 0, 0.02]} // Áp sát ngay mặt tường phải
+      transform
+      distanceFactor={1.0}
+      style={{
+        width: "1250px",
+        height: "700px",
+        overflow: "hidden",
+        border: "2px solid #70472e",  {/* ĐÃ GIẢM TỪ 4px XUỐNG 2px (hoặc xóa dòng border này luôn nếu không thích viền) */}
+        borderRadius: "8px",
+        boxSizing: "border-box",
+        background: "#000",
+        pointerEvents: "auto",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
       }}
-      onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
-      onPointerOut={() => { document.body.style.cursor = 'default'; }}
     >
-      <planeGeometry args={[5.8, 3.3]} />
-      <meshBasicMaterial color="#1a110b" /> {/* Khung nền tối hoặc gán texture ảnh */}
-      
-      {/* Nội dung chữ/icon vẽ trực tiếp hoặc đặt Html cực nhỏ tĩnh trên mặt mesh */}
-      <Html
-        position={[0, 0, 0.01]}
-        transform
-        distanceFactor={1.0}
-        style={{ pointerEvents: "none", userSelect: "none" }}
-      >
-        <div style={{
-          width: "1250px",
-          height: "700px",
-          border: "2px solid #70472e",
-          borderRadius: "8px",
-          background: "linear-gradient(135deg, #2b1d14 0%, #000000 100%)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "#fff",
-          boxShadow: "0 10px 25px rgba(0,0,0,0.5)"
-        }}>
-          <div style={{ fontSize: "64px", marginBottom: "15px", color: "#d4af37" }}>▶</div>
-          <div style={{ fontSize: "28px", fontWeight: "bold", fontFamily: "sans-serif" }}>Bấm vào để xem Video Khu 3</div>
-        </div>
-      </Html>
-    </mesh>
+      <div style={{ width: "100%", height: "100%" }}>
+        <iframe
+          src={SPACE_CONTENT[3].video3}
+          title="Video tường phải Khu 3"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          style={{ width: "100%", height: "100%", border: 0 }}
+        />
+      </div>
+    </Html>
   ) : (
     <WallImage
       src={
