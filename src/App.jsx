@@ -554,7 +554,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   );
 }
 
-function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic }) {
+function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
 const [showVideoKhu3Modal, setShowVideoKhu3Modal] = useState(false);
 useEffect(() => {
@@ -1509,6 +1509,7 @@ export default function App() {
   const [activeChuS, setActiveChuS] = useState(0);
   const [musicExpanded, setMusicExpanded] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [showVideoKhu3Modal, setShowVideoKhu3Modal] = useState(false);
 
   useEffect(() => {
     const link = document.createElement("link");
