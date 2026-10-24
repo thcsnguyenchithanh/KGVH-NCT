@@ -6,7 +6,6 @@ import  ImageFullscreen  from "./ImageFullscreen";
 import  WallImage  from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
-import VideoMeshCard from "./VideoMeshCard";
 import {
   Environment,
   OrbitControls,
@@ -554,9 +553,8 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   );
 }
 
-function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, }) {
+function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
-const [showVideoKhu3Modal, setShowVideoKhu3Modal] = useState(false);
 useEffect(() => {
   if (!showPadlet) {
     setIsPadletFullScreen(false);
@@ -693,37 +691,30 @@ useEffect(() => {
     />
   )}
 </group>
-{/* Tường phải: Khu 3 dùng Mesh 3D thuần túy, không dùng thẻ Html của iframe nữa */}
+
+{/* Tường phải: Video Khu 3 dùng Mesh 3D thuần túy 100% */}
 <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
   {space.id === 3 ? (
     <>
-      {/* Khung nền tường */}
-      <mesh position={[0, 0, -0.02]}>
-        <planeGeometry args={[6.5, 3.8]} />
-        <meshStandardMaterial color="#111" roughness={0.9} />
+      {/* Khung viền màn hình video */}
+      <mesh position={[0, 0, -0.01]}>
+        <planeGeometry args={[5.8, 3.4]} />
+        <meshBasicMaterial color="#70472e" />
       </mesh>
 
-      {/* Mesh màn hình video trên tường */}
+      {/* Màn hình mesh chính (bấm vào mở link YouTube tab mới) */}
       <mesh 
         position={[0, 0, 0]}
         onClick={(e) => {
           e.stopPropagation();
-          setShowVideoKhu3Modal(true); // Bấm vào để mở Popup Video lớn
+          window.open(SPACE_CONTENT[3].video3, '_blank');
         }}
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'default'; }}
       >
-        <planeGeometry args={[5.6, 3.2]} />
-        <meshBasicMaterial color="#1a110b" />
+        <planeGeometry args={[5.5, 3.1]} />
+        <meshBasicMaterial color="#000000" />
       </mesh>
-
-      {/* Nút/Chữ "Bấm để xem video" nằm trên mesh */}
-      <group position={[0, 0, 0.01]}>
-        <mesh onClick={(e) => { e.stopPropagation(); setShowVideoKhu3Modal(true); }}>
-          <planeGeometry args={[2.8, 0.7]} />
-          <meshBasicMaterial color="#70472e" />
-        </mesh>
-      </group>
     </>
   ) : (
     <WallImage
@@ -1509,7 +1500,6 @@ export default function App() {
   const [activeChuS, setActiveChuS] = useState(0);
   const [musicExpanded, setMusicExpanded] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const [showVideoKhu3Modal, setShowVideoKhu3Modal] = useState(false);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -2009,68 +1999,6 @@ export default function App() {
     </button>
   </div>
 )}
-
-{showVideoKhu3Modal && (
-  <div
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      background: "rgba(0, 0, 0, 0.85)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 999999,
-    }}
-    onClick={() => setShowVideoKhu3Modal(false)}
-  >
-    <div
-      style={{
-        width: "85%",
-        maxWidth: "1200px",
-        height: "80%",
-        maxHeight: "700px",
-        background: "#000",
-        border: "3px solid #70472e",
-        borderRadius: "12px",
-        overflow: "hidden",
-        position: "relative",
-      }}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button
-        onClick={() => setShowVideoKhu3Modal(false)}
-        style={{
-          position: "absolute",
-          top: 12,
-          right: 12,
-          background: "#70472e",
-          color: "#fff",
-          border: 0,
-          padding: "8px 16px",
-          borderRadius: "6px",
-          cursor: "pointer",
-          zIndex: 100,
-          fontWeight: "bold",
-        }}
-      >
-        ✕ Đóng
-      </button>
-
-      <iframe
-        src={SPACE_CONTENT[3].video3}
-        title="Video Khu 3 Fullscreen"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowFullScreen
-        style={{ width: "100%", height: "100%", border: 0 }}
-      />
-    </div>
-  </div>
-)}
-
-
 
 {selectedKhu3Topic && (
   <div
