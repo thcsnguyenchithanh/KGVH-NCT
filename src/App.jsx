@@ -749,6 +749,10 @@ useEffect(() => {
                   <group 
                     key={`trai8-${idx}`} 
                     position={[xPos, yPos, 0]}
+                    onClick={(e) => {
+    e.stopPropagation();
+    setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
+  }}
                     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
                     onPointerOut={() => { document.body.style.cursor = "default"; }}
                   >
@@ -832,6 +836,10 @@ useEffect(() => {
                   <group 
                     key={`phai8-${idx}`} 
                     position={[xPos, yPos, 0]}
+                    onClick={(e) => {
+    e.stopPropagation();
+    setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
+  }}
                     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
                     onPointerOut={() => { document.body.style.cursor = "default"; }}
                   >
