@@ -124,7 +124,7 @@ const SPACE_CONTENT = {
     video7: `${import.meta.env.BASE_URL}room7/video7.mp4`,
   },
   8: {
-    video8: "https://www.youtube.com/embed/w00l2J2e34c"
+    video8: "https://www.youtube.com/embed/w00l2J2e34c",
     imageTrai8: [
       `${import.meta.env.BASE_URL}room8/trai1.jpg`,
       `${import.meta.env.BASE_URL}room8/trai2.jpg`,
