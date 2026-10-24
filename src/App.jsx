@@ -1360,7 +1360,7 @@ function Scene({
           setSelectedKhu3Topic={setSelectedKhu3Topic}
         />
       )}
-            <NavigationMarkers current={spotIndex} onMove={onMove} />
+           
            
       <CameraView
         spots={spots}
