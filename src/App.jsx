@@ -742,7 +742,7 @@ useEffect(() => {
               {SPACE_CONTENT[8].imageTrai8.map((imgSrc, idx) => {
                 const col = idx % 3;
                 const row = Math.floor(idx / 3);
-                const xPos = -1.8 + col * 1.8;
+                const xPos = -1.8 + col * 1.8; // Đã thêm dấu nhân *
                 const yPos = row === 0 ? 0.6 : -0.6;
 
                 return (
@@ -752,14 +752,17 @@ useEffect(() => {
                     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
                     onPointerOut={() => { document.body.style.cursor = "default"; }}
                   >
-                    <mesh position={[0, 0, -0.01]}>
-                      <boxGeometry args={[1.65, 1.15, 0.04]} />
+                    {/* 1. Khung tranh gỗ (nằm ở gốc z = 0) */}
+                    <mesh position={[0, 0, 0]}>
+                      <boxGeometry args={[1.65, 1.15, 0.02]} />
                       <meshStandardMaterial color="#4a2e18" roughness={0.6} />
                     </mesh>
+                    
+                    {/* 2. Mặt ảnh đẩy hẳn ra phía trước (z = 0.025) để tránh lỗi chớp giật */}
                     <WallImage
                       src={imgSrc}
                       alt={`Kể chuyện về Bác ${idx + 1}`}
-                      position={[0, 0, 0.01]}
+                      position={[0, 0, 0.025]}
                       width={1.55}
                       height={1.05}
                     />
@@ -822,7 +825,7 @@ useEffect(() => {
               {SPACE_CONTENT[8].imagePhai8.map((imgSrc, idx) => {
                 const col = idx % 3;
                 const row = Math.floor(idx / 3);
-                const xPos = -1.8 + col * 1.8;
+                const xPos = -1.8 + col * 1.8; // Đã thêm dấu nhân *
                 const yPos = row === 0 ? 0.6 : -0.6;
 
                 return (
@@ -832,14 +835,17 @@ useEffect(() => {
                     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
                     onPointerOut={() => { document.body.style.cursor = "default"; }}
                   >
-                    <mesh position={[0, 0, -0.01]}>
-                      <boxGeometry args={[1.65, 1.15, 0.04]} />
+                    {/* 1. Khung tranh gỗ (nằm ở z = 0) */}
+                    <mesh position={[0, 0, 0]}>
+                      <boxGeometry args={[1.65, 1.15, 0.02]} />
                       <meshStandardMaterial color="#4a2e18" roughness={0.6} />
                     </mesh>
+                    
+                    {/* 2. Mặt ảnh đẩy hẳn ra phía trước (z = 0.025) để tránh lỗi chớp giật */}
                     <WallImage
                       src={imgSrc}
                       alt={`Làm theo lời Bác ${idx + 1}`}
-                      position={[0, 0, 0.01]}
+                      position={[0, 0, 0.025]}
                       width={1.55}
                       height={1.05}
                     />
