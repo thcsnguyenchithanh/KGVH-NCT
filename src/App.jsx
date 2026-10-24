@@ -1226,42 +1226,66 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
 
   <VideoScreen onOpen={onOpenVideo} />
 </group>
-            {/* Tủ sách */}     
+          {/* Tủ sách chân thực hơn */}
       <group
         position={[8, 2.2, -8.1]}
         onClick={(e) => {
           e.stopPropagation();
           onOpenLibrary();
         }}
+        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+        onPointerOut={() => { document.body.style.cursor = "auto"; }}
       >
-               
+        {/* Khung tủ chính */}
         <mesh>
-                    <boxGeometry args={[3.6, 4.3, 0.65]} />
-                    <meshStandardMaterial color="#71472d" />       
+          <boxGeometry args={[3.6, 4.3, 0.65]} />
+          <meshStandardMaterial color="#71472d" roughness={0.6} />
         </mesh>
-               
-        {[0.8, 1.5, 2.2, 2.9].map((y) => (
-          <mesh key={y} position={[0, -2.15 + y, 0.36]}>
-                        <boxGeometry args={[3.2, 0.09, 0.05]} />
-                        <meshStandardMaterial color="#432b1c" />         
-          </mesh>
+
+        {/* Các tầng kệ sách */}
+        {[0.8, 1.5, 2.2, 2.9].map((y, shelfIdx) => (
+          <group key={shelfIdx}>
+            {/* Tấm ván kệ */}
+            <mesh position={[0, -2.15 + y, 0.36]}>
+              <boxGeometry args={[3.2, 0.09, 0.55]} />
+              <meshStandardMaterial color="#432b1c" roughness={0.7} />
+            </mesh>
+
+            {/* Các cuốn sách trên từng kệ (Biến đổi kích thước, độ dày và độ thò ra ngoài) */}
+            {[
+              { w: 0.22, h: 1.0, d: 0.42, color: "#a87b51", zOffset: 0.02 },
+              { w: 0.18, h: 0.9, d: 0.45, color: "#486b72", zOffset: -0.01 }, // Thò ra chút
+              { w: 0.30, h: 1.1, d: 0.40, color: "#8b2626", zOffset: 0.0 },  // Sách dày đỏ
+              { w: 0.15, h: 0.85, d: 0.44, color: "#2d5a27", zOffset: 0.04 }, // Thò ra nhiều hơn
+              { w: 0.25, h: 0.95, d: 0.41, color: "#5c3d2e", zOffset: -0.02 },
+              { w: 0.20, h: 1.05, d: 0.43, color: "#3b4d61", zOffset: 0.01 },
+              { w: 0.28, h: 0.90, d: 0.40, color: "#c28f38", zOffset: 0.03 }, // Sách vàng
+              { w: 0.19, h: 1.0, d: 0.45, color: "#6b3252", zOffset: -0.01 },
+              { w: 0.23, h: 0.92, d: 0.42, color: "#294c60", zOffset: 0.02 },
+              { w: 0.21, h: 1.02, d: 0.41, color: "#8c5633", zOffset: 0.0 },
+            ].map((book, i) => {
+              // Tính toán vị trí X rải đều trên kệ từ trái sang phải
+              const startX = -1.35;
+              const xPos = startX + i * 0.30; 
+
+              return (
+                <group key={i} position={[xPos, -1.65 + y + (book.h / 2 - 0.5), 0.38 + book.zOffset]}>
+                  {/* Thân cuốn sách */}
+                  <mesh castShadow receiveShadow>
+                    <boxGeometry args={[book.w, book.h, book.d]} />
+                    <meshStandardMaterial color={book.color} roughness={0.5} />
+                  </mesh>
+
+                  {/* Phần mép giấy phía trước (tạo hiệu ứng trang sách màu trắng ngà bên trong) */}
+                  <mesh position={[0, 0, -book.d / 2 + 0.02]}>
+                    <boxGeometry args={[book.w * 0.85, book.h * 0.92, 0.02]} />
+                    <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+                  </mesh>
+                </group>
+              );
+            })}
+          </group>
         ))}
-               
-        {[...Array(16)].map((_, i) => (
-          <mesh
-            key={i}
-            position={[
-              -1.35 + (i % 8) * 0.38,
-              -1.65 + Math.floor(i / 8) * 1.4,
-              0.42,
-            ]}
-          >
-                        <boxGeometry args={[0.25, 1, 0.08]} />           
-            <meshStandardMaterial color={i % 2 ? "#a87b51" : "#486b72"} />     
-               
-          </mesh>
-        ))}
-             
       </group>
             {/* Tủ trưng bày */}            {/* Bàn */}     {/* Bàn */}
       <group position={[10, 0, 1.5]}>
