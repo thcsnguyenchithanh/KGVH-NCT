@@ -745,8 +745,8 @@ useEffect(() => {
         width: "1250px",
         height: "700px",
         overflow: "hidden",
-        border: "4px solid #70472e",
-        borderRadius: "12px",
+        border: "2px solid #70472e",  {/* ĐÃ GIẢM TỪ 4px XUỐNG 2px (hoặc xóa dòng border này luôn nếu không thích viền) */}
+        borderRadius: "8px",
         boxSizing: "border-box",
         background: "#000",
         pointerEvents: "auto",
