@@ -116,8 +116,10 @@ const SPACE_CONTENT = {
     pdf: `${import.meta.env.BASE_URL}doc/Khu1.pdf`,
   },
   7: {
-    video: "https://www.youtube.com/embed/R5wsX7xQsxY",
-    pdf: `${import.meta.env.BASE_URL}doc/Khu1.pdf`,
+    bgWall7: `${import.meta.env.BASE_URL}room7/bg7.png`,
+    imageTrai7: `${import.meta.env.BASE_URL}room7/trai7.png`,  
+    imagePhai7: `${import.meta.env.BASE_URL}room7/phai7.png`,
+    video7: `${import.meta.env.BASE_URL}room7/video7.mp4`,
   },
   8: {
     video: "https://www.youtube.com/embed/R5wsX7xQsxY",
@@ -496,23 +498,23 @@ useEffect(() => {
     <group position={[-22, 0, 5.75]}>
 {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
 <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
-
-  {/* Lớp nền tường đối diện (giúp tạo mặt phẳng tường 3D phía sau ảnh nền hoặc padlet) */}
   <mesh position={[0, 0, -0.01]}>
     <planeGeometry args={[9, 3.8]} />
     <meshStandardMaterial color="#f4efe6" roughness={0.9} />
   </mesh>
 
-  {/* 1. Ảnh tường đối diện (Dành cho Khu 1 & Khu 3) */}
+  {/* 1. Ảnh tường đối diện (Dành cho Khu 1, 3 và Khu 7) */}
   {space.id !== 2 && (
     <WallImage
       src={
-        space.id === 3
+        space.id === 7
+          ? SPACE_CONTENT[7].bgWall7
+          : space.id === 3
           ? SPACE_CONTENT[3].bgWall
           : SPACE_CONTENT[1].imageBg1
       }
       alt="Hình tường đối diện"
-      position={[0, 0, 0.01]} // Áp sát mặt tường
+      position={[0, 0, 0.01]}
       width={7.5}   
       height={3.2}  
     />
@@ -611,7 +613,9 @@ useEffect(() => {
   ) : (
     <WallImage
       src={
-        space.id === 2
+        space.id === 7
+          ? SPACE_CONTENT[7].imageTrai7
+          : space.id === 2
           ? SPACE_CONTENT[2].imageTrai2
           : SPACE_CONTENT[1].imageTrai1
       }
@@ -626,7 +630,15 @@ useEffect(() => {
 {/* Tường phải: Video YouTube Khu 3 áp sát tường tối đa */}
 <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
 
-    {space.id === 3 ? (
+    {space.id === 7 ? (
+    <WallImage
+      src={SPACE_CONTENT[7].imagePhai7}
+      alt="Tường phải Khu 7"
+      position={[0, 0, 0]}
+      width={6.5}
+      height={3.8}
+    />
+  ) :{space.id === 3 ? (
     <Html
       position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
       transform
