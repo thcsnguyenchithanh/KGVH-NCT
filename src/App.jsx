@@ -1384,6 +1384,7 @@ function Scene({
   onExhibit,
   onSpaceClick,
   room2Active,
+  onOpenLibrary,
   activeSpace,
   onSpaceArrive,
   insideSpaceRoom,
@@ -1407,10 +1408,7 @@ function Scene({
   onOpenVideo={onOpenVideo}
   onExhibit={onExhibit}
   onSpaceClick={onSpaceClick}
-  onOpenLibrary={() => {
-    // Chỉ kích hoạt mở sách khi chọn đúng Tủ sách / Khu 1
-    setShowLibrary(true);
-  }}
+  onOpenLibrary={onOpenLibrary} // 👈 SỬA THÀNH NÀY: Dùng prop truyền từ App xuống
   onOpenMuseum={() =>
     window.open(
       "https://hochiminh.vn/bao-tang-3d",
@@ -1879,6 +1877,7 @@ export default function App() {
           onMove={moveToSpot}
           onExhibit={setSelectedExhibit}
           onSpaceClick={handleSelectSpace}
+          onOpenLibrary={() => setShowLibrary(true)}
           room2Active={room2Active}
           activeSpace={activeSpace}
           onSpaceArrive={setSelectedSpace}
