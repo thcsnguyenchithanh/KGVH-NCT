@@ -583,10 +583,7 @@ useEffect(() => {
         {space.id === 8 && (
           <>
             {/* Banner đỏ phía trên tường giữa */}
-            <mesh position={[0, 1.4, 0.01]}>
-              <planeGeometry args={[8.6, 0.7]} />
-              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
-            </mesh>
+            
             <Text
               position={[0, 1.4, 0.02]}
               fontSize={0.24}
@@ -945,7 +942,7 @@ useEffect(() => {
       </Text>
 
          {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
-{space.id !== 3 &&space.id !== 7 && (
+{space.id !== 3 && space.id !== 7 && space.id !== 8 &&  (
   <>
     {/* Bàn tròn giữa phòng */}
     <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
