@@ -1281,7 +1281,7 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
         </group>
       ))}
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
-      <group
+     <group
         position={[11.78, 2.7, 1.5]}
         rotation={[0, -Math.PI / 2, 0]}
         onClick={(e) => {
@@ -1296,8 +1296,9 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           document.body.style.cursor = "default";
         }}
       >
-        <mesh>
-          <boxGeometry args={[3.2, 0.65, 0.08]} />
+        {/* 1. Khung nền gỗ/kim loại phía sau (Làm viền cho bảng preview) */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[3.4, 2.0, 0.08]} />
           <meshStandardMaterial
             color="#5c1717"
             metalness={0.25}
@@ -1305,9 +1306,24 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           />
         </mesh>
 
+        {/* 2. Màn hình ảnh Preview bên trong (Thay 'anh-preview-baotang.png' bằng ảnh thực tế của bạn) */}
+        <mesh position={[0, 0.15, 0.045]}>
+          <planeGeometry args={[3.1, 1.3]} />
+          <meshBasicMaterial 
+            map={useTexture(`${import.meta.env.BASE_URL}images/Baotang3D.png`)} 
+          />
+        </mesh>
+
+        {/* 3. Dải lót nền chữ để chữ "BẢO TÀNG 3D" nổi bật không bị lẫn vào ảnh */}
+        <mesh position={[0, -0.7, 0.045]}>
+          <planeGeometry args={[3.1, 0.45]} />
+          <meshBasicMaterial color="#3a0d0d" />
+        </mesh>
+
+        {/* 4. Text tiêu đề chính */}
         <Text
-          position={[0, 0, 0.055]}
-          fontSize={0.27}
+          position={[0, -0.7, 0.055]}
+          fontSize={0.22}
           color="#ffd700"
           anchorX="center"
           anchorY="middle"
