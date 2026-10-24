@@ -44,7 +44,7 @@ export default function Room8({ data, onOpenVideo }) {
         <mesh position={[0, 0, -0.05]}>
           <planeGeometry args={[16, 5]} />
           <meshStandardMaterial color="#f4efe6" roughness={0.9} />
-        </meshড
+        </mesh>
 
         {/* Trải đều 6 hình ảnh trên tường trái theo trục X */}
         {imageTrai8.map((_, idx) => {
