@@ -692,30 +692,41 @@ useEffect(() => {
   )}
 </group>
 
-{/* Tường phải: Video Khu 3 dùng Mesh 3D thuần túy 100% */}
+{/* Tường phải: Video YouTube Khu 3 áp sát tường tối đa */}
 <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
-  {space.id === 3 ? (
-    <>
-      {/* Khung viền màn hình video */}
-      <mesh position={[0, 0, -0.01]}>
-        <planeGeometry args={[5.8, 3.4]} />
-        <meshBasicMaterial color="#70472e" />
-      </mesh>
 
-      {/* Màn hình mesh chính (bấm vào mở link YouTube tab mới) */}
-      <mesh 
-        position={[0, 0, 0]}
-        onClick={(e) => {
-          e.stopPropagation();
-          window.open(SPACE_CONTENT[3].video3, '_blank');
-        }}
-        onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
-        onPointerOut={() => { document.body.style.cursor = 'default'; }}
-      >
-        <planeGeometry args={[5.5, 3.1]} />
-        <meshBasicMaterial color="#000000" />
-      </mesh>
-    </>
+  {/* Lớp nền tường phía sau */}
+  <mesh position={[0, 0, -0.01]}>
+    <planeGeometry args={[6.5, 3.8]} />
+    <meshStandardMaterial color="#111" roughness={0.9} />
+  </mesh>
+
+  {space.id === 3 ? (
+    <Html
+      position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
+      transform
+      distanceFactor={1.2}
+      occlude // Khóa chặt theo không gian 3D của Three.js
+      style={{
+        width: "1280px",
+        height: "720px",
+        overflow: "hidden",
+        border: "2px solid #70472e",
+        borderRadius: "6px",
+        background: "#000",
+        pointerEvents: "auto",
+      }}
+    >
+      <div style={{ width: "100%", height: "100%" }}>
+        <iframe
+          src={SPACE_CONTENT[3].video3}
+          title="Video tường phải Khu 3"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          style={{ width: "100%", height: "100%", border: 0 }}
+        />
+      </div>
+    </Html>
   ) : (
     <WallImage
       src={
