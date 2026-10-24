@@ -504,6 +504,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 
 function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
+const [isVideoHidden, setIsVideoHidden] = useState(false);
 useEffect(() => {
   if (!showPadlet) {
     setIsPadletFullScreen(false);
@@ -583,7 +584,10 @@ useEffect(() => {
         {space.id === 8 && (
           <>
             {/* Banner đỏ phía trên tường giữa */}
-            
+            <mesh position={[0, 1.4, 0.01]}>
+              <planeGeometry args={[8.6, 0.7]} />
+              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
+            </mesh>
             <Text
               position={[0, 1.4, 0.02]}
               fontSize={0.24}
@@ -595,11 +599,9 @@ useEffect(() => {
             </Text>
 
             {/* Khung video chính giữa */}
+            {!isVideoHidden && (
             <group position={[0, -0.2, 0.02]} onClick={() => onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)}>
-              <mesh>
-                <boxGeometry args={[5.2, 3.0, 0.08]} />
-                <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-              </mesh>
+              
               <Html
                 position={[0, 0, 0.05]}
                 transform
@@ -626,6 +628,7 @@ useEffect(() => {
                 </div>
               </Html>
             </group>
+            )}
           </>
         )}
 
