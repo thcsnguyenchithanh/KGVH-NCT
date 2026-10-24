@@ -703,24 +703,47 @@ useEffect(() => {
         />
       ))}
     </>
-  ): space.id === 8 ? (
-          // KHU 8: Trải đều 6 ảnh tường trái (imageTrai8)
-          <group position={[0, 0, 0.01]}>
-            {SPACE_CONTENT[8].imageTrai8.map((imgSrc, idx) => {
-              const xPos = -2.2 + idx * 0.88; // Căn chỉnh khoảng cách rải đều 6 ảnh
-              return (
-                <group key={`trai8-${idx}`} position={[xPos, 0, 0]}>
-                  <WallImage
-                    src={imgSrc}
-                    alt={`Tranh trái 8 - ${idx + 1}`}
-                    position={[0, 0, 0]}
-                    width={0.82}
-                    height={2.2}
-                  />
-                </group>
-              );
-            })}
-          </group>
+  ): space.id === 8 && (
+  <group position={[0, 0, 0.01]}>
+    {SPACE_CONTENT[8].imageTrai8.map((imgSrc, idx) => {
+      // Rải đều 6 tranh với khoảng cách hợp lý
+      const xPos = -2.5 + idx * 1.0; 
+      return (
+        <group 
+          key={`trai8-${idx}`} 
+          position={[xPos, 0, 0]}
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = "default";
+          }}
+        >
+          {/* 1. Khung tranh gỗ nổi bật phía sau */}
+          <mesh position={[0, 0, -0.01]}>
+            <boxGeometry args={[0.92, 1.42, 0.05]} />
+            <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+          </mesh>
+
+          {/* 2. Lớp nền lót bên trong khung */}
+          <mesh position={[0, 0, 0.01]}>
+            <planeGeometry args={[0.86, 1.36]} />
+            <meshBasicMaterial color="#ffffff" />
+          </mesh>
+
+          {/* 3. Bức ảnh hiển thị với tỷ lệ cân đối, không bị kéo dãn */}
+          <WallImage
+            src={imgSrc}
+            alt={`Tranh trái 8 - ${idx + 1}`}
+            position={[0, 0, 0.02]}
+            width={0.84}
+            height={1.34}
+          />
+        </group>
+      );
+    })}
+  </group>
         ) : (
     <WallImage
       src={
