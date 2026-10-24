@@ -1,15 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Html } from "@react-three/drei";
-import { useLoader } from "@react-three/fiber";
-import * as THREE from "three";
 
-// Định nghĩa component con xử lý hiển thị ảnh bằng mesh và bật/tắt audio khi click
+// Component con xử lý ảnh qua thẻ img (an toàn tuyệt đối, không lỗi texture)
 function WallImageAudioSection({ title, imgSrc, audioSrc, width = 5.5, height = 2.8 }) {
   const [showAudio, setShowAudio] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const audioRef = useRef(null);
-
-  const texture = useLoader(THREE.TextureLoader, imgSrc);
 
   const handleMeshClick = (e) => {
     e.stopPropagation();
@@ -28,7 +24,7 @@ function WallImageAudioSection({ title, imgSrc, audioSrc, width = 5.5, height = 
 
   return (
     <group>
-      {/* Khung tranh gỗ và ảnh dùng Mesh */}
+      {/* Khung tranh gỗ và ảnh */}
       <group 
         position={[0, 0.2, 0.02]} 
         onClick={handleMeshClick}
@@ -40,10 +36,25 @@ function WallImageAudioSection({ title, imgSrc, audioSrc, width = 5.5, height = 
           <meshStandardMaterial color="#4a2e18" roughness={0.6} />
         </mesh>
 
-        <mesh position={[0, 0, 0.025]} scale={isFullScreen ? [1.5, 1.5, 1] : [1, 1, 1]}>
-          <planeGeometry args={[width, height]} />
-          <meshBasicMaterial map={texture} />
-        </mesh>
+        <Html
+          position={[0, 0, 0.025]}
+          transform
+          distanceFactor={1.5}
+          occlude
+          style={{
+            width: `${(isFullScreen ? width * 1.5 : width) * 140}px`,
+            height: `${(isFullScreen ? height * 1.5 : height) * 140}px`,
+            overflow: "hidden",
+            pointerEvents: "auto",
+            transition: "all 0.3s ease",
+          }}
+        >
+          <img
+            src={imgSrc}
+            alt={title}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        </Html>
       </group>
 
       {/* Hộp thoại Audio Player xuất hiện bên dưới khi click */}
