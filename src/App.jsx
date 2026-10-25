@@ -7,7 +7,7 @@ import  WallImage  from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from './BookShelf';
-
+import { Suspense } from "react";
 import Room8 from './Room8';
 
 import WallImageAudioSection from "./WallImageAudioSection";
@@ -527,6 +527,7 @@ useEffect(() => {
 
   return (
     <group position={[-22, 0, 5.75]}>
+      <Suspense fallback={null}>
 {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
 <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
   <mesh position={[0, 0, -0.01]}>
@@ -1093,6 +1094,7 @@ useEffect(() => {
         </Text>
       </group>
       )}
+      </Suspense>
     </group>
   );
 }
