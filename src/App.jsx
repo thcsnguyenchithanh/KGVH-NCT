@@ -1485,10 +1485,9 @@ function SpaceInteriorRoom({
                 topic={topic}
                 index={index}
                 onClick={(t) => {
-                  
-                    setSelectedKhu3Topic(t);
-                 
-                }}
+          // Cho phép truyền dữ liệu chủ đề ra ngoài cho tất cả các ID (1 đến 6)
+          setSelectedKhu3Topic(t);
+        }}
               />
             ))}
           </>
