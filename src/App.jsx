@@ -744,7 +744,7 @@ useEffect(() => {
       ))}
     </>
     
- ) : space.id === 6 && (
+ ) : space.id === 6 ? (
   <WallImageAudioSection
     title="Thuyết minh Tường Trái - Phòng 6"
     imgSrc={SPACE_CONTENT[6].imageTrai6}
@@ -836,7 +836,7 @@ useEffect(() => {
       height={3.8}
     />
     
-) : pace.id === 6 && (
+) : pace.id === 6 ? (
   <WallImageAudioSection
     title="Thuyết minh Tường Phải - Phòng 6"
     imgSrc={SPACE_CONTENT[6].imagePhai6}
