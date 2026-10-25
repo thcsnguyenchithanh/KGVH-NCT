@@ -615,14 +615,14 @@ useEffect(() => {
       height={3.2}
     />
 
-    {/* 2. Lớp phủ Html trong suốt đè lên tường để bắt sự kiện click chuẩn xác tuyệt đối */}
+    {/* 2. Lớp phủ Html đè lên tường để bắt sự kiện click chính xác */}
     <Html
       position={[0, 0, 0.02]}
       transform
       distanceFactor={1.5}
       style={{
-        width: "750px", // Khớp với chiều rộng tường (7.5 đơn vị 3D)
-        height: "320px", // Khớp với chiều cao tường (3.2 đơn vị 3D)
+        width: "750px", // Khớp chính xác với chiều rộng tường (7.5 đơn vị 3D)
+        height: "320px", // Khớp chính xác với chiều cao tường (3.2 đơn vị 3D)
         pointerEvents: "auto", // Cho phép nhận sự kiện chuột
       }}
     >
@@ -630,14 +630,19 @@ useEffect(() => {
         onMouseDown={(e) => {
           e.stopPropagation();
           e.preventDefault();
+          
+          // Lấy đúng dữ liệu theo từng phòng (5 hoặc 6)
           const bgSrc = space.id === 6 ? SPACE_CONTENT[6].bgWall6 : SPACE_CONTENT[5].bgWall5;
           const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioBg6 : SPACE_CONTENT[5].audioBg5;
 
+          // Mở phóng to ảnh
           window.dispatchEvent(
             new CustomEvent("open-wall-image", {
               detail: { src: bgSrc, alt: `Tường Giữa - Phòng ${space.id}` },
             })
           );
+
+          // Phát audio tương ứng và tự động ngắt âm thanh khác
           if (window.setActiveAudioGlobal) {
             window.setActiveAudioGlobal(audioSrc);
           }
@@ -646,7 +651,7 @@ useEffect(() => {
           width: "100%",
           height: "100%",
           cursor: "pointer",
-          background: "transparent", // Trong suốt hoàn toàn, nhìn vẫn thấy ảnh phía dưới
+          background: "rgba(0, 0, 0, 0.01)", // <--- ĐIỂM QUAN TRỌNG: Giúp bắt sự kiện click ngay từ lần đầu tiên!
         }}
         title="Nhấn để nghe thuyết minh và phóng to ảnh"
       />
@@ -795,8 +800,8 @@ useEffect(() => {
       ))}
     </>
     
- ): (space.id === 6 || space.id === 5) ? (
-  <group position={[0, 0, 0]}>
+ ): {(space.id === 6 || space.id === 5) ? (
+  <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
     {/* 1. Hiển thị ảnh tường trái 3D */}
     <WallImage
       src={space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5}
@@ -831,7 +836,6 @@ useEffect(() => {
             })
           );
 
-          // Sửa lại: Dùng biến audioSrc thay vì viết cứng số 6
           if (window.setActiveAudioGlobal) {
             window.setActiveAudioGlobal(audioSrc);
           }
@@ -840,13 +844,13 @@ useEffect(() => {
           width: "100%",
           height: "100%",
           cursor: "pointer",
-          background: "transparent", // Trong suốt hoàn toàn
+          background: "rgba(0, 0, 0, 0.01)", // <--- QUAN TRỌNG: Giúp bấm 1 phát ăn ngay từ lần đầu!
         }}
         title="Nhấn để nghe thuyết minh và phóng to ảnh"
       />
     </Html>
   </group>
-) : space.id === 8 ? (
+) : null}: space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
           <>
             <mesh position={[0, 1.4, 0.01]}>
@@ -929,36 +933,57 @@ useEffect(() => {
       height={3.8}
     />
     
-): space.id === 5 && (
-  <>
-    {/* 1. Tường Giữa Phòng 5 */}
-    <group 
-      position={[0, 0, 0.01]}
-      onClick={(e) => {
-        e.stopPropagation();
-        window.dispatchEvent(
-          new CustomEvent("open-wall-image", {
-            detail: { src: SPACE_CONTENT[5].bgWall5, alt: "Tường Giữa - Phòng 5" },
-          })
-        );
-        if (window.setActiveAudioGlobal) {
-          window.setActiveAudioGlobal(SPACE_CONTENT[5].audioBg5);
-        }
+): {(space.id === 6 || space.id === 5) ? (
+  <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+    {/* 1. Hiển thị ảnh tường phải 3D */}
+    <WallImage
+      src={space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5}
+      alt={`Hình tường phải Phòng ${space.id}`}
+      position={[0, 0, 0]}
+      width={6.5}
+      height={3.8}
+    />
+
+    {/* 2. Lớp phủ Html giúp bắt sự kiện click 100% chính xác */}
+    <Html
+      position={[0, 0, 0.02]}
+      transform
+      distanceFactor={1.5}
+      style={{
+        width: "650px",   // Khớp với chiều rộng tường phải (6.5 đơn vị 3D)
+        height: "380px",  // Khớp với chiều cao tường phải (3.8 đơn vị 3D)
+        pointerEvents: "auto",
       }}
-      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-      onPointerOut={() => { document.body.style.cursor = "default"; }}
     >
-      <WallImage
-        src={SPACE_CONTENT[5].bgWall5}
-        alt="Nền tường giữa Phòng 5"
-        position={[0, 0, 0.01]}
-        width={7.5}
-        height={3.2}
+      <div
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          
+          const imgPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
+          const audioPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
+
+          window.dispatchEvent(
+            new CustomEvent("open-wall-image", {
+              detail: { src: imgPhaiSrc, alt: `Tường Phải - Phòng ${space.id}` },
+            })
+          );
+
+          if (window.setActiveAudioGlobal) {
+            window.setActiveAudioGlobal(audioPhaiSrc);
+          }
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+          cursor: "pointer",
+          background: "rgba(0, 0, 0, 0.01)", // <--- QUAN TRỌNG: Giúp bấm 1 phát ăn ngay từ lần đầu!
+        }}
+        title="Nhấn để nghe thuyết minh và phóng to ảnh"
       />
-    
+    </Html>
   </group>
-  </>
-) : space.id === 8 ? (
+) : null} : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
          <>
             <mesh position={[0, 0, -0.02]}>
