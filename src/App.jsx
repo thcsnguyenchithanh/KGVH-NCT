@@ -1129,7 +1129,7 @@ useEffect(() => {
       </Text>
 
          {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
-{space.id !== 3 && space.id !== 7 && space.id !== 8 && space.id !== 6 && pace.id !== 5 &&  (
+{space.id !== 3 && space.id !== 7 && space.id !== 8 && space.id !== 6 && space.id !== 5 &&  (
   <>
     {/* Bàn tròn giữa phòng */}
     <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
