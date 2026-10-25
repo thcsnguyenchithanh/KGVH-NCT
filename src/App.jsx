@@ -1940,11 +1940,11 @@ function Scene({
         onExhibit={onExhibit}
         onSpaceClick={onSpaceClick}
         onSelectImage={(imageSrc) => {
-    // Đặt state mở ảnh xem toàn màn hình
-    setSelectedImage(imageSrc); // hoặc setWallImageFull(imageSrc)
+    
+    setSelectedImage(imageSrc); 
   }}
         onOpenLibrary={onOpenLibrary}
-         // 👈 SỬA THÀNH NÀY: Dùng prop truyền từ App xuống
+        
         onOpenMuseum={() =>
           window.open(
             "https://hochiminh.vn/bao-tang-3d",
@@ -1990,6 +1990,7 @@ function Scene({
 
 export default function App() {
   const [room2Active, setRoom2Active] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [selectedKhu3Topic, setSelectedKhu3Topic] = useState(null);
   const [khu1Content, setKhu1Content] = useState(null);
   const [activeSpace, setActiveSpace] = useState(null);
