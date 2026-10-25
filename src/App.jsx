@@ -514,7 +514,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   );
 }
 
-function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic }) {
+function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
 const [isVideoHidden, setIsVideoHidden] = useState(false);
 useEffect(() => {

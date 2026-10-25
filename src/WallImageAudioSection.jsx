@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { Html } from "@react-three/drei";
+import { useTexture } from "@react-three/drei";
+import { useRef } from "react";
 
 export default function WallImageAudioSection({
   title,
@@ -10,14 +10,17 @@ export default function WallImageAudioSection({
   width = 5.5,
   height = 2.8,
 }) {
-  const audioRef = useRef(null);
+  // Phòng hờ nếu imgSrc chưa có thì trả về null để không bao giờ gọi useTexture với giá trị rỗng
+ 
 
-  if (!imgSrc) return null;
+  const texture = useTexture(imgSrc);
+  const audioRef = useRef(null);
+   if (!imgSrc) return null;
 
   const handleClick = (e) => {
     e.stopPropagation();
 
-    // 1. Phóng to ảnh toàn màn hình
+    // 1. Phóng to ảnh
     window.dispatchEvent(
       new CustomEvent("open-wall-image", {
         detail: { src: imgSrc, alt: title },
@@ -27,54 +30,39 @@ export default function WallImageAudioSection({
     // 2. Phát audio thuyết minh
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
-      audioRef.current.play().catch((err) => console.log(err));
+      audioRef.current.play().catch((err) => console.log("Lỗi phát audio:", err));
     }
   };
 
   return (
     <group position={position} rotation={rotation}>
-      {/* Khung gỗ bao quanh */}
+      {/* Khung gỗ viền ngoài tranh */}
       <mesh position={[0, 0, -0.005]}>
         <boxGeometry args={[width + 0.2, height + 0.2, 0.03]} />
         <meshStandardMaterial color="#4a2e18" roughness={0.6} />
       </mesh>
 
-      {/* Hiển thị ảnh bằng HTML trực tiếp trong không gian 3D - Không bao giờ sập Fiber Context */}
-      <Html
+      {/* Mesh hiển thị tranh y hệt WallImage của Khu 1 nhưng tích hợp thêm click phát audio */}
+      <mesh
         position={[0, 0, 0]}
-        transform
-        distanceFactor={1.5}
-        occlude
-        style={{
-          width: `${width * 140}px`,
-          height: `${height * 140}px`,
-          overflow: "hidden",
-          pointerEvents: "auto",
-        }}
+        onClick={handleClick}
+        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+        onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
-        <div
-          onClick={handleClick}
-          style={{
-            width: "100%",
-            height: "100%",
-            cursor: "pointer",
-          }}
-        >
-          <img
-            src={imgSrc}
-            alt={title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-        </div>
-      </Html>
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial
+          map={texture}
+          toneMapped={false}
+          side={2}
+        />
+      </mesh>
 
       {/* Thẻ audio ngầm */}
-      <audio ref={audioRef} src={audioSrc} preload="auto" />
+      <audio
+        ref={audioRef}
+        src={audioSrc}
+        preload="auto"
+      />
     </group>
   );
 }
