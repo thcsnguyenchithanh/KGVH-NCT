@@ -942,7 +942,7 @@ useEffect(() => {
         
         const isRoom6 = space.id === 6;
         const imgSrc = isRoom6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
-        const audioSrc = isRoom6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai6;
+        const audioSrc = isRoom6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
 
         // Mở phóng to ảnh
         window.dispatchEvent(
