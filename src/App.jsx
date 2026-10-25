@@ -515,7 +515,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   );
 }
 
-function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo }) {
+function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo, setActiveAudio }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
 const [isVideoHidden, setIsVideoHidden] = useState(false);
 
@@ -529,6 +529,51 @@ useEffect(() => {
 
   return (
     <group position={[-22, 0, 5.75]}>
+
+{/* Thanh Audio Player nổi lên khi chọn nghe thuyết minh ở Phòng 6 */}
+{activeAudio && (
+  <Html
+    fullscreen
+    style={{
+      position: "fixed",
+      bottom: "20px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 999999,
+      pointerEvents: "auto",
+    }}
+  >
+    <div style={{
+      background: "rgba(74, 46, 24, 0.9)",
+      padding: "10px 20px",
+      borderRadius: "30px",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+      border: "2px solid #ffd700"
+    }}>
+      <span style={{ color: "#fff0c2", fontSize: "14px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
+      <audio src={activeAudio} controls autoPlay style={{ height: "35px" }} />
+      <button 
+        onClick={() => setActiveAudio(null)}
+        style={{
+          background: "#7c2929",
+          color: "#fff",
+          border: "none",
+          borderRadius: "50%",
+          width: "25px",
+          height: "25px",
+          cursor: "pointer",
+          fontWeight: "bold"
+        }}
+      >
+        ✕
+      </button>
+    </div>
+  </Html>
+)}
+
 
 {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
 <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
@@ -600,18 +645,15 @@ useEffect(() => {
     <>
     <group 
     position={[0, 0, 0.01]}
-   onClick={(e) => {
-  e.stopPropagation();
-  window.dispatchEvent(
-    new CustomEvent("open-wall-image", {
-      detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
-    })
-  );
-  // Gọi trực tiếp qua window, không bao giờ sợ lỗi is not defined
-  if (window.__setActiveAudio) {
-    window.__setActiveAudio(SPACE_CONTENT[6].audioBg6);
-  }
-}}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.dispatchEvent(
+        new CustomEvent("open-wall-image", {
+          detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
+        })
+      );
+      setActiveAudio(SPACE_CONTENT[6].audioBg6); // Kích hoạt thanh audio
+    }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
   >
@@ -771,18 +813,15 @@ useEffect(() => {
  ): space.id === 6 ? (
   <group 
     position={[0, 0, 0]}
-   onClick={(e) => {
-  e.stopPropagation();
-  window.dispatchEvent(
-    new CustomEvent("open-wall-image", {
-      detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
-    })
-  );
-  // Gọi trực tiếp qua window, không bao giờ sợ lỗi is not defined
-  if (window.__setActiveAudio) {
-    window.__setActiveAudio(SPACE_CONTENT[6].audioBg6);
-  }
-}}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.dispatchEvent(
+        new CustomEvent("open-wall-image", {
+          detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
+        })
+      );
+      setActiveAudio(SPACE_CONTENT[6].audioTrai6); // Kích hoạt thanh audio
+    }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
   >
@@ -880,18 +919,15 @@ useEffect(() => {
 ): space.id === 6 ? (
   <group 
     position={[0, 0, 0]}
-   onClick={(e) => {
-  e.stopPropagation();
-  window.dispatchEvent(
-    new CustomEvent("open-wall-image", {
-      detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
-    })
-  );
-  // Gọi trực tiếp qua window, không bao giờ sợ lỗi is not defined
-  if (window.__setActiveAudio) {
-    window.__setActiveAudio(SPACE_CONTENT[6].audioBg6);
-  }
-}}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.dispatchEvent(
+        new CustomEvent("open-wall-image", {
+          detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
+        })
+      );
+      setActiveAudio(SPACE_CONTENT[6].audioPhai6); // Kích hoạt thanh audio
+    }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
   >
@@ -1740,10 +1776,6 @@ export default function App() {
   const [showVideo, setShowVideo] = useState(false);
   const [activeAudio, setActiveAudio] = useState(null);
 
-  useEffect(() => {
-  // Gắn hẳn vào window để component con nào cũng gọi được trực tiếp
-  window.__setActiveAudio = setActiveAudio;
-}, []);
   useEffect(() => {
     const link = document.createElement("link");
     link.href =
