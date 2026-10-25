@@ -212,31 +212,116 @@ const SPACE_CONTENT = {
         id: 2,
         title: "Chủ đề 2",
         image: `${import.meta.env.BASE_URL}khu3/CD2.png`,
-        stories: [],
+        stories: [
+          {
+            title: "Bác với thiếu nhi miền nam",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+          },
+          {
+            title: "Các cháu sạch và ngoan thật",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+          },
+          {
+            title: "Dành cho các cháu",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+          },
+          {
+            title: "Đến thăm trường thiếu nhi miền nam",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+          },
+        ],
       },
       {
         id: 3,
         title: "Chủ đề 3",
         image: `${import.meta.env.BASE_URL}khu3/CD3.png`,
-        stories: [],
+        stories: [
+          {
+            title: "Bác Hồ và chiến sĩ người dân tộc",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+          },
+          {
+            title: "Bát chè xẻ đôi",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+          },
+          {
+            title: "Ngày Tết nội vụ cũng phải gọn gàng",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+          },
+          {
+            title: "Tấm lòng bác Hồ với chiến sĩ phòng không",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+          },
+        ],
       },
       {
         id: 4,
         title: "Chủ đề 4",
         image: `${import.meta.env.BASE_URL}khu3/CD4.png`,
-        stories: [],
+        stories: [
+          {
+            title: "Bỏ thuốc lá",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+          },
+          {
+            title: "Giữ lời hứa",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+          },
+          {
+            title: "Thời gian quý báu lắm",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+          },
+          {
+            title: "Tục lệ tốt đẹp",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+          },
+        ],
       },
       {
         id: 5,
         title: "Chủ đề 5",
         image: `${import.meta.env.BASE_URL}khu3/CD5.png`,
-        stories: [],
+        stories: [
+          {
+            title: "Bác tặng quà",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+          },
+          {
+            title: "Đây là cánh cửa hòa bình",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+          },
+          {
+            title: "Một lần nhớ mãi",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+          },
+          {
+            title: "Nước nóng nước nguội",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+          },
+        ],
       },
       {
         id: 6,
         title: "Chủ đề 6",
         image: `${import.meta.env.BASE_URL}khu3/CD6.png`,
-        stories: [],
+        stories: [
+          {
+            title: "Hai bàn tay",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+          },
+          {
+            title: "Trường học của Bác",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+          },
+          {
+            title: "Vườn rau, ao cá của Bác",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+          },
+          {
+            title: "Vườn rau, ao cá của Bác",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+          },
+        ],
       },
     ],
   },
