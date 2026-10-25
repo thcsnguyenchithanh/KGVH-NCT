@@ -1898,6 +1898,7 @@ useEffect(() => {
     };
 
     const leave = () => {
+      setActiveAudio(null);
       setRoom2Active(false);
       setActiveSpace(null);
       setSelectedSpace(null);
@@ -1946,9 +1947,11 @@ useEffect(() => {
 
   // Chọn một vị trí trong phòng đầu
   const handleNavigateSpot = (index) => {
+    setActiveAudio(null);
     setSelectedSpace(null);
     setActiveSpace(null);
     setRoom2Active(false);
+    setInsideSpaceRoom(false);
 
     if (index === 4) {
       window.open(
@@ -1963,6 +1966,7 @@ useEffect(() => {
     moveToSpot(index);
   };
   const returnToPreviousSpot = () => {
+    setActiveAudio(null);
     if (insideSpaceRoom) {
       setInsideSpaceRoom(false);
       setActiveSpace(null);
