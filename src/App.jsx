@@ -2332,6 +2332,32 @@ export default function App() {
   </div>
 )}
 
+{activeAudio && (
+  <div style={{
+    position: "fixed",
+    bottom: "40px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 999999,
+    background: "#4a2e18",
+    padding: "12px 24px",
+    borderRadius: "30px",
+    display: "flex",
+    alignItems: "center",
+    gap: "15px",
+    border: "2px solid #ffd700"
+  }}>
+    <span style={{ color: "#fff", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
+    <audio src={activeAudio} controls autoPlay style={{ height: "32px" }} />
+    <button 
+      onClick={() => setActiveAudio(null)}
+      style={{ background: "#7c2929", color: "#fff", border: "none", borderRadius: "50%", width: "26px", height: "26px", cursor: "pointer" }}
+    >
+      ✕
+    </button>
+  </div>
+)}
+
 {khu1Content && (
   <div
     style={{
@@ -2369,31 +2395,7 @@ export default function App() {
 )}
 
 {/* Thanh Audio Player nổi toàn cục ở ngoài cùng, đè lên mọi thứ */}
-{activeAudio && (
-  <div style={{
-    position: "fixed",
-    bottom: "40px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 999999,
-    background: "#4a2e18",
-    padding: "12px 24px",
-    borderRadius: "30px",
-    display: "flex",
-    alignItems: "center",
-    gap: "15px",
-    border: "2px solid #ffd700"
-  }}>
-    <span style={{ color: "#fff", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
-    <audio src={activeAudio} controls autoPlay style={{ height: "32px" }} />
-    <button 
-      onClick={() => setActiveAudio(null)}
-      style={{ background: "#7c2929", color: "#fff", border: "none", borderRadius: "50%", width: "26px", height: "26px", cursor: "pointer" }}
-    >
-      ✕
-    </button>
-  </div>
-)}
+
 
       {showPDF && (
         <div
