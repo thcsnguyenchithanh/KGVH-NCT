@@ -68,6 +68,37 @@ const targets = [
 ];
 
 
+// Cấu trúc dữ liệu hình ảnh cho Sảnh chính 
+export const SANH_CONTENT = {
+  // Ảnh nền sảnh chính
+  background: "/images/sanh/bgs.png",[cite: 1]
+
+  // Nhóm hình bác
+  banners: [
+    { id: 1, src: "/images/sanh/hb1.png", alt: "Banner 1" },[cite: 1]
+    { id: 2, src: "/images/sanh/hb2.png", alt: "Banner 2" },[cite: 1]
+    { id: 3, src: "/images/sanh/hb3.png", alt: "Banner 3" },[cite: 1]
+    { id: 4, src: "/images/sanh/hb4.png", alt: "Banner 4" } [cite: 1]
+  ],
+
+  // Nhóm poster
+  panels: [
+    { id: 1, src: "/images/sanh/p1.png", alt: "Panel 1" },[cite: 1]
+    { id: 2, src: "/images/sanh/p2.png", alt: "Panel 2" },[cite: 1]
+    { id: 3, src: "/images/sanh/p3.png", alt: "Panel 3" },[cite: 1]
+    { id: 4, src: "/images/sanh/p4.png", alt: "Panel 4" } [cite: 1]
+  ],
+
+  // Nhóm biểu ngữ
+  decors: [
+    { id: 1, src: "/images/sanh/s1.png", alt: "Decor 1" },[cite: 1]
+    { id: 2, src: "/images/sanh/s2.png", alt: "Decor 2" },[cite: 1]
+    { id: 3, src: "/images/sanh/s3.png", alt: "Decor 3" } [cite: 1]
+  ]
+};
+
+
+
 
 const SPACE_CONTENT = {
   1: {
@@ -326,9 +357,48 @@ function FixedLookControls() {
 
   return null;
 }
+{/* ================= ================= ================= ================= ================= =================*/}
 
+function FramedVideoScreen({ onOpen }) {
+  // 1. Tải texture ảnh khung sảnh trực tiếp từ SANH_CONTENT đã có trong app.jsx
+  const bgTexture = useTexture(SANH_CONTENT.background);
 
+  // 2. Tải texture video cho màn hình bên trong
+  const videoTexture = useVideoTexture(
+    `${import.meta.env.BASE_URL}video/TNDL.mp4`,
+    {
+      loop: true,
+      muted: true,
+      playsInline: true,
+    },
+  );
 
+  return (
+    <group position={[0, 0, 0]}>
+      {/* ================= LỚP 1: KHUNG / ẢNH NỀN (bgs.png) ================= */}
+      <mesh position={[0, 0, 0]}>
+        {/* Điều chỉnh kích thước [chiều_rộng, chiều_cao] của khung */}
+        <planeGeometry args={[6.5, 4.0]} />
+        <meshBasicMaterial map={bgTexture} transparent={true} />
+      </mesh>
+
+      {/* ================= LỚP 2: MÀN HÌNH VIDEO NẰM TRONG KHUNG ================= */}
+      <mesh
+        position={[0, 0, 0.02]} // Đẩy dịch lên phía trước một chút theo trục Z để nằm đè lên khung
+        onClick={(e) => {
+          e.stopPropagation();
+          onOpen();
+        }}
+        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+        onPointerOut={() => { document.body.style.cursor = "default"; }}
+      >
+        {/* Điều chỉnh kích thước [chiều_rộng, chiều_cao] của video cho lọt đúng phần trống */}
+        <planeGeometry args={[4.7, 2.6]} />
+        <meshBasicMaterial map={videoTexture} toneMapped={false} />
+      </mesh>
+    </group>
+  );
+}
 
 function VideoScreen({ onOpen }) {
   const texture = useVideoTexture(
