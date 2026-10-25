@@ -790,24 +790,8 @@ useEffect(() => {
     </>
     
  ): space.id === 6 ? (
-  <group 
-    position={[0, 0, 0]}
-   onClick={(e) => {
-  e.stopPropagation();
-  window.dispatchEvent(
-    new CustomEvent("open-wall-image", {
-      detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
-    })
-  );
-  window.dispatchEvent(
-    new CustomEvent("open-audio-player", {
-      detail: { audioUrl: SPACE_CONTENT[6].audioTrai6 },
-    })
-  );
-}}
-    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-    onPointerOut={() => { document.body.style.cursor = "default"; }}
-  >
+  <group position={[0, 0, 0]}>
+    {/* 1. Hiển thị ảnh tường trái 3D */}
     <WallImage
       src={SPACE_CONTENT[6].imageTrai6}
       alt="Hình tường trái Phòng 6"
@@ -815,6 +799,44 @@ useEffect(() => {
       width={6.5}
       height={3.8}
     />
+
+    {/* 2. Lớp phủ Html giúp bắt sự kiện click 100% chính xác */}
+    <Html
+      position={[0, 0, 0.02]}
+      transform
+      distanceFactor={1.5}
+      style={{
+        width: "650px",   // Khớp với chiều rộng tường trái (6.5 đơn vị 3D)
+        height: "380px",  // Khớp với chiều cao tường trái (3.8 đơn vị 3D)
+        pointerEvents: "auto",
+      }}
+    >
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          console.log("--> Đã click tường trái Phòng 6 qua Html overlay!");
+
+          // Mở phóng to ảnh tường trái
+          window.dispatchEvent(
+            new CustomEvent("open-wall-image", {
+              detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
+            })
+          );
+
+          // Kích hoạt phát audio tường trái và tự động ngắt các âm thanh khác
+          if (window.setActiveAudioGlobal) {
+            window.setActiveAudioGlobal(SPACE_CONTENT[6].audioTrai6);
+          }
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+          cursor: "pointer",
+          background: "transparent", // Trong suốt hoàn toàn
+        }}
+        title="Nhấn để nghe thuyết minh và phóng to ảnh"
+      />
+    </Html>
   </group>
 ) : space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
@@ -900,24 +922,8 @@ useEffect(() => {
     />
     
 ): space.id === 6 ? (
-  <group 
-    position={[0, 0, 0]}
-   onClick={(e) => {
-  e.stopPropagation();
-  window.dispatchEvent(
-    new CustomEvent("open-wall-image", {
-      detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
-    })
-  );
-  window.dispatchEvent(
-    new CustomEvent("open-audio-player", {
-      detail: { audioUrl: SPACE_CONTENT[6].audioPhai6 },
-    })
-  );
-}}
-    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-    onPointerOut={() => { document.body.style.cursor = "default"; }}
-  >
+  <group position={[0, 0, 0]}>
+    {/* 1. Hiển thị ảnh tường phải 3D */}
     <WallImage
       src={SPACE_CONTENT[6].imagePhai6}
       alt="Hình tường phải Phòng 6"
@@ -925,6 +931,44 @@ useEffect(() => {
       width={6.5}
       height={3.8}
     />
+
+    {/* 2. Lớp phủ Html giúp bắt sự kiện click mượt mà và chính xác */}
+    <Html
+      position={[0, 0, 0.02]}
+      transform
+      distanceFactor={1.5}
+      style={{
+        width: "650px",   // Khớp với chiều rộng 6.5 đơn vị 3D của tường
+        height: "380px",  // Khớp với chiều cao 3.8 đơn vị 3D của tường
+        pointerEvents: "auto",
+      }}
+    >
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          console.log("--> Đã click tường phải Phòng 6 qua Html overlay!");
+
+          // Mở phóng to ảnh tường phải
+          window.dispatchEvent(
+            new CustomEvent("open-wall-image", {
+              detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
+            })
+          );
+
+          // Kích hoạt phát audio tường phải và tự động ngắt các âm thanh khác
+          if (window.setActiveAudioGlobal) {
+            window.setActiveAudioGlobal(SPACE_CONTENT[6].audioPhai6);
+          }
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+          cursor: "pointer",
+          background: "transparent", // Trong suốt hoàn toàn để thấy ảnh nền
+        }}
+        title="Nhấn để nghe thuyết minh và phóng to ảnh"
+      />
+    </Html>
   </group>
 ) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
