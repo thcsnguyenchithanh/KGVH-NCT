@@ -801,7 +801,7 @@ useEffect(() => {
     </>
     
  ): (space.id === 6 || space.id === 5) ? (
-  <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+  <group position={[0, 0, 0]} >
     {/* 1. Hiển thị ảnh tường trái 3D */}
     <WallImage
       src={space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5}
@@ -934,7 +934,7 @@ useEffect(() => {
     />
     
 ): (space.id === 6 || space.id === 5) ? (
-  <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+  <group position={[0, 0, 0]} >
     {/* 1. Hiển thị ảnh tường phải 3D */}
     <WallImage
       src={space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5}
