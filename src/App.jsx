@@ -187,7 +187,7 @@ const SPACE_CONTENT = {
     topics: [
       {
         id: 1,
-        title: "Lối sống giản dị",
+        title: "Lối sống giản dị, tiết kiệm và khiêm tốn",
         image: `${import.meta.env.BASE_URL}khu3/CD1.png`,
         stories: [
           {
@@ -210,7 +210,7 @@ const SPACE_CONTENT = {
       },
       {
         id: 2,
-        title: "Chủ đề 2",
+        title: "Tình yêu thương thiếu niên, nhi đồng và đồng bào niềm Nam ",
         image: `${import.meta.env.BASE_URL}khu3/CD2.png`,
         stories: [
           {
@@ -233,7 +233,7 @@ const SPACE_CONTENT = {
       },
       {
         id: 3,
-        title: "Chủ đề 3",
+        title: "Tình cảm, sự quan tâm đối với chiến sĩ, nhân dân và các dân tộc",
         image: `${import.meta.env.BASE_URL}khu3/CD3.png`,
         stories: [
           {
@@ -256,7 +256,7 @@ const SPACE_CONTENT = {
       },
       {
         id: 4,
-        title: "Chủ đề 4",
+        title: "Tác phong làm việc, giữ chữ tín và tin thần tự rèn luyện",
         image: `${import.meta.env.BASE_URL}khu3/CD4.png`,
         stories: [
           {
@@ -279,7 +279,7 @@ const SPACE_CONTENT = {
       },
       {
         id: 5,
-        title: "Chủ đề 5",
+        title: "Nghệ thuật ứng xử, gíao dục cán bộ và quan hệ ngoại giao",
         image: `${import.meta.env.BASE_URL}khu3/CD5.png`,
         stories: [
           {
@@ -302,7 +302,7 @@ const SPACE_CONTENT = {
       },
       {
         id: 6,
-        title: "Chủ đề 6",
+        title: "Ý chí cứu nước, tinh thần lao động và tự học suốt đời",
         image: `${import.meta.env.BASE_URL}khu3/CD6.png`,
         stories: [
           {

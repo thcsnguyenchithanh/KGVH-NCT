@@ -19,6 +19,7 @@ export default function TopicMeshCard({ topic, index, onClick }) {
 
       {/* Ô ảnh chủ đề */}
       <mesh
+      position={[0, 0, 0.02]}
         onClick={(e) => {
           e.stopPropagation();
 
