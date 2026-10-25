@@ -13,13 +13,12 @@ export default function TopicMeshCard({ topic, index, onClick }) {
     <group position={[x, y, 0.01]}>
       {/* Khung viền vàng */}
       <mesh position={[0, 0, -0.001]}>
-        <planeGeometry args={[1.65, 1.15]} />
-        <meshBasicMaterial color="#d4af37" />
+       <boxGeometry args={[1.68, 1.18, 0.03]} />
+        <meshStandardMaterial color="#d4af37" roughness={0.5} />
       </mesh>
 
       {/* Ô ảnh chủ đề */}
       <mesh
-      position={[0, 0, 0.02]}
         onClick={(e) => {
           e.stopPropagation();
 
