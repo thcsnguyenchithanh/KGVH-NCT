@@ -1102,7 +1102,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           {/* Sàn gian trưng bày */}
           <mesh position={[0, 0.08, 0]}>
             <boxGeometry args={[2.25, 0.16, 1.9]} />
-            <meshStandardMaterial color="#281c19" />
+            <meshStandardMaterial color="#4f3a25" />
           </mesh>
 
           {/* Vách sau */}
@@ -1814,7 +1814,7 @@ function SpaceInteriorRoom({
       {/* Sàn phòng */}
       <mesh position={[0, 0, 0]} receiveShadow>
         <boxGeometry args={[10, 0.2, 8]} />
-        <meshStandardMaterial color="#312d1f" />
+        <meshStandardMaterial color="#4f3a25" />
       </mesh>
 
       {/* Trần */}
@@ -2006,7 +2006,7 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
       {/* Sàn phòng 2: rộng 20, sâu 14 */}
       <mesh position={[-22, 0, 5.75]} receiveShadow>
         <boxGeometry args={[20, 0.2, 14]} />
-        <meshStandardMaterial color="#312d1f" />
+        <meshStandardMaterial color="#4f3a25" />
       </mesh>
 
       {/* Trần */}
@@ -2115,7 +2115,7 @@ function Room({
       {/* Sàn */}   
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
                 <planeGeometry args={[ROOM.width, ROOM.depth]} />
-                <meshStandardMaterial color="#312d1f" />   
+                <meshStandardMaterial color="#4f3a25" />   
       </mesh>
             {/* Trần */}   
       <mesh position={[0, ROOM.height, 0]} rotation={[Math.PI / 2, 0, 0]}>
