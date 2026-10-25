@@ -555,8 +555,8 @@ function RightWallPanels() {
 // Component hiển thị 2 poster trên tường bên trái
 function LeftWallPanels() {
   // 1. Tải texture 2 bức ảnh (Bạn có thể thay đổi đường dẫn src theo ý muốn)
-  const panel1 = useTexture(`${import.meta.env.BASE_URL}images/p1.png`);
-  const panel2 = useTexture(`${import.meta.env.BASE_URL}images/p2.png`);
+  const panel1 = useTexture(`${import.meta.env.BASE_URL}sanh/p1.png`);
+  const panel2 = useTexture(`${import.meta.env.BASE_URL}sanh/p2.png`);
 
   return (
     <group position={[-11.78, 2.7, 0]} rotation={[0, Math.PI / 2, 0]}>
@@ -576,7 +576,7 @@ function LeftWallPanels() {
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
-                  src: `${import.meta.env.BASE_URL}images/p1.png`,
+                  src: `${import.meta.env.BASE_URL}sanh/p1.png`,
                   alt: "Poster trái 1",
                 },
               })
@@ -606,7 +606,7 @@ function LeftWallPanels() {
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
-                  src: `${import.meta.env.BASE_URL}images/p2.png`,
+                  src: `${import.meta.env.BASE_URL}sanh/p2.png`,
                   alt: "Poster trái 2",
                 },
               })
