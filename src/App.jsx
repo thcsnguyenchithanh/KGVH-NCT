@@ -2371,16 +2371,24 @@ export default function App() {
 {/* Thanh Audio Player nổi toàn cục ở ngoài cùng, đè lên mọi thứ */}
 {activeAudio && (
   <div style={{
-    position: "fixed", bottom: "30px", left: "50%", transform: "translateX(-50%)",
-    zIndex: 99999999, background: "rgba(74, 46, 24, 0.95)", padding: "12px 24px",
-    borderRadius: "35px", boxShadow: "0 6px 20px rgba(0,0,0,0.5)", display: "flex",
-    alignItems: "center", gap: "15px", border: "2px solid #ffd700", pointerEvents: "auto"
+    position: "fixed",
+    bottom: "40px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 999999,
+    background: "#4a2e18",
+    padding: "12px 24px",
+    borderRadius: "30px",
+    display: "flex",
+    alignItems: "center",
+    gap: "15px",
+    border: "2px solid #ffd700"
   }}>
-    <span style={{ color: "#fff0c2", fontSize: "15px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
-    <audio src={activeAudio} controls autoPlay style={{ height: "36px" }} />
+    <span style={{ color: "#fff", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
+    <audio src={activeAudio} controls autoPlay style={{ height: "32px" }} />
     <button 
       onClick={() => setActiveAudio(null)}
-      style={{ background: "#7c2929", color: "#fff", border: "none", borderRadius: "50%", width: "28px", height: "28px", cursor: "pointer", fontWeight: "bold" }}
+      style={{ background: "#7c2929", color: "#fff", border: "none", borderRadius: "50%", width: "26px", height: "26px", cursor: "pointer" }}
     >
       ✕
     </button>
