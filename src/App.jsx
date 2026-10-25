@@ -3715,15 +3715,32 @@ max-width: 1400px;
                   </p>
 
                   <button
-                    onClick={() =>
-                      window.open(
-                        so === 1
-                          ? "https://stbook.vn/read_book/926a2cd110ef4786b319a5aa341f4459/1131"
-                          : "https://",
-                        "_blank",
-                        "noopener,noreferrer",
-                      )
-                    }
+                    onClick={() => {
+      // 📚 Bảng danh sách link cho 16 cuốn sách (Bạn thay link thật vào đây)
+      const bookLinks = {
+        1: "https://stbook.vn/read_book/926a2cd110ef4786b319a5aa341f4459/1131",
+        2: "https://link-doc-sach-2.vn",
+        3: "https://link-doc-sach-3.vn",
+        4: "https://link-doc-sach-4.vn",
+        5: "https://link-doc-sach-5.vn",
+        6: "https://link-doc-sach-6.vn",
+        7: "https://link-doc-sach-7.vn",
+        8: "https://link-doc-sach-8.vn",
+        9: "https://link-doc-sach-9.vn",
+        10: "https://link-doc-sach-10.vn",
+        11: "https://link-doc-sach-11.vn",
+        12: "https://link-doc-sach-12.vn",
+        13: "https://link-doc-sach-13.vn",
+        14: "https://link-doc-sach-14.vn",
+        15: "https://link-doc-sach-15.vn",
+        16: "https://link-doc-sach-16.vn",
+      };
+
+      // Lấy link tương ứng với số cuốn sách, nếu chưa có sẽ mặc định là "https://"
+      const targetUrl = bookLinks[so] || "https://";
+
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    }}
                     style={{
                       width: "100%",
                       padding: "11px 14px",
