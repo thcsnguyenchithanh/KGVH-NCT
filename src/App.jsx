@@ -110,8 +110,18 @@ const SPACE_CONTENT = {
     ],
   },
   4: {
-    video: "https://www.youtube.com/embed/R5wsX7xQsxY",
-    pdf: `${import.meta.env.BASE_URL}doc/Khu1.pdf`,
+   // Tường giữa (Room5)
+  bgWall5: `${import.meta.env.BASE_URL}Room5/bg5.png`,
+  audioBg5: `${import.meta.env.BASE_URL}Room5/bg5.mp3`,
+
+  // Tường trái (Room5)
+  imageTrai5: `${import.meta.env.BASE_URL}Room5/trai5.png`,
+  audioTrai5: `${import.meta.env.BASE_URL}Room5/trai5.mp3`,
+
+  // Tường phải (Room5)
+  imagePhai5: `${import.meta.env.BASE_URL}Room5/phai5.png`,
+  audioPhai5: `${import.meta.env.BASE_URL}Room5/phai5.mp3`,
+},
   },
   5: {
     video: "https://www.youtube.com/embed/R5wsX7xQsxY",
@@ -596,12 +606,12 @@ useEffect(() => {
       </Html>
     </>
   )}
-  {space.id === 6 && (
+  {(space.id === 6 || space.id === 5) && (
   <group position={[0, 0, 0.01]}>
     {/* 1. Hiển thị ảnh tường 3D bình thường */}
     <WallImage
-      src={SPACE_CONTENT[6].bgWall6}
-      alt="Nền tường giữa Khu 6"
+      src={space.id === 6 ? SPACE_CONTENT[6].bgWall6 : SPACE_CONTENT[5].bgWall5}
+      alt={`Nền tường giữa Khu ${space.id}`}
       position={[0, 0, 0.01]}
       width={7.5}
       height={3.2}
@@ -621,19 +631,16 @@ useEffect(() => {
       <div
         onClick={(e) => {
           e.stopPropagation();
-          console.log("--> ĐÃ CLICK QUA LỚP HTML OVERLAY PHÒNG 6!");
+          const bgSrc = space.id === 6 ? SPACE_CONTENT[6].bgWall6 : SPACE_CONTENT[5].bgWall5;
+          const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioBg6 : SPACE_CONTENT[5].audioBg5;
 
-          // 1. Mở phóng to ảnh tường
           window.dispatchEvent(
             new CustomEvent("open-wall-image", {
-              detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
+              detail: { src: bgSrc, alt: `Tường Giữa - Phòng ${space.id}` },
             })
           );
-
-          // 2. Kích hoạt phát audio
           if (window.setActiveAudioGlobal) {
-            window.setActiveAudioGlobal(SPACE_CONTENT[6].audioBg6);
-            console.log("--> Đã kích hoạt audio:", SPACE_CONTENT[6].audioBg6);
+            window.setActiveAudioGlobal(audioSrc);
           }
         }}
         style={{
@@ -789,12 +796,12 @@ useEffect(() => {
       ))}
     </>
     
- ): space.id === 6 ? (
+ ): (space.id === 6 || space.id === 5) ? (
   <group position={[0, 0, 0]}>
     {/* 1. Hiển thị ảnh tường trái 3D */}
     <WallImage
-      src={SPACE_CONTENT[6].imageTrai6}
-      alt="Hình tường trái Phòng 6"
+      src={space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5}
+      alt={`Hình tường trái Phòng ${space.id}`}
       position={[0, 0, 0]}
       width={6.5}
       height={3.8}
@@ -814,12 +821,12 @@ useEffect(() => {
       <div
         onClick={(e) => {
           e.stopPropagation();
-          console.log("--> Đã click tường trái Phòng 6 qua Html overlay!");
+          const imgSrc = space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5;
+          const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioTrai6 : SPACE_CONTENT[5].audioTrai5;
 
-          // Mở phóng to ảnh tường trái
           window.dispatchEvent(
             new CustomEvent("open-wall-image", {
-              detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
+              detail: { src: imgSrc, alt: `Tường Trái - Phòng ${space.id}` },
             })
           );
 
@@ -921,12 +928,12 @@ useEffect(() => {
       height={3.8}
     />
     
-): space.id === 6 ? (
+): (space.id === 6 || space.id === 5) ? (
   <group position={[0, 0, 0]}>
     {/* 1. Hiển thị ảnh tường phải 3D */}
     <WallImage
-      src={SPACE_CONTENT[6].imagePhai6}
-      alt="Hình tường phải Phòng 6"
+     src={space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5}
+      alt={`Hình tường phải Phòng ${space.id}`}
       position={[0, 0, 0]}
       width={6.5}
       height={3.8}
@@ -944,14 +951,14 @@ useEffect(() => {
       }}
     >
       <div
-        onClick={(e) => {
+       onClick={(e) => {
           e.stopPropagation();
-          console.log("--> Đã click tường phải Phòng 6 qua Html overlay!");
+          const imgSrc = space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
+          const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
 
-          // Mở phóng to ảnh tường phải
           window.dispatchEvent(
             new CustomEvent("open-wall-image", {
-              detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
+              detail: { src: imgSrc, alt: `Tường Phải - Phòng ${space.id}` },
             })
           );
 
