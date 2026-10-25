@@ -561,7 +561,7 @@ function LeftWallPanels() {
   return (
     <group position={[-11.78, 2.7, 0]} rotation={[0, Math.PI / 2, 0]}>
       {/* ================= 1. POSTER 1 (BÊN TRÁI) ================= */}
-      <group position={[-4.8, 0, 0]}>
+      <group position={[-2.8, 0, 0]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
