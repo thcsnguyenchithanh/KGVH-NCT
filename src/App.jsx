@@ -1102,25 +1102,25 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           {/* Sàn gian trưng bày */}
           <mesh position={[0, 0.08, 0]}>
             <boxGeometry args={[2.25, 0.16, 1.9]} />
-            <meshStandardMaterial color="#d8c9ad" />
+            <meshStandardMaterial color="#281c19" />
           </mesh>
 
           {/* Vách sau */}
           <mesh position={[0, 1.1, -0.9]}>
             <boxGeometry args={[2.25, 2.2, 0.12]} />
-            <meshStandardMaterial color="#eee6d7" />
+            <meshStandardMaterial color="#724a40" />
           </mesh>
 
           {/* Vách trái */}
           <mesh position={[-1.06, 1.1, 0]}>
             <boxGeometry args={[0.12, 2.2, 1.9]} />
-            <meshStandardMaterial color="#eee6d7" />
+            <meshStandardMaterial color="#724a40" />
           </mesh>
 
           {/* Vách phải */}
           <mesh position={[1.06, 1.1, 0]}>
             <boxGeometry args={[0.12, 2.2, 1.9]} />
-            <meshStandardMaterial color="#eee6d7" />
+            <meshStandardMaterial color="#724a40" />
           </mesh>
 
           {/* Bảng tên */}
@@ -1142,7 +1142,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             maxWidth={2.1}
             textAlign="center"
             outlineWidth={0.003}
-            outlineColor="#79552C"
+            outlineColor="#cd2512"
             letterSpacing={0.005}
             lineHeight={1.3}
             material-toneMapped={false}
@@ -1160,11 +1160,11 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             <Text
               position={[0, 1.15, 0.87]}
               fontSize={0.19}
-              color="#7c2929"
+              color="#d21a1a"
               anchorX="center"
               anchorY="middle"
             >
-              {`KHU ${space.id}`}
+              {`PHÒNG ${space.id}`}
             </Text>
 
             <Text
@@ -1821,9 +1821,10 @@ function SpaceInteriorRoom({
       <mesh position={[0, 4, 0]}>
         <boxGeometry args={[10, 0.2, 8]} />
         <meshStandardMaterial color="#eee6d7" />
+        <CeilingDrum y={4.11} size={4} />
       </mesh>
       {/* Hoa văn trống đồng trên trần */}
-      <CeilingDrum y={4.11} size={4} />
+      
 
       {/* Vách sau - đối diện cửa */}
       <mesh position={[0, 2, -4]}>
