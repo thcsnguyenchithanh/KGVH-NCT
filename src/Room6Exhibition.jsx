@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
-import * as THREE from "three";
+import { useTexture } from "@react-three/drei";
+import { useRef } from "react";
 
 export default function WallImageAudioSection({
   title,
@@ -10,35 +10,23 @@ export default function WallImageAudioSection({
   width = 5.5,
   height = 2.8,
 }) {
-  const [texture, setTexture] = useState(null);
+  // Phòng hờ nếu imgSrc chưa có thì trả về null để không bao giờ gọi useTexture với giá trị rỗng
+  if (!imgSrc) return null;
+
+  const texture = useTexture(imgSrc);
   const audioRef = useRef(null);
-
-  // Dùng TextureLoader thuần trong useEffect để an toàn tuyệt đối, không làm sập R3F Context
-  useEffect(() => {
-    if (!imgSrc) return;
-    const loader = new THREE.TextureLoader();
-    loader.load(
-      imgSrc,
-      (loadedTexture) => {
-        loadedTexture.colorSpace = THREE.SRGBColorSpace;
-        setTexture(loadedTexture);
-      },
-      undefined,
-      (err) => console.log("Lỗi load texture:", err)
-    );
-  }, [imgSrc]);
-
-  if (!imgSrc || !texture) return null; // Chưa có ảnh thì không render, tránh crash
 
   const handleClick = (e) => {
     e.stopPropagation();
 
+    // 1. Phóng to ảnh
     window.dispatchEvent(
       new CustomEvent("open-wall-image", {
         detail: { src: imgSrc, alt: title },
       })
     );
 
+    // 2. Phát audio thuyết minh
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((err) => console.log("Lỗi phát audio:", err));
@@ -47,13 +35,13 @@ export default function WallImageAudioSection({
 
   return (
     <group position={position} rotation={rotation}>
-      {/* Khung gỗ */}
+      {/* Khung gỗ viền ngoài tranh */}
       <mesh position={[0, 0, -0.005]}>
         <boxGeometry args={[width + 0.2, height + 0.2, 0.03]} />
         <meshStandardMaterial color="#4a2e18" roughness={0.6} />
       </mesh>
 
-      {/* Mặt tranh */}
+      {/* Mesh hiển thị tranh y hệt WallImage của Khu 1 nhưng tích hợp thêm click phát audio */}
       <mesh
         position={[0, 0, 0]}
         onClick={handleClick}
@@ -64,7 +52,7 @@ export default function WallImageAudioSection({
         <meshBasicMaterial
           map={texture}
           toneMapped={false}
-          side={THREE.DoubleSide}
+          side={2}
         />
       </mesh>
 
