@@ -2232,7 +2232,7 @@ function Room({
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
    <RightWallPanels onSelectImage={onSelectImage} />
    <LeftWallPanels onSelectImage={onSelectImage} />
-    <OppositeWallPanels onSelectImage={onSelectImage} />
+    <OppositeWallPanels/>
 
 
 {/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
