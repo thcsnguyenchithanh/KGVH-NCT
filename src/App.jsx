@@ -467,7 +467,7 @@ function FramedVideoScreen({ onOpen }) {
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
         {/* Thu nhỏ kích thước video lại để lọt vừa khít bên trong viền vàng của ô đen */}
-        <planeGeometry args={[2.8, 0.3]} />
+        <planeGeometry args={[2.8, 2.3]} />
         <meshBasicMaterial map={videoTexture} toneMapped={false} />
       </mesh>
     </group>
