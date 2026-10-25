@@ -643,7 +643,7 @@ function LeftWallPanels() {
 //--------------------------------------------------------------------------------------------------------
 
 function OppositeWallPanels() {
- // 1. Lấy danh sách đường dẫn hình ảnh để tải texture
+  // 1. Lấy danh sách đường dẫn hình ảnh để tải texture
   const imageSources = useMemo(
     () => posterImages.map((item) => item.src),
     []
@@ -652,20 +652,20 @@ function OppositeWallPanels() {
   // 2. Tải toàn bộ 4 texture bằng useTexture
   const textures = useTexture(imageSources);
 
-  // 3. Tăng khoảng cách tọa độ X một chút để phù hợp với khung ảnh to hơn
-  const xPositions = [-8.0, -2.7, 2.7, 8.0];
+  // 3. Tọa độ X phân bố đều 4 tấm hình trên chiều rộng bức tường đối diện
+ const xPositions = [-8.0, -2.7, 2.7, 8.0];
 
   return (
-    <group position={[0, 2.7, 11.78]} rotation={[0, Math.PI, 0]}>
+  <group position={[0, 2.7, 11.78]} rotation={[0, Math.PI, 0]}>
       {posterImages.map((poster, index) => (
         <group key={poster.id} position={[xPositions[index], 0, 0]}>
-          {/* Khung viền gỗ phóng to: Rộng 3.8, Cao 2.6 */}
+          {/* Khung viền gỗ màu trầm phía sau */}
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[3.8, 2.6, 0.05]} />
             <meshStandardMaterial color="#5c1717" roughness={0.6} />
           </mesh>
 
-          {/* Bề mặt ảnh phóng to: Rộng 3.6, Cao 2.4 */}
+          {/* Bề mặt hiển thị hình ảnh có gắn sự kiện click phóng to toàn màn hình */}
           <mesh
             position={[0, 0, 0.03]}
             onClick={(e) => {
@@ -682,7 +682,7 @@ function OppositeWallPanels() {
             onPointerOver={() => { document.body.style.cursor = "pointer"; }}
             onPointerOut={() => { document.body.style.cursor = "default"; }}
           >
-            <planeGeometry args={[3.6, 2.4]} />
+           <planeGeometry args={[3.6, 2.4]} />
             <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
           </mesh>
         </group>
