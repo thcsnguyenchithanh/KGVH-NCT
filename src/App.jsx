@@ -139,6 +139,29 @@ const SANH_CONTENT = {
   ],
 };
 
+const posterImages = [
+  {
+    id: 1,
+    src: `${import.meta.env.BASE_URL}imgNct/nct1.jpg`,
+    alt: "Poster Nguyễn Chí Thanh 1",
+  },
+  {
+    id: 2,
+    src: `${import.meta.env.BASE_URL}imgNct/nct2.jpg`,
+    alt: "Poster Nguyễn Chí Thanh 2",
+  },
+  {
+    id: 3,
+    src: `${import.meta.env.BASE_URL}imgNct/nct3.jpg`,
+    alt: "Poster Nguyễn Chí Thanh 3",
+  },
+  {
+    id: 4,
+    src: `${import.meta.env.BASE_URL}imgNct/nct4.jpg`,
+    alt: "Poster Nguyễn Chí Thanh 4",
+  },
+];
+
 const SPACE_CONTENT = {
   1: {
     video: "https://www.youtube.com/embed/R5wsX7xQsxY",
@@ -613,6 +636,57 @@ function LeftWallPanels() {
           <meshBasicMaterial map={panel2} side={THREE.DoubleSide} />
         </mesh>
       </group>
+    </group>
+  );
+}
+
+//--------------------------------------------------------------------------------------------------------
+
+function OppositeWallPanels() {
+  // 1. Lấy danh sách đường dẫn hình ảnh để tải texture
+  const imageSources = useMemo(
+    () => posterImages.map((item) => item.src),
+    []
+  );
+
+  // 2. Tải toàn bộ 4 texture bằng useTexture
+  const textures = useTexture(imageSources);
+
+  // 3. Tọa độ X phân bố đều 4 tấm hình trên chiều rộng bức tường đối diện
+  const xPositions = [-6.0, -2.0, 2.0, 6.0];
+
+  return (
+    <group position={[0, 2.7, 11.78]} rotation={[0, Math.PI, 0]}>
+      {posterImages.map((poster, index) => (
+        <group key={poster.id} position={[xPositions[index], 0, 0]}>
+          {/* Khung viền gỗ màu trầm phía sau */}
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[2.2, 3.2, 0.05]} />
+            <meshStandardMaterial color="#5c1717" roughness={0.6} />
+          </mesh>
+
+          {/* Bề mặt hiển thị hình ảnh có gắn sự kiện click phóng to toàn màn hình */}
+          <mesh
+            position={[0, 0, 0.03]}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.dispatchEvent(
+                new CustomEvent("open-wall-image", {
+                  detail: {
+                    src: poster.src,
+                    alt: poster.alt,
+                  },
+                })
+              );
+            }}
+            onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+            onPointerOut={() => { document.body.style.cursor = "default"; }}
+          >
+            <planeGeometry args={[2.0, 3.0]} />
+            <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
+          </mesh>
+        </group>
+      ))}
     </group>
   );
 }
@@ -2158,7 +2232,7 @@ function Room({
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
    <RightWallPanels onSelectImage={onSelectImage} />
    <LeftWallPanels onSelectImage={onSelectImage} />
-
+    <OppositeWallPanels onSelectImage={onSelectImage} />
 
 
 {/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
