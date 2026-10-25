@@ -1939,10 +1939,7 @@ function Scene({
         onOpenVideo={onOpenVideo}
         onExhibit={onExhibit}
         onSpaceClick={onSpaceClick}
-        onSelectImage={(imageSrc) => {
-    
-    setSelectedImage(imageSrc); 
-  }}
+        onSelectImage={onSelectImage}
         onOpenLibrary={onOpenLibrary}
         
         onOpenMuseum={() =>
@@ -2452,7 +2449,7 @@ export default function App() {
           showPadlet={showPadlet}
           wallImageFull={wallImageFull}
           setSelectedKhu3Topic={setSelectedKhu3Topic}
-          setSelectedImage={setSelectedImage}
+          onSelectImage={setSelectedImage}
         />
                    
       </Canvas>
