@@ -3124,6 +3124,12 @@ export default function App() {
                       controls
                       src={story.file}
                       style={{ width: "100%", height: "36px" }}
+                      onPlay={() => {
+                  // Tự động tắt nhạc nền/audio đang chạy khác thông qua hàm global có sẵn
+                  if (window.setActiveAudioGlobal) {
+                    window.setActiveAudioGlobal(null);
+                  }
+                }}
                     />
                   </div>
                 ))}
