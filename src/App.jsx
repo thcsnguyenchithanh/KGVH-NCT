@@ -2040,7 +2040,7 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
       <Text
         position={[-31.75, 4.6, 5.75]}
         rotation={[0, Math.PI / 2, 0]}
-        fontSize={0.8}
+        fontSize={0.5}
         color="#7c2929"
         anchorX="center"
         anchorY="middle"
