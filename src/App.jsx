@@ -549,7 +549,7 @@ useEffect(() => {
     />
   )}
 
-  {{/* Tường Giữa Phòng 6 */}
+  {/* Tường Giữa Phòng 6 */}
 {space.id === 6 && (
   <WallImageAudioSection
     title="Thuyết minh Tường Giữa - Phòng 6"
