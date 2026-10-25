@@ -439,7 +439,7 @@ function FixedLookControls() {
 function FramedVideoScreen({ onOpen }) {
   const bgTexture = useTexture(SANH_CONTENT.background);[cite: 1]
   const videoTexture = useVideoTexture(
-    `${import.meta.env.BASE_URL}video/TNDL.mp4`,[cite: 1]
+    `${import.meta.env.BASE_URL}video/TNDL.mp4`,
     {
       loop: true,
       muted: true,
