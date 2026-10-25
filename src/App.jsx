@@ -1377,7 +1377,7 @@ function SpaceInteriorRoom({
                 }
               >
                 <Html
-                  position={[0, 0, 0.05]}
+                  position={[0, -0.5, 0.05]}
                   transform
                   distanceFactor={1.5}
                   occlude
