@@ -821,6 +821,7 @@ useEffect(() => {
         onMouseDown={(e) => {
           e.stopPropagation();
           e.preventDefault();
+          
           const imgSrc = space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5;
           const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioTrai6 : SPACE_CONTENT[5].audioTrai5;
 
@@ -830,9 +831,9 @@ useEffect(() => {
             })
           );
 
-          // Kích hoạt phát audio tường trái và tự động ngắt các âm thanh khác
+          // Sửa lại: Dùng biến audioSrc thay vì viết cứng số 6
           if (window.setActiveAudioGlobal) {
-            window.setActiveAudioGlobal(SPACE_CONTENT[6].audioTrai6);
+            window.setActiveAudioGlobal(audioSrc);
           }
         }}
         style={{
@@ -951,21 +952,24 @@ useEffect(() => {
       }}
     >
       <div
-       onMouseDown={(e) => {
+        onMouseDown={(e) => {
           e.stopPropagation();
           e.preventDefault();
-          const imgSrc = space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
-          const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
+          
+          // Lấy đúng dữ liệu hình ảnh và audio tương ứng với số phòng hiện tại (5 hoặc 6)
+          const imgPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
+          const audioPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
 
+          // Mở phóng to ảnh tường phải
           window.dispatchEvent(
             new CustomEvent("open-wall-image", {
-              detail: { src: imgSrc, alt: `Tường Phải - Phòng ${space.id}` },
+              detail: { src: imgPhaiSrc, alt: `Tường Phải - Phòng ${space.id}` },
             })
           );
 
           // Kích hoạt phát audio tường phải và tự động ngắt các âm thanh khác
           if (window.setActiveAudioGlobal) {
-            window.setActiveAudioGlobal(SPACE_CONTENT[6].audioPhai6);
+            window.setActiveAudioGlobal(audioPhaiSrc);
           }
         }}
         style={{
