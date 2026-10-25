@@ -458,7 +458,7 @@ function FramedVideoScreen({ onOpen }) {
       {/* ================= LỚP 2: MÀN HÌNH VIDEO LỒNG TRONG KHUNG ================= */}
       <mesh
         // Điều chỉnh tọa độ Y (số thứ 2) để kéo video lên/xuống cho khớp ô đen
-        position={[0, -0.55, 0.02]} 
+        position={[0, -0.40, 0.02]} 
         onClick={(e) => {
           e.stopPropagation();
           onOpen?.();
@@ -467,7 +467,7 @@ function FramedVideoScreen({ onOpen }) {
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
         {/* Thu nhỏ kích thước video lại để lọt vừa khít bên trong viền vàng của ô đen */}
-        <planeGeometry args={[3.4, 1.7]} />
+        <planeGeometry args={[3.6, 1.7]} />
         <meshBasicMaterial map={videoTexture} toneMapped={false} />
       </mesh>
     </group>
