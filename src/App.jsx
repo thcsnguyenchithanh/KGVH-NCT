@@ -33,20 +33,20 @@ export const CONTENT_LIST = [
   { id: 5, name: "Bảo tàng 3D", type: "spot" },
 
   // 8 thẻ nội dung trưng bày
-  { id: 6, name: "Tiểu sử và cuộc đời Chủ tịch Hồ Chí Minh", type: "space" },
-  { id: 7, name: "Hành trình theo dấu chân Bác", type: "space" },
-  { id: 8, name: "Hiện vật và dấu ấn về Chủ tịch Hồ Chí Minh", type: "space" },
-  { id: 9, name: "Những câu chuyện về Bác Hồ", type: "space" },
-  { id: 10, name: "Tư tưởng, đạo đức, phong cách Hồ Chí Minh", type: "space" },
+  { id: 6, name: "Phòng Tiểu sử và cuộc đời Bác", type: "space" },
+  { id: 7, name: "Phòng Hành trình theo dấu chân Bác", type: "space" },
+  { id: 8, name: "Phòng Tư tưởng, đạo đức, phong cách Hồ Chí Minh", type: "space" },
+  { id: 9, name: "Phòng Những câu chuyện về Bác", type: "space" },
+  { id: 10, name: "Phòng Di sản Hồ Chí Minh ", type: "space" },
   {
     id: 11,
-    name: "Bác Hồ với thiếu niên, nhi đồng và giáo dục",
+    name: "Phòng Bác Hồ với thiếu niên, nhi đồng và giáo dục",
     type: "space",
   },
-  { id: 12, name: "Di sản Hồ Chí Minh", type: "space" },
+  { id: 12, name: "Triển lãm Không gian văn hóa phường Tân Thới Hiệp", type: "space" },
   {
     id: 13,
-    name: "Bác Hồ trong trái tim thầy và trò nhà trường",
+    name: "Phòng Bác Hồ trong trái tim thầy và trò nhà trường",
     type: "space",
   },
 ];
