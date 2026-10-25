@@ -710,44 +710,52 @@ function MultipleHangingFlags() {
 //--------------------------------------------------------------------------------------------------------
 
 function SecondRoomBanners() {
-  // 1. Tải toàn bộ 4 texture từ mảng SANH_CONTENT.banners
  const textures = useTexture(SANH_CONTENT.banners.map((item) => item.src));
 
-  // 2. Tọa độ X phân bố 4 bức tranh nằm ngang đều nhau ngay dưới chữ tiêu đề
-  const xPositions = [-3.3, -1.1, 1.1, 3.3];
+  // 2. Khoảng cách phân bố dọc theo trục Z (tâm tường phòng 2 nằm ở Z = 5.75)
+  const zOffsets = [-3.3, -1.1, 1.1, 3.3];
 
   return (
-    <group position={[0, 1.2, -0.05]}>
-      {SANH_CONTENT.banners.map((banner, index) => (
-        <group key={banner.id} position={[xPositions[index], 0, 0]}>
-          {/* Khung viền gỗ màu trầm sang trọng */}
-          <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[1.8, 2.5, 0.05]} />
-            <meshStandardMaterial color="#5c1717" roughness={0.6} />
-          </mesh>
+    <group>
+      {SANH_CONTENT.banners.map((banner, index) => {
+        const zPos = 5.75 + zOffsets[index]; // Tính tọa độ Z trải đều trên tường cuối
 
-          {/* Bề mặt ảnh bức tranh có gắn sự kiện click xem full màn hình */}
-          <mesh
-            position={[0, 0, 0.03]}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.dispatchEvent(
-                new CustomEvent("open-wall-image", {
-                  detail: {
-                    src: banner.src,
-                    alt: banner.alt,
-                  },
-                })
-              );
-            }}
-            onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-            onPointerOut={() => { document.body.style.cursor = "default"; }}
+        return (
+          <group 
+            key={banner.id} 
+            // Đặt sát tường cuối (X = -31.7), cao độ vừa phải (Y = 2.2), và xoay mặt vào trong phòng
+            position={[-31.7, 2.2, zPos]} 
+            rotation={[0, Math.PI / 2, 0]}
           >
-            <planeGeometry args={[1.6, 2.3]} />
-            <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
-          </mesh>
-        </group>
-      ))}
+            {/* Khung viền gỗ màu trầm sang trọng */}
+            <mesh position={[0, 0, 0]}>
+              <boxGeometry args={[1.8, 2.5, 0.05]} />
+              <meshStandardMaterial color="#5c1717" roughness={0.6} />
+            </mesh>
+
+            {/* Bề mặt ảnh bức tranh có gắn sự kiện click xem full màn hình */}
+            <mesh
+              position={[0, 0, 0.03]}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.dispatchEvent(
+                  new CustomEvent("open-wall-image", {
+                    detail: {
+                      src: banner.src,
+                      alt: banner.alt,
+                    },
+                  })
+                );
+              }}
+              onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+              onPointerOut={() => { document.body.style.cursor = "default"; }}
+            >
+              <planeGeometry args={[1.6, 2.3]} />
+              <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
+            </mesh>
+          </group>
+        );
+      })}
     </group>
   );
 }
