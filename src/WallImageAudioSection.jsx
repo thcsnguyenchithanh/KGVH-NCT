@@ -16,12 +16,15 @@ export default function WallImageAudioSection({
 
   const handleClick = (e) => {
     e.stopPropagation();
+
+    // 1. Phóng to ảnh toàn màn hình
     window.dispatchEvent(
       new CustomEvent("open-wall-image", {
         detail: { src: imgSrc, alt: title },
       })
     );
 
+    // 2. Phát audio thuyết minh
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((err) => console.log(err));
@@ -30,13 +33,13 @@ export default function WallImageAudioSection({
 
   return (
     <group position={position} rotation={rotation}>
-      {/* Khung gỗ */}
+      {/* Khung gỗ bao quanh */}
       <mesh position={[0, 0, -0.005]}>
         <boxGeometry args={[width + 0.2, height + 0.2, 0.03]} />
         <meshStandardMaterial color="#4a2e18" roughness={0.6} />
       </mesh>
 
-      {/* Dùng HTML thay vì useTexture để an toàn 100% với Fiber Context */}
+      {/* Hiển thị ảnh bằng HTML trực tiếp trong không gian 3D - Không bao giờ sập Fiber Context */}
       <Html
         position={[0, 0, 0]}
         transform
@@ -51,16 +54,26 @@ export default function WallImageAudioSection({
       >
         <div
           onClick={handleClick}
-          style={{ width: "100%", height: "100%", cursor: "pointer" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            cursor: "pointer",
+          }}
         >
           <img
             src={imgSrc}
             alt={title}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
           />
         </div>
       </Html>
 
+      {/* Thẻ audio ngầm */}
       <audio ref={audioRef} src={audioSrc} preload="auto" />
     </group>
   );
