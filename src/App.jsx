@@ -124,8 +124,17 @@ const SPACE_CONTENT = {
 },
   },
   5: {
-    video: "https://www.youtube.com/embed/R5wsX7xQsxY",
-    pdf: `${import.meta.env.BASE_URL}doc/Khu1.pdf`,
+   // Tường giữa (Room5)
+  bgWall5: `${import.meta.env.BASE_URL}Room5/bg5.png`,
+  audioBg5: `${import.meta.env.BASE_URL}Room5/bg5.mp3`,
+
+  // Tường trái (Room5)
+  imageTrai5: `${import.meta.env.BASE_URL}Room5/trai5.png`,
+  audioTrai5: `${import.meta.env.BASE_URL}Room5/trai5.mp3`,
+
+  // Tường phải (Room5)
+  imagePhai5: `${import.meta.env.BASE_URL}Room5/phai5.png`,
+  audioPhai5: `${import.meta.env.BASE_URL}Room5/phai5.mp3`,
   },
   6: {
   // Tường giữa (Room6)
