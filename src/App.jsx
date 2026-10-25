@@ -1777,8 +1777,8 @@ function SpaceInteriorRoom({
             distanceFactor={1.2}
             occlude // Khóa chặt theo không gian 3D của Three.js
             style={{
-              width: "1280px",
-              height: "720px",
+              width: "1680px",
+  height: "945px",
               overflow: "hidden",
               border: "2px solid #70472e",
               borderRadius: "6px",
