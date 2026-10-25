@@ -38,10 +38,7 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
         {/* Khung gỗ bao quanh */}
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[width + 0.2, height + 0.2, 0.04]} />
-          <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-        </mesh>
+     
 
         {/* Ảnh trên tường */}
         <Html
