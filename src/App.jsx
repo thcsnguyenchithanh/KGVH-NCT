@@ -617,6 +617,114 @@ function LeftWallPanels() {
   );
 }
 
+//--------------------------------------------------------------------------------------------------------
+
+
+// Component tạo dây treo cờ vắt ngang sảnh chính
+function HangingFlags() {
+  // 1. Định nghĩa đường cong cho sợi dây (Neo tường trái -> Võng ở giữa -> Neo tường phải)
+  const curve = useMemo(() => {
+    return new THREE.QuadraticBezierCurve3(
+      new THREE.Vector3(-11, 5.2, 0), // Điểm treo bên tường trái (X = -11, Y = 5.2)
+      new THREE.Vector3(0, 4.6, 0),   // Điểm giữa bị võng xuống nhẹ do trọng lực (Y = 4.6)
+      new THREE.Vector3(11, 5.2, 0)   // Điểm treo bên tường phải (X = 11, Y = 5.2)
+    );
+  }, []);
+
+  // 2. Lấy 20 điểm trên đường cong để làm vị trí gắn cờ
+  const points = useMemo(() => curve.getPoints(20), [curve]);
+
+  return (
+    <group>
+      {/* Sợi dây mảnh nối giữa 2 tường */}
+      <line>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[new Float32Array(points.flatMap((p) => [p.x, p.y, p.z])), 3]}
+          />
+        </bufferGeometry>
+        <lineBasicMaterial color="#ffffff" linewidth={2} />
+      </line>
+
+      {/* Các lá cờ nhỏ đỏ - vàng xen kẽ treo dọc theo dây */}
+      {points.slice(1, -1).map((pt, idx) => (
+        <mesh
+          key={idx}
+          position={[pt.x, pt.y - 0.2, pt.z]}
+          rotation={[0, 0, idx % 2 === 0 ? 0.12 : -0.12]} // Xoay nhẹ góc để cờ trông tự nhiên hơn
+        >
+          <planeGeometry args={[0.3, 0.4]} />
+          <meshBasicMaterial
+            color={idx % 2 === 0 ? "#da251d" : "#ffcc00"} // Đỏ và Vàng
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+// Component tạo Lá cờ đỏ sao vàng Việt Nam
+// Component 2: Cờ đỏ sao vàng Việt Nam kèm cán cờ gỗ
+function VietnameseFlag({ position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1] }) {
+  // Tạo hình ảnh lá cờ trực tiếp bằng Canvas
+  const flagTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 683; // Tỉ lệ chuẩn 3:2 của Quốc kỳ Việt Nam
+    const ctx = canvas.getContext("2d");
+
+    // 1. Tô nền màu đỏ cờ chuẩn
+    ctx.fillStyle = "#da251d";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 2. Tọa độ và bán kính ngôi sao vàng ở giữa
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const outerRadius = canvas.height * 0.35;
+    const innerRadius = outerRadius * 0.382;
+
+    // 3. Tiến hành vẽ 5 cánh sao
+    ctx.fillStyle = "#ffcc00";
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const angleOuter = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+      const xOuter = cx + Math.cos(angleOuter) * outerRadius;
+      const yOuter = cy + Math.sin(angleOuter) * outerRadius;
+      if (i === 0) ctx.moveTo(xOuter, yOuter);
+      else ctx.lineTo(xOuter, yOuter);
+
+      const angleInner = ((i * 4 + 2) * Math.PI) / 5 - Math.PI / 2;
+      const xInner = cx + Math.cos(angleInner) * innerRadius;
+      const yInner = cy + Math.sin(angleInner) * innerRadius;
+      ctx.lineTo(xInner, yInner);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
+
+  return (
+    <group position={position} rotation={rotation} scale={scale}>
+      {/* Cán cờ bằng gỗ */}
+      <mesh position={[-1.05, 0, 0]}>
+        <cylinderGeometry args={[0.025, 0.025, 3.0, 16]} />
+        <meshStandardMaterial color="#8b5a2b" roughness={0.5} />
+      </mesh>
+
+      {/* Mặt phẳng lá cờ */}
+      <mesh position={[0, 0, 0]}>
+        <planeGeometry args={[2.0, 1.33]} />
+        <meshStandardMaterial map={flagTexture} side={THREE.DoubleSide} roughness={0.7} />
+      </mesh>
+    </group>
+  );
+}
+
 ///new
 
 const spaces = [
@@ -1927,6 +2035,17 @@ function Room({
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
    <RightWallPanels onSelectImage={onSelectImage} />
    <LeftWallPanels onSelectImage={onSelectImage} />
+
+{/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
+      <HangingFlags />
+
+      {/* 3. Cờ đỏ sao vàng đặt trang trọng ở góc tường bên trái */}
+      <VietnameseFlag
+        position={[-11.5, 3.2, 3.5]} // Tọa độ X, Y, Z
+        rotation={[0, Math.PI / 2, 0]} // Xoay mặt cờ hướng ra lòng sảnh
+        scale={[0.8, 0.8, 0.8]}        // Điều chỉnh kích thước vừa vặn
+      />
+
 
       <group
         position={[11.78, 2.7, 1.5]}
