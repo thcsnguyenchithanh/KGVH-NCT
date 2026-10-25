@@ -553,14 +553,16 @@ useEffect(() => {
 
   {/* Tường Giữa Phòng 6 */}
 {space.id === 6 && (
-  <WallImageAudioSection
-    title="Thuyết minh Tường Giữa - Phòng 6"
-    imgSrc={SPACE_CONTENT[6].bgWall6}
-    audioSrc={SPACE_CONTENT[6].audioBg6}
-    position={[0, 0, 0.01]}
-    width={6.8}
-    height={3.0}
-  />
+  <group>
+    {SPACE_CONTENT[6] && SPACE_CONTENT[6].bgWall6 ? (
+      <WallImageAudioSection
+        title="Phòng 6"
+        imgSrc={SPACE_CONTENT[6].bgWall6}
+        audioSrc={SPACE_CONTENT[6].audioBg6}
+        position={[0, 0, 0]}
+      />
+    ) : null}
+  </group>
 )}
 
   {/* KHU 7: Hiển thị ảnh nền bgWall7 kết hợp khung video7 ở giữa */}
