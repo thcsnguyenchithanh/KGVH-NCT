@@ -438,10 +438,7 @@ function FixedLookControls() {
 }
 
 function FramedVideoScreen({ onOpen }) {
-  // 1. Tải texture ảnh khung sảnh (bgs.png) từ SANH_CONTENT
   const bgTexture = useTexture(SANH_CONTENT.background);
-
-  // 2. Tải texture video tư liệu
   const videoTexture = useVideoTexture(
     `${import.meta.env.BASE_URL}video/TNDL.mp4`,
     {
@@ -455,13 +452,14 @@ function FramedVideoScreen({ onOpen }) {
     <group position={[0, 0, 0]}>
       {/* ================= LỚP 1: KHUNG ẢNH NỀN (bgs.png) ================= */}
       <mesh position={[0, 0, 0]}>
-        <planeGeometry args={[6.5, 4.0]} />
+        {/* Tăng kích thước khung từ [6.5, 4.0] lên [7.5, 4.6] để ảnh to ra */}
+        <planeGeometry args={[7.5, 4.6]} />
         <meshBasicMaterial map={bgTexture} transparent={true} side={THREE.DoubleSide} />
       </mesh>
 
       {/* ================= LỚP 2: MÀN HÌNH VIDEO NẰM TRONG KHUNG ================= */}
       <mesh
-        position={[0, 0, 0.02]} // Đẩy dịch lên phía trước một chút theo trục Z để đè lên khung
+        position={[0, 0, 0.02]}
         onClick={(e) => {
           e.stopPropagation();
           onOpen?.();
@@ -469,31 +467,11 @@ function FramedVideoScreen({ onOpen }) {
         onPointerOver={() => { document.body.style.cursor = "pointer"; }}
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
+        {/* Giữ nguyên hoặc điều chỉnh nhẹ kích thước video [4.7, 2.6] nếu cần khớp với khung mới */}
         <planeGeometry args={[4.7, 2.6]} />
         <meshBasicMaterial map={videoTexture} toneMapped={false} />
       </mesh>
     </group>
-  );
-}
-
-function VideoScreen({ onOpen }) {
-  const texture = useVideoTexture(`${import.meta.env.BASE_URL}video/TNDL.mp4`, {
-    loop: true,
-    muted: true,
-    playsInline: true,
-  });
-
-  return (
-    <mesh
-      position={[0, 0, 0.14]}
-      onClick={(e) => {
-        e.stopPropagation();
-        onOpen();
-      }}
-    >
-      <planeGeometry args={[4.7, 2.6]} />
-      <meshBasicMaterial map={texture} toneMapped={false} />
-    </mesh>
   );
 }
 
