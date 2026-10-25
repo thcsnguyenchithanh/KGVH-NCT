@@ -800,7 +800,7 @@ useEffect(() => {
       ))}
     </>
     
- ): {(space.id === 6 || space.id === 5) ? (
+ ): (space.id === 6 || space.id === 5) ? (
   <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
     {/* 1. Hiển thị ảnh tường trái 3D */}
     <WallImage
@@ -850,7 +850,7 @@ useEffect(() => {
       />
     </Html>
   </group>
-) : null}: space.id === 8 ? (
+): space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
           <>
             <mesh position={[0, 1.4, 0.01]}>
@@ -933,7 +933,7 @@ useEffect(() => {
       height={3.8}
     />
     
-): {(space.id === 6 || space.id === 5) ? (
+): (space.id === 6 || space.id === 5) ? (
   <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
     {/* 1. Hiển thị ảnh tường phải 3D */}
     <WallImage
@@ -983,7 +983,7 @@ useEffect(() => {
       />
     </Html>
   </group>
-) : null} : space.id === 8 ? (
+) : : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
          <>
             <mesh position={[0, 0, -0.02]}>
