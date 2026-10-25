@@ -477,8 +477,7 @@ function FramedVideoScreen({ onOpen }) {
  /* ================= ================= ================= ================= ================= =================*/
 
 
- // Component hiển thị 2 poster p1.png và p2.png trên tường bên phải
-function RightWallPanels() {
+ function RightWallPanels() {
   // Tải 2 texture ảnh p1.png và p2.png từ SANH_CONTENT
   const panel1 = useTexture(SANH_CONTENT.panels[0].src);
   const panel2 = useTexture(SANH_CONTENT.panels[1].src);
@@ -486,7 +485,16 @@ function RightWallPanels() {
   return (
     <group position={[11.78, 2.7, 0]} rotation={[0, -Math.PI / 2, 0]}>
       {/* --- POSTER 1 (p1.png) --- */}
-      <group position={[-5.0, 0, 0]}>
+      <group 
+        position={[-5.0, 0, 0]}
+        onClick={(e) => {
+          e.stopPropagation();
+          // Phát sự kiện mở ảnh p1 toàn màn hình
+          window.dispatchEvent(new CustomEvent("open-fullscreen-image", { detail: SANH_CONTENT.panels[0].src }));
+        }}
+        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+        onPointerOut={() => { document.body.style.cursor = "default"; }}
+      >
         {/* Khung viền gỗ/kim loại đằng sau poster */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
@@ -500,7 +508,16 @@ function RightWallPanels() {
       </group>
 
       {/* --- POSTER 2 (p2.png) --- */}
-      <group position={[-2.4, 0, 0]}>
+      <group 
+        position={[-2.4, 0, 0]}
+        onClick={(e) => {
+          e.stopPropagation();
+          // Phát sự kiện mở ảnh p2 toàn màn hình
+          window.dispatchEvent(new CustomEvent("open-fullscreen-image", { detail: SANH_CONTENT.panels[1].src }));
+        }}
+        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+        onPointerOut={() => { document.body.style.cursor = "default"; }}
+      >
         {/* Khung viền đằng sau poster */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
