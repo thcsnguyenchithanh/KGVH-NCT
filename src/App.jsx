@@ -559,55 +559,7 @@ useEffect(() => {
       <boxGeometry args={[7.0, 3.2, 0.03]} />
       <meshStandardMaterial color="#4a2e18" roughness={0.6} />
     </mesh>
-
-    {/* Thẻ Html hiển thị ảnh */}
-    <Html
-      position={[0, 0, 0.01]}
-      transform
-      distanceFactor={1.5}
-      occlude
-      style={{
-        width: `${6.8 * 140}px`,
-        height: `${3.0 * 140}px`,
-        pointerEvents: "auto",
-      }}
-    >
-      <div
-        onClick={(e) => {
-          e.stopPropagation(); // Chặn sự kiện lan truyền ra ngoài
-          
-          // 1. Phóng to ảnh toàn màn hình
-          window.dispatchEvent(
-            new CustomEvent("open-wall-image", {
-              detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
-            })
-          );
-
-          // 2. Phát audio thuyết minh
-          if (SPACE_CONTENT[6].audioBg6) {
-            const audio = new Audio(SPACE_CONTENT[6].audioBg6);
-            audio.currentTime = 0;
-            audio.play().catch((err) => console.log("Lỗi phát audio:", err));
-          }
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-        }}
-      >
-        <img
-          src={SPACE_CONTENT[6].bgWall6}
-          alt="Tường Giữa - Phòng 6"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-      </div>
-    </Html>
+   
   </group>
 )}
 
@@ -651,6 +603,18 @@ useEffect(() => {
         </div>
       </Html>
     </>
+  )}
+  {space.id === 6 && (
+    <>
+      {/* Ảnh nền tường giữa Khu 7 */}
+      <WallImage
+        src={SPACE_CONTENT[6].bgWall6}
+        alt="Nền tường giữa Khu 6"
+        position={[0, 0, 0.01]}
+        width={7.5}
+        height={3.2}
+      />
+   </>
   )}
   {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
         {space.id === 8 && (
