@@ -2598,7 +2598,15 @@ export default function App() {
   if (!started) {
     return (
       <div className="welcome-page">
+        <div className="welcome-banner">
+    <img 
+      src={`${import.meta.env.BASE_URL}imgNct/nct_login.png`} 
+      alt="Không gian văn hóa Hồ Chí Minh" 
+      className="banner-image"
+    />
+  </div>
              
+        <div className="welcome-form-container">
         <div className="welcome-card">
                     <div className="welcome-badge">KHÔNG GIAN VĂN HÓA</div>     
               <h1>Hồ Chí Minh</h1>       
@@ -2659,6 +2667,7 @@ export default function App() {
                
         </div>
            
+      </div>
       </div>
     );
   }

@@ -689,13 +689,15 @@ select {
 
 
 /* ===== FORM CHÀO MỪNG THAM QUAN ===== */
+/* Tổng quan trang chào mừng chia 2 cột */
 .welcome-page {
   min-height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  gap: 50px; /* Khoảng cách giữa hình ảnh poster và form */
+  padding: 40px;
   overflow-y: auto;
 
   background:
@@ -704,7 +706,34 @@ select {
     linear-gradient(135deg, #eaf5ff, #f5f0ff 55%, #e5fbf3);
 }
 
-/* Thẻ form */
+/* Cột chứa poster bên trái */
+.welcome-banner {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 480px;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(74, 99, 145, 0.18);
+}
+
+/* Cột chứa form bên phải */
+.welcome-form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+}
+
+/* Thẻ form giữ nguyên thiết kế gốc của bạn */
 .welcome-card {
   width: 100%;
   max-width: 460px;
@@ -718,6 +747,18 @@ select {
     0 4px 14px rgba(74, 99, 145, 0.06);
 
   animation: welcomeAppear 0.6s ease-out;
+}
+
+/* Hiệu ứng xuất hiện mượt mà */
+@keyframes welcomeAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Nhãn phía trên */
