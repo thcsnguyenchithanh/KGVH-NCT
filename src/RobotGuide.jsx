@@ -153,8 +153,10 @@ export default function RobotGuide({ active, visitor, audioRef }) {
         <p>
           {currentText.slice(0, Math.ceil(currentText.length * voiceProgress))}
         </p>
-        <button type="button" onClick={speak}>🔊 Nghe lại</button>
-        <button type="button" onClick={stopSpeaking}>🛑 Dừng nói</button>
+      <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+  <button type="button" onClick={speak} style={{ flex: 1, padding: "8px" }}>🔊 Nghe lại</button>
+  <button type="button" onClick={stopSpeaking} style={{ flex: 1, padding: "8px" }}>🛑 Dừng nói</button>
+</div>
       </div>
     </div>
   );
