@@ -477,54 +477,63 @@ function FramedVideoScreen({ onOpen }) {
  /* ================= ================= ================= ================= ================= =================*/
 
 
- function RightWallPanels() {
-  // Tải 2 texture ảnh p1.png và p2.png từ SANH_CONTENT
+ // Component hiển thị 2 poster p1.png và p2.png trên tường phải
+function RightWallPanels({ onSelectImage }) {
+  // 1. Tải texture ảnh p1.png và p2.png từ SANH_CONTENT
   const panel1 = useTexture(SANH_CONTENT.panels[0].src);
   const panel2 = useTexture(SANH_CONTENT.panels[1].src);
 
   return (
     <group position={[11.78, 2.7, 0]} rotation={[0, -Math.PI / 2, 0]}>
-      {/* --- POSTER 1 (p1.png) --- */}
-      <group 
-        position={[-5.0, 0, 0]}
-        onClick={(e) => {
-          e.stopPropagation();
-          // Phát sự kiện mở ảnh p1 toàn màn hình
-          window.dispatchEvent(new CustomEvent("open-fullscreen-image", { detail: SANH_CONTENT.panels[0].src }));
-        }}
-        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-        onPointerOut={() => { document.body.style.cursor = "default"; }}
-      >
-        {/* Khung viền gỗ/kim loại đằng sau poster */}
+      {/* ================= POSTER 1 (p1.png) ================= */}
+      <group position={[-5.0, 0, 0]}>
+        {/* Khung viền gỗ phía sau */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
         </mesh>
-        {/* Ảnh p1.png nằm đè phía trước khung */}
-        <mesh position={[0, 0, 0.03]}>
+
+        {/* Bề mặt ảnh p1.png có gắn sự kiện Click */}
+        <mesh
+          position={[0, 0, 0.03]} // Đẩy nổi 0.03 đơn vị để không bị dính mặt phẳng
+          onClick={(e) => {
+            e.stopPropagation(); // Ngăn sự kiện click xuyên qua các vật thể khác
+            onSelectImage?.(SANH_CONTENT.panels[0].src); // Gọi hàm mở ảnh phóng to
+          }}
+          onPointerOver={() => {
+            document.body.style.cursor = "pointer"; // Đổi con trỏ chuột thành hình bàn tay
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = "default"; // Trả lại con trỏ chuột bình thường
+          }}
+        >
           <planeGeometry args={[2.0, 3.0]} />
           <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
         </mesh>
       </group>
 
-      {/* --- POSTER 2 (p2.png) --- */}
-      <group 
-        position={[-2.4, 0, 0]}
-        onClick={(e) => {
-          e.stopPropagation();
-          // Phát sự kiện mở ảnh p2 toàn màn hình
-          window.dispatchEvent(new CustomEvent("open-fullscreen-image", { detail: SANH_CONTENT.panels[1].src }));
-        }}
-        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-        onPointerOut={() => { document.body.style.cursor = "default"; }}
-      >
-        {/* Khung viền đằng sau poster */}
+      {/* ================= POSTER 2 (p2.png) ================= */}
+      <group position={[-2.4, 0, 0]}>
+        {/* Khung viền gỗ phía sau */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
         </mesh>
-        {/* Ảnh p2.png nằm đè phía trước khung */}
-        <mesh position={[0, 0, 0.03]}>
+
+        {/* Bề mặt ảnh p2.png có gắn sự kiện Click */}
+        <mesh
+          position={[0, 0, 0.03]}
+          onClick={(e) => {
+            e.stopPropagation();
+            onSelectImage?.(SANH_CONTENT.panels[1].src); // Gọi hàm mở ảnh phóng to
+          }}
+          onPointerOver={() => {
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = "default";
+          }}
+        >
           <planeGeometry args={[2.0, 3.0]} />
           <meshBasicMaterial map={panel2} side={THREE.DoubleSide} />
         </mesh>
@@ -1599,6 +1608,7 @@ function Room({
   onOpenMuseum,
   onOpenLibrary,
   onOpenVideo,
+  onSelectImage,
 }) {
 
 
@@ -1839,7 +1849,7 @@ function Room({
         </group>
       ))}
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
-      <RightWallPanels />
+   <RightWallPanels onSelectImage={onSelectImage} />
 
       <group
         position={[11.78, 2.7, 1.5]}
@@ -1928,7 +1938,12 @@ function Scene({
         onOpenVideo={onOpenVideo}
         onExhibit={onExhibit}
         onSpaceClick={onSpaceClick}
-        onOpenLibrary={onOpenLibrary} // 👈 SỬA THÀNH NÀY: Dùng prop truyền từ App xuống
+        onSelectImage={(imageSrc) => {
+    // Đặt state mở ảnh xem toàn màn hình
+    setSelectedImage(imageSrc); // hoặc setWallImageFull(imageSrc)
+  }}
+        onOpenLibrary={onOpenLibrary}
+         // 👈 SỬA THÀNH NÀY: Dùng prop truyền từ App xuống
         onOpenMuseum={() =>
           window.open(
             "https://hochiminh.vn/bao-tang-3d",
