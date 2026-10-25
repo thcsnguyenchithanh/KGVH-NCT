@@ -560,24 +560,21 @@ function LeftWallPanels() {
 
   return (
     <group position={[-11.78, 2.7, 0]} rotation={[0, Math.PI / 2, 0]}>
-      {/* ================= POSTER 1 ================= */}
-      <group position={[1.2, 0, 0]}>
-        {/* Khung viền gỗ phía sau */}
+      {/* ================= 1. POSTER 1 (BÊN TRÁI) ================= */}
+      <group position={[0, 0, 0]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
         </mesh>
-
-        {/* Bề mặt ảnh 1 có gắn sự kiện Click xem toàn màn hình */}
         <mesh
-          position={[0, 0, 0.03]} // Đẩy nổi 0.03 đơn vị để không bị dính vào tường
+          position={[0, 0, 0.03]}
           onClick={(e) => {
             e.stopPropagation();
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
-                  src: `${import.meta.env.BASE_URL}sanh/p1.png`,
-                  alt: "Poster trái 1",
+                  src: `${import.meta.env.BASE_URL}images/p1.png`,
+                  alt: "Poster 1",
                 },
               })
             );
@@ -590,15 +587,12 @@ function LeftWallPanels() {
         </mesh>
       </group>
 
-      {/* ================= POSTER 2 ================= */}
-      <group position={[3.6, 0, 0]}>
-        {/* Khung viền gỗ phía sau */}
+      {/* ================= 3. POSTER 2 (BÊN PHẢI) ================= */}
+      <group position={[4.8, 0, 0]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
         </mesh>
-
-        {/* Bề mặt ảnh 2 có gắn sự kiện Click xem toàn màn hình */}
         <mesh
           position={[0, 0, 0.03]}
           onClick={(e) => {
@@ -606,8 +600,8 @@ function LeftWallPanels() {
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
-                  src: `${import.meta.env.BASE_URL}sanh/p2.png`,
-                  alt: "Poster trái 2",
+                  src: `${import.meta.env.BASE_URL}images/p2.png`,
+                  alt: "Poster 2",
                 },
               })
             );
