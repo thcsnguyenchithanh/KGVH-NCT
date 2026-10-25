@@ -2047,7 +2047,7 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
         maxWidth={16}
         textAlign="center"
       >
-        KHÔNG GIAN TRƯNG BÀY CHUYÊN ĐỀ
+        🇻🇳🇻🇳🇻🇳 KHÔNG GIAN TRƯNG BÀY 🇻🇳🇻🇳🇻🇳
       </Text>
 
      <SecondRoomBanners />

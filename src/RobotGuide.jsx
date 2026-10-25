@@ -10,7 +10,7 @@ export default function RobotGuide({ active, visitor, audioRef }) {
 
     setVoiceProgress(0);
     let count = 0;
-    const text = "Đây là phòng trưng bày các chuyên đề.";
+    const text = "Mời quý thầy cô và các bạn cùng nhau tham quan từng căn phòng nhé!";
 
     const timer = setInterval(() => {
       count++;
