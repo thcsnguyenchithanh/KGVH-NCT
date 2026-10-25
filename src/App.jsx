@@ -656,7 +656,7 @@ function OppositeWallPanels() {
   const xPositions = [-6.0, -2.0, 2.0, 6.0];
 
   return (
-    <group position={[0, 2.7, 11.78]} rotation={[0, Math.PI, 0]}>
+  <group position={[0, 2.7, 11.65]} rotation={[0, Math.PI, 0]}>
       {posterImages.map((poster, index) => (
         <group key={poster.id} position={[xPositions[index], 0, 0]}>
           {/* Khung viền gỗ màu trầm phía sau */}
