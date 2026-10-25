@@ -794,26 +794,7 @@ useEffect(() => {
       ))}
     </>
     
- ) : space.id === 6 ? (
-  <group position={[0, 0, 0]}>
-    
-    <mesh
-      onClick={(e) => {
-        e.stopPropagation();
-        window.dispatchEvent(
-          new CustomEvent("open-wall-image", {
-            detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
-          })
-        );
-      }}
-      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-      onPointerOut={() => { document.body.style.cursor = "default"; }}
-    >
-      <planeGeometry args={[5.5, 2.8]} />
-      <meshStandardMaterial color="#8b5a2b" roughness={0.5} />
-    </mesh>
-  </group>
-): space.id === 8 ? (
+ ) : space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
           <>
             <mesh position={[0, 1.4, 0.01]}>
@@ -870,6 +851,8 @@ useEffect(() => {
         ) : (
     <WallImage
       src={
+        space.id === 6
+          ? SPACE_CONTENT[6].imageTrai6:
         space.id === 7
           ? SPACE_CONTENT[7].imageTrai7
           : space.id === 2
