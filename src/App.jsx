@@ -709,34 +709,30 @@ function MultipleHangingFlags() {
 }
 //--------------------------------------------------------------------------------------------------------
 
-function BackWallPanels() {
-  // 1. Tải texture trực tiếp từ SANH_CONTENT.banners (đồng bộ phong cách với RightWallPanels)
-  const banner1 = useTexture(SANH_CONTENT.banners[0].src);
-  const banner2 = useTexture(SANH_CONTENT.banners[1].src);
-  const banner3 = useTexture(SANH_CONTENT.banners[2].src);
-  const banner4 = useTexture(SANH_CONTENT.banners[3].src);
+function SecondRoomBanners() {
+  // 1. Tải toàn bộ 4 texture từ mảng SANH_CONTENT.banners
+  const textures = useTexture(SANH_CONTENT.banners.map((item) => item.src));
 
-  const textures = [banner1, banner2, banner3, banner4];
-
-  // 2. Danh sách tọa độ X giúp 4 bức tranh trải đều khắp bề ngang tường sau
-  const xPositions = [-6.0, -2.0, 2.0, 6.0];
+  // 2. Tọa độ X phân bố 4 bức tranh nằm ngang đều nhau ngay dưới chữ tiêu đề
+  const xPositions = [-3.3, -1.1, 1.1, 3.3];
 
   return (
-    <group position={[0, 2.7, -11.78]}>
+    {/* Đặt nhóm này bên trong không gian của Phòng 2 (secondRoom), 
+        chỉnh tọa độ Y thấp hơn vị trí của chữ "Không gian trưng bày chuyên đề" */}
+    <group position={[0, 1.2, -0.05]}>
       {SANH_CONTENT.banners.map((banner, index) => (
         <group key={banner.id} position={[xPositions[index], 0, 0]}>
-          {/* Khung viền gỗ phía sau */}
+          {/* Khung viền gỗ màu trầm sang trọng */}
           <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[2.2, 3.2, 0.05]} />
+            <boxGeometry args={[1.8, 2.5, 0.05]} />
             <meshStandardMaterial color="#5c1717" roughness={0.6} />
           </mesh>
 
-          {/* Bề mặt ảnh hiển thị */}
+          {/* Bề mặt ảnh bức tranh có gắn sự kiện click xem full màn hình */}
           <mesh
             position={[0, 0, 0.03]}
             onClick={(e) => {
               e.stopPropagation();
-              // Bắn sự kiện mở ảnh fullscreen khớp hoàn toàn với hệ thống modal của bạn
               window.dispatchEvent(
                 new CustomEvent("open-wall-image", {
                   detail: {
@@ -749,7 +745,7 @@ function BackWallPanels() {
             onPointerOver={() => { document.body.style.cursor = "pointer"; }}
             onPointerOut={() => { document.body.style.cursor = "default"; }}
           >
-            <planeGeometry args={[2.0, 3.0]} />
+            <planeGeometry args={[1.6, 2.3]} />
             <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
           </mesh>
         </group>
@@ -1808,6 +1804,8 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
         KHÔNG GIAN TRƯNG BÀY CHUYÊN ĐỀ
       </Text>
 
+     <SecondRoomBanners />
+
       {/* Tám gian trưng bày */}
       <group position={[-22, 0, 5.75]}>
         <InteractiveSpaces
@@ -2069,7 +2067,7 @@ function Room({
    <RightWallPanels onSelectImage={onSelectImage} />
    <LeftWallPanels onSelectImage={onSelectImage} />
 
-   <BackWallPanels onSelectImage={onSelectImage} />
+
 
 {/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
      <MultipleHangingFlags />
