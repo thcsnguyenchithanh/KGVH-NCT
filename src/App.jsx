@@ -599,7 +599,7 @@ function RightWallPanels() {
         {/* Khung viền gỗ phía sau */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
-          <meshStandardMaterial color="#5c1717" roughness={0.6} />
+          <meshStandardMaterial color="#c75656" roughness={0.6} />
         </mesh>
 
         {/* Bề mặt ảnh p1.png */}
@@ -630,7 +630,7 @@ function RightWallPanels() {
         {/* Khung viền gỗ phía sau */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
-          <meshStandardMaterial color="#5c1717" roughness={0.6} />
+          <meshStandardMaterial color="#c75656" roughness={0.6} />
         </mesh>
 
         {/* Bề mặt ảnh p2.png */}
@@ -672,7 +672,7 @@ function LeftWallPanels() {
       <group position={[-1.8, 0, 0]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
-          <meshStandardMaterial color="#5c1717" roughness={0.6} />
+          <meshStandardMaterial color="#c75656" roughness={0.6} />
         </mesh>
         <mesh
           position={[0, 0, 0.03]}
@@ -699,7 +699,7 @@ function LeftWallPanels() {
       <group position={[4.8, 0, 0]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
-          <meshStandardMaterial color="#5c1717" roughness={0.6} />
+          <meshStandardMaterial color="#c75656" roughness={0.6} />
         </mesh>
         <mesh
           position={[0, 0, 0.03]}
@@ -747,7 +747,7 @@ function OppositeWallPanels() {
           {/* Khung viền gỗ màu trầm phía sau */}
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[3.2, 2.2, 0.05]} />
-            <meshStandardMaterial color="#5c1717" roughness={0.6} />
+            <meshStandardMaterial color="#c75656" roughness={0.6} />
           </mesh>
 
           {/* Bề mặt hiển thị hình ảnh có gắn sự kiện click phóng to toàn màn hình */}
@@ -889,7 +889,7 @@ function SecondRoomBanners() {
             {/* Khung viền gỗ màu trầm sang trọng */}
             <mesh position={[0, 0, 0]}>
               <boxGeometry args={[1.8, 2.5, 0.05]} />
-              <meshStandardMaterial color="#5c1717" roughness={0.6} />
+              <meshStandardMaterial color="#c75656" roughness={0.6} />
             </mesh>
 
             {/* Bề mặt ảnh bức tranh có gắn sự kiện click xem full màn hình */}
@@ -1170,7 +1170,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             <Text
               position={[0, 0.85, 0.87]}
               fontSize={0.12}
-              color="#5c1717"
+              color="#c75656"
               anchorX="center"
               anchorY="middle"
             >
@@ -2330,7 +2330,7 @@ function Room({
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[4.6, 2.8, 0.08]} />
           <meshStandardMaterial
-            color="#5c1717"
+            color="#c75656"
             metalness={0.25}
             roughness={0.5}
           />
