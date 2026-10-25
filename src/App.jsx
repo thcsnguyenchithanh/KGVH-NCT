@@ -561,7 +561,7 @@ function LeftWallPanels() {
   return (
     <group position={[-11.78, 2.7, 0]} rotation={[0, Math.PI / 2, 0]}>
       {/* ================= 1. POSTER 1 (BÊN TRÁI) ================= */}
-      <group position={[0, 0, 0]}>
+      <group position={[-4.8, 0, 0]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
@@ -573,7 +573,7 @@ function LeftWallPanels() {
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
-                  src: `${import.meta.env.BASE_URL}images/p1.png`,
+                  src: `${import.meta.env.BASE_URL}sanh/p1.png`,
                   alt: "Poster 1",
                 },
               })
@@ -600,7 +600,7 @@ function LeftWallPanels() {
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
-                  src: `${import.meta.env.BASE_URL}images/p2.png`,
+                  src: `${import.meta.env.BASE_URL}sanh/p2.png`,
                   alt: "Poster 2",
                 },
               })
