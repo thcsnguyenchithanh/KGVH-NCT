@@ -69,31 +69,31 @@ const targets = [
 
 
 // Cấu trúc dữ liệu hình ảnh cho Sảnh chính 
-export const SANH_CONTENT = {
+const SANH_CONTENT = {
   // Ảnh nền sảnh chính
-  background: "/images/sanh/bgs.png",[cite: 1]
+  background: `${import.meta.env.BASE_URL}images/sanh/bgs.png`,
 
   // Nhóm hình bác
   banners: [
-    { id: 1, src: "/images/sanh/hb1.png", alt: "Banner 1" },[cite: 1]
-    { id: 2, src: "/images/sanh/hb2.png", alt: "Banner 2" },[cite: 1]
-    { id: 3, src: "/images/sanh/hb3.png", alt: "Banner 3" },[cite: 1]
-    { id: 4, src: "/images/sanh/hb4.png", alt: "Banner 4" } [cite: 1]
+    { id: 1, src: `${import.meta.env.BASE_URL}images/sanh/hb1.png`, alt: "Banner 1" },
+    { id: 2, src: `${import.meta.env.BASE_URL}images/sanh/hb2.png`, alt: "Banner 2" },
+    { id: 3, src: `${import.meta.env.BASE_URL}images/sanh/hb3.png`, alt: "Banner 3" },
+    { id: 4, src: `${import.meta.env.BASE_URL}images/sanh/hb4.png`, alt: "Banner 4" }
   ],
 
   // Nhóm poster
   panels: [
-    { id: 1, src: "/images/sanh/p1.png", alt: "Panel 1" },[cite: 1]
-    { id: 2, src: "/images/sanh/p2.png", alt: "Panel 2" },[cite: 1]
-    { id: 3, src: "/images/sanh/p3.png", alt: "Panel 3" },[cite: 1]
-    { id: 4, src: "/images/sanh/p4.png", alt: "Panel 4" } [cite: 1]
+    { id: 1, src: `${import.meta.env.BASE_URL}images/sanh/p1.png`, alt: "Panel 1" },
+    { id: 2, src: `${import.meta.env.BASE_URL}images/sanh/p2.png`, alt: "Panel 2" },
+    { id: 3, src: `${import.meta.env.BASE_URL}images/sanh/p3.png`, alt: "Panel 3" },
+    { id: 4, src: `${import.meta.env.BASE_URL}images/sanh/p4.png`, alt: "Panel 4" }
   ],
 
   // Nhóm biểu ngữ
   decors: [
-    { id: 1, src: "/images/sanh/s1.png", alt: "Decor 1" },[cite: 1]
-    { id: 2, src: "/images/sanh/s2.png", alt: "Decor 2" },[cite: 1]
-    { id: 3, src: "/images/sanh/s3.png", alt: "Decor 3" } [cite: 1]
+    { id: 1, src: `${import.meta.env.BASE_URL}images/sanh/s1.png`, alt: "Decor 1" },
+    { id: 2, src: `${import.meta.env.BASE_URL}images/sanh/s2.png`, alt: "Decor 2" },
+    { id: 3, src: `${import.meta.env.BASE_URL}images/sanh/s3.png`, alt: "Decor 3" }
   ]
 };
 
