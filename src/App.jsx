@@ -8,7 +8,8 @@ import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from './BookShelf';
 import Room8 from './Room8';
-import WallImageAudioSection from './Room6Exhibition';
+
+import WallImageAudioSection from "./WallImageAudioSection";
 import {
   Environment,
   OrbitControls,
@@ -2078,7 +2079,7 @@ export default function App() {
           showPadlet={showPadlet}
           wallImageFull={wallImageFull}
           setSelectedKhu3Topic={setSelectedKhu3Topic}
-          
+
 
         />
                      
