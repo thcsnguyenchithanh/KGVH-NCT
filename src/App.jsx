@@ -929,59 +929,35 @@ useEffect(() => {
       height={3.8}
     />
     
-): (space.id === 6 || space.id === 5) ? (
-  <group position={[0, 0, 0]}>
-    {/* 1. Hiển thị ảnh tường phải 3D */}
-    <WallImage
-     src={space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5}
-      alt={`Hình tường phải Phòng ${space.id}`}
-      position={[0, 0, 0]}
-      width={6.5}
-      height={3.8}
-    />
-
-    {/* 2. Lớp phủ Html giúp bắt sự kiện click mượt mà và chính xác */}
-    <Html
-      position={[0, 0, 0.02]}
-      transform
-      distanceFactor={1.5}
-      style={{
-        width: "650px",   // Khớp với chiều rộng 6.5 đơn vị 3D của tường
-        height: "380px",  // Khớp với chiều cao 3.8 đơn vị 3D của tường
-        pointerEvents: "auto",
+): space.id === 5 && (
+  <>
+    {/* 1. Tường Giữa Phòng 5 */}
+    <group 
+      position={[0, 0, 0.01]}
+      onClick={(e) => {
+        e.stopPropagation();
+        window.dispatchEvent(
+          new CustomEvent("open-wall-image", {
+            detail: { src: SPACE_CONTENT[5].bgWall5, alt: "Tường Giữa - Phòng 5" },
+          })
+        );
+        if (window.setActiveAudioGlobal) {
+          window.setActiveAudioGlobal(SPACE_CONTENT[5].audioBg5);
+        }
       }}
+      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+      onPointerOut={() => { document.body.style.cursor = "default"; }}
     >
-      <div
-        onMouseDown={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          
-          // Lấy đúng dữ liệu hình ảnh và audio tương ứng với số phòng hiện tại (5 hoặc 6)
-          const imgPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
-          const audioPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
-
-          // Mở phóng to ảnh tường phải
-          window.dispatchEvent(
-            new CustomEvent("open-wall-image", {
-              detail: { src: imgPhaiSrc, alt: `Tường Phải - Phòng ${space.id}` },
-            })
-          );
-
-          // Kích hoạt phát audio tường phải và tự động ngắt các âm thanh khác
-          if (window.setActiveAudioGlobal) {
-            window.setActiveAudioGlobal(audioPhaiSrc);
-          }
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-          background: "transparent", // Trong suốt hoàn toàn để thấy ảnh nền
-        }}
-        title="Nhấn để nghe thuyết minh và phóng to ảnh"
+      <WallImage
+        src={SPACE_CONTENT[5].bgWall5}
+        alt="Nền tường giữa Phòng 5"
+        position={[0, 0, 0.01]}
+        width={7.5}
+        height={3.2}
       />
-    </Html>
+    
   </group>
+  </>
 ) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
          <>
