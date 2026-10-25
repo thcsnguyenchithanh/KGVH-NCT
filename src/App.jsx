@@ -2452,6 +2452,7 @@ export default function App() {
           showPadlet={showPadlet}
           wallImageFull={wallImageFull}
           setSelectedKhu3Topic={setSelectedKhu3Topic}
+          setSelectedImage={setSelectedImage}
         />
                    
       </Canvas>
