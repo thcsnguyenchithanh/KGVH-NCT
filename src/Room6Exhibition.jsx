@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useTexture } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 
 export default function WallImageAudioSection({
   title,
@@ -10,16 +10,14 @@ export default function WallImageAudioSection({
   width = 5.5,
   height = 2.8,
 }) {
-    
-  const texture = useTexture(imgSrc);
   const audioRef = useRef(null);
 
   if (!imgSrc) return null;
-  
+
   const handleClick = (e) => {
     e.stopPropagation();
 
-    // 1. Kích hoạt sự kiện mở ảnh lớn (lightbox toàn màn hình có sẵn của hệ thống)
+    // 1. Kích hoạt sự kiện mở ảnh lớn (lightbox toàn màn hình của hệ thống)
     window.dispatchEvent(
       new CustomEvent("open-wall-image", {
         detail: { src: imgSrc, alt: title },
@@ -35,28 +33,44 @@ export default function WallImageAudioSection({
 
   return (
     <group position={position} rotation={rotation}>
-      {/* 1. Khung gỗ bao quanh bức tranh */}
+      {/* Khung gỗ bao quanh bức tranh 3D */}
       <mesh position={[0, 0, -0.005]}>
         <boxGeometry args={[width + 0.2, height + 0.2, 0.03]} />
         <meshStandardMaterial color="#4a2e18" roughness={0.6} />
       </mesh>
 
-      {/* 2. Mặt tranh chính dùng mesh và useTexture y hệt WallImage */}
-      <mesh
+      {/* Hiển thị ảnh bằng HTML img bọc trong không gian 3D (An toàn tuyệt đối, không lỗi useTexture) */}
+      <Html
         position={[0, 0, 0]}
-        onClick={handleClick}
-        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-        onPointerOut={() => { document.body.style.cursor = "default"; }}
+        transform
+        distanceFactor={1.5}
+        occlude
+        style={{
+          width: `${width * 140}px`,
+          height: `${height * 140}px`,
+          overflow: "hidden",
+          pointerEvents: "auto",
+        }}
       >
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial
-          map={texture}
-          toneMapped={false}
-          side={2}
-        />
-      </mesh>
+        <div
+          onClick={handleClick}
+          style={{
+            width: "100%",
+            height: "100%",
+            cursor: "pointer",
+          }}
+          onPointerOver={(e) => { e.currentTarget.style.opacity = "0.95"; }}
+          onPointerOut={(e) => { e.currentTarget.style.opacity = "1"; }}
+        >
+          <img
+            src={imgSrc}
+            alt={title}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        </div>
+      </Html>
 
-      {/* 3. Thẻ audio ngầm để phát thuyết minh khi click vào ảnh */}
+      {/* Thẻ audio ngầm phát thuyết minh */}
       <audio
         ref={audioRef}
         src={audioSrc}
