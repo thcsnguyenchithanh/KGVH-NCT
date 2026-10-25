@@ -606,11 +606,10 @@ useEffect(() => {
           detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
         })
       );
-      window.dispatchEvent(
-        new CustomEvent("open-audio-player", {
-          detail: { audioUrl: SPACE_CONTENT[6].audioBg6 },
-        })
-      );
+     if (window.setActiveAudioGlobal) {
+    window.setActiveAudioGlobal(SPACE_CONTENT[6].audioBg6);
+    console.log("Đã kích hoạt audio tường giữa:", SPACE_CONTENT[6].audioBg6);
+  }
     }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
@@ -1741,13 +1740,10 @@ export default function App() {
   const [activeAudio, setActiveAudio] = useState(null);
 
   useEffect(() => {
-  const handleOpenAudio = (e) => {
-    console.log("👉 Đã bắt được sự kiện audio:", e.detail.audioUrl); // Xem trong F12 Console có dòng này không
-    setActiveAudio(e.detail.audioUrl);
-  };
-  window.addEventListener("open-audio-player", handleOpenAudio);
-  return () => window.removeEventListener("open-audio-player", handleOpenAudio);
+  window.setActiveAudioGlobal = setActiveAudio;
 }, []);
+
+
   useEffect(() => {
     const link = document.createElement("link");
     link.href =
