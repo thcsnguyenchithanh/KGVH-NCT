@@ -643,32 +643,29 @@ function LeftWallPanels() {
 //--------------------------------------------------------------------------------------------------------
 
 function OppositeWallPanels() {
+  // 1. Lấy danh sách đường dẫn hình ảnh để tải texture
   const imageSources = useMemo(
     () => posterImages.map((item) => item.src),
     []
   );
 
+  // 2. Tải toàn bộ 4 texture bằng useTexture
   const textures = useTexture(imageSources);
 
-  // Phân bố đều 4 khung ảnh khổ ngang trên tường
-  const xPositions = [-7.5, -2.5, 2.5, 7.5];
+  // 3. Tọa độ X phân bố đều 4 tấm hình trên chiều rộng bức tường đối diện
+  const xPositions = [-6.0, -2.0, 2.0, 6.0];
 
   return (
-    <group 
-      // Đặt dịch chuyển Z vào trong phòng (ví dụ 9.5 thay vì 11.78 để chắc chắn nằm bên trong phòng)
-      // Xoay 180 độ (Math.PI) để mặt tranh hướng vào trung tâm sảnh chính
-      position={[0, 2.7, 9.5]} 
-      rotation={[0, Math.PI, 0]}
-    >
+  <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
       {posterImages.map((poster, index) => (
         <group key={poster.id} position={[xPositions[index], 0, 0]}>
-          {/* Khung viền gỗ khổ ngang */}
+          {/* Khung viền gỗ màu trầm phía sau */}
           <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[3.8, 2.6, 0.05]} />
+            <boxGeometry args={[3.2, 2.2, 0.05]} />
             <meshStandardMaterial color="#5c1717" roughness={0.6} />
           </mesh>
 
-          {/* Bề mặt ảnh */}
+          {/* Bề mặt hiển thị hình ảnh có gắn sự kiện click phóng to toàn màn hình */}
           <mesh
             position={[0, 0, 0.03]}
             onClick={(e) => {
@@ -685,7 +682,7 @@ function OppositeWallPanels() {
             onPointerOver={() => { document.body.style.cursor = "pointer"; }}
             onPointerOut={() => { document.body.style.cursor = "default"; }}
           >
-            <planeGeometry args={[3.6, 2.4]} />
+           <planeGeometry args={[3.0, 2.0]} />
             <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
           </mesh>
         </group>
@@ -693,6 +690,7 @@ function OppositeWallPanels() {
     </group>
   );
 }
+
 //--------------------------------------------------------------------------------------------------------
 
 
