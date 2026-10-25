@@ -529,6 +529,52 @@ useEffect(() => {
 
   return (
     <group position={[-22, 0, 5.75]}>
+
+{/* Thanh Audio Player nổi lên khi chọn nghe thuyết minh ở Phòng 6 */}
+{activeAudio && (
+  <Html
+    fullscreen
+    style={{
+      position: "fixed",
+      bottom: "20px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 999999,
+      pointerEvents: "auto",
+    }}
+  >
+    <div style={{
+      background: "rgba(74, 46, 24, 0.9)",
+      padding: "10px 20px",
+      borderRadius: "30px",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+      border: "2px solid #ffd700"
+    }}>
+      <span style={{ color: "#fff0c2", fontSize: "14px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
+      <audio src={activeAudio} controls autoPlay style={{ height: "35px" }} />
+      <button 
+        onClick={() => setActiveAudio(null)}
+        style={{
+          background: "#7c2929",
+          color: "#fff",
+          border: "none",
+          borderRadius: "50%",
+          width: "25px",
+          height: "25px",
+          cursor: "pointer",
+          fontWeight: "bold"
+        }}
+      >
+        ✕
+      </button>
+    </div>
+  </Html>
+)}
+
+
 {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
 <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
   <mesh position={[0, 0, -0.01]}>
@@ -1106,49 +1152,6 @@ useEffect(() => {
   </>
 )}
 
-{/* Thanh Audio Player nổi lên khi chọn nghe thuyết minh ở Phòng 6 */}
-{activeAudio && (
-  <Html
-    fullscreen
-    style={{
-      position: "fixed",
-      bottom: "20px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      zIndex: 999999,
-      pointerEvents: "auto",
-    }}
-  >
-    <div style={{
-      background: "rgba(74, 46, 24, 0.9)",
-      padding: "10px 20px",
-      borderRadius: "30px",
-      boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-      display: "flex",
-      alignItems: "center",
-      gap: "15px",
-      border: "2px solid #ffd700"
-    }}>
-      <span style={{ color: "#fff0c2", fontSize: "14px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
-      <audio src={activeAudio} controls autoPlay style={{ height: "35px" }} />
-      <button 
-        onClick={() => setActiveAudio(null)}
-        style={{
-          background: "#7c2929",
-          color: "#fff",
-          border: "none",
-          borderRadius: "50%",
-          width: "25px",
-          height: "25px",
-          cursor: "pointer",
-          fontWeight: "bold"
-        }}
-      >
-        ✕
-      </button>
-    </div>
-  </Html>
-)}
 
   
 
