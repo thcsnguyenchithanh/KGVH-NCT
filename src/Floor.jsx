@@ -5,7 +5,7 @@ export default function Floor() {
   // Nếu bạn có ảnh vân gỗ (ví dụ: wood.jpg đặt trong thư mục public/images/), 
   // bạn có thể uncomment (bỏ dấu //) dòng dưới đây để dùng ảnh thật:
   const texture = useTexture(`${import.meta.env.BASE_URL}images/wood.jpg`);
-  exture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(4, 4); // Lặp lại vân gỗ để không bị vỡ hình
 
   return (
