@@ -21,12 +21,16 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
     }
   };
 
-  // Hệ số phóng to khi click (Bạn có thể tăng lên 2.0 hoặc 2.2 nếu muốn to hơn nữa)
-  const scaleFactor = isFullScreen ? 2.0 : 1.0;
+  const handleClose = (e) => {
+    e.stopPropagation();
+    setShowAudio(false);
+    setIsFullScreen(false);
+    if (audioRef.current) audioRef.current.pause();
+  };
 
   return (
     <group>
-      {/* Khung tranh gỗ và ảnh */}
+      {/* 1. Tranh hiển thị bình thường trên tường 3D */}
       <group 
         position={[0, 0.2, 0.02]} 
         onClick={handleMeshClick}
@@ -35,22 +39,21 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
       >
         {/* Khung gỗ bao quanh */}
         <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[(width + 0.2) * scaleFactor, (height + 0.2) * scaleFactor, 0.04]} />
+          <boxGeometry args={[width + 0.2, height + 0.2, 0.04]} />
           <meshStandardMaterial color="#4a2e18" roughness={0.6} />
         </mesh>
 
-        {/* Ảnh hiển thị qua Html, tự động scale to thu nhỏ mượt mà */}
+        {/* Ảnh trên tường */}
         <Html
           position={[0, 0, 0.025]}
           transform
-          distanceFactor={isFullScreen ? 1.0 : 1.5} // Thu khoảng cách camera lại gần hơn khi phóng to để tạo cảm giác full màn hình
+          distanceFactor={1.5}
           occlude
           style={{
-            width: `${width * 140 * scaleFactor}px`,
-            height: `${height * 140 * scaleFactor}px`,
+            width: `${width * 140}px`,
+            height: `${height * 140}px`,
             overflow: "hidden",
             pointerEvents: "auto",
-            transition: "all 0.3s ease-in-out",
           }}
         >
           <img
@@ -61,47 +64,98 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
         </Html>
       </group>
 
-      {/* Hộp thoại Audio Player xuất hiện bên dưới khi click */}
-      {showAudio && (
-        <Html
-          position={[0, -2.2, 0.05]}
-          transform
-          distanceFactor={1.3}
-          occlude
-          style={{
-            width: "520px",
-            background: "rgba(255, 255, 255, 0.98)",
-            padding: "10px 14px",
-            borderRadius: "10px",
-            border: "2px solid #70472e",
-            boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
-            pointerEvents: "auto",
-            zIndex: 9999,
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px", fontFamily: "sans-serif" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: "14px", fontWeight: "bold", color: "#70472e" }}>
-                🔊 {title}
-              </span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowAudio(false);
-                  setIsFullScreen(false);
-                  if (audioRef.current) audioRef.current.pause();
+      {/* 2. GIAO DIỆN FULL MÀN HÌNH (LIGHTBOX) KHI CLICK VÀO ẢNH */}
+      {isFullScreen && (
+        <Html fullscreen>
+          <div
+            onClick={handleClose}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "rgba(0, 0, 0, 0.85)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 99999,
+              pointerEvents: "auto",
+              padding: "20px",
+              boxSizing: "border-box",
+            }}
+          >
+            {/* Khung chứa ảnh phóng to và audio, ngăn sự kiện click lan ra ngoài */}
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "15px",
+                maxWidth: "90vw",
+                maxHeight: "90vh",
+              }}
+            >
+              {/* Nút đóng góc trên */}
+              <div style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "#fff", fontSize: "18px", fontWeight: "bold", fontFamily: "sans-serif" }}>
+                  🔊 {title}
+                </span>
+                <button
+                  onClick={handleClose}
+                  style={{
+                    background: "#a63a3a",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "6px",
+                    padding: "8px 16px",
+                    cursor: "pointer",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  ✕ Đóng (Full Màn Hình)
+                </button>
+              </div>
+
+              {/* Ảnh phóng to thật nét */}
+              <img
+                src={imgSrc}
+                alt={title}
+                style={{
+                  maxWidth: "85vw",
+                  maxHeight: "65vh",
+                  objectFit: "contain",
+                  borderRadius: "8px",
+                  border: "4px solid #70472e",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
                 }}
-                style={{ background: "#70472e", color: "#fff", border: "none", borderRadius: "4px", padding: "3px 8px", cursor: "pointer", fontSize: "12px" }}
-              >
-                ✕ Đóng
-              </button>
+              />
+
+              {/* Hộp thoại Audio Player bên dưới ảnh */}
+              {showAudio && (
+                <div
+                  style={{
+                    width: "450px",
+                    background: "rgba(255, 255, 255, 0.98)",
+                    padding: "10px 15px",
+                    borderRadius: "8px",
+                    border: "2px solid #70472e",
+                    boxShadow: "0 6px 20px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  <audio
+                    ref={audioRef}
+                    src={audioSrc}
+                    controls
+                    autoPlay
+                    style={{ width: "100%", height: "40px" }}
+                  />
+                </div>
+              )}
             </div>
-            <audio
-              ref={audioRef}
-              src={audioSrc}
-              controls
-              style={{ width: "100%", height: "38px" }}
-            />
           </div>
         </Html>
       )}

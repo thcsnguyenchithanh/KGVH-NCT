@@ -533,7 +533,7 @@ useEffect(() => {
   </mesh>
 
   {/* 1. Ảnh tường đối diện (Dành cho Khu 1, 3 và Khu 7) */}
-  {space.id !== 2 && space.id !== 7 && space.id !== 8 && (
+  {space.id !== 2 && space.id !== 7 && space.id !== 8 && && space.id !== 5 && space.id !== 6 &&(
     <WallImage
       src={
         space.id === 7
