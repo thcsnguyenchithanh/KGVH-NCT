@@ -552,13 +552,15 @@ useEffect(() => {
   )}
 
   {/* Tường Giữa Phòng 6 */}
-{/* Tường Giữa Phòng 6 */}
 {space.id === 6 && (
   <group position={[0, 0, 0.01]}>
-    {/* 1. Khung gỗ viền ngoài */}
-   
+    {/* Khung gỗ viền ngoài */}
+    <mesh position={[0, 0, -0.005]}>
+      <boxGeometry args={[7.0, 3.2, 0.03]} />
+      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+    </mesh>
 
-    {/* 2. Dùng thẻ Html để hiển thị ảnh chuẩn xác 100%, đè lên khung gỗ */}
+    {/* Thẻ Html hiển thị ảnh */}
     <Html
       position={[0, 0, 0.01]}
       transform
@@ -572,16 +574,21 @@ useEffect(() => {
     >
       <div
         onClick={(e) => {
-          e.stopPropagation();
-          // 1. Phóng to ảnh
+          e.stopPropagation(); // Chặn sự kiện lan truyền ra ngoài
+          
+          // 1. Phóng to ảnh toàn màn hình
           window.dispatchEvent(
             new CustomEvent("open-wall-image", {
               detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
             })
           );
+
           // 2. Phát audio thuyết minh
-          const audio = new Audio(SPACE_CONTENT[6].audioBg6);
-          audio.play().catch((err) => console.log(err));
+          if (SPACE_CONTENT[6].audioBg6) {
+            const audio = new Audio(SPACE_CONTENT[6].audioBg6);
+            audio.currentTime = 0;
+            audio.play().catch((err) => console.log("Lỗi phát audio:", err));
+          }
         }}
         style={{
           width: "100%",
