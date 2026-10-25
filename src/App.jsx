@@ -515,7 +515,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   );
 }
 
-function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo, setActiveAudio }) {
+function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
 const [isVideoHidden, setIsVideoHidden] = useState(false);
 
@@ -529,51 +529,6 @@ useEffect(() => {
 
   return (
     <group position={[-22, 0, 5.75]}>
-
-{/* Thanh Audio Player nổi lên khi chọn nghe thuyết minh ở Phòng 6 */}
-{activeAudio && (
-  <Html
-    fullscreen
-    style={{
-      position: "fixed",
-      bottom: "20px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      zIndex: 999999,
-      pointerEvents: "auto",
-    }}
-  >
-    <div style={{
-      background: "rgba(74, 46, 24, 0.9)",
-      padding: "10px 20px",
-      borderRadius: "30px",
-      boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-      display: "flex",
-      alignItems: "center",
-      gap: "15px",
-      border: "2px solid #ffd700"
-    }}>
-      <span style={{ color: "#fff0c2", fontSize: "14px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
-      <audio src={activeAudio} controls autoPlay style={{ height: "35px" }} />
-      <button 
-        onClick={() => setActiveAudio(null)}
-        style={{
-          background: "#7c2929",
-          color: "#fff",
-          border: "none",
-          borderRadius: "50%",
-          width: "25px",
-          height: "25px",
-          cursor: "pointer",
-          fontWeight: "bold"
-        }}
-      >
-        ✕
-      </button>
-    </div>
-  </Html>
-)}
-
 
 {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
 <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
@@ -642,8 +597,7 @@ useEffect(() => {
     </>
   )}
   {space.id === 6 && (
-    <>
-    <group 
+  <group 
     position={[0, 0, 0.01]}
     onClick={(e) => {
       e.stopPropagation();
@@ -652,22 +606,24 @@ useEffect(() => {
           detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
         })
       );
-      setActiveAudio(SPACE_CONTENT[6].audioBg6); // Kích hoạt thanh audio
+      window.dispatchEvent(
+        new CustomEvent("open-audio-player", {
+          detail: { audioUrl: SPACE_CONTENT[6].audioBg6 },
+        })
+      );
     }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
   >
-      {/* Ảnh nền tường giữa Khu 6 */}
-      <WallImage
-        src={SPACE_CONTENT[6].bgWall6}
-        alt="Nền tường giữa Khu 6"
-        position={[0, 0, 0.01]}
-        width={7.5}
-        height={3.2}
-      />
-      </group>
-   </>
-  )}
+    <WallImage
+      src={SPACE_CONTENT[6].bgWall6}
+      alt="Nền tường giữa Khu 6"
+      position={[0, 0, 0.01]}
+      width={7.5}
+      height={3.2}
+    />
+  </group>
+)}
   {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
         {space.id === 8 && (
           <>
@@ -813,15 +769,19 @@ useEffect(() => {
  ): space.id === 6 ? (
   <group 
     position={[0, 0, 0]}
-    onClick={(e) => {
-      e.stopPropagation();
-      window.dispatchEvent(
-        new CustomEvent("open-wall-image", {
-          detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
-        })
-      );
-      setActiveAudio(SPACE_CONTENT[6].audioTrai6); // Kích hoạt thanh audio
-    }}
+   onClick={(e) => {
+  e.stopPropagation();
+  window.dispatchEvent(
+    new CustomEvent("open-wall-image", {
+      detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
+    })
+  );
+  window.dispatchEvent(
+    new CustomEvent("open-audio-player", {
+      detail: { audioUrl: SPACE_CONTENT[6].audioTrai6 },
+    })
+  );
+}}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
   >
@@ -919,15 +879,19 @@ useEffect(() => {
 ): space.id === 6 ? (
   <group 
     position={[0, 0, 0]}
-    onClick={(e) => {
-      e.stopPropagation();
-      window.dispatchEvent(
-        new CustomEvent("open-wall-image", {
-          detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
-        })
-      );
-      setActiveAudio(SPACE_CONTENT[6].audioPhai6); // Kích hoạt thanh audio
-    }}
+   onClick={(e) => {
+  e.stopPropagation();
+  window.dispatchEvent(
+    new CustomEvent("open-wall-image", {
+      detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
+    })
+  );
+  window.dispatchEvent(
+    new CustomEvent("open-audio-player", {
+      detail: { audioUrl: SPACE_CONTENT[6].audioPhai6 },
+    })
+  );
+}}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
   >
@@ -1777,6 +1741,13 @@ export default function App() {
   const [activeAudio, setActiveAudio] = useState(null);
 
   useEffect(() => {
+  const handleOpenAudio = (e) => {
+    setActiveAudio(e.detail.audioUrl);
+  };
+  window.addEventListener("open-audio-player", handleOpenAudio);
+  return () => window.removeEventListener("open-audio-player", handleOpenAudio);
+}, []);
+  useEffect(() => {
     const link = document.createElement("link");
     link.href =
       "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&display=swap";
@@ -2403,36 +2374,16 @@ export default function App() {
 {/* Thanh Audio Player nổi toàn cục ở ngoài cùng, đè lên mọi thứ */}
 {activeAudio && (
   <div style={{
-    position: "fixed",
-    bottom: "30px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 99999999,
-    background: "rgba(74, 46, 24, 0.95)",
-    padding: "12px 24px",
-    borderRadius: "35px",
-    boxShadow: "0 6px 20px rgba(0,0,0,0.5)",
-    display: "flex",
-    alignItems: "center",
-    gap: "15px",
-    border: "2px solid #ffd700",
-    pointerEvents: "auto"
+    position: "fixed", bottom: "30px", left: "50%", transform: "translateX(-50%)",
+    zIndex: 99999999, background: "rgba(74, 46, 24, 0.95)", padding: "12px 24px",
+    borderRadius: "35px", boxShadow: "0 6px 20px rgba(0,0,0,0.5)", display: "flex",
+    alignItems: "center", gap: "15px", border: "2px solid #ffd700", pointerEvents: "auto"
   }}>
     <span style={{ color: "#fff0c2", fontSize: "15px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
     <audio src={activeAudio} controls autoPlay style={{ height: "36px" }} />
     <button 
       onClick={() => setActiveAudio(null)}
-      style={{
-        background: "#7c2929",
-        color: "#fff",
-        border: "none",
-        borderRadius: "50%",
-        width: "28px",
-        height: "28px",
-        cursor: "pointer",
-        fontWeight: "bold",
-        fontSize: "14px"
-      }}
+      style={{ background: "#7c2929", color: "#fff", border: "none", borderRadius: "50%", width: "28px", height: "28px", cursor: "pointer", fontWeight: "bold" }}
     >
       ✕
     </button>
