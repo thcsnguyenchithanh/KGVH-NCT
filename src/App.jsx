@@ -1108,19 +1108,19 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           {/* Vách sau */}
           <mesh position={[0, 1.1, -0.9]}>
             <boxGeometry args={[2.25, 2.2, 0.12]} />
-            <meshStandardMaterial color="#cd5c40" />
+            <meshStandardMaterial color="#771e07" />
           </mesh>
 
           {/* Vách trái */}
           <mesh position={[-1.06, 1.1, 0]}>
             <boxGeometry args={[0.12, 2.2, 1.9]} />
-            <meshStandardMaterial color="#cd5c40" />
+            <meshStandardMaterial color="#771e07" />
           </mesh>
 
           {/* Vách phải */}
           <mesh position={[1.06, 1.1, 0]}>
             <boxGeometry args={[0.12, 2.2, 1.9]} />
-            <meshStandardMaterial color="#cd5c40" />
+            <meshStandardMaterial color="#771e07" />
           </mesh>
 
           {/* Bảng tên */}
