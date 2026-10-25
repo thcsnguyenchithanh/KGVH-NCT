@@ -600,19 +600,17 @@ useEffect(() => {
     <>
     <group 
     position={[0, 0, 0.01]}
-    onClick={(e) => {
+   onClick={(e) => {
   e.stopPropagation();
   window.dispatchEvent(
     new CustomEvent("open-wall-image", {
       detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
     })
   );
-  // Bắn sự kiện bật audio độc lập, không sợ lỗi không định nghĩa
-  window.dispatchEvent(
-    new CustomEvent("open-audio-player", {
-      detail: { audioUrl: SPACE_CONTENT[6].audioBg6 },
-    })
-  );
+  // Gọi trực tiếp qua window, không bao giờ sợ lỗi is not defined
+  if (window.__setActiveAudio) {
+    window.__setActiveAudio(SPACE_CONTENT[6].audioBg6);
+  }
 }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
@@ -773,19 +771,17 @@ useEffect(() => {
  ): space.id === 6 ? (
   <group 
     position={[0, 0, 0]}
-    onClick={(e) => {
+   onClick={(e) => {
   e.stopPropagation();
   window.dispatchEvent(
     new CustomEvent("open-wall-image", {
       detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
     })
   );
-  // Bắn sự kiện bật audio độc lập, không sợ lỗi không định nghĩa
-  window.dispatchEvent(
-    new CustomEvent("open-audio-player", {
-      detail: { audioUrl: SPACE_CONTENT[6].audioBg6 },
-    })
-  );
+  // Gọi trực tiếp qua window, không bao giờ sợ lỗi is not defined
+  if (window.__setActiveAudio) {
+    window.__setActiveAudio(SPACE_CONTENT[6].audioBg6);
+  }
 }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
@@ -884,19 +880,17 @@ useEffect(() => {
 ): space.id === 6 ? (
   <group 
     position={[0, 0, 0]}
-    onClick={(e) => {
+   onClick={(e) => {
   e.stopPropagation();
   window.dispatchEvent(
     new CustomEvent("open-wall-image", {
       detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
     })
   );
-  // Bắn sự kiện bật audio độc lập, không sợ lỗi không định nghĩa
-  window.dispatchEvent(
-    new CustomEvent("open-audio-player", {
-      detail: { audioUrl: SPACE_CONTENT[6].audioBg6 },
-    })
-  );
+  // Gọi trực tiếp qua window, không bao giờ sợ lỗi is not defined
+  if (window.__setActiveAudio) {
+    window.__setActiveAudio(SPACE_CONTENT[6].audioBg6);
+  }
 }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
@@ -1747,13 +1741,9 @@ export default function App() {
   const [activeAudio, setActiveAudio] = useState(null);
 
   useEffect(() => {
-  const handleOpenAudio = (e) => {
-    setActiveAudio(e.detail.audioUrl);
-  };
-  window.addEventListener("open-audio-player", handleOpenAudio);
-  return () => window.removeEventListener("open-audio-player", handleOpenAudio);
+  // Gắn hẳn vào window để component con nào cũng gọi được trực tiếp
+  window.__setActiveAudio = setActiveAudio;
 }, []);
-
   useEffect(() => {
     const link = document.createElement("link");
     link.href =
