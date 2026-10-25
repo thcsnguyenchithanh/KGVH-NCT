@@ -10,10 +10,12 @@ export default function WallImageAudioSection({
   width = 5.5,
   height = 2.8,
 }) {
-    if (!imgSrc) return null;
+    
   const texture = useTexture(imgSrc);
   const audioRef = useRef(null);
 
+  if (!imgSrc) return null;
+  
   const handleClick = (e) => {
     e.stopPropagation();
 
