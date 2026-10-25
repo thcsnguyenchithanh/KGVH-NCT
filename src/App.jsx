@@ -8,7 +8,7 @@ import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from './BookShelf';
 import Room8 from './Room8';
-import Room6Exhibition from './Room6Exhibition';
+import WallImageAudioSection from './Room6Exhibition';
 import {
   Environment,
   OrbitControls,
