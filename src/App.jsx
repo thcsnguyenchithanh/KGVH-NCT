@@ -811,44 +811,34 @@ useEffect(() => {
       height={3.8}
     />
 
-    {/* 2. Lớp phủ Html giúp bắt sự kiện click 100% chính xác */}
-    <Html
+    {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
+    <mesh
       position={[0, 0, 0.02]}
-      transform
-      distanceFactor={1.5}
-      style={{
-        width: "650px",   // Khớp với chiều rộng tường trái (6.5 đơn vị 3D)
-        height: "380px",  // Khớp với chiều cao tường trái (3.8 đơn vị 3D)
-        pointerEvents: "auto",
+      onClick={(e) => {
+        e.stopPropagation();
+        
+        const isRoom6 = space.id === 6;
+        const imgSrc = isRoom6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5;
+        const audioSrc = isRoom6 ? SPACE_CONTENT[6].audioTrai6 : SPACE_CONTENT[5].audioTrai5;
+
+        // Mở phóng to ảnh
+        window.dispatchEvent(
+          new CustomEvent("open-wall-image", {
+            detail: { src: imgSrc, alt: `Tường Trái - Phòng ${space.id}` },
+          })
+        );
+
+        // Phát audio thuyết minh ngay lập tức
+        if (window.setActiveAudioGlobal) {
+          window.setActiveAudioGlobal(audioSrc);
+        }
       }}
+      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+      onPointerOut={() => { document.body.style.cursor = "default"; }}
     >
-      <div
-        onMouseDown={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          
-          const imgSrc = space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5;
-          const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioTrai6 : SPACE_CONTENT[5].audioTrai5;
-
-          window.dispatchEvent(
-            new CustomEvent("open-wall-image", {
-              detail: { src: imgSrc, alt: `Tường Trái - Phòng ${space.id}` },
-            })
-          );
-
-          if (window.setActiveAudioGlobal) {
-            window.setActiveAudioGlobal(audioSrc);
-          }
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-          background: "rgba(0, 0, 0, 0.01)", // <--- QUAN TRỌNG: Giúp bấm 1 phát ăn ngay từ lần đầu!
-        }}
-        title="Nhấn để nghe thuyết minh và phóng to ảnh"
-      />
-    </Html>
+      <planeGeometry args={[6.5, 3.8]} />
+      <meshBasicMaterial transparent opacity={0} />
+    </mesh>
   </group>
 ): space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
@@ -944,44 +934,34 @@ useEffect(() => {
       height={3.8}
     />
 
-    {/* 2. Lớp phủ Html giúp bắt sự kiện click 100% chính xác */}
-    <Html
+    {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
+    <mesh
       position={[0, 0, 0.02]}
-      transform
-      distanceFactor={1.5}
-      style={{
-        width: "650px",   // Khớp với chiều rộng tường phải (6.5 đơn vị 3D)
-        height: "380px",  // Khớp với chiều cao tường phải (3.8 đơn vị 3D)
-        pointerEvents: "auto",
+      onClick={(e) => {
+        e.stopPropagation();
+        
+        const isRoom6 = space.id === 6;
+        const imgSrc = isRoom6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
+        const audioSrc = isRoom6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai6;
+
+        // Mở phóng to ảnh
+        window.dispatchEvent(
+          new CustomEvent("open-wall-image", {
+            detail: { src: imgSrc, alt: `Tường Phải - Phòng ${space.id}` },
+          })
+        );
+
+        // Phát audio thuyết minh ngay lập tức
+        if (window.setActiveAudioGlobal) {
+          window.setActiveAudioGlobal(audioSrc);
+        }
       }}
+      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+      onPointerOut={() => { document.body.style.cursor = "default"; }}
     >
-      <div
-        onMouseDown={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          
-          const imgPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
-          const audioPhaiSrc = space.id === 6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
-
-          window.dispatchEvent(
-            new CustomEvent("open-wall-image", {
-              detail: { src: imgPhaiSrc, alt: `Tường Phải - Phòng ${space.id}` },
-            })
-          );
-
-          if (window.setActiveAudioGlobal) {
-            window.setActiveAudioGlobal(audioPhaiSrc);
-          }
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-          background: "rgba(0, 0, 0, 0.01)", // <--- QUAN TRỌNG: Giúp bấm 1 phát ăn ngay từ lần đầu!
-        }}
-        title="Nhấn để nghe thuyết minh và phóng to ảnh"
-      />
-    </Html>
+      <planeGeometry args={[6.5, 3.8]} />
+      <meshBasicMaterial transparent opacity={0} />
+    </mesh>
   </group>
 ) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
