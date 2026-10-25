@@ -474,6 +474,47 @@ function FramedVideoScreen({ onOpen }) {
   );
 }
 
+ /* ================= ================= ================= ================= ================= =================*/
+
+
+ // Component hiển thị 2 poster p1.png và p2.png trên tường bên phải
+function RightWallPanels() {
+  // Tải 2 texture ảnh p1.png và p2.png từ SANH_CONTENT
+  const panel1 = useTexture(SANH_CONTENT.panels[0].src);
+  const panel2 = useTexture(SANH_CONTENT.panels[1].src);
+
+  return (
+    <group position={[11.78, 2.7, 0]} rotation={[0, -Math.PI / 2, 0]}>
+      {/* --- POSTER 1 (p1.png) --- */}
+      <group position={[-5.0, 0, 0]}>
+        {/* Khung viền gỗ/kim loại đằng sau poster */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#5c1717" roughness={0.6} />
+        </mesh>
+        {/* Ảnh p1.png nằm đè phía trước khung */}
+        <mesh position={[0, 0, 0.03]}>
+          <planeGeometry args={[2.0, 3.0]} />
+          <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+
+      {/* --- POSTER 2 (p2.png) --- */}
+      <group position={[-2.4, 0, 0]}>
+        {/* Khung viền đằng sau poster */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#5c1717" roughness={0.6} />
+        </mesh>
+        {/* Ảnh p2.png nằm đè phía trước khung */}
+        <mesh position={[0, 0, 0.03]}>
+          <planeGeometry args={[2.0, 3.0]} />
+          <meshBasicMaterial map={panel2} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
 ///new
 
 const spaces = [
@@ -1781,6 +1822,8 @@ function Room({
         </group>
       ))}
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
+      <RightWallPanels />
+
       <group
         position={[11.78, 2.7, 1.5]}
         rotation={[0, -Math.PI / 2, 0]}
