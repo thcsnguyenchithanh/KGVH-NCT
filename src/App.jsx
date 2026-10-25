@@ -215,19 +215,19 @@ const SPACE_CONTENT = {
         stories: [
           {
             title: "Bác với thiếu nhi miền nam",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd2a.mp3`,
           },
           {
             title: "Các cháu sạch và ngoan thật",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd2b.mp3`,
           },
           {
             title: "Dành cho các cháu",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd2c.mp3`,
           },
           {
-            title: "Đến thăm trường thiếu nhi miền nam",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+            title: "Đến thăm trường thiếu nhi miền Nam",
+            file: `${import.meta.env.BASE_URL}khu3/cd2d.mp3`,
           },
         ],
       },
@@ -238,19 +238,19 @@ const SPACE_CONTENT = {
         stories: [
           {
             title: "Bác Hồ và chiến sĩ người dân tộc",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd3a.m4a`,
           },
           {
             title: "Bát chè xẻ đôi",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd3b.mp3`,
           },
           {
             title: "Ngày Tết nội vụ cũng phải gọn gàng",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd3c.m4a`,
           },
           {
             title: "Tấm lòng bác Hồ với chiến sĩ phòng không",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd3d.mp3`,
           },
         ],
       },
@@ -261,19 +261,19 @@ const SPACE_CONTENT = {
         stories: [
           {
             title: "Bỏ thuốc lá",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd4a.m4a`,
           },
           {
             title: "Giữ lời hứa",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd4b.m4a`,
           },
           {
             title: "Thời gian quý báu lắm",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd4c.m4a`,
           },
           {
             title: "Tục lệ tốt đẹp",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd4d.m4a`,
           },
         ],
       },
@@ -284,19 +284,19 @@ const SPACE_CONTENT = {
         stories: [
           {
             title: "Bác tặng quà",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd5a.mp3`,
           },
           {
             title: "Đây là cánh cửa hòa bình",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd5b.mp3`,
           },
           {
             title: "Một lần nhớ mãi",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd5c.mp3`,
           },
           {
             title: "Nước nóng nước nguội",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd5d.mp3`,
           },
         ],
       },
@@ -307,19 +307,19 @@ const SPACE_CONTENT = {
         stories: [
           {
             title: "Hai bàn tay",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd6a.mp3`,
           },
           {
             title: "Trường học của Bác",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd6b.mp3`,
           },
           {
             title: "Vườn rau, ao cá của Bác",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd6c.mp3`,
           },
           {
             title: "Vườn rau, ao cá của Bác",
-            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+            file: `${import.meta.env.BASE_URL}khu3/cd6c.mp3`,
           },
         ],
       },
