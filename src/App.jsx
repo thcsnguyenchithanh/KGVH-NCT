@@ -707,7 +707,61 @@ function MultipleHangingFlags() {
     </group>
   );
 }
+//--------------------------------------------------------------------------------------------------------
 
+function BackWallPanels() {
+  // 1. Lấy danh sách đường dẫn hình ảnh từ SANH_CONTENT.banners
+  const imageSources = useMemo(
+    () => SANH_CONTENT.banners.map((item) => item.src),
+    []
+  );
+
+  // 2. Tải toàn bộ texture cho 4 bức tranh bằng useTexture
+  const textures = useTexture(imageSources);
+
+  // 3. Tọa độ X phân bố đều 4 tấm hình trên chiều rộng bức tường sau
+  const xPositions = [-6.0, -2.0, 2.0, 6.0];
+
+  return (
+    <group position={[0, 2.7, -11.78]}>
+      {SANH_CONTENT.banners.map((banner, index) => (
+        <group key={banner.id} position={[xPositions[index], 0, 0]}>
+          {/* Khung viền gỗ màu trầm phía sau */}
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[2.2, 3.2, 0.05]} />
+            <meshStandardMaterial color="#5c1717" roughness={0.6} />
+          </mesh>
+
+          {/* Mặt phẳng hiển thị bức ảnh Bác Hồ */}
+          <mesh
+            position={[0, 0, 0.03]}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Bắn sự kiện mở xem ảnh kích thước lớn toàn màn hình
+              window.dispatchEvent(
+                new CustomEvent("open-wall-image", {
+                  detail: {
+                    src: banner.src,
+                    alt: banner.alt,
+                  },
+                })
+              );
+            }}
+            onPointerOver={() => {
+              document.body.style.cursor = "pointer";
+            }}
+            onPointerOut={() => {
+              document.body.style.cursor = "default";
+            }}
+          >
+            <planeGeometry args={[2.0, 3.0]} />
+            <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  );
+}
 
 ///new
 
@@ -2019,6 +2073,8 @@ function Room({
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
    <RightWallPanels onSelectImage={onSelectImage} />
    <LeftWallPanels onSelectImage={onSelectImage} />
+
+   <BackWallPanels onSelectImage={onSelectImage} />
 
 {/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
      <MultipleHangingFlags />
