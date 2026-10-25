@@ -110,7 +110,18 @@ const SPACE_CONTENT = {
     ],
   },
   4: {
-   video: "https://www.youtube.com/embed/R5wsX7xQsxY",
+   // Tường giữa (Room4)
+  bgWall4: `${import.meta.env.BASE_URL}room4/bg4.png`,
+  audioBg4: `${import.meta.env.BASE_URL}room4/bg4.mp3`,
+
+  // Tường trái (Room4)
+  imageTrai4: `${import.meta.env.BASE_URL}room4/trai4.png`,
+  audioTrai4: `${import.meta.env.BASE_URL}room4/trai4.mp3`,
+
+  // Tường phải (Room4)
+  imagePhai4: `${import.meta.env.BASE_URL}room4/phai4.png`,
+  audioPhai4: `${import.meta.env.BASE_URL}room4/phai4.mp3`,
+  },
 },
   5: {
    // Tường giữa (Room5)
@@ -604,11 +615,11 @@ useEffect(() => {
       </Html>
     </>
   )}
-  {(space.id === 6 || space.id === 5) && (
+  {(space.id === 6 || space.id === 5 || space.id === 4) && (
   <group position={[0, 0, 0.01]}>
     {/* 1. Hiển thị ảnh tường 3D bình thường */}
     <WallImage
-      src={space.id === 6 ? SPACE_CONTENT[6].bgWall6 : SPACE_CONTENT[5].bgWall5}
+     src={space.id === 6 ? SPACE_CONTENT[6].bgWall6 : space.id === 5 ? SPACE_CONTENT[5].bgWall5 : SPACE_CONTENT[4].bgWall4}
       alt={`Nền tường giữa Khu ${space.id}`}
       position={[0, 0, 0.01]}
       width={7.5}
@@ -632,8 +643,21 @@ useEffect(() => {
           e.preventDefault();
           
           // Lấy đúng dữ liệu theo từng phòng (5 hoặc 6)
-          const bgSrc = space.id === 6 ? SPACE_CONTENT[6].bgWall6 : SPACE_CONTENT[5].bgWall5;
-          const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioBg6 : SPACE_CONTENT[5].audioBg5;
+         // Lấy đúng đường dẫn ảnh nền tường giữa tùy theo ID phòng hiện tại
+const bgSrc = 
+  space.id === 6 
+    ? SPACE_CONTENT[6].bgWall6 
+    : space.id === 5 
+      ? SPACE_CONTENT[5].bgWall5 
+      : SPACE_CONTENT[4].bgWall4;
+
+// Lấy đúng đường dẫn file audio thuyết minh tương ứng
+const audioSrc = 
+  space.id === 6 
+    ? SPACE_CONTENT[6].audioBg6 
+    : space.id === 5 
+      ? SPACE_CONTENT[5].audioBg5 
+      : SPACE_CONTENT[4].audioBg4;
 
           // Mở phóng to ảnh
           window.dispatchEvent(
@@ -800,11 +824,15 @@ useEffect(() => {
       ))}
     </>
     
- ): (space.id === 6 || space.id === 5) ? (
+ ): (space.id === 6 || space.id === 5 || space.id === 4) ? (
   <group position={[0, 0, 0]} >
     {/* 1. Hiển thị ảnh tường trái 3D */}
     <WallImage
-      src={space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5}
+      src={space.id === 6 
+    ? SPACE_CONTENT[6].imageTrai6 
+    : space.id === 5 
+      ? SPACE_CONTENT[5].imageTrai5 
+      : SPACE_CONTENT[4].imageTrai4}
       alt={`Hình tường trái Phòng ${space.id}`}
       position={[0, 0, 0]}
       width={6.5}
@@ -817,10 +845,20 @@ useEffect(() => {
       onClick={(e) => {
         e.stopPropagation();
         
-        const isRoom6 = space.id === 6;
-        const imgSrc = isRoom6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5;
-        const audioSrc = isRoom6 ? SPACE_CONTENT[6].audioTrai6 : SPACE_CONTENT[5].audioTrai5;
+    const currentRoomId = space.id;
+        const imgSrc = space.id === 6 
+  ? SPACE_CONTENT[6].imageTrai6 
+  : space.id === 5 
+    ? SPACE_CONTENT[5].imageTrai5 
+    : SPACE_CONTENT[4].imageTrai4;
 
+const audioSrc = space.id === 6 
+  ? SPACE_CONTENT[6].audioTrai6 
+  : space.id === 5 
+    ? SPACE_CONTENT[5].audioTrai5 
+    : SPACE_CONTENT[4].audioTrai4;
+
+        
         // Mở phóng to ảnh
         window.dispatchEvent(
           new CustomEvent("open-wall-image", {
@@ -923,11 +961,11 @@ useEffect(() => {
       height={3.8}
     />
     
-): (space.id === 6 || space.id === 5) ? (
+): (space.id === 6 || space.id === 5 || space.id === 4) ? (
   <group position={[0, 0, 0]} >
     {/* 1. Hiển thị ảnh tường phải 3D */}
     <WallImage
-      src={space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5}
+      src={space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : space.id === 5 ? SPACE_CONTENT[5].imagePhai5 : SPACE_CONTENT[4].imagePhai4}
       alt={`Hình tường phải Phòng ${space.id}`}
       position={[0, 0, 0]}
       width={6.5}
@@ -941,8 +979,22 @@ useEffect(() => {
         e.stopPropagation();
         
         const isRoom6 = space.id === 6;
-        const imgSrc = isRoom6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
-        const audioSrc = isRoom6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
+        const currentRoomId = space.id;
+        // Lấy đường dẫn ảnh tường phải (hoặc tường trái/tường giữa tùy bạn áp dụng)
+const imgSrc = 
+  currentRoomId === 6 
+    ? SPACE_CONTENT[6].imagePhai6 
+    : currentRoomId === 5 
+      ? SPACE_CONTENT[5].imagePhai5 
+      : SPACE_CONTENT[4].imagePhai4;
+
+// Lấy đường dẫn audio thuyết minh tương ứng
+const audioSrc = 
+  currentRoomId === 6 
+    ? SPACE_CONTENT[6].audioPhai6 
+    : currentRoomId === 5 
+      ? SPACE_CONTENT[5].audioPhai5 
+      : SPACE_CONTENT[4].audioPhai4;
 
         // Mở phóng to ảnh
         window.dispatchEvent(
@@ -1114,7 +1166,7 @@ useEffect(() => {
       </Text>
 
          {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
-{space.id !== 3 && space.id !== 7 && space.id !== 8 && space.id !== 6 && space.id !== 5 &&  (
+{space.id !== 3 && space.id !== 7 && space.id !== 8 && space.id !== 6 && space.id !== 5 && space.id !== 4 &&  (
   <>
     {/* Bàn tròn giữa phòng */}
     <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
