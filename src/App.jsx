@@ -601,18 +601,20 @@ useEffect(() => {
     position={[0, 0, 0.01]}
     onClick={(e) => {
       e.stopPropagation();
-      // Mở phóng to ảnh tường
+      console.log("--> ĐÃ CLICK VÀO TƯỜNG GIỮA PHÒNG 6!"); // <-- Dòng kiểm tra
+
+      // 1. Mở ảnh phóng to
       window.dispatchEvent(
         new CustomEvent("open-wall-image", {
           detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
         })
       );
-      // Kích hoạt thanh audio tường giữa
-      window.dispatchEvent(
-        new CustomEvent("open-audio-player", {
-          detail: { audioUrl: SPACE_CONTENT[6].audioBg6 },
-        })
-      );
+
+      // 2. Kích hoạt audio trực tiếp qua hàm toàn cục
+      if (window.setActiveAudioGlobal) {
+        window.setActiveAudioGlobal(SPACE_CONTENT[6].audioBg6);
+        console.log("--> Đã gọi setActiveAudioGlobal với:", SPACE_CONTENT[6].audioBg6);
+      }
     }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
