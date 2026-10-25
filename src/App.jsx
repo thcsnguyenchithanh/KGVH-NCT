@@ -621,46 +621,89 @@ function LeftWallPanels() {
 
 
 // Component tạo dây treo cờ vắt ngang sảnh chính
-function HangingFlags() {
-  // 1. Định nghĩa đường cong cho sợi dây (Neo tường trái -> Võng ở giữa -> Neo tường phải)
-  const curve = useMemo(() => {
-    return new THREE.QuadraticBezierCurve3(
-      new THREE.Vector3(-11, 5.2, 0), // Điểm treo bên tường trái (X = -11, Y = 5.2)
-      new THREE.Vector3(0, 4.6, 0),   // Điểm giữa bị võng xuống nhẹ do trọng lực (Y = 4.6)
-      new THREE.Vector3(11, 5.2, 0)   // Điểm treo bên tường phải (X = 11, Y = 5.2)
-    );
+function MultipleHangingFlags() {
+  // 1. Tạo texture cờ đỏ sao vàng loại nhỏ bằng Canvas HTML5
+  const flagTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 341; // Tỉ lệ chuẩn 3:2 nhỏ gọn
+    const ctx = canvas.getContext("2d");
+
+    // Tô nền màu đỏ cờ
+    ctx.fillStyle = "#da251d";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Vẽ ngôi sao vàng 5 cánh ở chính giữa
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const outerRadius = canvas.height * 0.35;
+    const innerRadius = outerRadius * 0.382;
+
+    ctx.fillStyle = "#ffcc00";
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const angleOuter = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+      const xOuter = cx + Math.cos(angleOuter) * outerRadius;
+      const yOuter = cy + Math.sin(angleOuter) * outerRadius;
+      if (i === 0) ctx.moveTo(xOuter, yOuter);
+      else ctx.lineTo(xOuter, yOuter);
+
+      const angleInner = ((i * 4 + 2) * Math.PI) / 5 - Math.PI / 2;
+      const xInner = cx + Math.cos(angleInner) * innerRadius;
+      const yInner = cy + Math.sin(angleInner) * innerRadius;
+      ctx.lineTo(xInner, yInner);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
   }, []);
 
-  // 2. Lấy 20 điểm trên đường cong để làm vị trí gắn cờ
-  const points = useMemo(() => curve.getPoints(20), [curve]);
+  // 2. Định nghĩa các vị trí Z để rải nhiều dây treo song song dọc theo chiều sâu sảnh
+  const lineZOffsets = [-3.5, 0.0, 3.5]; // 3 dây treo cách đều nhau từ trước ra sau phòng
 
   return (
     <group>
-      {/* Sợi dây mảnh nối giữa 2 tường */}
-      <line>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[new Float32Array(points.flatMap((p) => [p.x, p.y, p.z])), 3]}
-          />
-        </bufferGeometry>
-        <lineBasicMaterial color="#ffffff" linewidth={2} />
-      </line>
+      {lineZOffsets.map((zOffset, lineIndex) => {
+        // Tạo đường cong võng xuống tự nhiên cho từng dây treo từ tường trái sang tường phải
+        const curve = new THREE.QuadraticBezierCurve3(
+          new THREE.Vector3(-11, 5.2, zOffset), // Neo tường trái
+          new THREE.Vector3(0, 4.5, zOffset),   // Điểm võng ở giữa phòng
+          new THREE.Vector3(11, 5.2, zOffset)   // Neo tường phải
+        );
 
-      {/* Các lá cờ nhỏ đỏ - vàng xen kẽ treo dọc theo dây */}
-      {points.slice(1, -1).map((pt, idx) => (
-        <mesh
-          key={idx}
-          position={[pt.x, pt.y - 0.2, pt.z]}
-          rotation={[0, 0, idx % 2 === 0 ? 0.12 : -0.12]} // Xoay nhẹ góc để cờ trông tự nhiên hơn
-        >
-          <planeGeometry args={[0.3, 0.4]} />
-          <meshBasicMaterial
-            color={idx % 2 === 0 ? "#da251d" : "#ffcc00"} // Đỏ và Vàng
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-      ))}
+        const points = curve.getPoints(12); // Chia dây thành các đoạn nhỏ để treo cờ
+
+        return (
+          <group key={lineIndex}>
+            {/* Sợi dây treo mảnh màu trắng */}
+            <line>
+              <bufferGeometry>
+                <bufferAttribute
+                  attach="attributes-position"
+                  args={[new Float32Array(points.flatMap((p) => [p.x, p.y, p.z])), 3]}
+                />
+              </bufferGeometry>
+              <lineBasicMaterial color="#ffffff" linewidth={1.5} />
+            </line>
+
+            {/* Các lá cờ đỏ sao vàng nhỏ treo dọc theo dây */}
+            {points.slice(1, -1).map((pt, idx) => (
+              <mesh
+                key={idx}
+                position={[pt.x, pt.y - 0.15, pt.z]}
+                rotation={[0, 0, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay nhẹ tạo hiệu ứng sinh động
+              >
+                {/* Kích thước lá cờ nhỏ gọn: rộng 0.3 đơn vị, cao 0.2 đơn vị */}
+                <planeGeometry args={[0.3, 0.2]} />
+                <meshBasicMaterial map={flagTexture} side={THREE.DoubleSide} />
+              </mesh>
+            ))}
+          </group>
+        );
+      })}
     </group>
   );
 }
@@ -2037,7 +2080,7 @@ function Room({
    <LeftWallPanels onSelectImage={onSelectImage} />
 
 {/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
-      <HangingFlags />
+     <MultipleHangingFlags />
 
       {/* 3. Cờ đỏ sao vàng đặt trang trọng ở góc tường bên trái */}
       <VietnameseFlag
