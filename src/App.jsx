@@ -122,7 +122,7 @@ const SPACE_CONTENT = {
   imagePhai4: `${import.meta.env.BASE_URL}room4/phai4.png`,
   audioPhai4: `${import.meta.env.BASE_URL}room4/phai4.mp3`,
   },
-},
+
   5: {
    // Tường giữa (Room5)
   bgWall5: `${import.meta.env.BASE_URL}room5/bg5.png`,
