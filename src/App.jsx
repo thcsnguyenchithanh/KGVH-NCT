@@ -983,7 +983,7 @@ useEffect(() => {
       />
     </Html>
   </group>
-) : : space.id === 8 ? (
+) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
          <>
             <mesh position={[0, 0, -0.02]}>
