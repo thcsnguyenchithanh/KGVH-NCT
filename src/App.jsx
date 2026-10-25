@@ -515,10 +515,10 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   );
 }
 
-function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo }) {
+function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo, setActiveAudio }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
 const [isVideoHidden, setIsVideoHidden] = useState(false);
-const [activeAudio, setActiveAudio] = useState(null);
+
 useEffect(() => {
   if (!showPadlet) {
     setIsPadletFullScreen(false);
@@ -529,51 +529,6 @@ useEffect(() => {
 
   return (
     <group position={[-22, 0, 5.75]}>
-
-{/* Thanh Audio Player nổi lên khi chọn nghe thuyết minh ở Phòng 6 */}
-{activeAudio && (
-  <Html
-    fullscreen
-    style={{
-      position: "fixed",
-      bottom: "20px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      zIndex: 999999,
-      pointerEvents: "auto",
-    }}
-  >
-    <div style={{
-      background: "rgba(74, 46, 24, 0.9)",
-      padding: "10px 20px",
-      borderRadius: "30px",
-      boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-      display: "flex",
-      alignItems: "center",
-      gap: "15px",
-      border: "2px solid #ffd700"
-    }}>
-      <span style={{ color: "#fff0c2", fontSize: "14px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
-      <audio src={activeAudio} controls autoPlay style={{ height: "35px" }} />
-      <button 
-        onClick={() => setActiveAudio(null)}
-        style={{
-          background: "#7c2929",
-          color: "#fff",
-          border: "none",
-          borderRadius: "50%",
-          width: "25px",
-          height: "25px",
-          cursor: "pointer",
-          fontWeight: "bold"
-        }}
-      >
-        ✕
-      </button>
-    </div>
-  </Html>
-)}
-
 
 {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
 <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
@@ -1716,6 +1671,7 @@ function Scene({
           showPadlet={showPadlet} 
           wallImageFull={wallImageFull}
           setSelectedKhu3Topic={setSelectedKhu3Topic}
+          setActiveAudio={setActiveAudio}
         />
       )}
            
@@ -1773,6 +1729,7 @@ export default function App() {
   const [activeChuS, setActiveChuS] = useState(0);
   const [musicExpanded, setMusicExpanded] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [activeAudio, setActiveAudio] = useState(null);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -2395,6 +2352,45 @@ export default function App() {
       }
       allowFullScreen
     />
+  </div>
+)}
+
+{/* Thanh Audio Player nổi toàn cục ở ngoài cùng, đè lên mọi thứ */}
+{activeAudio && (
+  <div style={{
+    position: "fixed",
+    bottom: "30px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 99999999,
+    background: "rgba(74, 46, 24, 0.95)",
+    padding: "12px 24px",
+    borderRadius: "35px",
+    boxShadow: "0 6px 20px rgba(0,0,0,0.5)",
+    display: "flex",
+    alignItems: "center",
+    gap: "15px",
+    border: "2px solid #ffd700",
+    pointerEvents: "auto"
+  }}>
+    <span style={{ color: "#fff0c2", fontSize: "15px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
+    <audio src={activeAudio} controls autoPlay style={{ height: "36px" }} />
+    <button 
+      onClick={() => setActiveAudio(null)}
+      style={{
+        background: "#7c2929",
+        color: "#fff",
+        border: "none",
+        borderRadius: "50%",
+        width: "28px",
+        height: "28px",
+        cursor: "pointer",
+        fontWeight: "bold",
+        fontSize: "14px"
+      }}
+    >
+      ✕
+    </button>
   </div>
 )}
 
