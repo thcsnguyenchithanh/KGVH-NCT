@@ -1823,7 +1823,7 @@ function SpaceInteriorRoom({
         <meshStandardMaterial color="#eee6d7" />
       </mesh>
       {/* Hoa văn trống đồng trên trần */}
-      <CeilingDrum y={4.11} size={4} />
+     <CeilingDrum y={3.89} size={4} />
 
       {/* Vách sau - đối diện cửa */}
       <mesh position={[0, 2, -4]}>
