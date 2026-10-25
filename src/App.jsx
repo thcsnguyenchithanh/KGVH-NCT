@@ -7,7 +7,7 @@ import  WallImage  from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from './BookShelf';
-const [activeAudio, setActiveAudio] = useState(null);
+
 
 import Room8 from './Room8';
 
@@ -518,6 +518,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo }) {
 const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
 const [isVideoHidden, setIsVideoHidden] = useState(false);
+const [activeAudio, setActiveAudio] = useState(null);
 useEffect(() => {
   if (!showPadlet) {
     setIsPadletFullScreen(false);
