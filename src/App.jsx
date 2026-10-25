@@ -1742,6 +1742,7 @@ export default function App() {
 
   useEffect(() => {
   const handleOpenAudio = (e) => {
+    console.log("👉 Đã bắt được sự kiện audio:", e.detail.audioUrl); // Xem trong F12 Console có dòng này không
     setActiveAudio(e.detail.audioUrl);
   };
   window.addEventListener("open-audio-player", handleOpenAudio);
