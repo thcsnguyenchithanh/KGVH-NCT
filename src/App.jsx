@@ -622,18 +622,18 @@ function LeftWallPanels() {
 
 // Component tạo dây treo cờ vắt ngang sảnh chính
 function MultipleHangingFlags() {
-  // 1. Tạo texture cờ đỏ sao vàng loại nhỏ bằng Canvas HTML5
+  // 1. Tạo texture lá cờ đỏ sao vàng loại nhỏ bằng HTML5 Canvas
   const flagTexture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 512;
-    canvas.height = 341; // Tỉ lệ chuẩn 3:2 nhỏ gọn
+    canvas.height = 341; // Tỉ lệ chuẩn 3:2 của Quốc kỳ
     const ctx = canvas.getContext("2d");
 
-    // Tô nền màu đỏ cờ
+    // Tô nền màu đỏ cờ chuẩn
     ctx.fillStyle = "#da251d";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Vẽ ngôi sao vàng 5 cánh ở chính giữa
+    // Vẽ ngôi sao vàng 5 cánh ở chính giữa lá cờ
     const cx = canvas.width / 2;
     const cy = canvas.height / 2;
     const outerRadius = canvas.height * 0.35;
@@ -661,24 +661,24 @@ function MultipleHangingFlags() {
     return texture;
   }, []);
 
-  // 2. Định nghĩa các vị trí Z để rải nhiều dây treo song song dọc theo chiều sâu sảnh
-  const lineZOffsets = [-3.5, 0.0, 3.5]; // 3 dây treo cách đều nhau từ trước ra sau phòng
+  // 2. Danh sách tọa độ Z để rải nhiều dây treo song song theo chiều sâu phòng
+  const lineZOffsets = [-4.0, -2.0, 0.0, 2.0, 4.0];
 
   return (
     <group>
       {lineZOffsets.map((zOffset, lineIndex) => {
-        // Tạo đường cong võng xuống tự nhiên cho từng dây treo từ tường trái sang tường phải
+        // Tạo đường cong võng xuống tự nhiên cho từng dây treo từ tường trái sang phải
         const curve = new THREE.QuadraticBezierCurve3(
-          new THREE.Vector3(-11, 5.2, zOffset), // Neo tường trái
-          new THREE.Vector3(0, 4.5, zOffset),   // Điểm võng ở giữa phòng
-          new THREE.Vector3(11, 5.2, zOffset)   // Neo tường phải
+          new THREE.Vector3(-11.5, 5.2, zOffset), // Điểm neo bên tường trái
+          new THREE.Vector3(0, 4.5, zOffset),     // Điểm giữa bị võng xuống theo trọng lực
+          new THREE.Vector3(11.5, 5.2, zOffset)   // Điểm neo bên tường phải
         );
 
-        const points = curve.getPoints(12); // Chia dây thành các đoạn nhỏ để treo cờ
+        const points = curve.getPoints(14); // Chia dây thành các đoạn nhỏ để gắn cờ
 
         return (
           <group key={lineIndex}>
-            {/* Sợi dây treo mảnh màu trắng */}
+            {/* Sợi dây treo mảnh màu trắng nối hai đầu tường */}
             <line>
               <bufferGeometry>
                 <bufferAttribute
@@ -689,15 +689,15 @@ function MultipleHangingFlags() {
               <lineBasicMaterial color="#ffffff" linewidth={1.5} />
             </line>
 
-            {/* Các lá cờ đỏ sao vàng nhỏ treo dọc theo dây */}
+            {/* Các lá cờ nhỏ treo dọc theo từng điểm trên dây */}
             {points.slice(1, -1).map((pt, idx) => (
               <mesh
                 key={idx}
                 position={[pt.x, pt.y - 0.15, pt.z]}
-                rotation={[0, 0, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay nhẹ tạo hiệu ứng sinh động
+                rotation={[0, 0, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay nhẹ qua lại tạo hiệu ứng sinh động
               >
-                {/* Kích thước lá cờ nhỏ gọn: rộng 0.3 đơn vị, cao 0.2 đơn vị */}
-                <planeGeometry args={[0.3, 0.2]} />
+                {/* 👈 Đã tăng kích thước cờ lên 10%: từ [0.3, 0.2] thành [0.33, 0.22] */}
+                <planeGeometry args={[0.33, 0.22]} />
                 <meshBasicMaterial map={flagTexture} side={THREE.DoubleSide} />
               </mesh>
             ))}
@@ -708,65 +708,7 @@ function MultipleHangingFlags() {
   );
 }
 
-// Component tạo Lá cờ đỏ sao vàng Việt Nam
-// Component 2: Cờ đỏ sao vàng Việt Nam kèm cán cờ gỗ
-function VietnameseFlag({ position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1] }) {
-  // Tạo hình ảnh lá cờ trực tiếp bằng Canvas
-  const flagTexture = useMemo(() => {
-    const canvas = document.createElement("canvas");
-    canvas.width = 1024;
-    canvas.height = 683; // Tỉ lệ chuẩn 3:2 của Quốc kỳ Việt Nam
-    const ctx = canvas.getContext("2d");
 
-    // 1. Tô nền màu đỏ cờ chuẩn
-    ctx.fillStyle = "#da251d";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // 2. Tọa độ và bán kính ngôi sao vàng ở giữa
-    const cx = canvas.width / 2;
-    const cy = canvas.height / 2;
-    const outerRadius = canvas.height * 0.35;
-    const innerRadius = outerRadius * 0.382;
-
-    // 3. Tiến hành vẽ 5 cánh sao
-    ctx.fillStyle = "#ffcc00";
-    ctx.beginPath();
-    for (let i = 0; i < 5; i++) {
-      const angleOuter = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-      const xOuter = cx + Math.cos(angleOuter) * outerRadius;
-      const yOuter = cy + Math.sin(angleOuter) * outerRadius;
-      if (i === 0) ctx.moveTo(xOuter, yOuter);
-      else ctx.lineTo(xOuter, yOuter);
-
-      const angleInner = ((i * 4 + 2) * Math.PI) / 5 - Math.PI / 2;
-      const xInner = cx + Math.cos(angleInner) * innerRadius;
-      const yInner = cy + Math.sin(angleInner) * innerRadius;
-      ctx.lineTo(xInner, yInner);
-    }
-    ctx.closePath();
-    ctx.fill();
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.needsUpdate = true;
-    return texture;
-  }, []);
-
-  return (
-    <group position={position} rotation={rotation} scale={scale}>
-      {/* Cán cờ bằng gỗ */}
-      <mesh position={[-1.05, 0, 0]}>
-        <cylinderGeometry args={[0.025, 0.025, 3.0, 16]} />
-        <meshStandardMaterial color="#8b5a2b" roughness={0.5} />
-      </mesh>
-
-      {/* Mặt phẳng lá cờ */}
-      <mesh position={[0, 0, 0]}>
-        <planeGeometry args={[2.0, 1.33]} />
-        <meshStandardMaterial map={flagTexture} side={THREE.DoubleSide} roughness={0.7} />
-      </mesh>
-    </group>
-  );
-}
 
 ///new
 
@@ -2083,11 +2025,7 @@ function Room({
      <MultipleHangingFlags />
 
       {/* 3. Cờ đỏ sao vàng đặt trang trọng ở góc tường bên trái */}
-      <VietnameseFlag
-        position={[-11.5, 3.2, 3.5]} // Tọa độ X, Y, Z
-        rotation={[0, Math.PI / 2, 0]} // Xoay mặt cờ hướng ra lòng sảnh
-        scale={[0.8, 0.8, 0.8]}        // Điều chỉnh kích thước vừa vặn
-      />
+      
 
 
       <group
