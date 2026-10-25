@@ -1765,25 +1765,24 @@ export default function App() {
 
  // Lắng nghe sự kiện phát audio từ các bức tường hoặc không gian
 useEffect(() => {
-  // Cung cấp hàm toàn cục phòng hờ
   window.setActiveAudioGlobal = (url) => {
-    setActiveAudio(url);
-  };
-
-  // Lắng nghe sự kiện mở audio từ các tường trong phòng 3D
-  const handleOpenAudio = (e) => {
-    if (e.detail && e.detail.audioUrl) {
-      setActiveAudio(e.detail.audioUrl);
-      console.log("Đã bật thanh audio với link:", e.detail.audioUrl);
+    // 1. Tạm dừng nhạc nền nếu đang phát
+    if (audioRef.current) {
+      audioRef.current.pause();
     }
-  };
+    // 2. Tạm dừng giọng nói của robot nếu đang phát
+    if (window.robotVoiceAudio) {
+      window.robotVoiceAudio.pause();
+    }
 
-  window.addEventListener("open-audio-player", handleOpenAudio);
-  
-  return () => {
-    window.removeEventListener("open-audio-player", handleOpenAudio);
+    // 3. Bật audio thuyết minh mới
+    setActiveAudio(url);
+    console.log("Đã bật audio và dừng các âm thanh khác:", url);
   };
 }, []);
+ 
+
+
   useEffect(() => {
     const link = document.createElement("link");
     link.href =
@@ -2371,7 +2370,6 @@ useEffect(() => {
     </div>
   </div>
 )}
-
 {activeAudio && (
   <div style={{
     position: "fixed",
@@ -2387,8 +2385,20 @@ useEffect(() => {
     gap: "15px",
     border: "2px solid #ffd700"
   }}>
-    <span style={{ color: "#fff", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
-    <audio src={activeAudio} controls autoPlay style={{ height: "32px" }} />
+    <span style={{ color: "#fff", fontWeight: "bold" }}>🔊 Thuyết minh</span>
+    
+    <audio 
+      src={activeAudio} 
+      controls 
+      autoPlay 
+      style={{ height: "32px" }} 
+      onPlay={() => {
+        // Tự động dừng nhạc nền và robot khi audio này chạy
+        if (audioRef.current) audioRef.current.pause();
+        if (window.robotVoiceAudio) window.robotVoiceAudio.pause();
+      }}
+    />
+
     <button 
       onClick={() => setActiveAudio(null)}
       style={{ background: "#7c2929", color: "#fff", border: "none", borderRadius: "50%", width: "26px", height: "26px", cursor: "pointer" }}
@@ -2397,7 +2407,6 @@ useEffect(() => {
     </button>
   </div>
 )}
-
 {khu1Content && (
   <div
     style={{
