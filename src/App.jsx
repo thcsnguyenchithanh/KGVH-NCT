@@ -553,15 +553,28 @@ useEffect(() => {
 
   {/* Tường Giữa Phòng 6 */}
 {space.id === 6 && (
-  <group>
-    {SPACE_CONTENT[6] && SPACE_CONTENT[6].bgWall6 ? (
-      <WallImageAudioSection
-        title="Phòng 6"
-        imgSrc={SPACE_CONTENT[6].bgWall6}
-        audioSrc={SPACE_CONTENT[6].audioBg6}
-        position={[0, 0, 0]}
-      />
-    ) : null}
+  <group position={[0, 0, 0.01]}>
+    {/* Khung gỗ */}
+    <mesh position={[0, 0, -0.005]}>
+      <boxGeometry args={[7.0, 3.2, 0.03]} />
+      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+    </mesh>
+    {/* Mặt phẳng hiển thị thay thế */}
+    <mesh
+      onClick={(e) => {
+        e.stopPropagation();
+        window.dispatchEvent(
+          new CustomEvent("open-wall-image", {
+            detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
+          })
+        );
+      }}
+      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+      onPointerOut={() => { document.body.style.cursor = "default"; }}
+    >
+      <planeGeometry args={[6.8, 3.0]} />
+      <meshStandardMaterial color="#8b5a2b" roughness={0.5} />
+    </mesh>
   </group>
 )}
 
@@ -749,14 +762,27 @@ useEffect(() => {
     </>
     
  ) : space.id === 6 ? (
-  <WallImageAudioSection
-    title="Thuyết minh Tường Trái - Phòng 6"
-    imgSrc={SPACE_CONTENT[6].imageTrai6}
-    audioSrc={SPACE_CONTENT[6].audioTrai6}
-    position={[0, 0, 0]}
-    width={5.5}
-    height={2.8}
-  />
+  <group position={[0, 0, 0]}>
+    <mesh position={[0, 0, -0.005]}>
+      <boxGeometry args={[5.7, 3.0, 0.03]} />
+      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+    </mesh>
+    <mesh
+      onClick={(e) => {
+        e.stopPropagation();
+        window.dispatchEvent(
+          new CustomEvent("open-wall-image", {
+            detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
+          })
+        );
+      }}
+      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+      onPointerOut={() => { document.body.style.cursor = "default"; }}
+    >
+      <planeGeometry args={[5.5, 2.8]} />
+      <meshStandardMaterial color="#8b5a2b" roughness={0.5} />
+    </mesh>
+  </group>
 ): space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
           <>
@@ -841,14 +867,27 @@ useEffect(() => {
     />
     
 ) : space.id === 6 ? (
-  <WallImageAudioSection
-    title="Thuyết minh Tường Phải - Phòng 6"
-    imgSrc={SPACE_CONTENT[6].imagePhai6}
-    audioSrc={SPACE_CONTENT[6].audioPhai6}
-    position={[0, 0, 0]}
-    width={5.5}
-    height={2.8}
-  />
+  <group position={[0, 0, 0]}>
+    <mesh position={[0, 0, -0.005]}>
+      <boxGeometry args={[5.7, 3.0, 0.03]} />
+      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+    </mesh>
+    <mesh
+      onClick={(e) => {
+        e.stopPropagation();
+        window.dispatchEvent(
+          new CustomEvent("open-wall-image", {
+            detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
+          })
+        );
+      }}
+      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+      onPointerOut={() => { document.body.style.cursor = "default"; }}
+    >
+      <planeGeometry args={[5.5, 2.8]} />
+      <meshStandardMaterial color="#8b5a2b" roughness={0.5} />
+    </mesh>
+  </group>
 ) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
          <>
