@@ -627,8 +627,9 @@ useEffect(() => {
       }}
     >
       <div
-        onClick={(e) => {
+        onMouseDown={(e) => {
           e.stopPropagation();
+          e.preventDefault();
           const bgSrc = space.id === 6 ? SPACE_CONTENT[6].bgWall6 : SPACE_CONTENT[5].bgWall5;
           const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioBg6 : SPACE_CONTENT[5].audioBg5;
 
@@ -817,8 +818,9 @@ useEffect(() => {
       }}
     >
       <div
-        onClick={(e) => {
+        onMouseDown={(e) => {
           e.stopPropagation();
+          e.preventDefault();
           const imgSrc = space.id === 6 ? SPACE_CONTENT[6].imageTrai6 : SPACE_CONTENT[5].imageTrai5;
           const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioTrai6 : SPACE_CONTENT[5].audioTrai5;
 
@@ -949,8 +951,9 @@ useEffect(() => {
       }}
     >
       <div
-       onClick={(e) => {
+       onMouseDown={(e) => {
           e.stopPropagation();
+          e.preventDefault();
           const imgSrc = space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : SPACE_CONTENT[5].imagePhai5;
           const audioSrc = space.id === 6 ? SPACE_CONTENT[6].audioPhai6 : SPACE_CONTENT[5].audioPhai5;
 
@@ -1126,7 +1129,7 @@ useEffect(() => {
       </Text>
 
          {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
-{space.id !== 3 && space.id !== 7 && space.id !== 8 && space.id !== 6 && (
+{space.id !== 3 && space.id !== 7 && space.id !== 8 && space.id !== 6 && pace.id !== 5 &&  (
   <>
     {/* Bàn tròn giữa phòng */}
     <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
