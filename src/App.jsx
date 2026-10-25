@@ -597,28 +597,8 @@ useEffect(() => {
     </>
   )}
   {space.id === 6 && (
-  <group 
-    position={[0, 0, 0.01]}
-    onClick={(e) => {
-      e.stopPropagation();
-      console.log("--> ĐÃ CLICK VÀO TƯỜNG GIỮA PHÒNG 6!"); // <-- Dòng kiểm tra
-
-      // 1. Mở ảnh phóng to
-      window.dispatchEvent(
-        new CustomEvent("open-wall-image", {
-          detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
-        })
-      );
-
-      // 2. Kích hoạt audio trực tiếp qua hàm toàn cục
-      if (window.setActiveAudioGlobal) {
-        window.setActiveAudioGlobal(SPACE_CONTENT[6].audioBg6);
-        console.log("--> Đã gọi setActiveAudioGlobal với:", SPACE_CONTENT[6].audioBg6);
-      }
-    }}
-    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-    onPointerOut={() => { document.body.style.cursor = "default"; }}
-  >
+  <group position={[0, 0, 0.01]}>
+    {/* 1. Hiển thị ảnh tường 3D bình thường */}
     <WallImage
       src={SPACE_CONTENT[6].bgWall6}
       alt="Nền tường giữa Khu 6"
@@ -626,6 +606,45 @@ useEffect(() => {
       width={7.5}
       height={3.2}
     />
+
+    {/* 2. Lớp phủ Html trong suốt đè lên tường để bắt sự kiện click chuẩn xác tuyệt đối */}
+    <Html
+      position={[0, 0, 0.02]}
+      transform
+      distanceFactor={1.5}
+      style={{
+        width: "750px", // Khớp với chiều rộng tường (7.5 đơn vị 3D)
+        height: "320px", // Khớp với chiều cao tường (3.2 đơn vị 3D)
+        pointerEvents: "auto", // Cho phép nhận sự kiện chuột
+      }}
+    >
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          console.log("--> ĐÃ CLICK QUA LỚP HTML OVERLAY PHÒNG 6!");
+
+          // 1. Mở phóng to ảnh tường
+          window.dispatchEvent(
+            new CustomEvent("open-wall-image", {
+              detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
+            })
+          );
+
+          // 2. Kích hoạt phát audio
+          if (window.setActiveAudioGlobal) {
+            window.setActiveAudioGlobal(SPACE_CONTENT[6].audioBg6);
+            console.log("--> Đã kích hoạt audio:", SPACE_CONTENT[6].audioBg6);
+          }
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+          cursor: "pointer",
+          background: "transparent", // Trong suốt hoàn toàn, nhìn vẫn thấy ảnh phía dưới
+        }}
+        title="Nhấn để nghe thuyết minh và phóng to ảnh"
+      />
+    </Html>
   </group>
 )}
   {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
