@@ -551,17 +551,6 @@ useEffect(() => {
     />
   )}
 
-  {/* Tường Giữa Phòng 6 */}
-{space.id === 6 && (
-  <group position={[0, 0, 0.01]}>
-    {/* Khung gỗ viền ngoài */}
-    <mesh position={[0, 0, -0.005]}>
-      <boxGeometry args={[7.0, 3.2, 0.03]} />
-      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-    </mesh>
-   
-  </group>
-)}
 
   {/* KHU 7: Hiển thị ảnh nền bgWall7 kết hợp khung video7 ở giữa */}
   {space.id === 7 && (
