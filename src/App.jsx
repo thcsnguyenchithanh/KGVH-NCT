@@ -1485,11 +1485,9 @@ function SpaceInteriorRoom({
                 topic={topic}
                 index={index}
                 onClick={(t) => {
-                  if (t.id === 1) {
+                  
                     setSelectedKhu3Topic(t);
-                  } else {
-                    alert(`Chủ đề ${t.id} đang cập nhật!`);
-                  }
+                 
                 }}
               />
             ))}
