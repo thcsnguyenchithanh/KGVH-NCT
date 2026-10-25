@@ -9,7 +9,6 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
     e.stopPropagation();
     setIsFullScreen(true);
 
-    // Tự động phát audio khi mở full màn hình
     setTimeout(() => {
       if (audioRef.current) {
         audioRef.current.play().catch((err) => console.log("Lỗi phát audio:", err));
@@ -27,20 +26,14 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
 
   return (
     <>
-      {/* 1. TRANH HIỂN THỊ TRÊN TƯỜNG 3D (Click vào là phóng to) */}
+      {/* 1. Tranh hiển thị trên tường 3D */}
       <group 
         position={[0, 0.2, 0.02]} 
         onClick={handleMeshClick}
         onPointerOver={() => { document.body.style.cursor = "pointer"; }}
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
-        {/* Khung gỗ bao quanh */}
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[width + 0.2, height + 0.2, 0.04]} />
-          <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-        </mesh>
-
-        {/* Ảnh trên tường */}
+        
         <Html
           position={[0, 0, 0.025]}
           transform
@@ -61,7 +54,7 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
         </Html>
       </group>
 
-      {/* 2. OVERLAY PHÓNG TO TOÀN MÀN HÌNH (Dùng DOM tuyệt đối, không lỗi click) */}
+      {/* 2. Overlay phóng to toàn màn hình */}
       {isFullScreen && (
         <div
           onClick={handleClose}
@@ -93,11 +86,10 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
               maxHeight: "95vh",
             }}
           >
-            {/* Thanh tiêu đề và nút đóng */}
             <div style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ color: "#fff", fontSize: "18px", fontWeight: "bold", fontFamily: "sans-serif" }}>
+              <div style={{ color: "#fff", fontSize: "18px", fontWeight: "bold", fontFamily: "sans-serif" }}>
                 🔊 {title}
-              </span>
+              </div>
               <button
                 onClick={handleClose}
                 style={{
@@ -115,7 +107,6 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
               </button>
             </div>
 
-            {/* Ảnh phóng to nét căng */}
             <img
               src={imgSrc}
               alt={title}
@@ -129,7 +120,6 @@ export default function WallImageAudioSection({ title, imgSrc, audioSrc, width =
               }}
             />
 
-            {/* Hộp thoại Audio Player bên dưới */}
             <div
               style={{
                 width: "450px",
