@@ -761,7 +761,6 @@ function SecondRoomBanners() {
 }
 //--------------------------------------------------------------------------------------------------------
 function SecondRoomHangingFlags() {
-  // 1. Tạo texture lá cờ đỏ sao vàng bằng HTML5 Canvas (chuẩn giống phòng 1)
   const flagTexture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 512;
@@ -800,24 +799,24 @@ function SecondRoomHangingFlags() {
     return texture;
   }, []);
 
-  // 2. Danh sách tọa độ Z để rải các dây treo dọc theo chiều sâu của Phòng 2
-  const lineZOffsets = [2.0, 4.0, 6.0, 8.0, 10.0];
+  // 2. Danh sách tọa độ X để rải các dây treo phân bố đều theo bề ngang Phòng 2
+  const xLineOffsets = [-28.0, -25.0, -22.0, -19.0, -16.0];
 
   return (
     <group>
-      {lineZOffsets.map((zOffset, lineIndex) => {
-        // Tạo đường cong võng xuống cho dây cờ căng ngang chiều rộng Phòng 2 (từ X = -31.5 đến X = -12.5)
+      {xLineOffsets.map((xOffset, lineIndex) => {
+        // Tạo đường cong võng xuống dọc theo chiều sâu phòng (từ Z = 1.0 đến Z = 10.5)
         const curve = new THREE.QuadraticBezierCurve3(
-          new THREE.Vector3(-31.5, 5.2, zOffset), // Neo ở tường trái Phòng 2
-          new THREE.Vector3(-22.0, 4.5, zOffset), // Điểm võng ở giữa phòng
-          new THREE.Vector3(-12.5, 5.2, zOffset)  // Neo ở tường phải Phòng 2
+          new THREE.Vector3(xOffset, 5.2, 1.0),   // Điểm neo phía trước phòng
+          new THREE.Vector3(xOffset, 4.5, 5.75),  // Điểm giữa võng xuống theo trọng lực (tâm Z = 5.75)
+          new THREE.Vector3(xOffset, 5.2, 10.5)   // Điểm neo phía sau phòng (gần tường trưng bày)
         );
 
-        const points = curve.getPoints(12); // Chia đoạn để gắn cờ
+        const points = curve.getPoints(12); // Chia đoạn để gắn cờ dọc theo dây
 
         return (
           <group key={lineIndex}>
-            {/* Sợi dây treo mảnh màu trắng */}
+            {/* Sợi dây treo mảnh màu trắng nối từ trước ra sau */}
             <line>
               <bufferGeometry>
                 <bufferAttribute
@@ -828,12 +827,12 @@ function SecondRoomHangingFlags() {
               <lineBasicMaterial color="#ffffff" linewidth={1.5} />
             </line>
 
-            {/* Các lá cờ nhỏ treo dọc theo dây */}
+            {/* Các lá cờ nhỏ treo dọc theo từng điểm trên dây */}
             {points.slice(1, -1).map((pt, idx) => (
               <mesh
                 key={idx}
                 position={[pt.x, pt.y - 0.15, pt.z]}
-                rotation={[0, 0, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay nhẹ sinh động
+                rotation={[0, Math.PI / 2, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay hướng vuông góc theo chiều dọc phòng
               >
                 <planeGeometry args={[0.48, 0.32]} />
                 <meshBasicMaterial map={flagTexture} side={THREE.DoubleSide} />
