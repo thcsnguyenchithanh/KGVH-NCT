@@ -4,15 +4,6 @@ import "./RobotGuide.css";
 export default function RobotGuide({ active, visitor, audioRef }) {
   const [room2Text, setRoom2Text] = useState(false);
   const [voiceProgress, setVoiceProgress] = useState(0);
-  const [hasFinished, setHasFinished] = useState(false);
-
-  useEffect(() => {
-    if (room2Text) {
-      setHasFinished(hasPlayedRoom2Notice);
-    } else {
-      setHasFinished(hasPlayedMainWelcome);
-    }
-  }, [room2Text]);
 
   useEffect(() => {
     if (!room2Text) return;
@@ -46,23 +37,18 @@ export default function RobotGuide({ active, visitor, audioRef }) {
     };
   }, []);
 
-  // Dừng ngay lập tức âm thanh của robot khi component bị hủy hoặc ẩn đi
-  useEffect(() => {
-    return () => {
-      if (window.robotVoiceAudio) {
-        window.robotVoiceAudio.pause();
-        window.robotVoiceAudio.currentTime = 0;
-      }
-    };
-  }, []);
-
-  // Lắng nghe trạng thái active: nếu không active thì lập tức tắt tiếng robot
-  useEffect(() => {
-    if (!active && window.robotVoiceAudio) {
+  // Hàm dừng phát giọng đọc của robot và khôi phục nhạc nền
+  const stopSpeaking = useCallback(() => {
+    if (window.robotVoiceAudio) {
       window.robotVoiceAudio.pause();
       window.robotVoiceAudio.currentTime = 0;
     }
-  }, [active]);
+    const audio = audioRef?.current;
+    if (audio) {
+      audio.volume = 0.45; // Khôi phục lại âm lượng mặc định của nhạc nền
+    }
+    setVoiceProgress(1);
+  }, [audioRef]);
 
   const speak = useCallback(() => {
     const ageGroup = visitor?.ageGroup;
@@ -112,21 +98,15 @@ export default function RobotGuide({ active, visitor, audioRef }) {
       if (audio) audio.volume = oldVolume;
     };
 
-    // Đánh dấu đã đọc xong cho từng khu vực tương ứng
-    const markAsFinished = () => {
+    voice.onended = () => {
       setVoiceProgress(1);
       restoreMusic();
-      setHasFinished(true);
-      if (room2Text) {
-        hasPlayedRoom2Notice = true;
-      } else {
-        hasPlayedMainWelcome = true;
-      }
     };
-    voice.onended = markAsFinished;
-    voice.onerror = markAsFinished;
 
-    
+    voice.onerror = () => {
+      setVoiceProgress(1);
+      restoreMusic();
+    };
 
     voice.play().catch((err) => {
       console.error("Không phát được file giọng đọc:", err);
@@ -138,8 +118,7 @@ export default function RobotGuide({ active, visitor, audioRef }) {
     if (active && !room2Text) speak();
   }, [active, room2Text, speak]);
 
-  if (!active || hasFinished) return null;
-
+  if (!active) return null;
 
   // Xử lý text hiển thị tương ứng
   const room2Message = "Đây là phòng trưng bày các chuyên đề.";
@@ -174,7 +153,8 @@ export default function RobotGuide({ active, visitor, audioRef }) {
         <p>
           {currentText.slice(0, Math.ceil(currentText.length * voiceProgress))}
         </p>
-        <button type="button" onClick={speak}>🔊 Nghe lại lời chào</button>
+        <button type="button" onClick={speak}>🔊 Nghe lại</button>
+        <button type="button" onClick={stopSpeaking}>🛑 Dừng nói</button>
       </div>
     </div>
   );
