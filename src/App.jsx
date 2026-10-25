@@ -1927,6 +1927,7 @@ function Scene({
   showPadlet,
   wallImageFull,
   setSelectedKhu3Topic,
+  onSelectImage,
 }) {
   return (
     <>
@@ -2502,6 +2503,13 @@ export default function App() {
           </div>
         )}
       </div>
+      {/* Hiển thị component xem ảnh toàn màn hình khi selectedImage có giá trị */}
+      {selectedImage && (
+        <ImageFullscreen 
+          src={selectedImage} 
+          onClose={() => setSelectedImage(null)} 
+        />
+      )}
       {showVideo && (
         <div
           style={{
