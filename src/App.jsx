@@ -759,6 +759,92 @@ function SecondRoomBanners() {
     </group>
   );
 }
+//--------------------------------------------------------------------------------------------------------
+function SecondRoomHangingFlags() {
+  // 1. Tạo texture lá cờ đỏ sao vàng bằng HTML5 Canvas (chuẩn giống phòng 1)
+  const flagTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 341;
+    const ctx = canvas.getContext("2d");
+
+    // Tô nền màu đỏ cờ
+    ctx.fillStyle = "#da251d";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Vẽ ngôi sao vàng 5 cánh ở chính giữa
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const outerRadius = canvas.height * 0.35;
+    const innerRadius = outerRadius * 0.382;
+
+    ctx.fillStyle = "#ffcc00";
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const angleOuter = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+      const xOuter = cx + Math.cos(angleOuter) * outerRadius;
+      const yOuter = cy + Math.sin(angleOuter) * outerRadius;
+      if (i === 0) ctx.moveTo(xOuter, yOuter);
+      else ctx.lineTo(xOuter, yOuter);
+
+      const angleInner = ((i * 4 + 2) * Math.PI) / 5 - Math.PI / 2;
+      const xInner = cx + Math.cos(angleInner) * innerRadius;
+      const yInner = cy + Math.sin(angleInner) * innerRadius;
+      ctx.lineTo(xInner, yInner);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
+
+  // 2. Danh sách tọa độ Z để rải các dây treo dọc theo chiều sâu của Phòng 2
+  const lineZOffsets = [2.0, 4.0, 6.0, 8.0, 10.0];
+
+  return (
+    <group>
+      {lineZOffsets.map((zOffset, lineIndex) => {
+        // Tạo đường cong võng xuống cho dây cờ căng ngang chiều rộng Phòng 2 (từ X = -31.5 đến X = -12.5)
+        const curve = new THREE.QuadraticBezierCurve3(
+          new THREE.Vector3(-31.5, 5.2, zOffset), // Neo ở tường trái Phòng 2
+          new THREE.Vector3(-22.0, 4.5, zOffset), // Điểm võng ở giữa phòng
+          new THREE.Vector3(-12.5, 5.2, zOffset)  // Neo ở tường phải Phòng 2
+        );
+
+        const points = curve.getPoints(12); // Chia đoạn để gắn cờ
+
+        return (
+          <group key={lineIndex}>
+            {/* Sợi dây treo mảnh màu trắng */}
+            <line>
+              <bufferGeometry>
+                <bufferAttribute
+                  attach="attributes-position"
+                  args={[new Float32Array(points.flatMap((p) => [p.x, p.y, p.z])), 3]}
+                />
+              </bufferGeometry>
+              <lineBasicMaterial color="#ffffff" linewidth={1.5} />
+            </line>
+
+            {/* Các lá cờ nhỏ treo dọc theo dây */}
+            {points.slice(1, -1).map((pt, idx) => (
+              <mesh
+                key={idx}
+                position={[pt.x, pt.y - 0.15, pt.z]}
+                rotation={[0, 0, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay nhẹ sinh động
+              >
+                <planeGeometry args={[0.48, 0.32]} />
+                <meshBasicMaterial map={flagTexture} side={THREE.DoubleSide} />
+              </mesh>
+            ))}
+          </group>
+        );
+      })}
+    </group>
+  );
+}
 ///new
 
 const spaces = [
@@ -1810,6 +1896,8 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
       </Text>
 
      <SecondRoomBanners />
+
+     <SecondRoomHangingFlags />
 
       {/* Tám gian trưng bày */}
       <group position={[-22, 0, 5.75]}>
