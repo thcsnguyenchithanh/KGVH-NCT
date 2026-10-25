@@ -711,14 +711,12 @@ function MultipleHangingFlags() {
 
 function SecondRoomBanners() {
   // 1. Tải toàn bộ 4 texture từ mảng SANH_CONTENT.banners
-  const textures = useTexture(SANH_CONTENT.banners.map((item) => item.src));
+ const textures = useTexture(SANH_CONTENT.banners.map((item) => item.src));
 
   // 2. Tọa độ X phân bố 4 bức tranh nằm ngang đều nhau ngay dưới chữ tiêu đề
   const xPositions = [-3.3, -1.1, 1.1, 3.3];
 
   return (
-    {/* Đặt nhóm này bên trong không gian của Phòng 2 (secondRoom), 
-        chỉnh tọa độ Y thấp hơn vị trí của chữ "Không gian trưng bày chuyên đề" */}
     <group position={[0, 1.2, -0.05]}>
       {SANH_CONTENT.banners.map((banner, index) => (
         <group key={banner.id} position={[xPositions[index], 0, 0]}>
@@ -753,7 +751,6 @@ function SecondRoomBanners() {
     </group>
   );
 }
-
 ///new
 
 const spaces = [
