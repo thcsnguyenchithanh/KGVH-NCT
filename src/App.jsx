@@ -110,19 +110,8 @@ const SPACE_CONTENT = {
     ],
   },
   4: {
-   // Tường giữa (Room5)
-  bgWall5: `${import.meta.env.BASE_URL}Room5/bg5.png`,
-  audioBg5: `${import.meta.env.BASE_URL}Room5/bg5.mp3`,
-
-  // Tường trái (Room5)
-  imageTrai5: `${import.meta.env.BASE_URL}Room5/trai5.png`,
-  audioTrai5: `${import.meta.env.BASE_URL}Room5/trai5.mp3`,
-
-  // Tường phải (Room5)
-  imagePhai5: `${import.meta.env.BASE_URL}Room5/phai5.png`,
-  audioPhai5: `${import.meta.env.BASE_URL}Room5/phai5.mp3`,
+   video: "https://www.youtube.com/embed/R5wsX7xQsxY",
 },
-  },
   5: {
    // Tường giữa (Room5)
   bgWall5: `${import.meta.env.BASE_URL}Room5/bg5.png`,
