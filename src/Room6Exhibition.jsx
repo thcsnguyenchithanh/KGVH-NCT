@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { Html } from "@react-three/drei";
+import React, { useRef, useState, useEffect } from "react";
+import * as THREE from "three";
 
 export default function WallImageAudioSection({
   title,
@@ -10,21 +10,35 @@ export default function WallImageAudioSection({
   width = 5.5,
   height = 2.8,
 }) {
+  const [texture, setTexture] = useState(null);
   const audioRef = useRef(null);
 
-  if (!imgSrc) return null;
+  // Dùng TextureLoader thuần trong useEffect để an toàn tuyệt đối, không làm sập R3F Context
+  useEffect(() => {
+    if (!imgSrc) return;
+    const loader = new THREE.TextureLoader();
+    loader.load(
+      imgSrc,
+      (loadedTexture) => {
+        loadedTexture.colorSpace = THREE.SRGBColorSpace;
+        setTexture(loadedTexture);
+      },
+      undefined,
+      (err) => console.log("Lỗi load texture:", err)
+    );
+  }, [imgSrc]);
+
+  if (!imgSrc || !texture) return null; // Chưa có ảnh thì không render, tránh crash
 
   const handleClick = (e) => {
     e.stopPropagation();
 
-    // 1. Kích hoạt sự kiện mở ảnh lớn (lightbox toàn màn hình của hệ thống)
     window.dispatchEvent(
       new CustomEvent("open-wall-image", {
         detail: { src: imgSrc, alt: title },
       })
     );
 
-    // 2. Tự động phát âm thanh thuyết minh
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((err) => console.log("Lỗi phát audio:", err));
@@ -33,44 +47,28 @@ export default function WallImageAudioSection({
 
   return (
     <group position={position} rotation={rotation}>
-      {/* Khung gỗ bao quanh bức tranh 3D */}
+      {/* Khung gỗ */}
       <mesh position={[0, 0, -0.005]}>
         <boxGeometry args={[width + 0.2, height + 0.2, 0.03]} />
         <meshStandardMaterial color="#4a2e18" roughness={0.6} />
       </mesh>
 
-      {/* Hiển thị ảnh bằng HTML img bọc trong không gian 3D (An toàn tuyệt đối, không lỗi useTexture) */}
-      <Html
+      {/* Mặt tranh */}
+      <mesh
         position={[0, 0, 0]}
-        transform
-        distanceFactor={1.5}
-        occlude
-        style={{
-          width: `${width * 140}px`,
-          height: `${height * 140}px`,
-          overflow: "hidden",
-          pointerEvents: "auto",
-        }}
+        onClick={handleClick}
+        onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+        onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
-        <div
-          onClick={handleClick}
-          style={{
-            width: "100%",
-            height: "100%",
-            cursor: "pointer",
-          }}
-          onPointerOver={(e) => { e.currentTarget.style.opacity = "0.95"; }}
-          onPointerOut={(e) => { e.currentTarget.style.opacity = "1"; }}
-        >
-          <img
-            src={imgSrc}
-            alt={title}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        </div>
-      </Html>
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial
+          map={texture}
+          toneMapped={false}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
 
-      {/* Thẻ audio ngầm phát thuyết minh */}
+      {/* Thẻ audio ngầm */}
       <audio
         ref={audioRef}
         src={audioSrc}
