@@ -1382,8 +1382,8 @@ function SpaceInteriorRoom({
                   distanceFactor={1.5}
                   occlude
                   style={{
-                    width: "960px",
-                    height: "540px",
+                    width: "1250px",
+  height: "703px",
                     overflow: "hidden",
                     border: "2px solid #ffd700",
                     borderRadius: "6px",
