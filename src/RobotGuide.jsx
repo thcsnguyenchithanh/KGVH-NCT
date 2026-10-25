@@ -4,6 +4,7 @@ import "./RobotGuide.css";
 export default function RobotGuide({ active, visitor, audioRef }) {
   const [room2Text, setRoom2Text] = useState(false);
   const [voiceProgress, setVoiceProgress] = useState(0);
+  const [hasFinished, setHasFinished] = useState(false);
 
   useEffect(() => {
     if (!room2Text) return;
@@ -88,11 +89,13 @@ export default function RobotGuide({ active, visitor, audioRef }) {
     voice.onended = () => {
       setVoiceProgress(1);
       restoreMusic();
+      setHasFinished(true);
     };
 
     voice.onerror = () => {
       setVoiceProgress(1);
       restoreMusic();
+      setHasFinished(true);
     };
 
     voice.play().catch((err) => {
@@ -105,7 +108,8 @@ export default function RobotGuide({ active, visitor, audioRef }) {
     if (active && !room2Text) speak();
   }, [active, room2Text, speak]);
 
-  if (!active) return null;
+  if (!active || hasFinished) return null;
+
 
   // Xử lý text hiển thị tương ứng
   const room2Message = "Đây là phòng trưng bày các chuyên đề.";
