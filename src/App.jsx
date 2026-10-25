@@ -710,34 +710,33 @@ function MultipleHangingFlags() {
 //--------------------------------------------------------------------------------------------------------
 
 function BackWallPanels() {
-  // 1. Lấy danh sách đường dẫn hình ảnh từ SANH_CONTENT.banners
-  const imageSources = useMemo(
-    () => SANH_CONTENT.banners.map((item) => item.src),
-    []
-  );
+  // 1. Tải texture trực tiếp từ SANH_CONTENT.banners (đồng bộ phong cách với RightWallPanels)
+  const banner1 = useTexture(SANH_CONTENT.banners[0].src);
+  const banner2 = useTexture(SANH_CONTENT.banners[1].src);
+  const banner3 = useTexture(SANH_CONTENT.banners[2].src);
+  const banner4 = useTexture(SANH_CONTENT.banners[3].src);
 
-  // 2. Tải toàn bộ texture cho 4 bức tranh bằng useTexture
-  const textures = useTexture(imageSources);
+  const textures = [banner1, banner2, banner3, banner4];
 
-  // 3. Tọa độ X phân bố đều 4 tấm hình trên chiều rộng bức tường sau
+  // 2. Danh sách tọa độ X giúp 4 bức tranh trải đều khắp bề ngang tường sau
   const xPositions = [-6.0, -2.0, 2.0, 6.0];
 
   return (
     <group position={[0, 2.7, -11.78]}>
       {SANH_CONTENT.banners.map((banner, index) => (
         <group key={banner.id} position={[xPositions[index], 0, 0]}>
-          {/* Khung viền gỗ màu trầm phía sau */}
+          {/* Khung viền gỗ phía sau */}
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[2.2, 3.2, 0.05]} />
             <meshStandardMaterial color="#5c1717" roughness={0.6} />
           </mesh>
 
-          {/* Mặt phẳng hiển thị bức ảnh Bác Hồ */}
+          {/* Bề mặt ảnh hiển thị */}
           <mesh
             position={[0, 0, 0.03]}
             onClick={(e) => {
               e.stopPropagation();
-              // Bắn sự kiện mở xem ảnh kích thước lớn toàn màn hình
+              // Bắn sự kiện mở ảnh fullscreen khớp hoàn toàn với hệ thống modal của bạn
               window.dispatchEvent(
                 new CustomEvent("open-wall-image", {
                   detail: {
@@ -747,12 +746,8 @@ function BackWallPanels() {
                 })
               );
             }}
-            onPointerOver={() => {
-              document.body.style.cursor = "pointer";
-            }}
-            onPointerOut={() => {
-              document.body.style.cursor = "default";
-            }}
+            onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+            onPointerOut={() => { document.body.style.cursor = "default"; }}
           >
             <planeGeometry args={[2.0, 3.0]} />
             <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
