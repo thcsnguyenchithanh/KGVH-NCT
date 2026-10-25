@@ -7,6 +7,7 @@ import  WallImage  from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from './BookShelf';
+const [activeAudio, setActiveAudio] = useState(null);
 
 import Room8 from './Room8';
 
@@ -595,7 +596,21 @@ useEffect(() => {
   )}
   {space.id === 6 && (
     <>
-      {/* Ảnh nền tường giữa Khu 7 */}
+    <group 
+    position={[0, 0, 0.01]}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.dispatchEvent(
+        new CustomEvent("open-wall-image", {
+          detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
+        })
+      );
+      setActiveAudio(SPACE_CONTENT[6].audioBg6); // Kích hoạt thanh audio
+    }}
+    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+    onPointerOut={() => { document.body.style.cursor = "default"; }}
+  >
+      {/* Ảnh nền tường giữa Khu 6 */}
       <WallImage
         src={SPACE_CONTENT[6].bgWall6}
         alt="Nền tường giữa Khu 6"
@@ -603,6 +618,7 @@ useEffect(() => {
         width={7.5}
         height={3.2}
       />
+      </group>
    </>
   )}
   {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
@@ -747,7 +763,30 @@ useEffect(() => {
       ))}
     </>
     
- ) : space.id === 8 ? (
+ ): space.id === 6 ? (
+  <group 
+    position={[0, 0, 0]}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.dispatchEvent(
+        new CustomEvent("open-wall-image", {
+          detail: { src: SPACE_CONTENT[6].imageTrai6, alt: "Tường Trái - Phòng 6" },
+        })
+      );
+      setActiveAudio(SPACE_CONTENT[6].audioTrai6); // Kích hoạt thanh audio
+    }}
+    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+    onPointerOut={() => { document.body.style.cursor = "default"; }}
+  >
+    <WallImage
+      src={SPACE_CONTENT[6].imageTrai6}
+      alt="Hình tường trái Phòng 6"
+      position={[0, 0, 0]}
+      width={6.5}
+      height={3.8}
+    />
+  </group>
+) : space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
           <>
             <mesh position={[0, 1.4, 0.01]}>
@@ -804,9 +843,7 @@ useEffect(() => {
         ) : (
     <WallImage
       src={
-        space.id === 6
-          ? SPACE_CONTENT[6].imageTrai6:
-        space.id === 7
+            space.id === 7
           ? SPACE_CONTENT[7].imageTrai7
           : space.id === 2
           ? SPACE_CONTENT[2].imageTrai2
@@ -832,6 +869,29 @@ useEffect(() => {
       height={3.8}
     />
     
+): space.id === 6 ? (
+  <group 
+    position={[0, 0, 0]}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.dispatchEvent(
+        new CustomEvent("open-wall-image", {
+          detail: { src: SPACE_CONTENT[6].imagePhai6, alt: "Tường Phải - Phòng 6" },
+        })
+      );
+      setActiveAudio(SPACE_CONTENT[6].audioPhai6); // Kích hoạt thanh audio
+    }}
+    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+    onPointerOut={() => { document.body.style.cursor = "default"; }}
+  >
+    <WallImage
+      src={SPACE_CONTENT[6].imagePhai6}
+      alt="Hình tường phải Phòng 6"
+      position={[0, 0, 0]}
+      width={6.5}
+      height={3.8}
+    />
+  </group>
 ) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
          <>
@@ -920,8 +980,7 @@ useEffect(() => {
   ) : (
     <WallImage
       src={
-        space.id === 6
-          ? SPACE_CONTENT[6].imagePhai6:
+       
         space.id === 2
           ? SPACE_CONTENT[2].imagePhai2
           : SPACE_CONTENT[1].imagePhai
@@ -1044,6 +1103,50 @@ useEffect(() => {
       </Html>
     )}
   </>
+)}
+
+{/* Thanh Audio Player nổi lên khi chọn nghe thuyết minh ở Phòng 6 */}
+{activeAudio && (
+  <Html
+    fullscreen
+    style={{
+      position: "fixed",
+      bottom: "20px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 999999,
+      pointerEvents: "auto",
+    }}
+  >
+    <div style={{
+      background: "rgba(74, 46, 24, 0.9)",
+      padding: "10px 20px",
+      borderRadius: "30px",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+      border: "2px solid #ffd700"
+    }}>
+      <span style={{ color: "#fff0c2", fontSize: "14px", fontWeight: "bold" }}>🔊 Thuyết minh Phòng 6</span>
+      <audio src={activeAudio} controls autoPlay style={{ height: "35px" }} />
+      <button 
+        onClick={() => setActiveAudio(null)}
+        style={{
+          background: "#7c2929",
+          color: "#fff",
+          border: "none",
+          borderRadius: "50%",
+          width: "25px",
+          height: "25px",
+          cursor: "pointer",
+          fontWeight: "bold"
+        }}
+      >
+        ✕
+      </button>
+    </div>
+  </Html>
 )}
 
   
