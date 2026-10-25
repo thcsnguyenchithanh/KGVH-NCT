@@ -601,22 +601,18 @@ useEffect(() => {
     position={[0, 0, 0.01]}
     onClick={(e) => {
       e.stopPropagation();
-      
-      // 1. Mở phóng to hình ảnh tường giữa
+      // Mở phóng to ảnh tường
       window.dispatchEvent(
         new CustomEvent("open-wall-image", {
           detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
         })
       );
-
-      // 2. Kích hoạt phát audio tường giữa
+      // Kích hoạt thanh audio tường giữa
       window.dispatchEvent(
         new CustomEvent("open-audio-player", {
           detail: { audioUrl: SPACE_CONTENT[6].audioBg6 },
         })
       );
-      
-      console.log("Đã kích hoạt audio tường giữa:", SPACE_CONTENT[6].audioBg6);
     }}
     onPointerOver={() => { document.body.style.cursor = "pointer"; }}
     onPointerOut={() => { document.body.style.cursor = "default"; }}
@@ -1748,19 +1744,21 @@ export default function App() {
 
  // Lắng nghe sự kiện phát audio từ các bức tường hoặc không gian
 useEffect(() => {
-  const handleOpenAudio = (e) => {
-    const audioUrl = e.detail?.audioUrl;
-    if (!audioUrl) return;
+  // Cung cấp hàm toàn cục phòng hờ
+  window.setActiveAudioGlobal = (url) => {
+    setActiveAudio(url);
+  };
 
-    // Tạo đối tượng Audio mới và phát
-    const sound = new Audio(audioUrl);
-    sound.volume = 1.0;
-    sound.play().catch((err) => {
-      console.warn("Không thể tự động phát audio:", err);
-    });
+  // Lắng nghe sự kiện mở audio từ các tường trong phòng 3D
+  const handleOpenAudio = (e) => {
+    if (e.detail && e.detail.audioUrl) {
+      setActiveAudio(e.detail.audioUrl);
+      console.log("Đã bật thanh audio với link:", e.detail.audioUrl);
+    }
   };
 
   window.addEventListener("open-audio-player", handleOpenAudio);
+  
   return () => {
     window.removeEventListener("open-audio-player", handleOpenAudio);
   };
