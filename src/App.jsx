@@ -552,29 +552,55 @@ useEffect(() => {
   )}
 
   {/* Tường Giữa Phòng 6 */}
+{/* Tường Giữa Phòng 6 */}
 {space.id === 6 && (
   <group position={[0, 0, 0.01]}>
-    {/* Khung gỗ */}
-    <mesh position={[0, 0, -0.005]}>
-      <boxGeometry args={[7.0, 3.2, 0.03]} />
-      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-    </mesh>
-    {/* Mặt phẳng hiển thị thay thế */}
-    <mesh
-      onClick={(e) => {
-        e.stopPropagation();
-        window.dispatchEvent(
-          new CustomEvent("open-wall-image", {
-            detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
-          })
-        );
+    {/* 1. Khung gỗ viền ngoài */}
+   
+
+    {/* 2. Dùng thẻ Html để hiển thị ảnh chuẩn xác 100%, đè lên khung gỗ */}
+    <Html
+      position={[0, 0, 0.01]}
+      transform
+      distanceFactor={1.5}
+      occlude
+      style={{
+        width: `${6.8 * 140}px`,
+        height: `${3.0 * 140}px`,
+        pointerEvents: "auto",
       }}
-      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-      onPointerOut={() => { document.body.style.cursor = "default"; }}
     >
-      <planeGeometry args={[6.8, 3.0]} />
-      <meshStandardMaterial color="#8b5a2b" roughness={0.5} />
-    </mesh>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          // 1. Phóng to ảnh
+          window.dispatchEvent(
+            new CustomEvent("open-wall-image", {
+              detail: { src: SPACE_CONTENT[6].bgWall6, alt: "Tường Giữa - Phòng 6" },
+            })
+          );
+          // 2. Phát audio thuyết minh
+          const audio = new Audio(SPACE_CONTENT[6].audioBg6);
+          audio.play().catch((err) => console.log(err));
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+          cursor: "pointer",
+        }}
+      >
+        <img
+          src={SPACE_CONTENT[6].bgWall6}
+          alt="Tường Giữa - Phòng 6"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      </div>
+    </Html>
   </group>
 )}
 
@@ -763,10 +789,7 @@ useEffect(() => {
     
  ) : space.id === 6 ? (
   <group position={[0, 0, 0]}>
-    <mesh position={[0, 0, -0.005]}>
-      <boxGeometry args={[5.7, 3.0, 0.03]} />
-      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-    </mesh>
+    
     <mesh
       onClick={(e) => {
         e.stopPropagation();
@@ -868,11 +891,7 @@ useEffect(() => {
     
 ) : space.id === 6 ? (
   <group position={[0, 0, 0]}>
-    <mesh position={[0, 0, -0.005]}>
-      <boxGeometry args={[5.7, 3.0, 0.03]} />
-      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
-    </mesh>
-    <mesh
+       <mesh
       onClick={(e) => {
         e.stopPropagation();
         window.dispatchEvent(
