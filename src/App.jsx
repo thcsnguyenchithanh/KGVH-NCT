@@ -2284,20 +2284,33 @@ function Room({
           </mesh>
         ))}
       </group>
-            {/* Cây */}   
-      <group position={[9, 0, 5]}>
-             
-        <mesh position={[0, 1, 0]}>
-                    <cylinderGeometry args={[0.28, 0.38, 2, 16]} />
-                    <meshStandardMaterial color="#9b633b" />     
-        </mesh>
-             
-        <mesh position={[0, 2.5, 0]}>
-                    <sphereGeometry args={[1.1, 16, 12]} />
-                    <meshStandardMaterial color="#4e7750" />     
-        </mesh>
-           
-      </group>
+           {/* Cây 3D cách điệu sinh động hơn */}
+<group position={[9, 0, 5]}>
+  {/* Thân cây: Thon gọn hơn và dùng màu nâu gỗ tự nhiên */}
+  <mesh position={[0, 0.9, 0]}>
+    <cylinderGeometry args={[0.15, 0.25, 1.8, 8]} />
+    <meshStandardMaterial color="#5c3a21" roughness={0.8} />
+  </mesh>
+
+  {/* Tán lá: Kết hợp nhiều khối cầu lệch nhau để tạo độ phồng và tự nhiên */}
+  {/* Khối cầu chính giữa */}
+  <mesh position={[0, 2.0, 0]}>
+    <sphereGeometry args={[1.0, 16, 16]} />
+    <meshStandardMaterial color="#2d5a27" roughness={0.6} />
+  </mesh>
+
+  {/* Khối cầu phụ bên phải */}
+  <mesh position={[0.4, 2.4, 0.3]}>
+    <sphereGeometry args={[0.7, 16, 16]} />
+    <meshStandardMaterial color="#387030" roughness={0.6} />
+  </mesh>
+
+  {/* Khối cầu phụ bên trái */}
+  <mesh position={[-0.35, 2.2, -0.3]}>
+    <sphereGeometry args={[0.65, 16, 16]} />
+    <meshStandardMaterial color="#408236" roughness={0.6} />
+  </mesh>
+</group>
             {/* Ánh sáng */}   
       {[-7, 0, 7].map((x) => (
         <group key={x} position={[x, 5.15, -2]}>
