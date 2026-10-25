@@ -123,17 +123,17 @@ const SANH_CONTENT = {
   decors: [
     {
       id: 1,
-      src: `${import.meta.env.BASE_URL}images/sanh/s1.png`,
+      src: `${import.meta.env.BASE_URL}sanh/s1.png`,
       alt: "Decor 1",
     },
     {
       id: 2,
-      src: `${import.meta.env.BASE_URL}images/sanh/s2.png`,
+      src: `${import.meta.env.BASE_URL}sanh/s2.png`,
       alt: "Decor 2",
     },
     {
       id: 3,
-      src: `${import.meta.env.BASE_URL}images/sanh/s3.png`,
+      src: `${import.meta.env.BASE_URL}sanh/s3.png`,
       alt: "Decor 3",
     },
   ],
@@ -552,43 +552,71 @@ function RightWallPanels() {
 }
 
 // Component hiển thị bản đồ/poster trên tường bên trái
+// Component hiển thị 2 poster trên tường bên trái
 function LeftWallPanels() {
-  // Tải texture bản đồ (Bạn có thể thay đổi đường dẫn ảnh theo đúng tên file trong dự án của bạn)
-  const mapTexture = useTexture(`${import.meta.env.BASE_URL}images/map.png`);
+  // 1. Tải texture 2 bức ảnh (Bạn có thể thay đổi đường dẫn src theo ý muốn)
+  const panel1 = useTexture(`${import.meta.env.BASE_URL}images/p1.png`);
+  const panel2 = useTexture(`${import.meta.env.BASE_URL}images/p2.png`);
 
   return (
     <group position={[-11.78, 2.7, 0]} rotation={[0, Math.PI / 2, 0]}>
-      {/* ================= BẢN ĐỒ / POSTER TƯỜNG TRÁI ================= */}
-      <group position={[2.0, 0, 0]}>
+      {/* ================= POSTER 1 ================= */}
+      <group position={[1.2, 0, 0]}>
         {/* Khung viền gỗ phía sau */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
         </mesh>
 
-        {/* Bề mặt ảnh bản đồ có gắn sự kiện Click xem toàn màn hình */}
+        {/* Bề mặt ảnh 1 có gắn sự kiện Click xem toàn màn hình */}
         <mesh
           position={[0, 0, 0.03]} // Đẩy nổi 0.03 đơn vị để không bị dính vào tường
           onClick={(e) => {
-            e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+            e.stopPropagation();
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
-                  src: `${import.meta.env.BASE_URL}images/map.png`,
-                  alt: "Bản đồ hành chính Việt Nam",
+                  src: `${import.meta.env.BASE_URL}images/p1.png`,
+                  alt: "Poster trái 1",
                 },
               })
             );
           }}
-          onPointerOver={() => {
-            document.body.style.cursor = "pointer"; // Đổi con trỏ chuột thành hình bàn tay
-          }}
-          onPointerOut={() => {
-            document.body.style.cursor = "default"; // Trả lại con trỏ chuột bình thường
-          }}
+          onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+          onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
           <planeGeometry args={[2.0, 3.0]} />
-          <meshBasicMaterial map={mapTexture} side={THREE.DoubleSide} />
+          <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+
+      {/* ================= POSTER 2 ================= */}
+      <group position={[3.6, 0, 0]}>
+        {/* Khung viền gỗ phía sau */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#5c1717" roughness={0.6} />
+        </mesh>
+
+        {/* Bề mặt ảnh 2 có gắn sự kiện Click xem toàn màn hình */}
+        <mesh
+          position={[0, 0, 0.03]}
+          onClick={(e) => {
+            e.stopPropagation();
+            window.dispatchEvent(
+              new CustomEvent("open-wall-image", {
+                detail: {
+                  src: `${import.meta.env.BASE_URL}images/p2.png`,
+                  alt: "Poster trái 2",
+                },
+              })
+            );
+          }}
+          onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+          onPointerOut={() => { document.body.style.cursor = "default"; }}
+        >
+          <planeGeometry args={[2.0, 3.0]} />
+          <meshBasicMaterial map={panel2} side={THREE.DoubleSide} />
         </mesh>
       </group>
     </group>
