@@ -7,7 +7,6 @@ import WallImage from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from "./BookShelf";
-import Floor from "./Floor";
 
 import Room8 from "./Room8";
 
@@ -1101,7 +1100,10 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           }}
         >
           {/* Sàn gian trưng bày */}
-          <Floor />
+          <mesh position={[0, 0.08, 0]}>
+            <boxGeometry args={[2.25, 0.16, 1.9]} />
+            <meshStandardMaterial color="#281c19" />
+          </mesh>
 
           {/* Vách sau */}
           <mesh position={[0, 1.1, -0.9]}>
