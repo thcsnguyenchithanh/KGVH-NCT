@@ -476,6 +476,55 @@ function FramedVideoScreen({ onOpen }) {
 
  /* ================= ================= ================= ================= ================= =================*/
 
+ function ImageFullscreen({ src, onClose }) {
+  if (!src) return null;
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 999999,
+        background: "rgba(0, 0, 0, 0.9)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+      }}
+    >
+      <img
+        src={src}
+        alt="Fullscreen"
+        style={{
+          maxWidth: "90%",
+          maxHeight: "90%",
+          objectFit: "contain",
+          borderRadius: 8,
+          boxShadow: "0 10px 30px rgba(0,0,0,0.8)",
+        }}
+      />
+      <button
+        onClick={onClose}
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          background: "#7c2929",
+          color: "#fff",
+          border: "none",
+          padding: "10px 16px",
+          borderRadius: 8,
+          cursor: "pointer",
+          fontWeight: "bold",
+          fontSize: 16,
+        }}
+      >
+        ✕ Đóng
+      </button>
+    </div>
+  );
+}
 
  // Component hiển thị 2 poster p1.png và p2.png trên tường phải
 function RightWallPanels({ onSelectImage }) {
