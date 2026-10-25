@@ -476,58 +476,10 @@ function FramedVideoScreen({ onOpen }) {
 
  /* ================= ================= ================= ================= ================= =================*/
 
- function ImageFullscreen({ src, onClose }) {
-  if (!src) return null;
-
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 999999,
-        background: "rgba(0, 0, 0, 0.9)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        cursor: "pointer",
-      }}
-    >
-      <img
-        src={src}
-        alt="Fullscreen"
-        style={{
-          maxWidth: "90%",
-          maxHeight: "90%",
-          objectFit: "contain",
-          borderRadius: 8,
-          boxShadow: "0 10px 30px rgba(0,0,0,0.8)",
-        }}
-      />
-      <button
-        onClick={onClose}
-        style={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          background: "#7c2929",
-          color: "#fff",
-          border: "none",
-          padding: "10px 16px",
-          borderRadius: 8,
-          cursor: "pointer",
-          fontWeight: "bold",
-          fontSize: 16,
-        }}
-      >
-        ✕ Đóng
-      </button>
-    </div>
-  );
-}
+ 
 
  // Component hiển thị 2 poster p1.png và p2.png trên tường phải
-function RightWallPanels({ onSelectImage }) {
+function RightWallPanels() {
   // 1. Tải texture ảnh p1.png và p2.png từ SANH_CONTENT
   const panel1 = useTexture(SANH_CONTENT.panels[0].src);
   const panel2 = useTexture(SANH_CONTENT.panels[1].src);
@@ -542,19 +494,23 @@ function RightWallPanels({ onSelectImage }) {
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
         </mesh>
 
-        {/* Bề mặt ảnh p1.png có gắn sự kiện Click */}
+        {/* Bề mặt ảnh p1.png */}
         <mesh
-          position={[0, 0, 0.03]} // Đẩy nổi 0.03 đơn vị để không bị dính mặt phẳng
+          position={[0, 0, 0.03]}
           onClick={(e) => {
-            e.stopPropagation(); // Ngăn sự kiện click xuyên qua các vật thể khác
-            onSelectImage?.(SANH_CONTENT.panels[0].src); // Gọi hàm mở ảnh phóng to
+            e.stopPropagation();
+            // Bắn sự kiện mở ảnh fullscreen cho p1 khớp với ImageFullscreen cũ của bạn
+            window.dispatchEvent(
+              new CustomEvent("open-wall-image", {
+                detail: {
+                  src: SANH_CONTENT.panels[0].src,
+                  alt: "Poster Triển Lãm 1",
+                },
+              })
+            );
           }}
-          onPointerOver={() => {
-            document.body.style.cursor = "pointer"; // Đổi con trỏ chuột thành hình bàn tay
-          }}
-          onPointerOut={() => {
-            document.body.style.cursor = "default"; // Trả lại con trỏ chuột bình thường
-          }}
+          onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+          onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
           <planeGeometry args={[2.0, 3.0]} />
           <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
@@ -569,19 +525,23 @@ function RightWallPanels({ onSelectImage }) {
           <meshStandardMaterial color="#5c1717" roughness={0.6} />
         </mesh>
 
-        {/* Bề mặt ảnh p2.png có gắn sự kiện Click */}
+        {/* Bề mặt ảnh p2.png */}
         <mesh
           position={[0, 0, 0.03]}
           onClick={(e) => {
             e.stopPropagation();
-            onSelectImage?.(SANH_CONTENT.panels[1].src); // Gọi hàm mở ảnh phóng to
+            // Bắn sự kiện mở ảnh fullscreen cho p2 khớp với ImageFullscreen cũ của bạn
+            window.dispatchEvent(
+              new CustomEvent("open-wall-image", {
+                detail: {
+                  src: SANH_CONTENT.panels[1].src,
+                  alt: "Poster Triển Lãm 2",
+                },
+              })
+            );
           }}
-          onPointerOver={() => {
-            document.body.style.cursor = "pointer";
-          }}
-          onPointerOut={() => {
-            document.body.style.cursor = "default";
-          }}
+          onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+          onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
           <planeGeometry args={[2.0, 3.0]} />
           <meshBasicMaterial map={panel2} side={THREE.DoubleSide} />
