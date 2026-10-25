@@ -7,6 +7,14 @@ export default function RobotGuide({ active, visitor, audioRef }) {
   const [hasFinished, setHasFinished] = useState(false);
 
   useEffect(() => {
+    if (room2Text) {
+      setHasFinished(hasPlayedRoom2Notice);
+    } else {
+      setHasFinished(hasPlayedMainWelcome);
+    }
+  }, [room2Text]);
+
+  useEffect(() => {
     if (!room2Text) return;
 
     setVoiceProgress(0);
@@ -37,6 +45,24 @@ export default function RobotGuide({ active, visitor, audioRef }) {
       window.removeEventListener("leave-second-room", leave);
     };
   }, []);
+
+  // Dừng ngay lập tức âm thanh của robot khi component bị hủy hoặc ẩn đi
+  useEffect(() => {
+    return () => {
+      if (window.robotVoiceAudio) {
+        window.robotVoiceAudio.pause();
+        window.robotVoiceAudio.currentTime = 0;
+      }
+    };
+  }, []);
+
+  // Lắng nghe trạng thái active: nếu không active thì lập tức tắt tiếng robot
+  useEffect(() => {
+    if (!active && window.robotVoiceAudio) {
+      window.robotVoiceAudio.pause();
+      window.robotVoiceAudio.currentTime = 0;
+    }
+  }, [active]);
 
   const speak = useCallback(() => {
     const ageGroup = visitor?.ageGroup;
@@ -86,17 +112,21 @@ export default function RobotGuide({ active, visitor, audioRef }) {
       if (audio) audio.volume = oldVolume;
     };
 
-    voice.onended = () => {
+    // Đánh dấu đã đọc xong cho từng khu vực tương ứng
+    const markAsFinished = () => {
       setVoiceProgress(1);
       restoreMusic();
       setHasFinished(true);
+      if (room2Text) {
+        hasPlayedRoom2Notice = true;
+      } else {
+        hasPlayedMainWelcome = true;
+      }
     };
+    voice.onended = markAsFinished;
+    voice.onerror = markAsFinished;
 
-    voice.onerror = () => {
-      setVoiceProgress(1);
-      restoreMusic();
-      setHasFinished(true);
-    };
+    
 
     voice.play().catch((err) => {
       console.error("Không phát được file giọng đọc:", err);
