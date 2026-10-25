@@ -436,11 +436,10 @@ function FixedLookControls() {
 {
   /* ================= ================= ================= ================= ================= =================*/
 }
-
 function FramedVideoScreen({ onOpen }) {
-  const bgTexture = useTexture(SANH_CONTENT.background);
+  const bgTexture = useTexture(SANH_CONTENT.background);[cite: 1]
   const videoTexture = useVideoTexture(
-    `${import.meta.env.BASE_URL}video/TNDL.mp4`,
+    `${import.meta.env.BASE_URL}video/TNDL.mp4`,[cite: 1]
     {
       loop: true,
       muted: true,
@@ -452,14 +451,14 @@ function FramedVideoScreen({ onOpen }) {
     <group position={[0, 0, 0]}>
       {/* ================= LỚP 1: KHUNG ẢNH NỀN (bgs.png) ================= */}
       <mesh position={[0, 0, 0]}>
-        {/* Tăng kích thước khung từ [6.5, 4.0] lên [7.5, 4.6] để ảnh to ra */}
-        <planeGeometry args={[7.5, 4.6]} />
+        {/* Đã tăng kích thước rộng và cao lên để lấp đầy khoảng trống giữa hai cột */}
+        <planeGeometry args={[10.5, 5.8]} />
         <meshBasicMaterial map={bgTexture} transparent={true} side={THREE.DoubleSide} />
       </mesh>
 
       {/* ================= LỚP 2: MÀN HÌNH VIDEO NẰM TRONG KHUNG ================= */}
       <mesh
-        position={[0, 0, 0.02]}
+        position={[0, 0.15, 0.02]} // Căn chỉnh lại vị trí Y cho video lọt đẹp vào khung
         onClick={(e) => {
           e.stopPropagation();
           onOpen?.();
@@ -467,8 +466,8 @@ function FramedVideoScreen({ onOpen }) {
         onPointerOver={() => { document.body.style.cursor = "pointer"; }}
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
-        {/* Giữ nguyên hoặc điều chỉnh nhẹ kích thước video [4.7, 2.6] nếu cần khớp với khung mới */}
-        <planeGeometry args={[4.7, 2.6]} />
+        {/* Tăng kích thước video tương ứng với khung mới [chiều_rộng, chiều_cao] */}
+        <planeGeometry args={[6.8, 3.8]} />
         <meshBasicMaterial map={videoTexture} toneMapped={false} />
       </mesh>
     </group>
@@ -1691,59 +1690,8 @@ function Room({
           </Text>
         </group>
       </group>
-            {/* Tiêu đề */}     {/* Biển tiêu đề trang trọng */}
-      <group position={[0, 5.1, -8.08]}>
-        {/* Bóng đổ phía sau biển */}
-        <mesh position={[0, -0.035, -0.045]} castShadow>
-          <boxGeometry args={[12.5, 1.08, 0.16]} />
-          <meshStandardMaterial color="#b9cce5" roughness={0.85} />
-        </mesh>
-
-        {/* Thân biển bo màu trắng xanh */}
-        <mesh castShadow receiveShadow>
-          <boxGeometry args={[12.5, 1.05, 0.18]} />
-          <meshStandardMaterial color="#f8fbff" roughness={0.7} />
-        </mesh>
-
-        {/* Dải màu xanh tím phía sau */}
-        <mesh position={[0, 0, 0.096]}>
-          <boxGeometry args={[12.25, 0.83, 0.025]} />
-          <meshStandardMaterial color="#dceaff" roughness={0.75} />
-        </mesh>
-
-        {/* Mặt nền sáng ở giữa */}
-        <mesh position={[0, 0, 0.113]}>
-          <boxGeometry args={[12.13, 0.71, 0.02]} />
-          <meshStandardMaterial color="#f4f8ff" roughness={0.8} />
-        </mesh>
-
-        {/* Vạch nhấn xanh ngọc bên trái */}
-        <mesh position={[-5.85, 0, 0.13]}>
-          <boxGeometry args={[0.055, 0.48, 0.018]} />
-          <meshStandardMaterial color="#55c9b0" roughness={0.5} />
-        </mesh>
-
-        {/* Vạch nhấn tím bên phải */}
-        <mesh position={[5.85, 0, 0.13]}>
-          <boxGeometry args={[0.055, 0.48, 0.018]} />
-          <meshStandardMaterial color="#8c80ed" roughness={0.5} />
-        </mesh>
-
-        {/* Chữ tiêu đề */}
-        <Text
-          position={[0, 0, 0.15]}
-          font="https://raw.githubusercontent.com/bettergui/BeVietnamPro/main/fonts/ttf/BeVietnamPro-SemiBold.ttf"
-          fontSize={0.46}
-          color="#244d83"
-          anchorX="center"
-          anchorY="middle"
-          maxWidth={11.5}
-          textAlign="center"
-          letterSpacing={0.008}
-        >
-          KHÔNG GIAN VĂN HÓA HỒ CHÍ MINH
-        </Text>
-      </group>
+           
+     
             {/* Chân dung */}     {/* Chân dung Bác Hồ */}
       <group
         position={[-8, 2.65, -8.25]}
