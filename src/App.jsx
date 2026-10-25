@@ -697,7 +697,7 @@ function MultipleHangingFlags() {
                 rotation={[0, 0, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay nhẹ qua lại tạo hiệu ứng sinh động
               >
                 {/* 👈 Đã tăng kích thước cờ thêm 10%: từ [0.33, 0.22] thành [0.36, 0.24] */}
-                <planeGeometry args={[0.36, 0.24]} />
+                <planeGeometry args={[0.48, 0.32]} />
                 <meshBasicMaterial map={flagTexture} side={THREE.DoubleSide} />
               </mesh>
             ))}
