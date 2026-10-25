@@ -2,14 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { useVideoTexture } from "@react-three/drei";
-import  ImageFullscreen  from "./ImageFullscreen";
-import  WallImage  from "./WallImage";
+import ImageFullscreen from "./ImageFullscreen";
+import WallImage from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
-import BookShelf from './BookShelf';
+import BookShelf from "./BookShelf";
 
-
-import Room8 from './Room8';
+import Room8 from "./Room8";
 
 import WallImageAudioSection from "./WallImageAudioSection";
 import {
@@ -53,7 +52,7 @@ export const CONTENT_LIST = [
 ];
 
 const spots = [
- { id: 0, name: "Lối vào", position: [0, 1.6, 2.0] },
+  { id: 0, name: "Lối vào", position: [0, 1.6, 2.0] },
   { id: 1, name: "Hình ảnh về Bác Hồ", position: [-8.5, 1.6, -3] },
   { id: 2, name: "Video tư liệu", position: [0, 1.6, 0] },
   { id: 3, name: "Tủ sách", position: [8.5, 1.6, -3] },
@@ -67,56 +66,97 @@ const targets = [
   [11.5, 2.7, 1.5], // id 4: khu trưng bày bên phải
 ];
 
-
-// Cấu trúc dữ liệu hình ảnh cho Sảnh chính 
+// Cấu trúc dữ liệu hình ảnh cho Sảnh chính
 const SANH_CONTENT = {
   // Ảnh nền sảnh chính
   background: `${import.meta.env.BASE_URL}images/sanh/bgs.png`,
 
   // Nhóm hình bác
   banners: [
-    { id: 1, src: `${import.meta.env.BASE_URL}images/sanh/hb1.png`, alt: "Banner 1" },
-    { id: 2, src: `${import.meta.env.BASE_URL}images/sanh/hb2.png`, alt: "Banner 2" },
-    { id: 3, src: `${import.meta.env.BASE_URL}images/sanh/hb3.png`, alt: "Banner 3" },
-    { id: 4, src: `${import.meta.env.BASE_URL}images/sanh/hb4.png`, alt: "Banner 4" }
+    {
+      id: 1,
+      src: `${import.meta.env.BASE_URL}images/sanh/hb1.png`,
+      alt: "Banner 1",
+    },
+    {
+      id: 2,
+      src: `${import.meta.env.BASE_URL}images/sanh/hb2.png`,
+      alt: "Banner 2",
+    },
+    {
+      id: 3,
+      src: `${import.meta.env.BASE_URL}images/sanh/hb3.png`,
+      alt: "Banner 3",
+    },
+    {
+      id: 4,
+      src: `${import.meta.env.BASE_URL}images/sanh/hb4.png`,
+      alt: "Banner 4",
+    },
   ],
 
   // Nhóm poster
   panels: [
-    { id: 1, src: `${import.meta.env.BASE_URL}images/sanh/p1.png`, alt: "Panel 1" },
-    { id: 2, src: `${import.meta.env.BASE_URL}images/sanh/p2.png`, alt: "Panel 2" },
-    { id: 3, src: `${import.meta.env.BASE_URL}images/sanh/p3.png`, alt: "Panel 3" },
-    { id: 4, src: `${import.meta.env.BASE_URL}images/sanh/p4.png`, alt: "Panel 4" }
+    {
+      id: 1,
+      src: `${import.meta.env.BASE_URL}images/sanh/p1.png`,
+      alt: "Panel 1",
+    },
+    {
+      id: 2,
+      src: `${import.meta.env.BASE_URL}images/sanh/p2.png`,
+      alt: "Panel 2",
+    },
+    {
+      id: 3,
+      src: `${import.meta.env.BASE_URL}images/sanh/p3.png`,
+      alt: "Panel 3",
+    },
+    {
+      id: 4,
+      src: `${import.meta.env.BASE_URL}images/sanh/p4.png`,
+      alt: "Panel 4",
+    },
   ],
 
   // Nhóm biểu ngữ
   decors: [
-    { id: 1, src: `${import.meta.env.BASE_URL}images/sanh/s1.png`, alt: "Decor 1" },
-    { id: 2, src: `${import.meta.env.BASE_URL}images/sanh/s2.png`, alt: "Decor 2" },
-    { id: 3, src: `${import.meta.env.BASE_URL}images/sanh/s3.png`, alt: "Decor 3" }
-  ]
+    {
+      id: 1,
+      src: `${import.meta.env.BASE_URL}images/sanh/s1.png`,
+      alt: "Decor 1",
+    },
+    {
+      id: 2,
+      src: `${import.meta.env.BASE_URL}images/sanh/s2.png`,
+      alt: "Decor 2",
+    },
+    {
+      id: 3,
+      src: `${import.meta.env.BASE_URL}images/sanh/s3.png`,
+      alt: "Decor 3",
+    },
+  ],
 };
-
-
-
 
 const SPACE_CONTENT = {
   1: {
     video: "https://www.youtube.com/embed/R5wsX7xQsxY",
-     imageBg1: `${import.meta.env.BASE_URL}images/bg1.png`,
-     imageTrai1: `${import.meta.env.BASE_URL}images/trai1.png`,
-     imagePhai: `${import.meta.env.BASE_URL}images/phai1.png`,
-      },
+    imageBg1: `${import.meta.env.BASE_URL}images/bg1.png`,
+    imageTrai1: `${import.meta.env.BASE_URL}images/trai1.png`,
+    imagePhai: `${import.meta.env.BASE_URL}images/phai1.png`,
+  },
   2: {
     imagePhai2: `${import.meta.env.BASE_URL}images/phai2.png`,
-     imageTrai2: `${import.meta.env.BASE_URL}images/trai2.png`,
+    imageTrai2: `${import.meta.env.BASE_URL}images/trai2.png`,
     padlet: "https://padlet.com/embed/ij4p9ovbesqr7jzp",
     video2: "https://www.youtube.com/embed/Qu3yMoQfWXI",
   },
   3: {
     // Video tường phải của khu 3
-    video3: "https://www.youtube.com/embed/WmeF59b1wMY?list=PLIivaUnyJ_yFHIBP1ONslg9roo4HocPEH",
-    
+    video3:
+      "https://www.youtube.com/embed/WmeF59b1wMY?list=PLIivaUnyJ_yFHIBP1ONslg9roo4HocPEH",
+
     // Nền tường trái khu 3
     bgWall: `${import.meta.env.BASE_URL}khu3/bg3.png`,
 
@@ -127,62 +167,99 @@ const SPACE_CONTENT = {
         title: "Lối sống giản dị",
         image: `${import.meta.env.BASE_URL}khu3/CD1.png`,
         stories: [
-          { title: "Ba bộ quần áo của Bác", file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a` },          
-          { title: "Ba chiếc ba lô", file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a` },
-          { title: "Bác có phải là vua đâu", file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a` },
-          { title: "Bác đi thăm rừng Cúc Phương", file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a` },
+          {
+            title: "Ba bộ quần áo của Bác",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baboquanaocuabac.m4a`,
+          },
+          {
+            title: "Ba chiếc ba lô",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bachiecbalo.m4a`,
+          },
+          {
+            title: "Bác có phải là vua đâu",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Baccophailavuadau.m4a`,
+          },
+          {
+            title: "Bác đi thăm rừng Cúc Phương",
+            file: `${import.meta.env.BASE_URL}khu3/CD1Bacdithamrungcucphuong.m4a`,
+          },
         ],
       },
-      { id: 2, title: "Chủ đề 2", image: `${import.meta.env.BASE_URL}khu3/CD2.png`, stories: [] },
-      { id: 3, title: "Chủ đề 3", image: `${import.meta.env.BASE_URL}khu3/CD3.png`, stories: [] },
-      { id: 4, title: "Chủ đề 4", image: `${import.meta.env.BASE_URL}khu3/CD4.png`, stories: [] },
-      { id: 5, title: "Chủ đề 5", image: `${import.meta.env.BASE_URL}khu3/CD5.png`, stories: [] },
-      { id: 6, title: "Chủ đề 6", image: `${import.meta.env.BASE_URL}khu3/CD6.png`, stories: [] },
+      {
+        id: 2,
+        title: "Chủ đề 2",
+        image: `${import.meta.env.BASE_URL}khu3/CD2.png`,
+        stories: [],
+      },
+      {
+        id: 3,
+        title: "Chủ đề 3",
+        image: `${import.meta.env.BASE_URL}khu3/CD3.png`,
+        stories: [],
+      },
+      {
+        id: 4,
+        title: "Chủ đề 4",
+        image: `${import.meta.env.BASE_URL}khu3/CD4.png`,
+        stories: [],
+      },
+      {
+        id: 5,
+        title: "Chủ đề 5",
+        image: `${import.meta.env.BASE_URL}khu3/CD5.png`,
+        stories: [],
+      },
+      {
+        id: 6,
+        title: "Chủ đề 6",
+        image: `${import.meta.env.BASE_URL}khu3/CD6.png`,
+        stories: [],
+      },
     ],
   },
   4: {
-   // Tường giữa (Room4)
-  bgWall4: `${import.meta.env.BASE_URL}room4/bg4.png`,
-  audioBg4: `${import.meta.env.BASE_URL}room4/bg4.mp3`,
+    // Tường giữa (Room4)
+    bgWall4: `${import.meta.env.BASE_URL}room4/bg4.png`,
+    audioBg4: `${import.meta.env.BASE_URL}room4/bg4.mp3`,
 
-  // Tường trái (Room4)
-  imageTrai4: `${import.meta.env.BASE_URL}room4/trai4.png`,
-  audioTrai4: `${import.meta.env.BASE_URL}room4/trai4.mp3`,
+    // Tường trái (Room4)
+    imageTrai4: `${import.meta.env.BASE_URL}room4/trai4.png`,
+    audioTrai4: `${import.meta.env.BASE_URL}room4/trai4.mp3`,
 
-  // Tường phải (Room4)
-  imagePhai4: `${import.meta.env.BASE_URL}room4/phai4.png`,
-  audioPhai4: `${import.meta.env.BASE_URL}room4/phai4.mp3`,
+    // Tường phải (Room4)
+    imagePhai4: `${import.meta.env.BASE_URL}room4/phai4.png`,
+    audioPhai4: `${import.meta.env.BASE_URL}room4/phai4.mp3`,
   },
 
   5: {
-   // Tường giữa (Room5)
-  bgWall5: `${import.meta.env.BASE_URL}room5/bg5.png`,
-  audioBg5: `${import.meta.env.BASE_URL}room5/bg5.mp3`,
+    // Tường giữa (Room5)
+    bgWall5: `${import.meta.env.BASE_URL}room5/bg5.png`,
+    audioBg5: `${import.meta.env.BASE_URL}room5/bg5.mp3`,
 
-  // Tường trái (Room5)
-  imageTrai5: `${import.meta.env.BASE_URL}room5/trai5.png`,
-  audioTrai5: `${import.meta.env.BASE_URL}room5/trai5.mp3`,
+    // Tường trái (Room5)
+    imageTrai5: `${import.meta.env.BASE_URL}room5/trai5.png`,
+    audioTrai5: `${import.meta.env.BASE_URL}room5/trai5.mp3`,
 
-  // Tường phải (Room5)
-  imagePhai5: `${import.meta.env.BASE_URL}room5/phai5.png`,
-  audioPhai5: `${import.meta.env.BASE_URL}room5/phai5.mp3`,
+    // Tường phải (Room5)
+    imagePhai5: `${import.meta.env.BASE_URL}room5/phai5.png`,
+    audioPhai5: `${import.meta.env.BASE_URL}room5/phai5.mp3`,
   },
   6: {
-  // Tường giữa (Room6)
-  bgWall6: `${import.meta.env.BASE_URL}Room6/bg6.png`,
-  audioBg6: `${import.meta.env.BASE_URL}Room6/bg6.mp3`,
+    // Tường giữa (Room6)
+    bgWall6: `${import.meta.env.BASE_URL}Room6/bg6.png`,
+    audioBg6: `${import.meta.env.BASE_URL}Room6/bg6.mp3`,
 
-  // Tường trái (Room6)
-  imageTrai6: `${import.meta.env.BASE_URL}Room6/trai6.png`,
-  audioTrai6: `${import.meta.env.BASE_URL}Room6/trai6.mp3`,
+    // Tường trái (Room6)
+    imageTrai6: `${import.meta.env.BASE_URL}Room6/trai6.png`,
+    audioTrai6: `${import.meta.env.BASE_URL}Room6/trai6.mp3`,
 
-  // Tường phải (Room6)
-  imagePhai6: `${import.meta.env.BASE_URL}Room6/phai6.png`,
-  audioPhai6: `${import.meta.env.BASE_URL}Room6/phai6.mp3`,
-},
+    // Tường phải (Room6)
+    imagePhai6: `${import.meta.env.BASE_URL}Room6/phai6.png`,
+    audioPhai6: `${import.meta.env.BASE_URL}Room6/phai6.mp3`,
+  },
   7: {
     bgWall7: `${import.meta.env.BASE_URL}room7/bg7.png`,
-    imageTrai7: `${import.meta.env.BASE_URL}room7/trai7.png`,  
+    imageTrai7: `${import.meta.env.BASE_URL}room7/trai7.png`,
     imagePhai7: `${import.meta.env.BASE_URL}room7/phai7.png`,
     video7: `${import.meta.env.BASE_URL}room7/video7.mp4`,
   },
@@ -204,10 +281,9 @@ const SPACE_CONTENT = {
       `${import.meta.env.BASE_URL}room8/phai4.jpg`,
       `${import.meta.env.BASE_URL}room8/phai5.jpg`,
       `${import.meta.env.BASE_URL}room8/phai6.jpg`,
-      ],
+    ],
   },
 };
-
 
 function CameraView({
   spots,
@@ -226,10 +302,10 @@ function CameraView({
   const lookTarget = useRef(new THREE.Vector3(...targets[0]));
 
   useEffect(() => {
-   if (room2Active && activeSpace && insideSpaceRoom) {
-destination.current.set(-22, 1.6, 8.2);
-lookTarget.current.set(-22, 1.8, 4.5);
-} else if (room2Active && activeSpace) {
+    if (room2Active && activeSpace && insideSpaceRoom) {
+      destination.current.set(-22, 1.6, 8.2);
+      lookTarget.current.set(-22, 1.8, 4.5);
+    } else if (room2Active && activeSpace) {
       // Camera đứng ngoài gian đã chọn
       const [x, , z] = activeSpace.position;
       const isTopRow = z < 0;
@@ -357,42 +433,42 @@ function FixedLookControls() {
 
   return null;
 }
-{/* ================= ================= ================= ================= ================= =================*/}
+{
+  /* ================= ================= ================= ================= ================= =================*/
+}
 
 function FramedVideoScreen({ onOpen }) {
-  // 1. Tải texture ảnh khung sảnh trực tiếp từ SANH_CONTENT đã có trong app.jsx
+  // 1. Tải texture ảnh khung sảnh (bgs.png) từ SANH_CONTENT
   const bgTexture = useTexture(SANH_CONTENT.background);
 
-  // 2. Tải texture video cho màn hình bên trong
+  // 2. Tải texture video tư liệu
   const videoTexture = useVideoTexture(
     `${import.meta.env.BASE_URL}video/TNDL.mp4`,
     {
       loop: true,
       muted: true,
       playsInline: true,
-    },
+    }
   );
 
   return (
     <group position={[0, 0, 0]}>
-      {/* ================= LỚP 1: KHUNG / ẢNH NỀN (bgs.png) ================= */}
+      {/* ================= LỚP 1: KHUNG ẢNH NỀN (bgs.png) ================= */}
       <mesh position={[0, 0, 0]}>
-        {/* Điều chỉnh kích thước [chiều_rộng, chiều_cao] của khung */}
         <planeGeometry args={[6.5, 4.0]} />
-        <meshBasicMaterial map={bgTexture} transparent={true} />
+        <meshBasicMaterial map={bgTexture} transparent={true} side={THREE.DoubleSide} />
       </mesh>
 
       {/* ================= LỚP 2: MÀN HÌNH VIDEO NẰM TRONG KHUNG ================= */}
       <mesh
-        position={[0, 0, 0.02]} // Đẩy dịch lên phía trước một chút theo trục Z để nằm đè lên khung
+        position={[0, 0, 0.02]} // Đẩy dịch lên phía trước một chút theo trục Z để đè lên khung
         onClick={(e) => {
           e.stopPropagation();
-          onOpen();
+          onOpen?.();
         }}
         onPointerOver={() => { document.body.style.cursor = "pointer"; }}
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
-        {/* Điều chỉnh kích thước [chiều_rộng, chiều_cao] của video cho lọt đúng phần trống */}
         <planeGeometry args={[4.7, 2.6]} />
         <meshBasicMaterial map={videoTexture} toneMapped={false} />
       </mesh>
@@ -401,14 +477,11 @@ function FramedVideoScreen({ onOpen }) {
 }
 
 function VideoScreen({ onOpen }) {
-  const texture = useVideoTexture(
-    `${import.meta.env.BASE_URL}video/TNDL.mp4`,
-    {
-      loop: true,
-      muted: true,
-      playsInline: true,
-    },
-  );
+  const texture = useVideoTexture(`${import.meta.env.BASE_URL}video/TNDL.mp4`, {
+    loop: true,
+    muted: true,
+    playsInline: true,
+  });
 
   return (
     <mesh
@@ -604,155 +677,174 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   );
 }
 
-function SpaceInteriorRoom({ space, onBack, setShowPadlet, showPadlet, wallImageFull, setSelectedKhu3Topic, onOpenVideo }) {
-const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
-const [isVideoHidden, setIsVideoHidden] = useState(false);
+function SpaceInteriorRoom({
+  space,
+  onBack,
+  setShowPadlet,
+  showPadlet,
+  wallImageFull,
+  setSelectedKhu3Topic,
+  onOpenVideo,
+}) {
+  const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
+  const [isVideoHidden, setIsVideoHidden] = useState(false);
 
-useEffect(() => {
-  if (!showPadlet) {
-    setIsPadletFullScreen(false);
-  }
-}, [showPadlet]);
+  useEffect(() => {
+    if (!showPadlet) {
+      setIsPadletFullScreen(false);
+    }
+  }, [showPadlet]);
 
   if (!space) return null;
 
   return (
     <group position={[-22, 0, 5.75]}>
+      {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
+      <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
+        <mesh position={[0, 0, -0.01]}>
+          <planeGeometry args={[9, 3.8]} />
+          <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+        </mesh>
 
-{/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
-<group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
-  <mesh position={[0, 0, -0.01]}>
-    <planeGeometry args={[9, 3.8]} />
-    <meshStandardMaterial color="#f4efe6" roughness={0.9} />
-  </mesh>
+        {/* 1. Ảnh tường đối diện (Dành cho Khu 1, 3 và Khu 7) */}
+        {space.id !== 2 &&
+          space.id !== 7 &&
+          space.id !== 8 &&
+          space.id !== 5 &&
+          space.id !== 6 && (
+            <WallImage
+              src={
+                space.id === 7
+                  ? SPACE_CONTENT[7].bgWall7
+                  : space.id === 3
+                    ? SPACE_CONTENT[3].bgWall
+                    : SPACE_CONTENT[1].imageBg1
+              }
+              alt="Hình tường đối diện"
+              position={[0, 0, 0.01]}
+              width={7.5}
+              height={3.2}
+            />
+          )}
 
-  {/* 1. Ảnh tường đối diện (Dành cho Khu 1, 3 và Khu 7) */}
-  {space.id !== 2 && space.id !== 7 && space.id !== 8 && space.id !== 5 && space.id !== 6 &&(
-    <WallImage
-      src={
-        space.id === 7
-          ? SPACE_CONTENT[7].bgWall7
-          : space.id === 3
-          ? SPACE_CONTENT[3].bgWall
-          : SPACE_CONTENT[1].imageBg1
-      }
-      alt="Hình tường đối diện"
-      position={[0, 0, 0.01]}
-      width={7.5}   
-      height={3.2}  
-    />
-  )}
+        {/* KHU 7: Hiển thị ảnh nền bgWall7 kết hợp khung video7 ở giữa */}
+        {space.id === 7 && (
+          <>
+            {/* Ảnh nền tường giữa Khu 7 */}
+            <WallImage
+              src={SPACE_CONTENT[7].bgWall7}
+              alt="Nền tường giữa Khu 7"
+              position={[0, 0, 0.01]}
+              width={7.5}
+              height={3.2}
+            />
 
+            {/* Khung chứa video7 nhúng trực tiếp bám sát tường giữa */}
+            <Html
+              position={[0, -0.2, 0.03]} // Nổi lên một chút so với ảnh nền
+              transform
+              distanceFactor={1.5} // Điều chỉnh độ lớn hiển thị trong không gian 3D
+              occlude
+              style={{
+                width: "960px", // Kích thước khung video (có thể chỉnh lại tuỳ ý)
+                height: "540px",
+                overflow: "hidden",
+                border: "3px solid #70472e",
+                borderRadius: "8px",
+                background: "#000",
+                pointerEvents: "auto",
+              }}
+            >
+              <div style={{ width: "100%", height: "100%" }}>
+                <video
+                  src={SPACE_CONTENT[7].video7}
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </div>
+            </Html>
+          </>
+        )}
+        {(space.id === 6 || space.id === 5 || space.id === 4) && (
+          <group position={[0, 0, 0.01]}>
+            {/* 1. Hiển thị ảnh tường 3D bình thường */}
+            <WallImage
+              src={
+                space.id === 6
+                  ? SPACE_CONTENT[6].bgWall6
+                  : space.id === 5
+                    ? SPACE_CONTENT[5].bgWall5
+                    : SPACE_CONTENT[4].bgWall4
+              }
+              alt={`Nền tường giữa Khu ${space.id}`}
+              position={[0, 0, 0.01]}
+              width={7.5}
+              height={3.2}
+            />
 
-  {/* KHU 7: Hiển thị ảnh nền bgWall7 kết hợp khung video7 ở giữa */}
-  {space.id === 7 && (
-    <>
-      {/* Ảnh nền tường giữa Khu 7 */}
-      <WallImage
-        src={SPACE_CONTENT[7].bgWall7}
-        alt="Nền tường giữa Khu 7"
-        position={[0, 0, 0.01]}
-        width={7.5}
-        height={3.2}
-      />
+            {/* 2. Lớp phủ Html đè lên tường để bắt sự kiện click chính xác */}
+            <Html
+              position={[0, 0, 0.02]}
+              transform
+              distanceFactor={1.5}
+              style={{
+                width: "750px", // Khớp chính xác với chiều rộng tường (7.5 đơn vị 3D)
+                height: "320px", // Khớp chính xác với chiều cao tường (3.2 đơn vị 3D)
+                pointerEvents: "auto", // Cho phép nhận sự kiện chuột
+              }}
+            >
+              <div
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
 
-      {/* Khung chứa video7 nhúng trực tiếp bám sát tường giữa */}
-      <Html
-        position={[0, -0.2, 0.03]} // Nổi lên một chút so với ảnh nền
-        transform
-        distanceFactor={1.5}    // Điều chỉnh độ lớn hiển thị trong không gian 3D
-        occlude
-        style={{
-          width: "960px",     // Kích thước khung video (có thể chỉnh lại tuỳ ý)
-          height: "540px",
-          overflow: "hidden",
-          border: "3px solid #70472e",
-          borderRadius: "8px",
-          background: "#000",
-          pointerEvents: "auto",
-        }}
-      >
-        <div style={{ width: "100%", height: "100%" }}>
-          <video
-            src={SPACE_CONTENT[7].video7}
-            controls
-            autoPlay
-            muted
-            loop
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </div>
-      </Html>
-    </>
-  )}
-  {(space.id === 6 || space.id === 5 || space.id === 4) && (
-  <group position={[0, 0, 0.01]}>
-    {/* 1. Hiển thị ảnh tường 3D bình thường */}
-    <WallImage
-     src={space.id === 6 ? SPACE_CONTENT[6].bgWall6 : space.id === 5 ? SPACE_CONTENT[5].bgWall5 : SPACE_CONTENT[4].bgWall4}
-      alt={`Nền tường giữa Khu ${space.id}`}
-      position={[0, 0, 0.01]}
-      width={7.5}
-      height={3.2}
-    />
+                  // Lấy đúng dữ liệu theo từng phòng (5 hoặc 6)
+                  // Lấy đúng đường dẫn ảnh nền tường giữa tùy theo ID phòng hiện tại
+                  const bgSrc =
+                    space.id === 6
+                      ? SPACE_CONTENT[6].bgWall6
+                      : space.id === 5
+                        ? SPACE_CONTENT[5].bgWall5
+                        : SPACE_CONTENT[4].bgWall4;
 
-    {/* 2. Lớp phủ Html đè lên tường để bắt sự kiện click chính xác */}
-    <Html
-      position={[0, 0, 0.02]}
-      transform
-      distanceFactor={1.5}
-      style={{
-        width: "750px", // Khớp chính xác với chiều rộng tường (7.5 đơn vị 3D)
-        height: "320px", // Khớp chính xác với chiều cao tường (3.2 đơn vị 3D)
-        pointerEvents: "auto", // Cho phép nhận sự kiện chuột
-      }}
-    >
-      <div
-        onMouseDown={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          
-          // Lấy đúng dữ liệu theo từng phòng (5 hoặc 6)
-         // Lấy đúng đường dẫn ảnh nền tường giữa tùy theo ID phòng hiện tại
-const bgSrc = 
-  space.id === 6 
-    ? SPACE_CONTENT[6].bgWall6 
-    : space.id === 5 
-      ? SPACE_CONTENT[5].bgWall5 
-      : SPACE_CONTENT[4].bgWall4;
+                  // Lấy đúng đường dẫn file audio thuyết minh tương ứng
+                  const audioSrc =
+                    space.id === 6
+                      ? SPACE_CONTENT[6].audioBg6
+                      : space.id === 5
+                        ? SPACE_CONTENT[5].audioBg5
+                        : SPACE_CONTENT[4].audioBg4;
 
-// Lấy đúng đường dẫn file audio thuyết minh tương ứng
-const audioSrc = 
-  space.id === 6 
-    ? SPACE_CONTENT[6].audioBg6 
-    : space.id === 5 
-      ? SPACE_CONTENT[5].audioBg5 
-      : SPACE_CONTENT[4].audioBg4;
+                  // Mở phóng to ảnh
+                  window.dispatchEvent(
+                    new CustomEvent("open-wall-image", {
+                      detail: {
+                        src: bgSrc,
+                        alt: `Tường Giữa - Phòng ${space.id}`,
+                      },
+                    }),
+                  );
 
-          // Mở phóng to ảnh
-          window.dispatchEvent(
-            new CustomEvent("open-wall-image", {
-              detail: { src: bgSrc, alt: `Tường Giữa - Phòng ${space.id}` },
-            })
-          );
-
-          // Phát audio tương ứng và tự động ngắt âm thanh khác
-          if (window.setActiveAudioGlobal) {
-            window.setActiveAudioGlobal(audioSrc);
-          }
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-          background: "rgba(0, 0, 0, 0.01)", // <--- ĐIỂM QUAN TRỌNG: Giúp bắt sự kiện click ngay từ lần đầu tiên!
-        }}
-        title="Nhấn để nghe thuyết minh và phóng to ảnh"
-      />
-    </Html>
-  </group>
-)}
-  {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
+                  // Phát audio tương ứng và tự động ngắt âm thanh khác
+                  if (window.setActiveAudioGlobal) {
+                    window.setActiveAudioGlobal(audioSrc);
+                  }
+                }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  cursor: "pointer",
+                  background: "rgba(0, 0, 0, 0.01)", // <--- ĐIỂM QUAN TRỌNG: Giúp bắt sự kiện click ngay từ lần đầu tiên!
+                }}
+                title="Nhấn để nghe thuyết minh và phóng to ảnh"
+              />
+            </Html>
+          </group>
+        )}
+        {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
         {space.id === 8 && (
           <>
             {/* Banner đỏ phía trên tường giữa */}
@@ -771,184 +863,196 @@ const audioSrc =
             </Text>
 
             {/* Khung video chính giữa */}
-           {!wallImageFull && !isVideoHidden && (
-            <group position={[0, -0.2, 0.02]} onClick={() => onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)}>
-              
-              <Html
-                position={[0, 0, 0.05]}
-                transform
-                distanceFactor={1.5}
-                occlude
-                style={{
-                  width: "960px",
-                  height: "540px",
-                  overflow: "hidden",
-                  border: "2px solid #ffd700",
-                  borderRadius: "6px",
-                  background: "#000",
-                  pointerEvents: "auto",
-                }}
+            {!wallImageFull && !isVideoHidden && (
+              <group
+                position={[0, -0.2, 0.02]}
+                onClick={() =>
+                  onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)
+                }
               >
-                <div style={{ width: "100%", height: "100%" }}>
-                  <iframe
-                    src={SPACE_CONTENT[8].video8}
-                    title="Thước phim nhà trường"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    style={{ width: "100%", height: "100%", border: 0 }}
-                  />
-                </div>
-              </Html>
-            </group>
+                <Html
+                  position={[0, 0, 0.05]}
+                  transform
+                  distanceFactor={1.5}
+                  occlude
+                  style={{
+                    width: "960px",
+                    height: "540px",
+                    overflow: "hidden",
+                    border: "2px solid #ffd700",
+                    borderRadius: "6px",
+                    background: "#000",
+                    pointerEvents: "auto",
+                  }}
+                >
+                  <div style={{ width: "100%", height: "100%" }}>
+                    <iframe
+                      src={SPACE_CONTENT[8].video8}
+                      title="Thước phim nhà trường"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                      style={{ width: "100%", height: "100%", border: 0 }}
+                    />
+                  </div>
+                </Html>
+              </group>
             )}
           </>
         )}
 
-  {/* 2. Padlet trên tường đối diện (Dành riêng cho Khu 2) */}
-  {space.id === 2 && !isPadletFullScreen && (
-    <Html
-      position={[0, 0, 0.04]} // Áp sát mặt tường, nằm đè lên trên nền
-      transform
-      distanceFactor={2}
-      style={{
-        width: "1280px",
-        height: "720px",
-        overflow: "hidden",
-        border: "3px solid #70472e",
-        borderRadius: "10px",
-        boxSizing: "border-box",
-        background: "#fff",
-        pointerEvents: "auto",
-      }}
-    >
-      <div style={{ width: "100%", height: "100%", position: "relative" }}>
-        <iframe
-          src={SPACE_CONTENT[2].padlet}
-          title="Padlet Khu 2"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-          style={{
-            width: "100%",
-            height: "100%",
-            border: 0,
-            pointerEvents: "none",
-          }}
-        />
+        {/* 2. Padlet trên tường đối diện (Dành riêng cho Khu 2) */}
+        {space.id === 2 && !isPadletFullScreen && (
+          <Html
+            position={[0, 0, 0.04]} // Áp sát mặt tường, nằm đè lên trên nền
+            transform
+            distanceFactor={2}
+            style={{
+              width: "1280px",
+              height: "720px",
+              overflow: "hidden",
+              border: "3px solid #70472e",
+              borderRadius: "10px",
+              boxSizing: "border-box",
+              background: "#fff",
+              pointerEvents: "auto",
+            }}
+          >
+            <div
+              style={{ width: "100%", height: "100%", position: "relative" }}
+            >
+              <iframe
+                src={SPACE_CONTENT[2].padlet}
+                title="Padlet Khu 2"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  border: 0,
+                  pointerEvents: "none",
+                }}
+              />
 
-        <button
-          onPointerDown={(e) => e.stopPropagation()}
-          onMouseDown={(e) => e.stopPropagation()}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsPadletFullScreen(true);
-            setShowPadlet(true);
-          }}
-          style={{
-            position: "absolute",
-            top: 10,
-            right: 10,
-            zIndex: 9999999,
-            padding: "8px 10px",
-            border: 0,
-            borderRadius: 6,
-            background: "#70472e",
-            color: "#fff",
-            cursor: "pointer",
-            pointerEvents: "auto",
-            touchAction: "manipulation",
-          }}
-        >
-          ⛶ Toàn màn hình
-        </button>
-      </div>
-    </Html>
-  )}
-</group>
+              <button
+                onPointerDown={(e) => e.stopPropagation()}
+                onMouseDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsPadletFullScreen(true);
+                  setShowPadlet(true);
+                }}
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  right: 10,
+                  zIndex: 9999999,
+                  padding: "8px 10px",
+                  border: 0,
+                  borderRadius: 6,
+                  background: "#70472e",
+                  color: "#fff",
+                  cursor: "pointer",
+                  pointerEvents: "auto",
+                  touchAction: "manipulation",
+                }}
+              >
+                ⛶ Toàn màn hình
+              </button>
+            </div>
+          </Html>
+        )}
+      </group>
 
+      {/* Tường trái:  */}
+      <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+        <mesh position={[0, 0, -0.02]}>
+          <planeGeometry args={[6.5, 3.8]} />
+          <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+        </mesh>
 
-{/* Tường trái:  */}
-<group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
-  
+        {space.id === 3 ? (
+          <>
+            {SPACE_CONTENT[3].topics.map((topic, index) => (
+              <TopicMeshCard
+                key={topic.id}
+                topic={topic}
+                index={index}
+                onClick={(t) => {
+                  if (t.id === 1) {
+                    setSelectedKhu3Topic(t);
+                  } else {
+                    alert(`Chủ đề ${t.id} đang cập nhật!`);
+                  }
+                }}
+              />
+            ))}
+          </>
+        ) : space.id === 6 || space.id === 5 || space.id === 4 ? (
+          <group position={[0, 0, 0]}>
+            {/* 1. Hiển thị ảnh tường trái 3D */}
+            <WallImage
+              src={
+                space.id === 6
+                  ? SPACE_CONTENT[6].imageTrai6
+                  : space.id === 5
+                    ? SPACE_CONTENT[5].imageTrai5
+                    : SPACE_CONTENT[4].imageTrai4
+              }
+              alt={`Hình tường trái Phòng ${space.id}`}
+              position={[0, 0, 0]}
+              width={6.5}
+              height={3.8}
+            />
 
-  <mesh position={[0, 0, -0.02]}>
-    <planeGeometry args={[6.5, 3.8]} />
-    <meshStandardMaterial color="#f4efe6" roughness={0.9} />
-  </mesh>
+            {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
+            <mesh
+              position={[0, 0, 0.02]}
+              onClick={(e) => {
+                e.stopPropagation();
 
-  {space.id === 3 ? (
-    <>
-      {SPACE_CONTENT[3].topics.map((topic, index) => (
-        <TopicMeshCard
-          key={topic.id}
-          topic={topic}
-          index={index}
-          onClick={(t) => {
-            if (t.id === 1) {
-              setSelectedKhu3Topic(t);
-            } else {
-              alert(`Chủ đề ${t.id} đang cập nhật!`);
-            }
-          }}
-        />
-      ))}
-    </>
-    
- ): (space.id === 6 || space.id === 5 || space.id === 4) ? (
-  <group position={[0, 0, 0]} >
-    {/* 1. Hiển thị ảnh tường trái 3D */}
-    <WallImage
-      src={space.id === 6 
-    ? SPACE_CONTENT[6].imageTrai6 
-    : space.id === 5 
-      ? SPACE_CONTENT[5].imageTrai5 
-      : SPACE_CONTENT[4].imageTrai4}
-      alt={`Hình tường trái Phòng ${space.id}`}
-      position={[0, 0, 0]}
-      width={6.5}
-      height={3.8}
-    />
+                const currentRoomId = space.id;
+                const imgSrc =
+                  space.id === 6
+                    ? SPACE_CONTENT[6].imageTrai6
+                    : space.id === 5
+                      ? SPACE_CONTENT[5].imageTrai5
+                      : SPACE_CONTENT[4].imageTrai4;
 
-    {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
-    <mesh
-      position={[0, 0, 0.02]}
-      onClick={(e) => {
-        e.stopPropagation();
-        
-    const currentRoomId = space.id;
-        const imgSrc = space.id === 6 
-  ? SPACE_CONTENT[6].imageTrai6 
-  : space.id === 5 
-    ? SPACE_CONTENT[5].imageTrai5 
-    : SPACE_CONTENT[4].imageTrai4;
+                const audioSrc =
+                  space.id === 6
+                    ? SPACE_CONTENT[6].audioTrai6
+                    : space.id === 5
+                      ? SPACE_CONTENT[5].audioTrai5
+                      : SPACE_CONTENT[4].audioTrai4;
 
-const audioSrc = space.id === 6 
-  ? SPACE_CONTENT[6].audioTrai6 
-  : space.id === 5 
-    ? SPACE_CONTENT[5].audioTrai5 
-    : SPACE_CONTENT[4].audioTrai4;
+                // Mở phóng to ảnh
+                window.dispatchEvent(
+                  new CustomEvent("open-wall-image", {
+                    detail: {
+                      src: imgSrc,
+                      alt: `Tường Trái - Phòng ${space.id}`,
+                    },
+                  }),
+                );
 
-        
-        // Mở phóng to ảnh
-        window.dispatchEvent(
-          new CustomEvent("open-wall-image", {
-            detail: { src: imgSrc, alt: `Tường Trái - Phòng ${space.id}` },
-          })
-        );
-
-        // Phát audio thuyết minh ngay lập tức
-        if (window.setActiveAudioGlobal) {
-          window.setActiveAudioGlobal(audioSrc);
-        }
-      }}
-      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-      onPointerOut={() => { document.body.style.cursor = "default"; }}
-    >
-      <planeGeometry args={[6.5, 3.8]} />
-      <meshBasicMaterial transparent opacity={0} />
-    </mesh>
-  </group>
-): space.id === 8 ? (
+                // Phát audio thuyết minh ngay lập tức
+                if (window.setActiveAudioGlobal) {
+                  window.setActiveAudioGlobal(audioSrc);
+                }
+              }}
+              onPointerOver={() => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={() => {
+                document.body.style.cursor = "default";
+              }}
+            >
+              <planeGeometry args={[6.5, 3.8]} />
+              <meshBasicMaterial transparent opacity={0} />
+            </mesh>
+          </group>
+        ) : space.id === 8 ? (
           // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
           <>
             <mesh position={[0, 1.4, 0.01]}>
@@ -973,22 +1077,26 @@ const audioSrc = space.id === 6
                 const yPos = row === 0 ? 0.6 : -0.6;
 
                 return (
-                  <group 
-                    key={`trai8-${idx}`} 
+                  <group
+                    key={`trai8-${idx}`}
                     position={[xPos, yPos, 0]}
                     onClick={(e) => {
-    e.stopPropagation();
-    setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
-  }}
-                    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-                    onPointerOut={() => { document.body.style.cursor = "default"; }}
+                      e.stopPropagation();
+                      setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
+                    }}
+                    onPointerOver={() => {
+                      document.body.style.cursor = "pointer";
+                    }}
+                    onPointerOut={() => {
+                      document.body.style.cursor = "default";
+                    }}
                   >
                     {/* 1. Khung tranh gỗ (nằm ở gốc z = 0) */}
                     <mesh position={[0, 0, 0]}>
                       <boxGeometry args={[1.65, 1.15, 0.02]} />
                       <meshStandardMaterial color="#4a2e18" roughness={0.6} />
                     </mesh>
-                    
+
                     {/* 2. Mặt ảnh đẩy hẳn ra phía trước (z = 0.025) để tránh lỗi chớp giật */}
                     <WallImage
                       src={imgSrc}
@@ -1003,91 +1111,102 @@ const audioSrc = space.id === 6
             </group>
           </>
         ) : (
-    <WallImage
-      src={
-            space.id === 7
-          ? SPACE_CONTENT[7].imageTrai7
-          : space.id === 2
-          ? SPACE_CONTENT[2].imageTrai2
-          : SPACE_CONTENT[1].imageTrai1
-      }
-      alt="Hình tường trái"
-      position={[0, 0, 0]}
-      width={6.5}
-      height={3.8}
-    />
-  )}
-</group>
+          <WallImage
+            src={
+              space.id === 7
+                ? SPACE_CONTENT[7].imageTrai7
+                : space.id === 2
+                  ? SPACE_CONTENT[2].imageTrai2
+                  : SPACE_CONTENT[1].imageTrai1
+            }
+            alt="Hình tường trái"
+            position={[0, 0, 0]}
+            width={6.5}
+            height={3.8}
+          />
+        )}
+      </group>
 
-{/* Tường phải: Video YouTube Khu 3 áp sát tường tối đa */}
-<group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+      {/* Tường phải: Video YouTube Khu 3 áp sát tường tối đa */}
+      <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+        {space.id === 7 ? (
+          <WallImage
+            src={SPACE_CONTENT[7].imagePhai7}
+            alt="Tường phải Khu 7"
+            position={[0, 0, 0]}
+            width={6.5}
+            height={3.8}
+          />
+        ) : space.id === 6 || space.id === 5 || space.id === 4 ? (
+          <group position={[0, 0, 0]}>
+            {/* 1. Hiển thị ảnh tường phải 3D */}
+            <WallImage
+              src={
+                space.id === 6
+                  ? SPACE_CONTENT[6].imagePhai6
+                  : space.id === 5
+                    ? SPACE_CONTENT[5].imagePhai5
+                    : SPACE_CONTENT[4].imagePhai4
+              }
+              alt={`Hình tường phải Phòng ${space.id}`}
+              position={[0, 0, 0]}
+              width={6.5}
+              height={3.8}
+            />
 
-    {space.id === 7 ? (
-    <WallImage
-      src={SPACE_CONTENT[7].imagePhai7}
-      alt="Tường phải Khu 7"
-      position={[0, 0, 0]}
-      width={6.5}
-      height={3.8}
-    />
-    
-): (space.id === 6 || space.id === 5 || space.id === 4) ? (
-  <group position={[0, 0, 0]} >
-    {/* 1. Hiển thị ảnh tường phải 3D */}
-    <WallImage
-      src={space.id === 6 ? SPACE_CONTENT[6].imagePhai6 : space.id === 5 ? SPACE_CONTENT[5].imagePhai5 : SPACE_CONTENT[4].imagePhai4}
-      alt={`Hình tường phải Phòng ${space.id}`}
-      position={[0, 0, 0]}
-      width={6.5}
-      height={3.8}
-    />
+            {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
+            <mesh
+              position={[0, 0, 0.02]}
+              onClick={(e) => {
+                e.stopPropagation();
 
-    {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
-    <mesh
-      position={[0, 0, 0.02]}
-      onClick={(e) => {
-        e.stopPropagation();
-        
-        const isRoom6 = space.id === 6;
-        const currentRoomId = space.id;
-        // Lấy đường dẫn ảnh tường phải (hoặc tường trái/tường giữa tùy bạn áp dụng)
-const imgSrc = 
-  currentRoomId === 6 
-    ? SPACE_CONTENT[6].imagePhai6 
-    : currentRoomId === 5 
-      ? SPACE_CONTENT[5].imagePhai5 
-      : SPACE_CONTENT[4].imagePhai4;
+                const isRoom6 = space.id === 6;
+                const currentRoomId = space.id;
+                // Lấy đường dẫn ảnh tường phải (hoặc tường trái/tường giữa tùy bạn áp dụng)
+                const imgSrc =
+                  currentRoomId === 6
+                    ? SPACE_CONTENT[6].imagePhai6
+                    : currentRoomId === 5
+                      ? SPACE_CONTENT[5].imagePhai5
+                      : SPACE_CONTENT[4].imagePhai4;
 
-// Lấy đường dẫn audio thuyết minh tương ứng
-const audioSrc = 
-  currentRoomId === 6 
-    ? SPACE_CONTENT[6].audioPhai6 
-    : currentRoomId === 5 
-      ? SPACE_CONTENT[5].audioPhai5 
-      : SPACE_CONTENT[4].audioPhai4;
+                // Lấy đường dẫn audio thuyết minh tương ứng
+                const audioSrc =
+                  currentRoomId === 6
+                    ? SPACE_CONTENT[6].audioPhai6
+                    : currentRoomId === 5
+                      ? SPACE_CONTENT[5].audioPhai5
+                      : SPACE_CONTENT[4].audioPhai4;
 
-        // Mở phóng to ảnh
-        window.dispatchEvent(
-          new CustomEvent("open-wall-image", {
-            detail: { src: imgSrc, alt: `Tường Phải - Phòng ${space.id}` },
-          })
-        );
+                // Mở phóng to ảnh
+                window.dispatchEvent(
+                  new CustomEvent("open-wall-image", {
+                    detail: {
+                      src: imgSrc,
+                      alt: `Tường Phải - Phòng ${space.id}`,
+                    },
+                  }),
+                );
 
-        // Phát audio thuyết minh ngay lập tức
-        if (window.setActiveAudioGlobal) {
-          window.setActiveAudioGlobal(audioSrc);
-        }
-      }}
-      onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-      onPointerOut={() => { document.body.style.cursor = "default"; }}
-    >
-      <planeGeometry args={[6.5, 3.8]} />
-      <meshBasicMaterial transparent opacity={0} />
-    </mesh>
-  </group>
-) : space.id === 8 ? (
+                // Phát audio thuyết minh ngay lập tức
+                if (window.setActiveAudioGlobal) {
+                  window.setActiveAudioGlobal(audioSrc);
+                }
+              }}
+              onPointerOver={() => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={() => {
+                document.body.style.cursor = "default";
+              }}
+            >
+              <planeGeometry args={[6.5, 3.8]} />
+              <meshBasicMaterial transparent opacity={0} />
+            </mesh>
+          </group>
+        ) : space.id === 8 ? (
           // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
-         <>
+          <>
             <mesh position={[0, 0, -0.02]}>
               <planeGeometry args={[6.5, 3.8]} />
               <meshStandardMaterial color="#f4efe6" roughness={0.9} />
@@ -1115,22 +1234,26 @@ const audioSrc =
                 const yPos = row === 0 ? 0.6 : -0.6;
 
                 return (
-                  <group 
-                    key={`phai8-${idx}`} 
+                  <group
+                    key={`phai8-${idx}`}
                     position={[xPos, yPos, 0]}
                     onClick={(e) => {
-    e.stopPropagation();
-    setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
-  }}
-                    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-                    onPointerOut={() => { document.body.style.cursor = "default"; }}
+                      e.stopPropagation();
+                      setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
+                    }}
+                    onPointerOver={() => {
+                      document.body.style.cursor = "pointer";
+                    }}
+                    onPointerOut={() => {
+                      document.body.style.cursor = "default";
+                    }}
                   >
                     {/* 1. Khung tranh gỗ (nằm ở z = 0) */}
                     <mesh position={[0, 0, 0]}>
                       <boxGeometry args={[1.65, 1.15, 0.02]} />
                       <meshStandardMaterial color="#4a2e18" roughness={0.6} />
                     </mesh>
-                    
+
                     {/* 2. Mặt ảnh đẩy hẳn ra phía trước (z = 0.025) để tránh lỗi chớp giật */}
                     <WallImage
                       src={imgSrc}
@@ -1143,49 +1266,47 @@ const audioSrc =
                 );
               })}
             </group>
-         </>
-        ): space.id === 3 && !isVideoHidden && !wallImageFull ? (
-    <Html
-      position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
-      transform
-      distanceFactor={1.2}
-      occlude // Khóa chặt theo không gian 3D của Three.js
-      style={{
-        width: "1280px",
-        height: "720px",
-        overflow: "hidden",
-        border: "2px solid #70472e",
-        borderRadius: "6px",
-        background: "#000",
-        pointerEvents: "auto",
-      }}
-    >
-      <div style={{ width: "100%", height: "100%" }}>
-        <iframe
-          src={SPACE_CONTENT[3].video3}
-          title="Video tường phải Khu 3"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-          style={{ width: "100%", height: "100%", border: 0 }}
-        />
-      </div>
-    </Html>
-  ) : (
-    <WallImage
-      src={
-       
-        space.id === 2
-          ? SPACE_CONTENT[2].imagePhai2
-          : SPACE_CONTENT[1].imagePhai
-      }
-      alt="Hình tường phải"
-      position={[0, 0, 0]}
-      width={6.5}
-      height={3.8}
-    />
-  )}
-</group>
-
+          </>
+        ) : space.id === 3 && !isVideoHidden && !wallImageFull ? (
+          <Html
+            position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
+            transform
+            distanceFactor={1.2}
+            occlude // Khóa chặt theo không gian 3D của Three.js
+            style={{
+              width: "1280px",
+              height: "720px",
+              overflow: "hidden",
+              border: "2px solid #70472e",
+              borderRadius: "6px",
+              background: "#000",
+              pointerEvents: "auto",
+            }}
+          >
+            <div style={{ width: "100%", height: "100%" }}>
+              <iframe
+                src={SPACE_CONTENT[3].video3}
+                title="Video tường phải Khu 3"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                style={{ width: "100%", height: "100%", border: 0 }}
+              />
+            </div>
+          </Html>
+        ) : (
+          <WallImage
+            src={
+              space.id === 2
+                ? SPACE_CONTENT[2].imagePhai2
+                : SPACE_CONTENT[1].imagePhai
+            }
+            alt="Hình tường phải"
+            position={[0, 0, 0]}
+            width={6.5}
+            height={3.8}
+          />
+        )}
+      </group>
 
       {/* Sàn phòng */}
       <mesh position={[0, 0, 0]} receiveShadow>
@@ -1199,10 +1320,7 @@ const audioSrc =
         <meshStandardMaterial color="#eee6d7" />
       </mesh>
       {/* Hoa văn trống đồng trên trần */}
-<CeilingDrum
-  y={4.11}
-  size={4}
-/>
+      <CeilingDrum y={4.11} size={4} />
 
       {/* Vách sau - đối diện cửa */}
       <mesh position={[0, 2, -4]}>
@@ -1235,108 +1353,109 @@ const audioSrc =
         {space.title}
       </Text>
 
-         {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
-{space.id !== 3 && space.id !== 7 && space.id !== 8 && space.id !== 6 && space.id !== 5 && space.id !== 4 &&  (
-  <>
-    {/* Bàn tròn giữa phòng */}
-    <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
-      <cylinderGeometry args={[1.25, 1.25, 0.15, 64]} />
-      <meshStandardMaterial color="#70472e" roughness={0.55} />
-    </mesh>
+      {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
+      {space.id !== 3 &&
+        space.id !== 7 &&
+        space.id !== 8 &&
+        space.id !== 6 &&
+        space.id !== 5 &&
+        space.id !== 4 && (
+          <>
+            {/* Bàn tròn giữa phòng */}
+            <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
+              <cylinderGeometry args={[1.25, 1.25, 0.15, 64]} />
+              <meshStandardMaterial color="#70472e" roughness={0.55} />
+            </mesh>
 
-    {/* Trụ bàn */}
-    <mesh position={[0, 0.43, 0]} castShadow>
-      <cylinderGeometry args={[0.18, 0.3, 0.7, 32]} />
-      <meshStandardMaterial color="#503321" />
-    </mesh>
+            {/* Trụ bàn */}
+            <mesh position={[0, 0.43, 0]} castShadow>
+              <cylinderGeometry args={[0.18, 0.3, 0.7, 32]} />
+              <meshStandardMaterial color="#503321" />
+            </mesh>
 
-    {/* Đế bàn */}
-    <mesh position={[0, 0.1, 0]} castShadow>
-      <cylinderGeometry args={[0.65, 0.65, 0.12, 48]} />
-      <meshStandardMaterial color="#503321" />
-    </mesh>
+            {/* Đế bàn */}
+            <mesh position={[0, 0.1, 0]} castShadow>
+              <cylinderGeometry args={[0.65, 0.65, 0.12, 48]} />
+              <meshStandardMaterial color="#503321" />
+            </mesh>
 
-    {/* Màn hình video trên bàn tròn */}
-    {!wallImageFull && !isPadletFullScreen && (
-      <Html
-        position={[0, 1.05, 0]}
-        transform
-        distanceFactor={1.5}
-        style={{
-          width: "320px",
-          height: "200px",
-          overflow: "hidden",
-          border: "3px solid #70472e",
-          borderRadius: "10px",
-          boxSizing: "border-box",
-          background: "#000",
-          zIndex: 1000,
-          pointerEvents: "auto",
-        }}
-      >
-        <div style={{ width: "100%", height: "100%" }}>
-          <iframe
-            src={
-              space.id === 1
-                ? SPACE_CONTENT[1].video
-                : space.id === 2
-                  ? SPACE_CONTENT[2].video2
-                  : SPACE_CONTENT[space.id].video
-            }
-            title="Video trên bàn"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-            style={{
-              width: "100%",
-              height: "100%",
-              border: 0,
-            }}
-          />
-        </div>
-      </Html>
-    )}
-  </>
-)}
-
-
-  
+            {/* Màn hình video trên bàn tròn */}
+            {!wallImageFull && !isPadletFullScreen && (
+              <Html
+                position={[0, 1.05, 0]}
+                transform
+                distanceFactor={1.5}
+                style={{
+                  width: "320px",
+                  height: "200px",
+                  overflow: "hidden",
+                  border: "3px solid #70472e",
+                  borderRadius: "10px",
+                  boxSizing: "border-box",
+                  background: "#000",
+                  zIndex: 1000,
+                  pointerEvents: "auto",
+                }}
+              >
+                <div style={{ width: "100%", height: "100%" }}>
+                  <iframe
+                    src={
+                      space.id === 1
+                        ? SPACE_CONTENT[1].video
+                        : space.id === 2
+                          ? SPACE_CONTENT[2].video2
+                          : SPACE_CONTENT[space.id].video
+                    }
+                    title="Video trên bàn"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      border: 0,
+                    }}
+                  />
+                </div>
+              </Html>
+            )}
+          </>
+        )}
 
       {/* Nút quay lại */}
       {!isPadletFullScreen && (
-      <group
-        position={[0, 1.5, 3.7]}
-        rotation={[0, Math.PI, 0]}
-        onClick={(e) => {
-          e.stopPropagation();
-          onBack();
-        }}
-        onPointerOver={() => {
-          document.body.style.cursor = "pointer";
-        }}
-        onPointerOut={() => {
-          document.body.style.cursor = "auto";
-        }}
-      >
-        <mesh>
-          <boxGeometry args={[2.5, 0.55, 0.12]} />
-          <meshStandardMaterial color="#7c2929" />
-        </mesh>
-
-        <Text
-          position={[0, 0, 0.07]}
-          fontSize={0.17}
-          color="#fff0c2"
-          anchorX="center"
-          anchorY="middle"
+        <group
+          position={[0, 1.5, 3.7]}
+          rotation={[0, Math.PI, 0]}
+          onClick={(e) => {
+            e.stopPropagation();
+            onBack();
+          }}
+          onPointerOver={() => {
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = "auto";
+          }}
         >
-          QUAY VỀ PHÒNG TRƯNG BÀY
-        </Text>
-      </group>
+          <mesh>
+            <boxGeometry args={[2.5, 0.55, 0.12]} />
+            <meshStandardMaterial color="#7c2929" />
+          </mesh>
+
+          <Text
+            position={[0, 0, 0.07]}
+            fontSize={0.17}
+            color="#fff0c2"
+            anchorX="center"
+            anchorY="middle"
+          >
+            QUAY VỀ PHÒNG TRƯNG BÀY
+          </Text>
+        </group>
       )}
     </group>
   );
 }
-
 
 ///căn phòng thứ 2
 
@@ -1392,12 +1511,8 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
         <boxGeometry args={[20, 0.2, 14]} />
         <meshStandardMaterial color="#f5f1e8" />
       </mesh>
-{/* Hoa văn trống đồng trên trần phòng 2 */}
-<CeilingDrum
-  position={[-22, 0, 5.75]}
-  y={5.5 - 0.11}
-  size={6}
-/>
+      {/* Hoa văn trống đồng trên trần phòng 2 */}
+      <CeilingDrum position={[-22, 0, 5.75]} y={5.5 - 0.11} size={6} />
       {/* Tường cuối phòng */}
       <mesh position={[-32, 2.75, 5.75]}>
         <boxGeometry args={[0.25, 5.5, 14]} />
@@ -1432,21 +1547,25 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
         KHÔNG GIAN TRƯNG BÀY CHUYÊN ĐỀ
       </Text>
 
-    
-
       {/* Tám gian trưng bày */}
       <group position={[-22, 0, 5.75]}>
         <InteractiveSpaces
-  onSelect={onSpaceClick}
-  onOpenKhu1Content={setKhu1Content}
-/>
+          onSelect={onSpaceClick}
+          onOpenKhu1Content={setKhu1Content}
+        />
       </group>
     </group>
   );
 }
 
-function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVideo}) {
-  const [activeChuS, setActiveChuS] = useState(0);
+function Room({
+  onExhibit,
+  onSpaceClick,
+  onOpenMuseum,
+  onOpenLibrary,
+  onOpenVideo,
+}) {
+
 
   const chuSTextures = useTexture(
     Array.from(
@@ -1485,24 +1604,22 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           toneMapped={false}
         />
       </mesh>
-      {/* Sàn */}     
+      {/* Sàn */}   
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
                 <planeGeometry args={[ROOM.width, ROOM.depth]} />
-                <meshStandardMaterial color="#d8c9ad" />     
+                <meshStandardMaterial color="#d8c9ad" />   
       </mesh>
-            {/* Trần */}     
+            {/* Trần */}   
       <mesh position={[0, ROOM.height, 0]} rotation={[Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[ROOM.width, ROOM.depth]} />
                 <meshStandardMaterial color="#f5f1e8" side={THREE.DoubleSide} />
-             
+           
       </mesh>
-
       {/* Hoa văn trống đồng trên trần sảnh chính */}
-<CeilingDrum y={ROOM.height - 0.02} size={6} />
-            {/* Tường sau */}     
+      <CeilingDrum y={ROOM.height - 0.02} size={6} />      {/* Tường sau */}   
       <mesh position={[0, ROOM.height / 2, -ROOM.depth / 2]}>
                 <boxGeometry args={[ROOM.width, ROOM.height, 0.3]} />
-                <meshStandardMaterial color="#eee6d7" />     
+                <meshStandardMaterial color="#eee6d7" />   
       </mesh>
                   {/* Tường phải của sảnh chính */}
       <mesh position={[12, ROOM.height / 2, 0]}>
@@ -1657,12 +1774,12 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           window.dispatchEvent(new Event("open-portrait"));
         }}
       >
-               
+             
         <mesh>
                     <boxGeometry args={[4.5, 3.1, 0.18]} />
-                    <meshStandardMaterial color="#6e492d" />       
+                    <meshStandardMaterial color="#6e492d" />     
         </mesh>
-               
+             
         <mesh position={[0, 0, 0.11]}>
           <planeGeometry args={[4.05, 2.65]} />
           <meshBasicMaterial
@@ -1670,7 +1787,7 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
             toneMapped={false}
           />
         </mesh>
-               
+             
         <Text
           position={[0, -2, 0.2]}
           fontSize={0.22}
@@ -1679,26 +1796,17 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           outlineWidth={0.003}
           outlineColor="#3b281c"
         >
-                    CHỦ TỊCH HỒ CHÍ MINH        
+                    CHỦ TỊCH HỒ CHÍ MINH      
         </Text>
-             
+           </group>
+      {/* ================= MÀN HÌNH TƯ LIỆU MỚI (Dùng FramedVideoScreen) ================= */}
+      <group position={[0, 2.7, -8.25]}>
+        <FramedVideoScreen onOpen={onOpenVideo} />
       </group>
-            {/* Màn hình tư liệu */}     
-     {/* Màn hình tư liệu */}
-<group position={[0, 2.7, -8.25]}>
-  <mesh>
-    <boxGeometry args={[5.2, 3.1, 0.25]} />
-    <meshStandardMaterial color="#20242a" />
-  </mesh>
 
-  <VideoScreen onOpen={onOpenVideo} />
-</group>
-         
-      <BookShelf 
-        position={[8, 2.2, -8.1]} 
-        onOpenLibrary={onOpenLibrary} 
-      />
-            {/* Tủ trưng bày */}            {/* Bàn */}     {/* Bàn */}
+      
+      <BookShelf position={[8, 2.2, -8.1]} onOpenLibrary={onOpenLibrary} />     {" "}
+      {/* Tủ trưng bày */}            {/* Bàn */}     {/* Bàn */}
       <group position={[10, 0, 1.5]}>
         {/* Mặt bàn */}
         <mesh position={[0, 1.15, 0]} castShadow>
@@ -1719,35 +1827,35 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           </mesh>
         ))}
       </group>
-            {/* Cây */}     
+            {/* Cây */}   
       <group position={[9, 0, 5]}>
-               
+             
         <mesh position={[0, 1, 0]}>
                     <cylinderGeometry args={[0.28, 0.38, 2, 16]} />
-                    <meshStandardMaterial color="#9b633b" />       
+                    <meshStandardMaterial color="#9b633b" />     
         </mesh>
-               
+             
         <mesh position={[0, 2.5, 0]}>
                     <sphereGeometry args={[1.1, 16, 12]} />
-                    <meshStandardMaterial color="#4e7750" />       
+                    <meshStandardMaterial color="#4e7750" />     
         </mesh>
-             
+           
       </group>
-            {/* Ánh sáng */}     
+            {/* Ánh sáng */}   
       {[-7, 0, 7].map((x) => (
         <group key={x} position={[x, 5.15, -2]}>
-                   
+                 
           <mesh>
                         <cylinderGeometry args={[0.35, 0.35, 0.15, 24]} />
-                        <meshStandardMaterial color="#d6b76d" />         
+                        <meshStandardMaterial color="#d6b76d" />       
           </mesh>
-                   
+                 
           <pointLight position={[0, -0.2, 0]} intensity={20} distance={9} />   
-             
+           
         </group>
       ))}
              {/* Chữ KHU TRƯNG BÀY gắn trên vách tường bên phải */}
-     <group
+      <group
         position={[11.78, 2.7, 1.5]}
         rotation={[0, -Math.PI / 2, 0]}
         onClick={(e) => {
@@ -1775,8 +1883,8 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
         {/* 2. Màn hình ảnh Preview bên trong (Tăng kích thước rộng và cao hơn) */}
         <mesh position={[0, 0.25, 0.045]}>
           <planeGeometry args={[4.3, 2.0]} />
-          <meshBasicMaterial 
-            map={useTexture(`${import.meta.env.BASE_URL}images/Baotang3D.png`)} 
+          <meshBasicMaterial
+            map={useTexture(`${import.meta.env.BASE_URL}images/Baotang3D.png`)}
           />
         </mesh>
 
@@ -1798,11 +1906,10 @@ function Room({ onExhibit, onSpaceClick, onOpenMuseum, onOpenLibrary,  onOpenVid
           BẢO TÀNG 3D
         </Text>
       </group>
-         
+       
     </group>
   );
 }
-
 
 
 function Scene({
@@ -1818,12 +1925,12 @@ function Scene({
   setInsideSpaceRoom,
   setActiveSpace,
   setSelectedSpace,
-   onOpenVideo,
-   setKhu1Content,
-   setShowPadlet,
-   showPadlet,
-   wallImageFull,
-   setSelectedKhu3Topic,
+  onOpenVideo,
+  setKhu1Content,
+  setShowPadlet,
+  showPadlet,
+  wallImageFull,
+  setSelectedKhu3Topic,
 }) {
   return (
     <>
@@ -1831,24 +1938,24 @@ function Scene({
             <ambientLight intensity={1.5} />
             <directionalLight position={[4, 8, 5]} intensity={2} castShadow />
          
-     <Room
-  onOpenVideo={onOpenVideo}
-  onExhibit={onExhibit}
-  onSpaceClick={onSpaceClick}
-  onOpenLibrary={onOpenLibrary} // 👈 SỬA THÀNH NÀY: Dùng prop truyền từ App xuống
-  onOpenMuseum={() =>
-    window.open(
-      "https://hochiminh.vn/bao-tang-3d",
-      "_blank",
-      "noopener,noreferrer"
-    )
-  }
-/>
-
-
+      <Room
+        onOpenVideo={onOpenVideo}
+        onExhibit={onExhibit}
+        onSpaceClick={onSpaceClick}
+        onOpenLibrary={onOpenLibrary} // 👈 SỬA THÀNH NÀY: Dùng prop truyền từ App xuống
+        onOpenMuseum={() =>
+          window.open(
+            "https://hochiminh.vn/bao-tang-3d",
+            "_blank",
+            "noopener,noreferrer",
+          )
+        }
+      />
       {room2Active && !insideSpaceRoom && (
-        <SecondRoom onSpaceClick={onSpaceClick}  
-        setKhu1Content={setKhu1Content}/>
+        <SecondRoom
+          onSpaceClick={onSpaceClick}
+          setKhu1Content={setKhu1Content}
+        />
       )}
       {room2Active && insideSpaceRoom && activeSpace && (
         <SpaceInteriorRoom
@@ -1859,14 +1966,12 @@ function Scene({
             setSelectedSpace(null);
           }}
           setShowPadlet={setShowPadlet}
-          showPadlet={showPadlet} 
+          showPadlet={showPadlet}
           wallImageFull={wallImageFull}
           setSelectedKhu3Topic={setSelectedKhu3Topic}
-         
         />
       )}
-           
-           
+                 
       <CameraView
         spots={spots}
         spotIndex={spotIndex}
@@ -1876,7 +1981,7 @@ function Scene({
         onSpaceArrive={onSpaceArrive}
       />
       <FixedLookControls />
-                <Environment preset="city" />   
+                <Environment preset="city" /> 
     </>
   );
 }
@@ -1887,7 +1992,7 @@ export default function App() {
   const [khu1Content, setKhu1Content] = useState(null);
   const [activeSpace, setActiveSpace] = useState(null);
   const [wallImageFull, setWallImageFull] = useState(false);
-  
+
   const [insideSpaceRoom, setInsideSpaceRoom] = useState(false);
   const [navCollapsed, setNavCollapsed] = useState(
     window.matchMedia("(max-width: 600px)").matches,
@@ -1917,30 +2022,27 @@ export default function App() {
   const [showLibrary, setShowLibrary] = useState(false);
   const [showPortraitSlideshow, setShowPortraitSlideshow] = useState(false);
   const [activePortrait, setActivePortrait] = useState(1);
-  const [activeChuS, setActiveChuS] = useState(0);
   const [musicExpanded, setMusicExpanded] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [activeAudio, setActiveAudio] = useState(null);
 
- // Lắng nghe sự kiện phát audio từ các bức tường hoặc không gian
-useEffect(() => {
-  window.setActiveAudioGlobal = (url) => {
-    // 1. Tạm dừng nhạc nền nếu đang phát
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
-    // 2. Tạm dừng giọng nói của robot nếu đang phát
-    if (window.robotVoiceAudio) {
-      window.robotVoiceAudio.pause();
-    }
+  // Lắng nghe sự kiện phát audio từ các bức tường hoặc không gian
+  useEffect(() => {
+    window.setActiveAudioGlobal = (url) => {
+      // 1. Tạm dừng nhạc nền nếu đang phát
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      // 2. Tạm dừng giọng nói của robot nếu đang phát
+      if (window.robotVoiceAudio) {
+        window.robotVoiceAudio.pause();
+      }
 
-    // 3. Bật audio thuyết minh mới
-    setActiveAudio(url);
-    console.log("Đã bật audio và dừng các âm thanh khác:", url);
-  };
-}, []);
- 
-
+      // 3. Bật audio thuyết minh mới
+      setActiveAudio(url);
+      console.log("Đã bật audio và dừng các âm thanh khác:", url);
+    };
+  }, []);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -1975,16 +2077,19 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-  const handleImageFullscreen = (e) => {
-    setWallImageFull(e.detail);
-  };
+    const handleImageFullscreen = (e) => {
+      setWallImageFull(e.detail);
+    };
 
-  window.addEventListener("wall-image-fullscreen", handleImageFullscreen);
+    window.addEventListener("wall-image-fullscreen", handleImageFullscreen);
 
-  return () => {
-    window.removeEventListener("wall-image-fullscreen", handleImageFullscreen);
-  };
-}, []);
+    return () => {
+      window.removeEventListener(
+        "wall-image-fullscreen",
+        handleImageFullscreen,
+      );
+    };
+  }, []);
 
   useEffect(() => {
     const enter = () => {
@@ -2051,7 +2156,6 @@ useEffect(() => {
   };
 
   const handleSelectSpace = (space) => {
-    
     setShowPDF(false);
     setShowPadlet(false);
     setSelectedSpace(space);
@@ -2177,19 +2281,19 @@ useEffect(() => {
   if (!started) {
     return (
       <div className="welcome-page">
-               
+             
         <div className="welcome-card">
                     <div className="welcome-badge">KHÔNG GIAN VĂN HÓA</div>     
-              <h1>Hồ Chí Minh</h1>         
+              <h1>Hồ Chí Minh</h1>       
           <p className="welcome-description">
                         Chào mừng bạn đến với không gian tham quan 3D.          
-              Hãy nhập thông tin để bắt đầu chuyến tham quan.          
+              Hãy nhập thông tin để bắt đầu chuyến tham quan.        
           </p>
-                   
+                 
           <form onSubmit={submit} className="visitor-form">
-                       
+                     
             <label>
-                            Họ và tên              
+                            Họ và tên            
               <input
                 value={visitor.name}
                 onChange={(e) =>
@@ -2197,9 +2301,9 @@ useEffect(() => {
                 }
                 placeholder="Nhập họ và tên"
               />
-                         
+                       
             </label>
-                       
+                     
             <label>
               Nhóm độ tuổi
               <select
@@ -2214,30 +2318,30 @@ useEffect(() => {
                 <option value="age35plus">Từ 35 tuổi trở lên</option>
               </select>
             </label>
-                       
+                     
             <label>
-                            Giới tính              
+                            Giới tính            
               <select
                 value={visitor.gender}
                 onChange={(e) =>
                   setVisitor({ ...visitor, gender: e.target.value })
                 }
               >
-                                <option value="Nam">Nam</option>               
-                <option value="Nữ">Nữ</option>             
+                                <option value="Nam">Nam</option>             
+                <option value="Nữ">Nữ</option>           
               </select>
-                         
+                       
             </label>
                         {error && <div className="form-error">{error}</div>}   
-                   
+                 
             <button type="submit" className="start-button">
-                            BẮT ĐẦU THAM QUAN            
+                            BẮT ĐẦU THAM QUAN          
             </button>
-                     
+                   
           </form>
-                 
+               
         </div>
-             
+           
       </div>
     );
   }
@@ -2265,10 +2369,9 @@ useEffect(() => {
           padding: "8px 10px",
           borderRadius: 10,
           minWidth:
-  visitor.ageGroup === "under15" ||
-  visitor.ageGroup === "age35plus"
-    ? 270
-    : 305,
+            visitor.ageGroup === "under15" || visitor.ageGroup === "age35plus"
+              ? 270
+              : 305,
           boxSizing: "border-box",
           boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
         }}
@@ -2317,7 +2420,7 @@ useEffect(() => {
           {musicPlaying ? "⏸ Tạm dừng" : "▶ Phát nhạc"}
         </button>
       </div>
-           
+         
       <Canvas
         camera={{
           position: [0, 1.6, 6.5],
@@ -2326,7 +2429,7 @@ useEffect(() => {
           far: 100,
         }}
       >
-               
+             
         <Scene
           spotIndex={spotIndex}
           onMove={moveToSpot}
@@ -2346,13 +2449,10 @@ useEffect(() => {
           showPadlet={showPadlet}
           wallImageFull={wallImageFull}
           setSelectedKhu3Topic={setSelectedKhu3Topic}
-
-
         />
-                     
+                   
       </Canvas>
-          <ImageFullscreen />
-
+      <ImageFullscreen />
       {/* DANH SÁCH ĐIỀU HƯỚNG 13 MỤC */}
       <div className={`navigation-panel ${navCollapsed ? "collapsed" : ""}`}>
         <button
@@ -2402,213 +2502,243 @@ useEffect(() => {
         )}
       </div>
       {showVideo && (
-  <div
-    style={{
-      position: "fixed",
-      inset: 0,
-      zIndex: 1000000,
-      background: "#000",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
-    <video
-      src={`${import.meta.env.BASE_URL}video/TNDL.mp4`}
-      autoPlay
-      controls
-      playsInline
-      style={{
-        width: "100%",
-        height: "100%",
-        objectFit: "contain",
-      }}
-      onCanPlay={(e) => {
-        e.currentTarget.muted = false;
-        e.currentTarget.volume = 1;
-        e.currentTarget.play().catch(() => {});
-      }}
-    />
-
-    <button
-      onClick={() => setShowVideo(false)}
-      style={{
-        position: "absolute",
-        top: 20,
-        right: 20,
-        zIndex: 2,
-        padding: "10px 16px",
-        borderRadius: 10,
-        cursor: "pointer",
-      }}
-    >
-      ✕ Đóng video
-    </button>
-  </div>
-)}
-
-{/* --- MODAL HIỂN THỊ DANH SÁCH CÂU CHUYỆN VÀ AUDIO CỦA KHU 3 --- */}
-{selectedKhu3Topic && (
-  <div
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      background: "rgba(0, 0, 0, 0.8)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 999999,
-    }}
-    onClick={() => setSelectedKhu3Topic(null)} // Bấm ra ngoài để đóng modal
-  >
-    <div
-      style={{
-        width: "90%",
-        maxWidth: "600px",
-        background: "#f4efe6",
-        border: "3px solid #70472e",
-        borderRadius: "12px",
-        padding: "24px",
-        boxSizing: "border-box",
-        position: "relative",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-      }}
-      onClick={(e) => e.stopPropagation()} // Chặn sự kiện click lan ra ngoài
-    >
-      {/* Nút đóng Modal */}
-      <button
-        onClick={() => setSelectedKhu3Topic(null)}
-        style={{
-          position: "absolute",
-          top: 12,
-          right: 12,
-          background: "#70472e",
-          color: "#fff",
-          border: 0,
-          padding: "6px 12px",
-          borderRadius: "6px",
-          cursor: "pointer",
-          fontWeight: "bold",
-        }}
-      >
-        ✕ Đóng
-      </button>
-
-      {/* Tiêu đề Chủ đề */}
-      <h2 style={{ color: "#70472e", marginTop: 0, marginBottom: "16px", fontSize: "22px" }}>
-        {selectedKhu3Topic.title}
-      </h2>
-
-      {/* Danh sách các câu chuyện bên trong chủ đề */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxHeight: "400px", overflowY: "auto" }}>
-        {selectedKhu3Topic.stories && selectedKhu3Topic.stories.map((story, idx) => (
-          <div
-            key={idx}
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 1000000,
+            background: "#000",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <video
+            src={`${import.meta.env.BASE_URL}video/TNDL.mp4`}
+            autoPlay
+            controls
+            playsInline
             style={{
-              background: "#fff",
-              padding: "12px 16px",
-              borderRadius: "8px",
-              border: "1px solid #d4af37",
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+            onCanPlay={(e) => {
+              e.currentTarget.muted = false;
+              e.currentTarget.volume = 1;
+              e.currentTarget.play().catch(() => {});
+            }}
+          />
+
+          <button
+            onClick={() => setShowVideo(false)}
+            style={{
+              position: "absolute",
+              top: 20,
+              right: 20,
+              zIndex: 2,
+              padding: "10px 16px",
+              borderRadius: 10,
+              cursor: "pointer",
             }}
           >
-            <span style={{ fontWeight: "600", color: "#333", fontSize: "16px" }}>
-              {idx + 1}. {story.title}
-            </span>
-            
-            {/* Thanh điều khiển audio (Play, Pause, Tua, Thanh âm lượng) */}
-            <audio
-              controls
-              src={story.file}
-              style={{ width: "100%", height: "36px" }}
-            />
+            ✕ Đóng video
+          </button>
+        </div>
+      )}
+      {/* --- MODAL HIỂN THỊ DANH SÁCH CÂU CHUYỆN VÀ AUDIO CỦA KHU 3 --- */}
+      {selectedKhu3Topic && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0, 0, 0, 0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 999999,
+          }}
+          onClick={() => setSelectedKhu3Topic(null)} // Bấm ra ngoài để đóng modal
+        >
+          <div
+            style={{
+              width: "90%",
+              maxWidth: "600px",
+              background: "#f4efe6",
+              border: "3px solid #70472e",
+              borderRadius: "12px",
+              padding: "24px",
+              boxSizing: "border-box",
+              position: "relative",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+            }}
+            onClick={(e) => e.stopPropagation()} // Chặn sự kiện click lan ra ngoài
+          >
+            {/* Nút đóng Modal */}
+            <button
+              onClick={() => setSelectedKhu3Topic(null)}
+              style={{
+                position: "absolute",
+                top: 12,
+                right: 12,
+                background: "#70472e",
+                color: "#fff",
+                border: 0,
+                padding: "6px 12px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              ✕ Đóng
+            </button>
+
+            {/* Tiêu đề Chủ đề */}
+            <h2
+              style={{
+                color: "#70472e",
+                marginTop: 0,
+                marginBottom: "16px",
+                fontSize: "22px",
+              }}
+            >
+              {selectedKhu3Topic.title}
+            </h2>
+
+            {/* Danh sách các câu chuyện bên trong chủ đề */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+                maxHeight: "400px",
+                overflowY: "auto",
+              }}
+            >
+              {selectedKhu3Topic.stories &&
+                selectedKhu3Topic.stories.map((story, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: "#fff",
+                      padding: "12px 16px",
+                      borderRadius: "8px",
+                      border: "1px solid #d4af37",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        color: "#333",
+                        fontSize: "16px",
+                      }}
+                    >
+                      {idx + 1}. {story.title}
+                    </span>
+
+                    {/* Thanh điều khiển audio (Play, Pause, Tua, Thanh âm lượng) */}
+                    <audio
+                      controls
+                      src={story.file}
+                      style={{ width: "100%", height: "36px" }}
+                    />
+                  </div>
+                ))}
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-)}
-{activeAudio && (
-  <div style={{
-    position: "fixed",
-    bottom: "40px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 999999,
-    background: "#4a2e18",
-    padding: "12px 24px",
-    borderRadius: "30px",
-    display: "flex",
-    alignItems: "center",
-    gap: "15px",
-    border: "2px solid #ffd700"
-  }}>
-    <span style={{ color: "#fff", fontWeight: "bold" }}>🔊 Thuyết minh</span>
-    
-    <audio 
-      src={activeAudio} 
-      controls 
-      autoPlay 
-      style={{ height: "32px" }} 
-      onPlay={() => {
-        // Tự động dừng nhạc nền và robot khi audio này chạy
-        if (audioRef.current) audioRef.current.pause();
-        if (window.robotVoiceAudio) window.robotVoiceAudio.pause();
-      }}
-    />
+        </div>
+      )}
+      {activeAudio && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "40px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 999999,
+            background: "#4a2e18",
+            padding: "12px 24px",
+            borderRadius: "30px",
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+            border: "2px solid #ffd700",
+          }}
+        >
+          <span style={{ color: "#fff", fontWeight: "bold" }}>
+            🔊 Thuyết minh
+          </span>
 
-    <button 
-      onClick={() => setActiveAudio(null)}
-      style={{ background: "#7c2929", color: "#fff", border: "none", borderRadius: "50%", width: "26px", height: "26px", cursor: "pointer" }}
-    >
-      ✕
-    </button>
-  </div>
-)}
-{khu1Content && (
-  <div
-    style={{
-      position: "fixed",
-      inset: 0,
-      zIndex: 9999,
-      background: "#111",
-      display: "flex",
-      flexDirection: "column",
-    }}
-  >
-    <button
-      onClick={() => setKhu1Content(null)}
-      style={{ padding: 12, cursor: "pointer" }}
-    >
-      ✕ Đóng, quay lại phòng
-    </button>
+          <audio
+            src={activeAudio}
+            controls
+            autoPlay
+            style={{ height: "32px" }}
+            onPlay={() => {
+              // Tự động dừng nhạc nền và robot khi audio này chạy
+              if (audioRef.current) audioRef.current.pause();
+              if (window.robotVoiceAudio) window.robotVoiceAudio.pause();
+            }}
+          />
 
-    <iframe
-      title={khu1Content === "pdf" ? "Tài liệu khu 1" : "Video khu 1"}
-      src={
-        khu1Content === "pdf"
-          ? `${import.meta.env.BASE_URL}doc/Khu1.pdf`
-          : "https://www.youtube.com/embed/R5wsX7xQsxY"
-      }
-      style={{ flex: 1, width: "100%", border: 0 }}
-      allow={
-        khu1Content === "video"
-          ? "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          : undefined
-      }
-      allowFullScreen
-    />
-  </div>
-)}
+          <button
+            onClick={() => setActiveAudio(null)}
+            style={{
+              background: "#7c2929",
+              color: "#fff",
+              border: "none",
+              borderRadius: "50%",
+              width: "26px",
+              height: "26px",
+              cursor: "pointer",
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+      {khu1Content && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            background: "#111",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <button
+            onClick={() => setKhu1Content(null)}
+            style={{ padding: 12, cursor: "pointer" }}
+          >
+            ✕ Đóng, quay lại phòng
+          </button>
 
-{/* Thanh Audio Player nổi toàn cục ở ngoài cùng, đè lên mọi thứ */}
-
-
+          <iframe
+            title={khu1Content === "pdf" ? "Tài liệu khu 1" : "Video khu 1"}
+            src={
+              khu1Content === "pdf"
+                ? `${import.meta.env.BASE_URL}doc/Khu1.pdf`
+                : "https://www.youtube.com/embed/R5wsX7xQsxY"
+            }
+            style={{ flex: 1, width: "100%", border: 0 }}
+            allow={
+              khu1Content === "video"
+                ? "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                : undefined
+            }
+            allowFullScreen
+          />
+        </div>
+      )}
+      {/* Thanh Audio Player nổi toàn cục ở ngoài cùng, đè lên mọi thứ */}
       {showPDF && (
         <div
           style={{
@@ -2647,59 +2777,58 @@ useEffect(() => {
         </div>
       )}
       {showPadlet && (
-  <div
-    style={{
-      position: "fixed",
-      inset: 0,
-      zIndex: 6000,
-      background: "rgba(0,0,0,0.8)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: 16,
-    }}
-  >
-    <div
-      style={{
-        width: "95vw",
-        height: "92vh",
-        background: "#fff",
-        borderRadius: 12,
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <button
-        onClick={() => {
-setShowPadlet(false);
-}}
-        style={{
-          padding: "12px 18px",
-          border: "none",
-          cursor: "pointer",
-          textAlign: "right",
-          fontSize: 16,
-          flexShrink: 0,
-        }}
-      >
-        ✕ Đóng Padlet
-      </button>
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 6000,
+            background: "rgba(0,0,0,0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 16,
+          }}
+        >
+          <div
+            style={{
+              width: "95vw",
+              height: "92vh",
+              background: "#fff",
+              borderRadius: 12,
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <button
+              onClick={() => {
+                setShowPadlet(false);
+              }}
+              style={{
+                padding: "12px 18px",
+                border: "none",
+                cursor: "pointer",
+                textAlign: "right",
+                fontSize: 16,
+                flexShrink: 0,
+              }}
+            >
+              ✕ Đóng Padlet
+            </button>
 
-      <iframe
-        src="https://padlet.com/embed/ij4p9ovbesqr7jzp"
-        title="Hành trình theo dấu chân Bác"
-        allow="camera; microphone; geolocation; display-capture; clipboard-write"
-        style={{
-          width: "100%",
-          flex: 1,
-          border: 0,
-        }}
-      />
-    </div>
-  </div>
-)}
-     
+            <iframe
+              src="https://padlet.com/embed/ij4p9ovbesqr7jzp"
+              title="Hành trình theo dấu chân Bác"
+              allow="camera; microphone; geolocation; display-capture; clipboard-write"
+              style={{
+                width: "100%",
+                flex: 1,
+                border: 0,
+              }}
+            />
+          </div>
+        </div>
+      )}
       {showMuseum3D && (
         <div
           style={{
@@ -2979,15 +3108,15 @@ max-width: 1400px;
         onClick={returnToPreviousSpot}
         disabled={spotIndex === 0 && !room2Active}
         style={{
-  display:
-    (showPortraitSlideshow || showPadlet || wallImageFull)
-      ? "none"
-      : undefined,
-}}
+          display:
+            showPortraitSlideshow || showPadlet || wallImageFull
+              ? "none"
+              : undefined,
+        }}
       >
         {insideSpaceRoom ? "↩ Quay về phòng trưng bày" : "↩ Quay về lối vào"}
       </button>
-           
+         
       <div className="top-info">
                 <strong>Không gian văn hóa Hồ Chí Minh</strong>
         {visitor.name && (
@@ -3008,139 +3137,139 @@ max-width: 1400px;
                 : "Từ 35 tuổi trở lên"}
           </p>
         )}
-             
+           
       </div>
-   {/** -----------------------------------------------------------------------------------------------*/} 
+      {/** -----------------------------------------------------------------------------------------------*/}
       <div className="controls">
-                <div>🖱 Kéo chuột: Xoay góc nhìn 360°</div>       
-        <div>📍 Nhấp biển chỉ dẫn: Di chuyển đến khu vực</div>       
-        <div>Vị trí: {spots[spotIndex].name}</div>     
+                <div>🖱 Kéo chuột: Xoay góc nhìn 360°</div>     
+        <div>📍 Nhấp biển chỉ dẫn: Di chuyển đến khu vực</div>     
+        <div>Vị trí: {spots[spotIndex].name}</div>   
       </div>
       {/**ROOM 1 */}
-     {showLibrary && (
-  <div
-    style={{
-      position: "fixed",
-      inset: 0,
-      zIndex: 4000,
-      background: "#f5f0e6",
-      overflowY: "auto",
-      padding: 30,
-      color: "#38271c",
-    }}
-  >
-    <button
-      onClick={() => {
-        setShowLibrary(false);
-      }}
-      style={{
-        padding: "10px 18px",
-        border: "1px solid #c8b99f",
-        borderRadius: 10,
-        background: "#315c50",
-        color: "#fff",
-        fontSize: 15,
-        cursor: "pointer",
-        boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
-      }}
-    >
-      ← Quay lại không gian văn hoá
-    </button>
-    <h2>THƯ VIỆN SÁCH VỀ BÁC HỒ</h2>
-
-    <div
-      className="books-grid"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(4, minmax(0, 250px))",
-        justifyContent: "center",
-        gap: 24,
-      }}
-    >
-      {Array.from({ length: 16 }, (_, i) => {
-        const so = i + 1;
-
-        return (
-          <div
-            className="book-card"
-            key={so}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform =
-                "translateY(-6px) scale(1.02)";
-              e.currentTarget.style.boxShadow = "0 12px 28px #0004";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0) scale(1)";
-              e.currentTarget.style.boxShadow = "0 5px 18px #0002";
+      {showLibrary && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 4000,
+            background: "#f5f0e6",
+            overflowY: "auto",
+            padding: 30,
+            color: "#38271c",
+          }}
+        >
+          <button
+            onClick={() => {
+              setShowLibrary(false);
             }}
             style={{
-              width: "100%",
-              minWidth: 0,
-              boxSizing: "border-box",
+              padding: "10px 18px",
+              border: "1px solid #c8b99f",
+              borderRadius: 10,
+              background: "#315c50",
+              color: "#fff",
+              fontSize: 15,
               cursor: "pointer",
-              textAlign: "center",
-              padding: 12,
-              borderRadius: 14,
-              background: "#fffaf0",
-              boxShadow: "0 5px 18px #0002",
-              transition: "all 0.25s ease",
-              transform: "translateY(0) scale(1)",
+              boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
             }}
           >
-            <img
-              src={`${import.meta.env.BASE_URL}pic room3/${so}.png`}
-              alt={`Bìa sách số ${so}`}
-              style={{
-                width: "100%",
-                height: 320,
-                objectFit: "contain",
-                borderRadius: 8,
-              }}
-            />
+            ← Quay lại không gian văn hoá
+          </button>
+          <h2>THƯ VIỆN SÁCH VỀ BÁC HỒ</h2>
 
-            <p style={{ fontWeight: 600, color: "#6b351f" }}>
-              Cuốn sách {so}
-            </p>
+          <div
+            className="books-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, minmax(0, 250px))",
+              justifyContent: "center",
+              gap: 24,
+            }}
+          >
+            {Array.from({ length: 16 }, (_, i) => {
+              const so = i + 1;
 
-            <button
-              onClick={() =>
-                window.open(
-                  so === 1
-                    ? "https://stbook.vn/read_book/926a2cd110ef4786b319a5aa341f4459/1131"
-                    : "https://",
-                  "_blank",
-                  "noopener,noreferrer",
-                )
-              }
-              style={{
-                width: "100%",
-                padding: "11px 14px",
-                border: "none",
-                borderRadius: 24,
-                background: "linear-gradient(135deg, #8b1e1e, #c0392b)",
-                color: "#fff",
-                fontSize: 14,
-                fontWeight: 600,
-                cursor: "pointer",
-                boxShadow: "0 4px 10px #0003",
-                transition: "all 0.25s ease",
-              }}
-            >
-              📖 Đọc sách online →
-            </button>
+              return (
+                <div
+                  className="book-card"
+                  key={so}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform =
+                      "translateY(-6px) scale(1.02)";
+                    e.currentTarget.style.boxShadow = "0 12px 28px #0004";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0) scale(1)";
+                    e.currentTarget.style.boxShadow = "0 5px 18px #0002";
+                  }}
+                  style={{
+                    width: "100%",
+                    minWidth: 0,
+                    boxSizing: "border-box",
+                    cursor: "pointer",
+                    textAlign: "center",
+                    padding: 12,
+                    borderRadius: 14,
+                    background: "#fffaf0",
+                    boxShadow: "0 5px 18px #0002",
+                    transition: "all 0.25s ease",
+                    transform: "translateY(0) scale(1)",
+                  }}
+                >
+                  <img
+                    src={`${import.meta.env.BASE_URL}pic room3/${so}.png`}
+                    alt={`Bìa sách số ${so}`}
+                    style={{
+                      width: "100%",
+                      height: 320,
+                      objectFit: "contain",
+                      borderRadius: 8,
+                    }}
+                  />
+
+                  <p style={{ fontWeight: 600, color: "#6b351f" }}>
+                    Cuốn sách {so}
+                  </p>
+
+                  <button
+                    onClick={() =>
+                      window.open(
+                        so === 1
+                          ? "https://stbook.vn/read_book/926a2cd110ef4786b319a5aa341f4459/1131"
+                          : "https://",
+                        "_blank",
+                        "noopener,noreferrer",
+                      )
+                    }
+                    style={{
+                      width: "100%",
+                      padding: "11px 14px",
+                      border: "none",
+                      borderRadius: 24,
+                      background: "linear-gradient(135deg, #8b1e1e, #c0392b)",
+                      color: "#fff",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      boxShadow: "0 4px 10px #0003",
+                      transition: "all 0.25s ease",
+                    }}
+                  >
+                    📖 Đọc sách online →
+                  </button>
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
-    </div>
-  </div>
-)}
-           
+        </div>
+      )}
+         
       {selectedExhibit && (
         <div
           className="exhibit-info"
           style={{ pointerEvents: "auto", zIndex: 1000 }}
         >
-                   
+                 
           <button
             className="close-exhibit"
             onClick={() => {
@@ -3148,20 +3277,20 @@ max-width: 1400px;
               setSpotIndex(0);
             }}
           >
-                        ✕          
+                        ✕        
           </button>
-                   
+                 
           <div className="exhibit-title">
-                        {selectedExhibit.title}         
+                        {selectedExhibit.title}       
           </div>
-                   
+                 
           <div className="exhibit-description">
-                        {selectedExhibit.description}         
+                        {selectedExhibit.description}       
           </div>
-                 
+               
         </div>
       )}
-         
+       
     </div>
   );
 }
