@@ -1680,7 +1680,7 @@ function Scene({
           showPadlet={showPadlet} 
           wallImageFull={wallImageFull}
           setSelectedKhu3Topic={setSelectedKhu3Topic}
-          setActiveAudio={setActiveAudio}
+         
         />
       )}
            
