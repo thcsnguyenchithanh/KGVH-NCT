@@ -457,8 +457,8 @@ function FramedVideoScreen({ onOpen }) {
       </mesh>
 
       {/* ================= LỚP 2: MÀN HÌNH VIDEO NẰM TRONG KHUNG ================= */}
-      <mesh
-        position={[0, 0.15, 0.02]} // Căn chỉnh lại vị trí Y cho video lọt đẹp vào khung
+     <mesh
+        position={[0, 0.15, 0.02]}
         onClick={(e) => {
           e.stopPropagation();
           onOpen?.();
@@ -466,8 +466,8 @@ function FramedVideoScreen({ onOpen }) {
         onPointerOver={() => { document.body.style.cursor = "pointer"; }}
         onPointerOut={() => { document.body.style.cursor = "default"; }}
       >
-        {/* Tăng kích thước video tương ứng với khung mới [chiều_rộng, chiều_cao] */}
-        <planeGeometry args={[6.8, 3.8]} />
+        {/* Thu nhỏ kích thước video từ [6.8, 3.8] xuống [5.2, 2.9] (hoặc nhỏ hơn nữa tùy ý bạn) */}
+        <planeGeometry args={[5.2, 2.9]} />
         <meshBasicMaterial map={videoTexture} toneMapped={false} />
       </mesh>
     </group>
