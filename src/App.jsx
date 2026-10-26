@@ -659,6 +659,62 @@ function RightWallPanels() {
   );
 }
 
+//--------------------------------------------------------------------------------------------------------
+
+import React from 'react';
+
+export default function PottedPlant({ position = [0, 0, 0], scale = 1 }) {
+  return (
+    <group position={position} scale={[scale, scale, scale]}>
+      {/* 1. Chậu cây (Hình trụ cụt màu đỏ gạch/đất nung) */}
+      <mesh position={[0, 0.3, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.4, 0.25, 0.6, 16]} />
+        <meshStandardMaterial color="#c0392b" roughness={0.6} />
+      </mesh>
+
+      {/* 2. Phần đất bên trong chậu */}
+      <mesh position={[0, 0.58, 0]}>
+        <cylinderGeometry args={[0.38, 0.38, 0.05, 16]} />
+        <meshStandardMaterial color="#5c4033" roughness={0.9} />
+      </mesh>
+
+      {/* 3. Thân cây */}
+      <mesh position={[0, 0.8, 0]}>
+        <cylinderGeometry args={[0.05, 0.07, 0.5, 8]} />
+        <meshStandardMaterial color="#8b5a2b" roughness={0.8} />
+      </mesh>
+
+      {/* 4. Tán lá xanh (Tạo từ các khối cầu kết hợp) */}
+      <mesh position={[0, 1.2, 0]}>
+        <sphereGeometry args={[0.4, 16, 16]} />
+        <meshStandardMaterial color="#27ae60" roughness={0.5} />
+      </mesh>
+      <mesh position={[0.2, 1.0, 0.1]}>
+        <sphereGeometry args={[0.25, 16, 16]} />
+        <meshStandardMaterial color="#2ecc71" roughness={0.5} />
+      </mesh>
+      <mesh position={[-0.2, 1.05, -0.1]}>
+        <sphereGeometry args={[0.25, 16, 16]} />
+        <meshStandardMaterial color="#229954" roughness={0.5} />
+      </mesh>
+
+      {/* 5. Những bông hoa nhỏ xinh trang trí trên tán cây (màu vàng và đỏ) */}
+      <mesh position={[0.15, 1.35, 0.15]}>
+        <sphereGeometry args={[0.08, 8, 8]} />
+        <meshStandardMaterial color="#f1c40f" emissive="#f1c40f" emissiveIntensity={0.2} />
+      </mesh>
+      <mesh position={[-0.15, 1.25, 0.2]}>
+        <sphereGeometry args={[0.08, 8, 8]} />
+        <meshStandardMaterial color="#e74c3c" emissive="#e74c3c" emissiveIntensity={0.2} />
+      </mesh>
+      <mesh position={[0, 1.4, -0.15]}>
+        <sphereGeometry args={[0.08, 8, 8]} />
+        <meshStandardMaterial color="#e74c3c" emissive="#e74c3c" emissiveIntensity={0.2} />
+      </mesh>
+    </group>
+  );
+}
+
 // Component hiển thị bản đồ/poster trên tường bên trái
 // Component hiển thị 2 poster trên tường bên trái
 function LeftWallPanels() {
@@ -2302,6 +2358,9 @@ function Room({
    <RightWallPanels onSelectImage={onSelectImage} />
    <LeftWallPanels onSelectImage={onSelectImage} />
     <OppositeWallPanels/>
+    {/* Đặt chậu cây ở góc phòng bên trái và bên phải */}
+      <PottedPlant position={[-4, 0, -3]} scale={1.2} />
+      <PottedPlant position={[4, 0, -3]} scale={1.2} />
 
 
 {/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
