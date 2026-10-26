@@ -672,7 +672,7 @@ function LeftWallPanels() {
       <group position={[-1.8, 0, 0]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2.2, 3.2, 0.05]} />
-          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+          <meshStandardMaterial color="#f32626" roughness={0.6} />
         </mesh>
         <mesh
           position={[0, 0, 0.03]}
