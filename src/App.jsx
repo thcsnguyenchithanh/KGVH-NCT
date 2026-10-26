@@ -751,11 +751,11 @@ function LeftWallPanels() {
       {/* ================= 3. POSTER 2 (BÊN PHẢI) ================= */}
       <group position={[4.8, 0, 0]}>
          <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <boxGeometry args={[2.02, 3.02, 0.03]} />
           <meshStandardMaterial color="#680f0f" roughness={0.6} />
         </mesh>
         <mesh
-          position={[0, 0, 0.03]}
+          position={[0, 0, 0.02]}
           onClick={(e) => {
             e.stopPropagation();
             window.dispatchEvent(
