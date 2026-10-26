@@ -33,20 +33,20 @@ export const CONTENT_LIST = [
   { id: 5, name: "Bảo tàng 3D", type: "spot" },
 
   // 8 thẻ nội dung trưng bày
-  { id: 6, name: "Phòng Tiểu sử và cuộc đời Bác", type: "space" },
-  { id: 7, name: "Phòng Hành trình theo dấu chân Bác", type: "space" },
-  { id: 8, name: "Phòng Những câu chuyện về Bác", type: "space" },
-  { id: 9, name: "Phòng Bác Hồ với thiếu niên, nhi đồng và giáo dục", type: "space" },
-  { id: 10, name: "Phòng Tư tưởng, đạo đức, phong cách Hồ Chí Minh", type: "space" },
+  { id: 6, name: "Tiểu sử và cuộc đời Bác", type: "space" },
+  { id: 7, name: "Hành trình theo dấu chân Bác", type: "space" },
+  { id: 8, name: "Những câu chuyện về Bác", type: "space" },
+  { id: 9, name: "Bác Hồ với thiếu niên, nhi đồng và giáo dục", type: "space" },
+  { id: 10, name: "Tư tưởng, đạo đức, phong cách Hồ Chí Minh", type: "space" },
   {
     id: 11,
-    name: "Phòng Di sản Hồ Chí Minh",
+    name: "Di sản Hồ Chí Minh",
     type: "space",
   },
   { id: 12, name: "Triển lãm Không gian văn hóa phường Tân Thới Hiệp", type: "space" },
   {
     id: 13,
-    name: "Phòng Bác Hồ trong trái tim thầy và trò nhà trường",
+    name: "Bác Hồ trong trái tim thầy và trò nhà trường",
     type: "space",
   },
 ];
@@ -1008,7 +1008,7 @@ function SecondRoomHangingFlags() {
 const spaces = [
   {
     id: 1,
-    title: "Phòng Tiểu sử và cuộc đời Bác",
+    title: "Tiểu sử và cuộc đời Bác",
     description:
       "Trình bày quê hương, gia đình, thời niên thiếu, quá trình trưởng thành và những dấu mốc quan trọng trong cuộc đời, sự nghiệp cách mạng của Chủ tịch Hồ Chí Minh. Nội dung có thể thiết kế dưới dạng dòng thời gian, kết hợp hình ảnh, tư liệu và thuyết minh ngắn để người tham quan dễ theo dõi.",
     position: [-4.8, 0, -5.2],
@@ -1017,7 +1017,7 @@ const spaces = [
   },
   {
     id: 2,
-    title: "Phòng Hành trình theo dấu chân Bác",
+    title: "Hành trình theo dấu chân Bác",
     description:
       "Tái hiện hành trình ra đi tìm đường cứu nước và những địa danh tiêu biểu gắn với quá trình hoạt động cách mạng của Người như Bến Nhà Rồng, các quốc gia Người từng đi qua, Pác Bó, Tân Trào, Phủ Chủ tịch, Nhà sàn Bác Hồ... Có thể thiết kế bản đồ tương tác, khi bấm vào từng địa điểm sẽ xuất hiện hình ảnh, thông tin, video hoặc tư liệu liên quan.",
     position: [-1.6, 0, -5.2],
@@ -1026,7 +1026,7 @@ const spaces = [
   },
   {
     id: 3,
-    title: "Phòng Những câu chuyện về Bác",
+    title: "Những câu chuyện về Bác",
     description:
       "Trưng bày hình ảnh hoặc mô hình 3D những hiện vật, vật dụng tiêu biểu gắn với cuộc sống và hoạt động của Bác như đôi dép cao su, bộ quần áo kaki, máy chữ, bàn làm việc, các vật dụng sinh hoạt... Mỗi hiện vật có phần giới thiệu và câu chuyện ngắn đi kèm, giúp người xem hiểu thêm về cuộc sống giản dị và phong cách của Người.",
     position: [1.6, 0, -5.2],
@@ -1035,7 +1035,7 @@ const spaces = [
   },
   {
     id: 4,
-    title: "Phòng Bác Hồ với thiếu niên, nhi đồng và giáo dục",
+    title: "Bác Hồ với thiếu niên, nhi đồng và giáo dục",
     description:
       "Giới thiệu những câu chuyện tiêu biểu về cuộc đời, đạo đức và phong cách Hồ Chí Minh, tập trung vào các nội dung như sự giản dị, tiết kiệm; tình yêu thương nhân dân; tình cảm dành cho thiếu niên, nhi đồng; tình cảm với cán bộ, chiến sĩ; tinh thần tự học, trách nhiệm và nói đi đôi với làm. Phòng có thể thiết kế dạng tủ sách hoặc những quyển sách ảo, người xem bấm vào từng câu chuyện để đọc, nghe kể chuyện hoặc xem video.",
     position: [4.8, 0, -5.2],
@@ -1044,7 +1044,7 @@ const spaces = [
   },
   {
     id: 5,
-    title: "Phòng Tư tưởng, đạo đức, phong cách Hồ Chí Minh",
+    title: "Tư tưởng, đạo đức, phong cách Hồ Chí Minh",
     description:
       "Đây là phòng trọng tâm giúp người tham quan tìm hiểu những giá trị nổi bật trong tư tưởng, đạo đức và phong cách của Người. Nội dung có thể chia thành các khu: yêu nước, thương dân; cần, kiệm, liêm, chính; trách nhiệm, kỷ luật; giản dị, khiêm tốn; tự học và học tập suốt đời; nói đi đôi với làm. Mỗi nội dung nên gắn với những việc làm cụ thể để giáo viên và học sinh có thể vận dụng trong học tập, công tác và đời sống.",
     position: [-4.8, 0, 5.2],
@@ -1053,7 +1053,7 @@ const spaces = [
   },
   {
     id: 6,
-    title: "Phòng Di sản Hồ Chí Minh",
+    title: "Di sản Hồ Chí Minh",
     description:
       "Giới thiệu tình cảm, sự quan tâm và những lời căn dặn của Chủ tịch Hồ Chí Minh đối với thiếu niên, nhi đồng và học sinh. Nội dung gồm 5 điều Bác Hồ dạy, thư Bác gửi học sinh, hình ảnh Bác với thiếu nhi, những câu chuyện về tình cảm của Người đối với thế hệ trẻ. Có thể bố trí thêm góc “Học sinh chúng em làm theo lời Bác”, gắn lời dạy của Bác với những việc làm thiết thực trong nhà trường.",
     position: [-1.6, 0, 5.2],
@@ -1071,7 +1071,7 @@ const spaces = [
   },
   {
     id: 8,
-    title: "Phòng Bác Hồ trong trái tim thầy và trò nhà trường",
+    title: "Bác Hồ trong trái tim thầy và trò nhà trường",
     description:
       "Đây là không gian mang dấu ấn riêng của trường, giới thiệu những hoạt động thực tế trong học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh. Nội dung gồm hình ảnh các hội thi kể chuyện về Bác Hồ, học sinh kể chuyện dưới cờ, sinh hoạt chủ điểm, các hoạt động học tập và làm theo Bác, hình ảnh giáo viên – học sinh tham gia, video các tiết mục, bài dự thi, sản phẩm của học sinh, thành tích và giấy khen nếu có.",
     position: [4.8, 0, 5.2],
