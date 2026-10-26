@@ -598,7 +598,10 @@ function RightWallPanels() {
       <group position={[-5.0, 0, 0]}>
         {/* Khung viền gỗ phía sau */}
         
-
+ <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+        </mesh>
         {/* Bề mặt ảnh p1.png */}
         <mesh
           position={[0, 0, 0.03]}
@@ -617,8 +620,6 @@ function RightWallPanels() {
           onPointerOver={() => { document.body.style.cursor = "pointer"; }}
           onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
-           <boxGeometry args={[1.8, 2.5, 0.05]} />
-              <meshStandardMaterial color="#680f0f" >
           <planeGeometry args={[2.0, 3.0]} />
           <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
         </mesh>
@@ -627,7 +628,10 @@ function RightWallPanels() {
       {/* ================= POSTER 2 (p2.png) ================= */}
       <group position={[-2.4, 0, 0]}>
         {/* Khung viền gỗ phía sau */}
-       
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+        </mesh>
         {/* Bề mặt ảnh p2.png */}
         <mesh
           position={[0, 0, 0.03]}
@@ -719,7 +723,10 @@ function LeftWallPanels() {
     <group position={[-11.78, 2.7, 0]} rotation={[0, Math.PI / 2, 0]}>
       {/* ================= 1. POSTER 1 (BÊN TRÁI) ================= */}
       <group position={[-1.8, 0, 0]}>
-        
+         <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+        </mesh>
         <mesh
           position={[0, 0, 0.03]}
           onClick={(e) => {
@@ -743,7 +750,10 @@ function LeftWallPanels() {
 
       {/* ================= 3. POSTER 2 (BÊN PHẢI) ================= */}
       <group position={[4.8, 0, 0]}>
-        
+         <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+        </mesh>
         <mesh
           position={[0, 0, 0.03]}
           onClick={(e) => {
