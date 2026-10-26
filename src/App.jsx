@@ -661,9 +661,7 @@ function RightWallPanels() {
 
 //--------------------------------------------------------------------------------------------------------
 
-import React from 'react';
-
-export default function PottedPlant({ position = [0, 0, 0], scale = 1 }) {
+function PottedPlant({ position = [0, 0, 0], scale = 1 }) {
   return (
     <group position={position} scale={[scale, scale, scale]}>
       {/* 1. Chậu cây (Hình trụ cụt màu đỏ gạch/đất nung) */}
