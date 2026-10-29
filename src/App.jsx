@@ -641,11 +641,11 @@ function RightWallPanels() {
         {/* Khung viền gỗ phía sau */}
         
           <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <boxGeometry args={[1.2, 2.2, 0.05]} />
           <meshStandardMaterial color="#680f0f" roughness={0.6} />
         </mesh>
         {/* Bề mặt ảnh p1.png */}
-        <html
+        <mesh
           position={[0, 0, 0.03]}
           onClick={(e) => {
             e.stopPropagation();
@@ -664,7 +664,7 @@ function RightWallPanels() {
         >
           <planeGeometry args={[2.0, 3.0]} />
           <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
-        </html>
+        </mesh>
       </group>
 
       {/* ================= POSTER 2 (p2.png) ================= */}
