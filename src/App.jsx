@@ -822,10 +822,6 @@ function LeftWallPanels() {
 
 //--------------------------------------------------------------------------------------------------------
 
-import { useMemo } from "react";
-import { useTexture } from "@react-three/drei";
-import * as THREE from "three";
-import { EXHIBITION_DATA } from "./exhibitionData";
 
 export function OppositeWallPanels() {
   const imageSources = useMemo(
