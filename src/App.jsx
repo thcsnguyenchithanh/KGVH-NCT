@@ -627,8 +627,6 @@ function FramedVideoScreen({ onOpen }) {
  /* ================= ================= ================= ================= ================= =================*/
 
  
-
- // Component hiển thị 2 poster p1.png và p2.png trên tường phải
 function RightWallPanels() {
   // 1. Tải texture ảnh p1.png và p2.png từ SANH_CONTENT
   const panel1 = useTexture(SANH_CONTENT.panels[0].src);
@@ -638,18 +636,17 @@ function RightWallPanels() {
     <group position={[11.78, 2.7, 0]} rotation={[0, -Math.PI / 2, 0]}>
       {/* ================= POSTER 1 (p1.png) ================= */}
       <group position={[-5.0, 0, 0]}>
-        {/* Khung viền gỗ phía sau */}
-        
- <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[2.2, 3.2, 0.05]} />
-          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+        {/* Khung viền gỗ phía sau (dùng meshBasicMaterial để không bị tối đen do thiếu đèn) */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.15, 3.15, 0.05]} />
+          <meshBasicMaterial color="#680f0f" />
         </mesh>
+
         {/* Bề mặt ảnh p1.png */}
         <mesh
           position={[0, 0, 0.03]}
           onClick={(e) => {
             e.stopPropagation();
-            // Bắn sự kiện mở ảnh fullscreen cho p1 khớp với ImageFullscreen cũ của bạn
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
@@ -669,17 +666,17 @@ function RightWallPanels() {
 
       {/* ================= POSTER 2 (p2.png) ================= */}
       <group position={[-2.4, 0, 0]}>
-        {/* Khung viền gỗ phía sau */}
+        {/* Khung viền gỗ phía sau (dùng meshBasicMaterial để không bị tối đen do thiếu đèn) */}
         <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[2.2, 3.2, 0.05]} />
-          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+          <boxGeometry args={[2.15, 3.15, 0.05]} />
+          <meshBasicMaterial color="#680f0f" />
         </mesh>
+
         {/* Bề mặt ảnh p2.png */}
         <mesh
           position={[0, 0, 0.03]}
           onClick={(e) => {
             e.stopPropagation();
-            // Bắn sự kiện mở ảnh fullscreen cho p2 khớp với ImageFullscreen cũ của bạn
             window.dispatchEvent(
               new CustomEvent("open-wall-image", {
                 detail: {
