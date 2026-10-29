@@ -959,14 +959,14 @@ const styles = {
     zIndex: 9999,
   },
   modalContent: {
-    width: "85%",
-    maxWidth: "1000px",
-    height: "85vh",
+    width: "92%",       // Tăng độ rộng chiếm màn hình (từ 85% lên 92%)
+    maxWidth: "1300px", // Tăng giới hạn tối đa (từ 1000px lên 1300px)
+    height: "92vh",     // Tăng chiều cao khung (từ 85vh lên 92vh)
     backgroundColor: "#1a1a1a",
     borderRadius: "12px",
     display: "flex",
     flexDirection: "column",
-    padding: "20px",
+    padding: "25px",    // Tăng khoảng đệm bên trong cho thoáng
     boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
   },
   header: {
@@ -1008,9 +1008,9 @@ const styles = {
     padding: "10px 0",
     borderTop: "1px solid #333",
   },
-  thumbnail: {
-    width: "80px",
-    height: "60px",
+ thumbnail: {
+    width: "110px",     // Tăng chiều rộng ảnh thumbnail (từ 80px lên 110px)
+    height: "80px",     // Tăng chiều cao ảnh thumbnail (từ 60px lên 80px)
     objectFit: "cover",
     borderRadius: "6px",
     cursor: "pointer",
