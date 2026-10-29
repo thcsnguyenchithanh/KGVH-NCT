@@ -399,7 +399,7 @@ export const EXHIBITION_DATA = [
   {
     id: "thuvien",
     title: "Phòng Thư Viện",
-    coverImage: `${import.meta.env.BASE_URL}picThuvien/1.jpg`, // Ảnh đại diện hiển thị ngoài tường
+    coverImage: `${import.meta.env.BASE_URL}picThuvien/17.jpg`, // Ảnh đại diện hiển thị ngoài tường
     panels: [
       { id: 1, src: `${import.meta.env.BASE_URL}picThuvien/1.jpg`, alt: "Tư liệu thư viện 1" },
       { id: 2, src: `${import.meta.env.BASE_URL}picThuvien/2.jpg`, alt: "Tư liệu thư viện 2" },
@@ -408,6 +408,15 @@ export const EXHIBITION_DATA = [
       { id: 5, src: `${import.meta.env.BASE_URL}picThuvien/5.jpg`, alt: "Tư liệu thư viện 5" },
       { id: 6, src: `${import.meta.env.BASE_URL}picThuvien/6.jpg`, alt: "Tư liệu thư viện 6" },
       { id: 7, src: `${import.meta.env.BASE_URL}picThuvien/7.jpg`, alt: "Tư liệu thư viện 7" },
+      { id: 8, src: `${import.meta.env.BASE_URL}picThuvien/8.jpg`, alt: "Tư liệu thư viện 8" },
+      { id: 9, src: `${import.meta.env.BASE_URL}picThuvien/9.jpg`, alt: "Tư liệu thư viện 9" },
+      { id: 10, src: `${import.meta.env.BASE_URL}picThuvien/10.jpg`, alt: "Tư liệu thư viện 10" },
+      { id: 11, src: `${import.meta.env.BASE_URL}picThuvien/11.jpg`, alt: "Tư liệu thư viện 11" },
+      { id: 12, src: `${import.meta.env.BASE_URL}picThuvien/12.jpg`, alt: "Tư liệu thư viện 12" },
+      { id: 13, src: `${import.meta.env.BASE_URL}picThuvien/13.jpg`, alt: "Tư liệu thư viện 13" },
+      { id: 14, src: `${import.meta.env.BASE_URL}picThuvien/14.jpg`, alt: "Tư liệu thư viện 14" },
+      { id: 15, src: `${import.meta.env.BASE_URL}picThuvien/15.jpg`, alt: "Tư liệu thư viện 15" },
+      { id: 16, src: `${import.meta.env.BASE_URL}picThuvien/16.jpg`, alt: "Tư liệu thư viện 16" },
     ],
   },
   {
