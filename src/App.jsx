@@ -875,25 +875,24 @@ function MultipleHangingFlags() {
     return texture;
   }, []);
 
-  // 2. Danh sách 5 tọa độ Z rải đều các dây treo song song dọc theo phòng
-  const lineZOffsets = [-4.0, -2.0, 0.0, 2.0, 4.0];
+  // 2. Rải các dây lệch sang hai bên tâm (tránh tọa độ 0.0 bị vướng đèn trần)
+  const lineZOffsets = [-4.5, -2.25, 2.25, 4.5];
 
   return (
     <group>
       {lineZOffsets.map((zOffset, lineIndex) => {
-        // Tạo đường cong võng xuống tự nhiên từ tường trái sang tường phải
+        // Tạo đường cong võng xuống với độ cao an toàn dưới trần nhà
         const curve = new THREE.QuadraticBezierCurve3(
-          new THREE.Vector3(-11.5, 5.2, zOffset), // Điểm neo tường trái
-          new THREE.Vector3(0, 4.4, zOffset),     // Điểm giữa võng xuống
-          new THREE.Vector3(11.5, 5.2, zOffset)   // Điểm neo tường phải
+          new THREE.Vector3(-11.5, 4.8, zOffset), // Điểm neo tường trái
+          new THREE.Vector3(0, 4.0, zOffset),     // Điểm giữa võng xuống
+          new THREE.Vector3(11.5, 4.8, zOffset)   // Điểm neo tường phải
         );
 
-        // Lấy danh sách các điểm trên dây (chia làm 12 đoạn để cờ thưa vừa đẹp, không bị chồng chéo)
         const points = curve.getPoints(12);
 
         return (
           <group key={`hanging-line-${lineIndex}`}>
-            {/* Sợi dây treo mảnh màu trắng nối hai đầu tường */}
+            {/* Sợi dây treo mảnh màu trắng */}
             <line>
               <bufferGeometry>
                 <bufferAttribute
@@ -904,12 +903,12 @@ function MultipleHangingFlags() {
               <lineBasicMaterial color="#ffffff" linewidth={1.5} />
             </line>
 
-            {/* Các lá cờ nhỏ treo dọc theo dây (bỏ điểm đầu và điểm cuối sát tường) */}
+            {/* Các lá cờ treo dọc theo dây */}
             {points.slice(1, -1).map((pt, idx) => (
               <mesh
                 key={`flag-item-${lineIndex}-${idx}`}
                 position={[pt.x, pt.y - 0.15, pt.z]}
-                rotation={[0, 0, idx % 2 === 0 ? 0.06 : -0.06]} // Xoay nhẹ sinh động
+                rotation={[0, 0, idx % 2 === 0 ? 0.06 : -0.06]}
               >
                 <planeGeometry args={[0.48, 0.32]} />
                 <meshBasicMaterial map={flagTexture} side={THREE.DoubleSide} />
