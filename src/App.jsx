@@ -646,6 +646,7 @@ function RightWallPanels() {
         </mesh>
         {/* Bề mặt ảnh p1.png */}
         <mesh
+        color="#680f0f"
           position={[0, 0, 0.03]}
           onClick={(e) => {
             e.stopPropagation();
@@ -662,7 +663,7 @@ function RightWallPanels() {
           onPointerOver={() => { document.body.style.cursor = "pointer"; }}
           onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
-          <planeGeometry args={[3.0, 2.0]} />
+          <planeGeometry args={[2.0, 3.0]} />
           <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
         </mesh>
       </group>
