@@ -822,7 +822,7 @@ function LeftWallPanels() {
 
 //--------------------------------------------------------------------------------------------------------
 
-export default function OppositeWallPanels() {
+function OppositeWallPanels() {
   // 1. Lấy danh sách ảnh đại diện của 4 nhóm để tải texture
   const imageSources = useMemo(
     () => EXHIBITION_DATA.map((item) => item.coverImage),
