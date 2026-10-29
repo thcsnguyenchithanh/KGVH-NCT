@@ -393,6 +393,48 @@ const SPACE_CONTENT = {
   },
 };
 
+export const EXHIBITION_DATA = [
+  {
+    id: "thuvien",
+    title: "Phòng Thư Viện",
+    coverImage: `${import.meta.env.BASE_URL}picThuvien/1.jpg`, // Ảnh đại diện hiển thị ngoài tường
+    panels: [
+      { id: 1, src: `${import.meta.env.BASE_URL}picThuvien/1.jpg`, alt: "Tư liệu thư viện 1" },
+      { id: 2, src: `${import.meta.env.BASE_URL}picThuvien/2.jpg`, alt: "Tư liệu thư viện 2" },
+      { id: 3, src: `${import.meta.env.BASE_URL}picThuvien/3.jpg`, alt: "Tư liệu thư viện 3" },
+      { id: 4, src: `${import.meta.env.BASE_URL}picThuvien/4.jpg`, alt: "Tư liệu thư viện 4" },
+      { id: 5, src: `${import.meta.env.BASE_URL}picThuvien/5.jpg`, alt: "Tư liệu thư viện 5" },
+      { id: 6, src: `${import.meta.env.BASE_URL}picThuvien/6.jpg`, alt: "Tư liệu thư viện 6" },
+      { id: 7, src: `${import.meta.env.BASE_URL}picThuvien/7.jpg`, alt: "Tư liệu thư viện 7" },
+    ],
+  },
+  {
+    id: "sanh",
+    title: "Sảnh Trường",
+    coverImage: `${import.meta.env.BASE_URL}sanh/p1.png`, // Ảnh đại diện sảnh
+    panels: [
+      // Sẽ thêm danh sách ảnh con của sảnh trường vào đây sau
+      { id: 1, src: `${import.meta.env.BASE_URL}sanh/p1.png`, alt: "Sảnh trường 1" },
+    ],
+  },
+  {
+    id: "khoi67",
+    title: "Khối Lớp 6A1 - 7A11",
+    coverImage: `${import.meta.env.BASE_URL}lopHoc/khoi_6_7.jpg`, // Ảnh đại diện khối 6-7
+    panels: [
+      // Sẽ thêm danh sách ảnh các lớp từ 6a1 đến 7a11 vào đây sau
+    ],
+  },
+  {
+    id: "khoi89",
+    title: "Khối Lớp 8A1 - 9A13",
+    coverImage: `${import.meta.env.BASE_URL}lopHoc/khoi_8_9.jpg`, // Ảnh đại diện khối 8-9
+    panels: [
+      // Sẽ thêm danh sách ảnh các lớp từ 8a1 đến 9a13 vào đây sau
+    ],
+  },
+];
+
 function CameraView({
   spots,
   spotIndex,
@@ -780,39 +822,41 @@ function LeftWallPanels() {
 
 //--------------------------------------------------------------------------------------------------------
 
-function OppositeWallPanels() {
-  // 1. Lấy danh sách đường dẫn hình ảnh để tải texture
+export default function OppositeWallPanels() {
+  // 1. Lấy danh sách ảnh đại diện của 4 nhóm để tải texture
   const imageSources = useMemo(
-    () => posterImages.map((item) => item.src),
+    () => EXHIBITION_DATA.map((item) => item.coverImage),
     []
   );
 
   // 2. Tải toàn bộ 4 texture bằng useTexture
   const textures = useTexture(imageSources);
 
-  // 3. Tọa độ X phân bố đều 4 tấm hình trên chiều rộng bức tường đối diện
+  // 3. Tọa độ X phân bố đều 4 khung ảnh trên chiều rộng bức tường đối diện (từ trái qua phải)
   const xPositions = [-6.0, -2.0, 2.0, 6.0];
 
   return (
-  <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
-      {posterImages.map((poster, index) => (
-        <group key={poster.id} position={[xPositions[index], 0, 0]}>
-          {/* Khung viền gỗ màu trầm phía sau */}
+    <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
+      {EXHIBITION_DATA.map((category, index) => (
+        <group key={category.id} position={[xPositions[index], 0, 0]}>
+          
+          {/* Khung viền gỗ màu trầm phía sau ôm sát */}
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[3.2, 2.2, 0.05]} />
             <meshStandardMaterial color="#680f0f" roughness={0.6} />
           </mesh>
 
-          {/* Bề mặt hiển thị hình ảnh có gắn sự kiện click phóng to toàn màn hình */}
+          {/* Bề mặt hiển thị hình ảnh đại diện của từng danh sách */}
           <mesh
             position={[0, 0, 0.03]}
             onClick={(e) => {
               e.stopPropagation();
+              // Khi bấm vào, phóng to ảnh đại diện hoặc bạn có thể mở rộng logic xem list con ở đây
               window.dispatchEvent(
                 new CustomEvent("open-wall-image", {
                   detail: {
-                    src: poster.src,
-                    alt: poster.alt,
+                    src: category.coverImage,
+                    alt: category.title,
                   },
                 })
               );
@@ -820,9 +864,10 @@ function OppositeWallPanels() {
             onPointerOver={() => { document.body.style.cursor = "pointer"; }}
             onPointerOut={() => { document.body.style.cursor = "default"; }}
           >
-           <planeGeometry args={[3.0, 2.0]} />
+            <planeGeometry args={[3.0, 2.0]} />
             <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
           </mesh>
+
         </group>
       ))}
     </group>
