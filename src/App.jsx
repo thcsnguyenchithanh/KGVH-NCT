@@ -411,10 +411,10 @@ export const EXHIBITION_DATA = [
   {
     id: "sanh",
     title: "Sảnh Trường",
-    coverImage: `${import.meta.env.BASE_URL}sanh/p1.png`, // Ảnh đại diện sảnh
+    coverImage: `${import.meta.env.BASE_URL}sanhNCT/p1.png`, // Ảnh đại diện sảnh
     panels: [
       // Sẽ thêm danh sách ảnh con của sảnh trường vào đây sau
-      { id: 1, src: `${import.meta.env.BASE_URL}sanh/p1.png`, alt: "Sảnh trường 1" },
+      { id: 1, src: `${import.meta.env.BASE_URL}sanhNCT/p1.png`, alt: "Sảnh trường 1" },
     ],
   },
   {
