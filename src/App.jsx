@@ -822,17 +822,18 @@ function LeftWallPanels() {
 
 //--------------------------------------------------------------------------------------------------------
 
-function OppositeWallPanels() {
-  // 1. Lấy danh sách ảnh đại diện của 4 nhóm để tải texture
+import { useMemo } from "react";
+import { useTexture } from "@react-three/drei";
+import * as THREE from "three";
+import { EXHIBITION_DATA } from "./exhibitionData";
+
+export function OppositeWallPanels() {
   const imageSources = useMemo(
     () => EXHIBITION_DATA.map((item) => item.coverImage),
     []
   );
 
-  // 2. Tải toàn bộ 4 texture bằng useTexture
   const textures = useTexture(imageSources);
-
-  // 3. Tọa độ X phân bố đều 4 khung ảnh trên chiều rộng bức tường đối diện (từ trái qua phải)
   const xPositions = [-6.0, -2.0, 2.0, 6.0];
 
   return (
@@ -840,23 +841,23 @@ function OppositeWallPanels() {
       {EXHIBITION_DATA.map((category, index) => (
         <group key={category.id} position={[xPositions[index], 0, 0]}>
           
-          {/* Khung viền gỗ màu trầm phía sau ôm sát */}
+          {/* Khung viền gỗ phía sau */}
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[3.2, 2.2, 0.05]} />
             <meshStandardMaterial color="#680f0f" roughness={0.6} />
           </mesh>
 
-          {/* Bề mặt hiển thị hình ảnh đại diện của từng danh sách */}
+          {/* Bề mặt khung tranh click để mở danh sách ảnh con */}
           <mesh
             position={[0, 0, 0.03]}
             onClick={(e) => {
               e.stopPropagation();
-              // Khi bấm vào, phóng to ảnh đại diện hoặc bạn có thể mở rộng logic xem list con ở đây
+              // Bắn sự kiện mở danh sách các hình ảnh con của mục này
               window.dispatchEvent(
-                new CustomEvent("open-wall-image", {
+                new CustomEvent("open-sub-gallery", {
                   detail: {
-                    src: category.coverImage,
-                    alt: category.title,
+                    title: category.title,
+                    panels: category.panels,
                   },
                 })
               );
@@ -873,6 +874,152 @@ function OppositeWallPanels() {
     </group>
   );
 }
+
+
+function SubImageGallery() {
+  const [galleryData, setGalleryData] = useState(null); // Lưu thông tin danh mục đang mở
+  const [selectedImage, setSelectedImage] = useState(null); // Lưu bức ảnh đang được phóng to
+
+  // Lắng nghe sự kiện mở danh sách từ không gian 3D
+  useEffect(() => {
+    const handleOpenGallery = (e) => {
+      const { title, panels } = e.detail;
+      setGalleryData({ title, panels });
+      if (panels && panels.length > 0) {
+        setSelectedImage(panels[0]); // Mặc định chọn ảnh đầu tiên phóng to khi mở
+      }
+    };
+
+    window.addEventListener("open-sub-gallery", handleOpenGallery);
+    return () => {
+      window.removeEventListener("open-sub-gallery", handleOpenGallery);
+    };
+  }, []);
+
+  if (!galleryData) return null; // Nếu chưa bấm gì thì ẩn giao diện đi
+
+  return (
+    <div style={styles.overlay}>
+      <div style={styles.modalContent}>
+        {/* Tiêu đề và nút đóng */}
+        <div style={styles.header}>
+          <h2>{galleryData.title}</h2>
+          <button style={styles.closeBtn} onClick={() => setGalleryData(null)}>
+            ✕ Đóng
+          </button>
+        </div>
+
+        {/* Khu vực hiển thị ảnh đang chọn phóng to lớn */}
+        <div style={styles.previewContainer}>
+          {selectedImage && (
+            <img
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              style={styles.largeImage}
+            />
+          )}
+        </div>
+
+        {/* Danh sách các tấm ảnh còn lại (thu nhỏ dạng thumbnail bên dưới) */}
+        <div style={styles.thumbnailList}>
+          {galleryData.panels.map((item) => {
+            const isSelected = selectedImage?.id === item.id;
+            return (
+              <img
+                key={item.id}
+                src={item.src}
+                alt={item.alt}
+                onClick={() => setSelectedImage(item)}
+                style={{
+                  ...styles.thumbnail,
+                  // Nếu ảnh nào được chọn thì nổi bật, các ảnh khác thu nhỏ/mờ hơn
+                  transform: isSelected ? "scale(1.05)" : "scale(0.9)",
+                  borderColor: isSelected ? "#ffcc00" : "transparent",
+                  opacity: isSelected ? 1 : 0.6,
+                }}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Bảng mã CSS Inline đơn giản, rõ ràng
+const styles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0, 0, 0, 0.85)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999,
+  },
+  modalContent: {
+    width: "85%",
+    maxWidth: "1000px",
+    height: "85vh",
+    backgroundColor: "#1a1a1a",
+    borderRadius: "12px",
+    display: "flex",
+    flexDirection: "column",
+    padding: "20px",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+  },
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    color: "#fff",
+    borderBottom: "1px solid #333",
+    paddingBottom: "10px",
+  },
+  closeBtn: {
+    backgroundColor: "#da251d",
+    color: "#fff",
+    border: "none",
+    padding: "8px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  previewContainer: {
+    flex: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "15px 0",
+    overflow: "hidden",
+  },
+  largeImage: {
+    maxHeight: "100%",
+    maxWidth: "100%",
+    objectFit: "contain",
+    borderRadius: "8px",
+    boxShadow: "0 4px 16px rgba(0,0,0,0.6)",
+  },
+  thumbnailList: {
+    display: "flex",
+    gap: "10px",
+    overflowX: "auto",
+    padding: "10px 0",
+    borderTop: "1px solid #333",
+  },
+  thumbnail: {
+    width: "80px",
+    height: "60px",
+    objectFit: "cover",
+    borderRadius: "6px",
+    cursor: "pointer",
+    border: "2px solid transparent",
+    transition: "all 0.2s ease",
+  },
+};
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -2401,6 +2548,7 @@ function Room({
    <RightWallPanels onSelectImage={onSelectImage} />
    <LeftWallPanels onSelectImage={onSelectImage} />
     <OppositeWallPanels/>
+    
     {/* Đặt chậu cây ở góc phòng bên trái và bên phải */}
       <PottedPlant position={[-4, 0, 6]} scale={1.2} />
       <PottedPlant position={[4, 0, 6]} scale={1.2} />
@@ -3026,6 +3174,9 @@ export default function App() {
         />
                    
       </Canvas>
+{/* 2. Giao diện 2D (SubImageGallery nằm bên ngoài Canvas để hiển thị đè lên trên) */}
+      <SubImageGallery />
+      
       <ImageFullscreen />
       {/* DANH SÁCH ĐIỀU HƯỚNG 13 MỤC */}
       <div className={`navigation-panel ${navCollapsed ? "collapsed" : ""}`}>
