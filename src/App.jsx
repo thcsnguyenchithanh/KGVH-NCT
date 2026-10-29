@@ -465,7 +465,7 @@ export const EXHIBITION_DATA = [
       { id: 18, src: `${import.meta.env.BASE_URL}lopNct/Slide32.jpeg`, alt: "Sảnh trường 32" },
       { id: 19, src: `${import.meta.env.BASE_URL}lopNct/Slide33.jpeg`, alt: "Sảnh trường 33" },
       { id: 20, src: `${import.meta.env.BASE_URL}lopNct/Slide34.jpeg`, alt: "Sảnh trường 34" },
-      { id: 21, src: `${import.meta.env.BASE_URL}lopNct/Slide45.jpeg`, alt: "Sảnh trường 35" },
+      { id: 21, src: `${import.meta.env.BASE_URL}lopNct/Slide35.jpeg`, alt: "Sảnh trường 35" },
       { id: 22, src: `${import.meta.env.BASE_URL}lopNct/Slide36.jpeg`, alt: "Sảnh trường 36" },
       { id: 23, src: `${import.meta.env.BASE_URL}lopNct/Slide37.jpeg`, alt: "Sảnh trường 37" },
       { id: 24, src: `${import.meta.env.BASE_URL}lopNct/Slide38.jpeg`, alt: "Sảnh trường 38" },
