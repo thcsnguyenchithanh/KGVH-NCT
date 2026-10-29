@@ -951,21 +951,34 @@ function SubImageGallery() {
     };
   }, []);
 
+  // 🌟 Tự động cuộn danh sách ảnh nhỏ để đưa ảnh đang chọn vào giữa tầm nhìn
+  useEffect(() => {
+    if (!selectedImage) return;
+    const activeThumb = document.getElementById(`thumb-${selectedImage.id}`);
+    if (activeThumb) {
+      activeThumb.scrollIntoView({
+        behavior: "smooth",
+        inline: "nearest",
+        block: "nearest",
+      });
+    }
+  }, [selectedImage]);
+
   if (!galleryData) return null;
 
-  // Lấy vị trí index của bức ảnh đang được chọn trong mảng panels
+  // Lấy vị trí index của bức ảnh đang được chọn
   const currentIndex = galleryData.panels.findIndex(
     (item) => item.id === selectedImage?.id
   );
 
-  // Hàm chuyển sang ảnh trước đó (vòng lại ảnh cuối nếu đang ở đầu)
+  // Hàm chuyển sang ảnh trước
   const handlePrev = (e) => {
     e.stopPropagation();
     const newIndex = currentIndex > 0 ? currentIndex - 1 : galleryData.panels.length - 1;
     setSelectedImage(galleryData.panels[newIndex]);
   };
 
-  // Hàm chuyển sang ảnh tiếp theo (vòng lại ảnh đầu tiên nếu đang ở cuối)
+  // Hàm chuyển sang ảnh tiếp theo
   const handleNext = (e) => {
     e.stopPropagation();
     const newIndex = currentIndex < galleryData.panels.length - 1 ? currentIndex + 1 : 0;
@@ -1000,9 +1013,8 @@ function SubImageGallery() {
           </button>
         </div>
 
-        {/* Khu vực hiển thị ảnh phóng to kèm 2 nút mũi tên */}
+        {/* Khu vực ảnh lớn kèm nút mũi tên */}
         <div style={styles.previewContainer}>
-          {/* Nút mũi tên trái */}
           <button style={styles.arrowBtnLeft} onClick={handlePrev}>
             ❮
           </button>
@@ -1015,7 +1027,6 @@ function SubImageGallery() {
             />
           )}
 
-          {/* Nút mũi tên phải */}
           <button style={styles.arrowBtnRight} onClick={handleNext}>
             ❯
           </button>
@@ -1028,6 +1039,7 @@ function SubImageGallery() {
             return (
               <img
                 key={item.id}
+                id={`thumb-${item.id}`} // 🌟 Gắn id định danh cho từng ảnh nhỏ
                 src={item.src}
                 alt={item.alt}
                 onClick={() => setSelectedImage(item)}
@@ -1046,7 +1058,7 @@ function SubImageGallery() {
   );
 }
 
-// Bảng CSS giao diện
+// Giữ nguyên phần styles cũ của bạn không thay đổi gì cả
 const styles = {
   overlay: {
     position: "fixed",
@@ -1089,7 +1101,7 @@ const styles = {
     fontWeight: "bold",
   },
   previewContainer: {
-    position: "relative", // Định vị để chứa 2 nút mũi tên tuyệt đối
+    position: "relative",
     flex: 1,
     display: "flex",
     justifyContent: "center",
@@ -1099,7 +1111,7 @@ const styles = {
   },
   largeImage: {
     maxHeight: "100%",
-    maxWidth: "85%", // Chừa lề hai bên cho nút mũi tên không bị đè lên ảnh
+    maxWidth: "96%",
     objectFit: "contain",
     borderRadius: "8px",
     boxShadow: "0 4px 16px rgba(0,0,0,0.6)",
@@ -1157,7 +1169,6 @@ const styles = {
     transition: "all 0.2s ease",
   },
 };
-
 //--------------------------------------------------------------------------------------------------------
 
 
