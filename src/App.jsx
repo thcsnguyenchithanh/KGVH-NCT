@@ -912,8 +912,8 @@ function OppositeWallPanels() {
 
 
 function SubImageGallery() {
-  const [galleryData, setGalleryData] = useState(null); // Lưu thông tin danh mục đang mở
-  const [selectedImage, setSelectedImage] = useState(null); // Lưu bức ảnh đang được phóng to
+  const [galleryData, setGalleryData] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   // Lắng nghe sự kiện mở danh sách từ không gian 3D
   useEffect(() => {
@@ -921,7 +921,7 @@ function SubImageGallery() {
       const { title, panels } = e.detail;
       setGalleryData({ title, panels });
       if (panels && panels.length > 0) {
-        setSelectedImage(panels[0]); // Mặc định chọn ảnh đầu tiên phóng to khi mở
+        setSelectedImage(panels[0]);
       }
     };
 
@@ -931,27 +931,46 @@ function SubImageGallery() {
     };
   }, []);
 
-  if (!galleryData) return null; // Nếu chưa bấm gì thì ẩn giao diện đi
+  if (!galleryData) return null;
+
+  // Lấy vị trí index của bức ảnh đang được chọn trong mảng panels
+  const currentIndex = galleryData.panels.findIndex(
+    (item) => item.id === selectedImage?.id
+  );
+
+  // Hàm chuyển sang ảnh trước đó (vòng lại ảnh cuối nếu đang ở đầu)
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    const newIndex = currentIndex > 0 ? currentIndex - 1 : galleryData.panels.length - 1;
+    setSelectedImage(galleryData.panels[newIndex]);
+  };
+
+  // Hàm chuyển sang ảnh tiếp theo (vòng lại ảnh đầu tiên nếu đang ở cuối)
+  const handleNext = (e) => {
+    e.stopPropagation();
+    const newIndex = currentIndex < galleryData.panels.length - 1 ? currentIndex + 1 : 0;
+    setSelectedImage(galleryData.panels[newIndex]);
+  };
 
   return (
     <div style={styles.overlay}>
-    {/* Thêm đoạn CSS tùy chỉnh để thanh cuộn luôn hiện rõ và dễ kéo */}
       <style>{`
         .thumbnail-list::-webkit-scrollbar {
-          height: 10px; /* Độ dày của thanh cuộn ngang */
+          height: 10px;
         }
         .thumbnail-list::-webkit-scrollbar-track {
-          background: #222; /* Màu nền của rãnh thanh cuộn */
+          background: #222;
           border-radius: 5px;
         }
         .thumbnail-list::-webkit-scrollbar-thumb {
-          background: #888; /* Màu của thanh kéo (làm sáng lên để dễ thấy) */
+          background: #888;
           border-radius: 5px;
         }
         .thumbnail-list::-webkit-scrollbar-thumb:hover {
-          background: #bbb; /* Màu khi rê chuột vào thanh kéo */
+          background: #bbb;
         }
       `}</style>
+
       <div style={styles.modalContent}>
         {/* Tiêu đề và nút đóng */}
         <div style={styles.header}>
@@ -961,8 +980,13 @@ function SubImageGallery() {
           </button>
         </div>
 
-        {/* Khu vực hiển thị ảnh đang chọn phóng to lớn */}
+        {/* Khu vực hiển thị ảnh phóng to kèm 2 nút mũi tên */}
         <div style={styles.previewContainer}>
+          {/* Nút mũi tên trái */}
+          <button style={styles.arrowBtnLeft} onClick={handlePrev}>
+            ❮
+          </button>
+
           {selectedImage && (
             <img
               src={selectedImage.src}
@@ -970,10 +994,15 @@ function SubImageGallery() {
               style={styles.largeImage}
             />
           )}
+
+          {/* Nút mũi tên phải */}
+          <button style={styles.arrowBtnRight} onClick={handleNext}>
+            ❯
+          </button>
         </div>
 
-        {/* Danh sách các tấm ảnh còn lại (thu nhỏ dạng thumbnail bên dưới) */}
-        <div style={styles.thumbnailList}>
+        {/* Danh sách ảnh thu nhỏ bên dưới */}
+        <div className="thumbnail-list" style={styles.thumbnailList}>
           {galleryData.panels.map((item) => {
             const isSelected = selectedImage?.id === item.id;
             return (
@@ -984,7 +1013,6 @@ function SubImageGallery() {
                 onClick={() => setSelectedImage(item)}
                 style={{
                   ...styles.thumbnail,
-                  // Nếu ảnh nào được chọn thì nổi bật, các ảnh khác thu nhỏ/mờ hơn
                   transform: isSelected ? "scale(1.05)" : "scale(0.9)",
                   borderColor: isSelected ? "#ffcc00" : "transparent",
                   opacity: isSelected ? 1 : 0.6,
@@ -998,7 +1026,7 @@ function SubImageGallery() {
   );
 }
 
-// Bảng mã CSS Inline đơn giản, rõ ràng
+// Bảng CSS giao diện
 const styles = {
   overlay: {
     position: "fixed",
@@ -1013,14 +1041,14 @@ const styles = {
     zIndex: 9999,
   },
   modalContent: {
-    width: "92%",       // Tăng độ rộng chiếm màn hình (từ 85% lên 92%)
-    maxWidth: "1300px", // Tăng giới hạn tối đa (từ 1000px lên 1300px)
-    height: "92vh",     // Tăng chiều cao khung (từ 85vh lên 92vh)
+    width: "92%",
+    maxWidth: "1300px",
+    height: "92vh",
     backgroundColor: "#1a1a1a",
     borderRadius: "12px",
     display: "flex",
     flexDirection: "column",
-    padding: "25px",    // Tăng khoảng đệm bên trong cho thoáng
+    padding: "25px",
     boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
   },
   header: {
@@ -1041,6 +1069,7 @@ const styles = {
     fontWeight: "bold",
   },
   previewContainer: {
+    position: "relative", // Định vị để chứa 2 nút mũi tên tuyệt đối
     flex: 1,
     display: "flex",
     justifyContent: "center",
@@ -1050,25 +1079,61 @@ const styles = {
   },
   largeImage: {
     maxHeight: "100%",
-    maxWidth: "100%",
+    maxWidth: "85%", // Chừa lề hai bên cho nút mũi tên không bị đè lên ảnh
     objectFit: "contain",
     borderRadius: "8px",
     boxShadow: "0 4px 16px rgba(0,0,0,0.6)",
   },
+  arrowBtnLeft: {
+    position: "absolute",
+    left: "15px",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    color: "#fff",
+    border: "2px solid rgba(255, 255, 255, 0.3)",
+    fontSize: "24px",
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 10,
+    transition: "all 0.2s ease",
+  },
+  arrowBtnRight: {
+    position: "absolute",
+    right: "15px",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    color: "#fff",
+    border: "2px solid rgba(255, 255, 255, 0.3)",
+    fontSize: "24px",
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 10,
+    transition: "all 0.2s ease",
+  },
   thumbnailList: {
     display: "flex",
-    gap: "10px",
+    gap: "12px",
     overflowX: "auto",
     padding: "10px 5px 15px 5px",
     borderTop: "1px solid #333",
+    flexShrink: 0,
   },
- thumbnail: {
-    width: "110px",     // Tăng chiều rộng ảnh thumbnail (từ 80px lên 110px)
-    height: "80px",     // Tăng chiều cao ảnh thumbnail (từ 60px lên 80px)
+  thumbnail: {
+    width: "110px",
+    height: "80px",
     objectFit: "cover",
     borderRadius: "6px",
     cursor: "pointer",
     border: "2px solid transparent",
+    flexShrink: 0,
     transition: "all 0.2s ease",
   },
 };
