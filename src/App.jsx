@@ -662,7 +662,7 @@ function RightWallPanels() {
           onPointerOver={() => { document.body.style.cursor = "pointer"; }}
           onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
-          <planeGeometry args={[3.0, 4.0]} />
+          <planeGeometry args={[3.0, 2.0]} />
           <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
         </mesh>
       </group>
