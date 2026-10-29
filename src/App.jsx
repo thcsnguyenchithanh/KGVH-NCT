@@ -24,7 +24,7 @@ import RobotGuide from "./RobotGuide";
 
 const ROOM = { width: 24, depth: 18, height: 5.5 };
 
-const bgTextureid3 = useTexture(`${import.meta.env.BASE_URL}id3left.png`);
+
 
 export const CONTENT_LIST = [
   // 5 vị trí tham quan
@@ -1438,6 +1438,8 @@ function SpaceInteriorRoom({
 }) {
   const [isPadletFullScreen, setIsPadletFullScreen] = useState(false);
   const [isVideoHidden, setIsVideoHidden] = useState(false);
+
+  const bgTextureid3 = useTexture(`${import.meta.env.BASE_URL}id3left.png`);
 
   useEffect(() => {
     if (!showPadlet) {
