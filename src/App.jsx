@@ -823,7 +823,7 @@ function LeftWallPanels() {
 //--------------------------------------------------------------------------------------------------------
 
 
-export function OppositeWallPanels() {
+function OppositeWallPanels() {
   const imageSources = useMemo(
     () => EXHIBITION_DATA.map((item) => item.coverImage),
     []
