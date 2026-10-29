@@ -411,16 +411,16 @@ export const EXHIBITION_DATA = [
   {
     id: "sanh",
     title: "Sảnh Trường",
-    coverImage: `${import.meta.env.BASE_URL}sanhNCT/p1.png`, // Ảnh đại diện sảnh
+    coverImage: `${import.meta.env.BASE_URL}picThuvien/1.jpg`,
     panels: [
       // Sẽ thêm danh sách ảnh con của sảnh trường vào đây sau
-      { id: 1, src: `${import.meta.env.BASE_URL}sanhNCT/p1.png`, alt: "Sảnh trường 1" },
+       { id: 1, src: `${import.meta.env.BASE_URL}picThuvien/1.jpg`, alt: "Tư liệu thư viện 1" },
     ],
   },
   {
     id: "khoi67",
     title: "Khối Lớp 6A1 - 7A11",
-    coverImage: `${import.meta.env.BASE_URL}lopHoc/khoi_6_7.jpg`, // Ảnh đại diện khối 6-7
+    coverImage: `${import.meta.env.BASE_URL}picThuvien/1.jpg`,
     panels: [
       // Sẽ thêm danh sách ảnh các lớp từ 6a1 đến 7a11 vào đây sau
     ],
@@ -428,7 +428,7 @@ export const EXHIBITION_DATA = [
   {
     id: "khoi89",
     title: "Khối Lớp 8A1 - 9A13",
-    coverImage: `${import.meta.env.BASE_URL}lopHoc/khoi_8_9.jpg`, // Ảnh đại diện khối 8-9
+    coverImage: `${import.meta.env.BASE_URL}picThuvien/1.jpg`,
     panels: [
       // Sẽ thêm danh sách ảnh các lớp từ 8a1 đến 9a13 vào đây sau
     ],
