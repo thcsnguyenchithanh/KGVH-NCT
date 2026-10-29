@@ -24,6 +24,8 @@ import RobotGuide from "./RobotGuide";
 
 const ROOM = { width: 24, depth: 18, height: 5.5 };
 
+const bgTextureid3 = useTexture(`${import.meta.env.BASE_URL}id3left.png`);
+
 export const CONTENT_LIST = [
   // 5 vị trí tham quan
   { id: 1, name: "Lối vào", type: "spot" },
@@ -646,7 +648,6 @@ function RightWallPanels() {
         </mesh>
         {/* Bề mặt ảnh p1.png */}
         <mesh
-        color="#680f0f"
           position={[0, 0, 0.03]}
           onClick={(e) => {
             e.stopPropagation();
@@ -1717,7 +1718,11 @@ function SpaceInteriorRoom({
       <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
         <mesh position={[0, 0, -0.02]}>
           <planeGeometry args={[6.5, 3.8]} />
-          <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+          {space.id === 3 ? (
+          <meshBasicMaterial map={bgTextureid3} side={THREE.DoubleSide} />
+    ) : (
+      <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+    )}
         </mesh>
 
         {space.id === 3 ? (
