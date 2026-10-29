@@ -662,7 +662,7 @@ function RightWallPanels() {
           onPointerOver={() => { document.body.style.cursor = "pointer"; }}
           onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
-          <planeGeometry args={[2.0, 3.0]} />
+          <planeGeometry args={[0, 0]} />
           <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
         </mesh>
       </group>
@@ -2289,7 +2289,7 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
         maxWidth={16}
         textAlign="center"
       >
-        🇻🇳🇻🇳🇻🇳 KHÔNG GIAN TRƯNG BÀY 🇻🇳🇻🇳🇻🇳
+        KHÔNG GIAN TRƯNG BÀY
       </Text>
 
      <SecondRoomBanners />
