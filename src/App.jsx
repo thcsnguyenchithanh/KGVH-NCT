@@ -641,7 +641,7 @@ function RightWallPanels() {
         {/* Khung viền gỗ phía sau */}
         
           <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[0.2, 1.2, 0.05]} />
+          <boxGeometry args={[0, 0, 0.05]} />
           <meshStandardMaterial color="#680f0f" roughness={0.6} />
         </mesh>
         {/* Bề mặt ảnh p1.png */}
