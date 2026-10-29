@@ -1079,7 +1079,7 @@ const styles = {
   },
   largeImage: {
     maxHeight: "100%",
-    maxWidth: "85%", // Chừa lề hai bên cho nút mũi tên không bị đè lên ảnh
+    maxWidth: "95%", // Chừa lề hai bên cho nút mũi tên không bị đè lên ảnh
     objectFit: "contain",
     borderRadius: "8px",
     boxShadow: "0 4px 16px rgba(0,0,0,0.6)",
