@@ -832,9 +832,11 @@ function OppositeWallPanels() {
 //--------------------------------------------------------------------------------------------------------
 
 
-// Component tạo dây treo cờ vắt ngang sảnh chính
+
+
+// Component tạo dây treo cờ vắt ngang sảnh chính (Đã sửa lỗi mất cờ trên dây)
 function MultipleHangingFlags() {
-  // 1. Tạo texture lá cờ đỏ sao vàng loại nhỏ bằng HTML5 Canvas
+  // 1. Tạo texture lá cờ đỏ sao vàng bằng HTML5 Canvas
   const flagTexture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 512;
@@ -873,7 +875,7 @@ function MultipleHangingFlags() {
     return texture;
   }, []);
 
-  // 2. Danh sách tọa độ Z để rải nhiều dây treo song song theo chiều sâu phòng
+  // 2. Danh sách 5 tọa độ Z để rải các dây treo song song dọc theo phòng
   const lineZOffsets = [-4.0, -2.0, 0.0, 2.0, 4.0];
 
   return (
@@ -882,14 +884,14 @@ function MultipleHangingFlags() {
         // Tạo đường cong võng xuống tự nhiên cho từng dây treo từ tường trái sang phải
         const curve = new THREE.QuadraticBezierCurve3(
           new THREE.Vector3(-11.5, 5.2, zOffset), // Điểm neo bên tường trái
-          new THREE.Vector3(0, 4.5, zOffset),     // Điểm giữa bị võng xuống theo trọng lực
+          new THREE.Vector3(0, 4.5, zOffset),     // Điểm giữa võng xuống theo trọng lực
           new THREE.Vector3(11.5, 5.2, zOffset)   // Điểm neo bên tường phải
         );
 
         const points = curve.getPoints(14); // Chia dây thành các đoạn nhỏ để gắn cờ
 
         return (
-          <group key={lineIndex}>
+          <group key={`hanging-line-${lineIndex}`}>
             {/* Sợi dây treo mảnh màu trắng nối hai đầu tường */}
             <line>
               <bufferGeometry>
@@ -904,11 +906,10 @@ function MultipleHangingFlags() {
             {/* Các lá cờ nhỏ treo dọc theo từng điểm trên dây */}
             {points.slice(1, -1).map((pt, idx) => (
               <mesh
-                key={idx}
+                key={`flag-item-${lineIndex}-${idx}`}
                 position={[pt.x, pt.y - 0.15, pt.z]}
                 rotation={[0, 0, idx % 2 === 0 ? 0.08 : -0.08]} // Xoay nhẹ qua lại tạo hiệu ứng sinh động
               >
-                {/* 👈 Đã tăng kích thước cờ thêm 10%: từ [0.33, 0.22] thành [0.36, 0.24] */}
                 <planeGeometry args={[0.48, 0.32]} />
                 <meshBasicMaterial map={flagTexture} side={THREE.DoubleSide} />
               </mesh>
