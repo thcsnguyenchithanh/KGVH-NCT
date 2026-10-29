@@ -14,7 +14,7 @@ export default function TopicMeshCard({ topic, index, onClick }) {
       {/* Khung viền vàng */}
       <mesh position={[0, 0, -0.001]}>
        <boxGeometry args={[1.68, 1.18, 0.03]} />
-        <meshStandardMaterial color="#defba5" roughness={0.5} />
+        <meshStandardMaterial color="#81b713" roughness={0.5} />
       </mesh>
 
       {/* Ô ảnh chủ đề */}
