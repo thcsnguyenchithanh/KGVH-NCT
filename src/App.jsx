@@ -935,6 +935,23 @@ function SubImageGallery() {
 
   return (
     <div style={styles.overlay}>
+    {/* Thêm đoạn CSS tùy chỉnh để thanh cuộn luôn hiện rõ và dễ kéo */}
+      <style>{`
+        .thumbnail-list::-webkit-scrollbar {
+          height: 10px; /* Độ dày của thanh cuộn ngang */
+        }
+        .thumbnail-list::-webkit-scrollbar-track {
+          background: #222; /* Màu nền của rãnh thanh cuộn */
+          border-radius: 5px;
+        }
+        .thumbnail-list::-webkit-scrollbar-thumb {
+          background: #888; /* Màu của thanh kéo (làm sáng lên để dễ thấy) */
+          border-radius: 5px;
+        }
+        .thumbnail-list::-webkit-scrollbar-thumb:hover {
+          background: #bbb; /* Màu khi rê chuột vào thanh kéo */
+        }
+      `}</style>
       <div style={styles.modalContent}>
         {/* Tiêu đề và nút đóng */}
         <div style={styles.header}>
@@ -1042,7 +1059,7 @@ const styles = {
     display: "flex",
     gap: "10px",
     overflowX: "auto",
-    padding: "10px 0",
+    padding: "10px 5px 15px 5px",
     borderTop: "1px solid #333",
   },
  thumbnail: {
