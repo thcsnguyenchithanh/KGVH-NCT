@@ -422,7 +422,7 @@ export const EXHIBITION_DATA = [
   {
     id: "khoi67",
     title: "Khối Lớp 6A1 - 7A11",
-    coverImage: `${import.meta.env.BASE_URL}lopNct/Slide1.jpeg`,
+    coverImage: `${import.meta.env.BASE_URL}lopNct/67.jpg`,
     panels: [
       { id: 1, src: `${import.meta.env.BASE_URL}lopNct/Slide1.jpeg`, alt: "Sảnh trường 1" },
       { id: 2, src: `${import.meta.env.BASE_URL}lopNct/Slide2.jpeg`, alt: "Sảnh trường 2" },
@@ -443,7 +443,7 @@ export const EXHIBITION_DATA = [
   {
     id: "khoi89",
     title: "Khối Lớp 8A1 - 9A13",
-     coverImage: `${import.meta.env.BASE_URL}lopNct/Slide15.jpeg`,
+     coverImage: `${import.meta.env.BASE_URL}lopNct/89.jpg`,
     panels: [
       { id: 1, src: `${import.meta.env.BASE_URL}lopNct/Slide15.jpeg`, alt: "Sảnh trường 15" },
       { id: 2, src: `${import.meta.env.BASE_URL}lopNct/Slide16.jpeg`, alt: "Sảnh trường 16" },
@@ -1079,7 +1079,7 @@ const styles = {
   },
   largeImage: {
     maxHeight: "100%",
-    maxWidth: "95%", // Chừa lề hai bên cho nút mũi tên không bị đè lên ảnh
+    maxWidth: "85%", // Chừa lề hai bên cho nút mũi tên không bị đè lên ảnh
     objectFit: "contain",
     borderRadius: "8px",
     boxShadow: "0 4px 16px rgba(0,0,0,0.6)",
