@@ -418,6 +418,7 @@ export const EXHIBITION_DATA = [
 { id: 13, src: `${import.meta.env.BASE_URL}sanhNct/13.jpg`, alt: "Sảnh trường 13" },
 { id: 14, src: `${import.meta.env.BASE_URL}sanhNct/14.jpg`, alt: "Sảnh trường 14" },
 { id: 15, src: `${import.meta.env.BASE_URL}sanhNct/15.jpg`, alt: "Sảnh trường 15" },
+{ id: 16, src: `${import.meta.env.BASE_URL}sanhNct/16.jpg`, alt: "Sảnh trường 16" },
 
     ],
   },
