@@ -7,7 +7,7 @@ import WallImage from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from "./BookShelf";
-import SchoolBookshelfModal from "./components/SchoolBookshelfModal";
+import SchoolBookshelfModal from "./SchoolBookshelfModal";
 
 import Room8 from "./Room8";
 
