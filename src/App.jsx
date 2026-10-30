@@ -2772,7 +2772,7 @@ function Room({
       </group>
 
       <group 
-  position={[11.78, 0, 4.8]}  // 🌟 Nằm trên cùng mặt tường phải, dịch sang phải theo trục Z để đứng cạnh bảng Bảo tàng 3D
+  position={[11.78, 0, 5.8]}  // 🌟 Nằm trên cùng mặt tường phải, dịch sang phải theo trục Z để đứng cạnh bảng Bảo tàng 3D
   rotation={[0, -Math.PI / 2, 0]} // Xoay áp sát vào tường giống hệt góc của bảng Bảo tàng 3D
   onClick={(e) => {
     e.stopPropagation();
