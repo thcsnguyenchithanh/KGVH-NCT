@@ -6,9 +6,9 @@ export default function SchoolBookshelfModal() {
 
   // Dữ liệu mẫu các đầu sách của trường THCS Nguyễn Chí Thanh
   const defaultBooks = [
-    { id: 1, title: "Lịch sử Đia phương", src: `${import.meta.env.BASE_URL}bookNct/1.HEIC`, alt: "Sách lịch sử địa phương" },
-    { id: 2, title: "Bác Hồ kính yêu", src: `${import.meta.env.BASE_URL}bookNct/2.HEIC`, alt: "Sách Bác Hồ" },
-    { id: 3, title: "Truyền thống nhà trường", src: `${import.meta.env.BASE_URL}bookNct/3.HEIC`, alt: "Truyền thống trường" },
+    { id: 1, title: "Lịch sử Đia phương", src: `${import.meta.env.BASE_URL}bookNct/1.jpg`, alt: "Sách lịch sử địa phương" },
+    { id: 2, title: "Bác Hồ kính yêu", src: `${import.meta.env.BASE_URL}bookNct/2.jpg`, alt: "Sách Bác Hồ" },
+    { id: 3, title: "Truyền thống nhà trường", src: `${import.meta.env.BASE_URL}bookNct/3.jpg`, alt: "Truyền thống trường" },
     // Bạn có thể dễ dàng thêm các cuốn sách khác vào đây
   ];
 
