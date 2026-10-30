@@ -2772,7 +2772,7 @@ function Room({
       </group>
 
       <group 
-  position={[11.78, 0, 5.8]}  
+  position={[11.78, 0, 6.8]}  
   rotation={[0, -Math.PI / 2, 0]} 
   onClick={(e) => {
     e.stopPropagation();
@@ -2913,8 +2913,8 @@ function Room({
   {/* 🌟 Tiêu đề tên trường phía trên tủ sách */}
   <Text
     position={[0, 2.65, 0.35]}
-    fontSize={0.22}
-    color="#ffd700"
+    fontSize={1.22}
+    color="#ffffff"
     anchorX="center"
     anchorY="middle"
     textAlign="center"
