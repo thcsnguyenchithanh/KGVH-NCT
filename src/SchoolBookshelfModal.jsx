@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function SchoolBookshelfModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   // Dữ liệu mẫu các đầu sách của trường THCS Nguyễn Chí Thanh
   const defaultBooks = [
@@ -89,11 +90,9 @@ export default function SchoolBookshelfModal() {
 { id: 81, title: "Bác Hồ với Quốc hội Việt Nam", src: `${import.meta.env.BASE_URL}bookNct/81.jpg`, alt: "Bác Hồ với Quốc hội Việt Nam" },
 { id: 82, title: "Những tấm gương ham đọc sách và tự học thời đại Hồ Chí Minh", src: `${import.meta.env.BASE_URL}bookNct/82.jpg`, alt: "Những tấm gương ham đọc sách và tự học thời đại Hồ Chí Minh" },
   ];
-
-  // Lắng nghe sự kiện mở tủ sách từ không gian 3D
+// Lắng nghe sự kiện mở tủ sách từ không gian 3D
   useEffect(() => {
     const handleOpen = (e) => {
-      // Nếu sự kiện có truyền dữ liệu sách riêng thì dùng, không thì dùng danh sách mặc định
       setBooks(e.detail?.books || defaultBooks);
       setIsOpen(true);
     };
@@ -120,13 +119,38 @@ export default function SchoolBookshelfModal() {
         {/* Lưới hiển thị danh sách các đầu sách */}
         <div style={styles.gridContainer}>
           {books.map((book) => (
-            <div key={book.id} style={styles.bookCard}>
+            <div 
+              key={book.id} 
+              style={styles.bookCard}
+              // 🌟 Thêm sự kiện onClick để chọn cuốn sách khi bấm vào
+              onClick={() => setSelectedBook(book)}
+            >
               <img src={book.src} alt={book.alt} style={styles.bookImage} />
               <p style={styles.bookTitle}>{book.title}</p>
             </div>
           ))}
         </div>
       </div>
+
+      {/* 🌟 Modal phụ: Hiển thị ảnh phóng to khi người dùng bấm vào một cuốn sách */}
+      {selectedBook && (
+        <div style={styles.previewOverlay} onClick={() => setSelectedBook(null)}>
+          <div style={styles.previewContent} onClick={(e) => e.stopPropagation()}>
+            <button 
+              style={styles.closePreviewBtn} 
+              onClick={() => setSelectedBook(null)}
+            >
+              ✕
+            </button>
+            <img 
+              src={selectedBook.src} 
+              alt={selectedBook.alt} 
+              style={styles.previewImage} 
+            />
+            <h3 style={styles.previewTitle}>{selectedBook.title}</h3>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -188,9 +212,10 @@ const styles = {
     padding: "12px",
     display: "flex",
     flexDirection: "column",
-    alignItem: "center",
+    alignItems: "center", // Đã sửa lỗi chính tả từ alignItem thành alignItems
     textAlign: "center",
     boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+    cursor: "pointer", // 🌟 Biến con trỏ thành hình bàn tay khi rê chuột vào sách
     transition: "transform 0.2s ease",
   },
   bookImage: {
@@ -205,5 +230,59 @@ const styles = {
     fontSize: "14px",
     fontWeight: "500",
     margin: "5px 0 0 0",
+  },
+  // 🌟 CSS cho Modal xem ảnh lớn
+  previewOverlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0, 0, 0, 0.9)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 11000,
+  },
+  previewContent: {
+    position: "relative",
+    backgroundColor: "#252525",
+    padding: "20px",
+    borderRadius: "12px",
+    maxWidth: "500px",
+    width: "90%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
+  },
+  previewImage: {
+    width: "100%",
+    maxHeight: "65vh",
+    objectFit: "contain",
+    borderRadius: "8px",
+  },
+  previewTitle: {
+    color: "#fff",
+    fontSize: "16px",
+    textAlign: "center",
+    marginTop: "15px",
+    fontWeight: "600",
+  },
+  closePreviewBtn: {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    backgroundColor: "#da251d",
+    color: "#fff",
+    border: "none",
+    width: "30px",
+    height: "30px",
+    borderRadius: "50%",
+    cursor: "pointer",
+    fontWeight: "bold",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 };
