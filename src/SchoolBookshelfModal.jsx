@@ -178,7 +178,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     padding: "25px",
-    boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
+    boxShadow: "0 8px 32px rgba(108, 132, 147, 0.6)",
   },
   header: {
     display: "flex",
