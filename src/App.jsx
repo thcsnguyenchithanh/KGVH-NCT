@@ -983,6 +983,19 @@ function OppositeWallPanels() {
 
   return (
     <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
+      
+      {/* 🌟 TIÊU ĐỀ LỚN GẮN TRÊN TƯỜNG (Nằm phía trên các bức tranh) */}
+      <Text
+        position={[0, 1.5, 0.02]} // Đặt ở giữa và dịch lên phía trên các khung tranh
+        fontSize={0.32}           // Kích thước chữ to, trang trọng
+        color="#1f2937"           // Màu chữ tối (hoặc bạn có thể đổi thành "#ffffff" nếu muốn chữ trắng sáng)
+        anchorX="center"
+        anchorY="middle"
+      >
+        KHÔNG GIAN VĂN HÓA THỰC TẾ - TRƯỜNG THCS NGUYỄN CHÍ THANH
+      </Text>
+
+      {/* Hiển thị 4 bức tranh album */}
       {EXHIBITION_DATA.map((category, index) => (
         <WallPanelItem
           key={category.id}
