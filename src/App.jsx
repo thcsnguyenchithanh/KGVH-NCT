@@ -898,8 +898,10 @@ function LeftWallPanels() {
 
 //--------------------------------------------------------------------------------------------------------
 
-
 function OppositeWallPanels() {
+  // 🌟 Quản lý index của bức tranh đang được rê chuột vào
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
   const imageSources = useMemo(
     () => EXHIBITION_DATA.map((item) => item.coverImage),
     []
@@ -910,43 +912,73 @@ function OppositeWallPanels() {
 
   return (
     <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
-      {EXHIBITION_DATA.map((category, index) => (
-        <group key={category.id} position={[xPositions[index], 0, 0]}>
-          
-          {/* Khung viền gỗ phía sau */}
-          <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[3.2, 2.2, 0.05]} />
-            <meshStandardMaterial color="#680f0f" roughness={0.6} />
-          </mesh>
+      {EXHIBITION_DATA.map((category, index) => {
+        const isHovered = hoveredIndex === index;
 
-          {/* Bề mặt khung tranh click để mở danh sách ảnh con */}
-          <mesh
-            position={[0, 0, 0.03]}
-            onClick={(e) => {
-              e.stopPropagation();
-              // Bắn sự kiện mở danh sách các hình ảnh con của mục này
-              window.dispatchEvent(
-                new CustomEvent("open-sub-gallery", {
-                  detail: {
-                    title: category.title,
-                    panels: category.panels,
-                  },
-                })
-              );
-            }}
-            onPointerOver={() => { document.body.style.cursor = "pointer"; }}
-            onPointerOut={() => { document.body.style.cursor = "default"; }}
+        return (
+          <group 
+            key={category.id} 
+            position={[xPositions[index], 0, 0]}
+            // 🌟 Hiệu ứng phóng to nhẹ toàn bộ khung tranh khi rê chuột vào
+            scale={isHovered ? [1.03, 1.03, 1.03] : [1, 1, 1]}
           >
-            <planeGeometry args={[3.0, 2.0]} />
-            <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
-          </mesh>
+            
+            {/* Khung viền gỗ phía sau (Sáng màu hơn khi hover để tạo điểm nhấn) */}
+            <mesh position={[0, 0, 0]}>
+              <boxGeometry args={[3.2, 2.2, 0.05]} />
+              <meshStandardMaterial 
+                color={isHovered ? "#8b1e1e" : "#680f0f"} 
+                roughness={0.6} 
+              />
+            </mesh>
 
-        </group>
-      ))}
+            {/* Bề mặt khung tranh click để mở danh sách ảnh con */}
+            <mesh
+              position={[0, 0, 0.03]}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.dispatchEvent(
+                  new CustomEvent("open-sub-gallery", {
+                    detail: {
+                      title: category.title,
+                      panels: category.panels,
+                    },
+                  })
+                );
+              }}
+              onPointerOver={(e) => {
+                e.stopPropagation();
+                setHoveredIndex(index);
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={() => {
+                setHoveredIndex(null);
+                document.body.style.cursor = "default";
+              }}
+            >
+              <planeGeometry args={[3.0, 2.0]} />
+              <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
+            </mesh>
+
+            {/* 🌟 Dòng chữ chú thích giúp người dùng biết đây là album có thể bấm vào */}
+            <Text
+              position={[0, -1.25, 0.05]}
+              fontSize={0.16}
+              color={isHovered ? "#ffcc00" : "#ffffff"} // Đổi sang màu vàng nổi bật khi rê chuột
+              anchorX="center"
+              anchorY="middle"
+              outlineWidth={0.01}
+              outlineColor="#000000"
+            >
+              {isHovered ? "👉 Nhấn để xem Album" : "📷 Bộ sưu tập ảnh"}
+            </Text>
+
+          </group>
+        );
+      })}
     </group>
   );
 }
-
 
 function SubImageGallery() {
   const [galleryData, setGalleryData] = useState(null);
