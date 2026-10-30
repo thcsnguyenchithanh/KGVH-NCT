@@ -832,6 +832,73 @@ function PottedPlant({ position = [0, 0, 0], scale = 1 }) {
 
 // Component hiển thị bản đồ/poster trên tường bên trái
 // Component hiển thị 2 poster trên tường bên trái
+function LeftWallPanels() {
+  // 1. Tải texture 2 bức ảnh (Bạn có thể thay đổi đường dẫn src theo ý muốn)
+  const panel1 = useTexture(`${import.meta.env.BASE_URL}sanh/p1.png`);
+  const panel2 = useTexture(`${import.meta.env.BASE_URL}sanh/p2.png`);
+
+  return (
+    <group position={[-11.78, 2.7, 0]} rotation={[0, Math.PI / 2, 0]}>
+      {/* ================= 1. POSTER 1 (BÊN TRÁI) ================= */}
+      <group position={[-1.8, 0, 0]}>
+         <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+        </mesh>
+        <mesh
+          position={[0, 0, 0.03]}
+          onClick={(e) => {
+            e.stopPropagation();
+            window.dispatchEvent(
+              new CustomEvent("open-wall-image", {
+                detail: {
+                  src: `${import.meta.env.BASE_URL}sanh/p1.png`,
+                  alt: "Poster 1",
+                },
+              })
+            );
+          }}
+          onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+          onPointerOut={() => { document.body.style.cursor = "default"; }}
+        >
+          <planeGeometry args={[2.0, 3.0]} />
+          <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+
+      {/* ================= 3. POSTER 2 (BÊN PHẢI) ================= */}
+      <group position={[4.8, 0, 0]}>
+         <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2.2, 3.2, 0.05]} />
+          <meshStandardMaterial color="#680f0f" roughness={0.6} />
+        </mesh>
+        <mesh
+          position={[0, 0, 0.03]}
+          onClick={(e) => {
+            e.stopPropagation();
+            window.dispatchEvent(
+              new CustomEvent("open-wall-image", {
+                detail: {
+                  src: `${import.meta.env.BASE_URL}sanh/p2.png`,
+                  alt: "Poster 2",
+                },
+              })
+            );
+          }}
+          onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+          onPointerOut={() => { document.body.style.cursor = "default"; }}
+        >
+          <planeGeometry args={[2.0, 3.0]} />
+          <meshBasicMaterial map={panel2} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+//--------------------------------------------------------------------------------------------------------
+
+
 function WallPanelItem({ category, texture, xPos }) {
   const [isHovered, setIsHovered] = useState(false);
   const groupRef = useRef();
@@ -904,87 +971,6 @@ function WallPanelItem({ category, texture, xPos }) {
     </group>
   );
 }
-
-//--------------------------------------------------------------------------------------------------------
-
-// Component con cho từng bức tranh để xử lý animation mượt mà riêng biệt
-function WallPanelItem({ category, texture, xPos }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const groupRef = useRef();
-
-  // 🌟 Sử dụng useFrame và lerp để tạo hiệu ứng chuyển động mượt mà (easing)
-  useFrame((state, delta) => {
-    if (!groupRef.current) return;
-
-    // Mục tiêu: Phóng to nhẹ lên 1.05 và nhô ra phía trước (z = 0.1) khi hover
-    const targetScale = isHovered ? 1.05 : 1.0;
-    const targetZ = isHovered ? 0.12 : 0.0;
-
-    // Lerp scale mượt mà theo thời gian thực (delta)
-    groupRef.current.scale.x = THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, delta * 12);
-    groupRef.current.scale.y = THREE.MathUtils.lerp(groupRef.current.scale.y, targetScale, delta * 12);
-    groupRef.current.scale.z = THREE.MathUtils.lerp(groupRef.current.scale.z, targetScale, delta * 12);
-
-    // Lerp vị trí trục Z để tạo cảm giác bức tranh nổi hẳn lên tường
-    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetZ, delta * 12);
-  });
-
-  return (
-    <group 
-      ref={groupRef}
-      position={[xPos, 0, 0]}
-    >
-      {/* Khung viền gỗ phía sau */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[3.2, 2.2, 0.05]} />
-        <meshStandardMaterial 
-          color={isHovered ? "#8b1e1e" : "#680f0f"} 
-          roughness={0.6} 
-        />
-      </mesh>
-
-      {/* Bề mặt khung tranh click để mở danh sách ảnh con */}
-      <mesh
-        position={[0, 0, 0.03]}
-        onClick={(e) => {
-          e.stopPropagation();
-          window.dispatchEvent(
-            new CustomEvent("open-sub-gallery", {
-              detail: {
-                title: category.title,
-                panels: category.panels,
-              },
-            })
-          );
-        }}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          setIsHovered(true);
-          document.body.style.cursor = "pointer";
-        }}
-        onPointerOut={() => {
-          setIsHovered(false);
-          document.body.style.cursor = "default";
-        }}
-      >
-        <planeGeometry args={[3.0, 2.0]} />
-        <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
-      </mesh>
-
-      {/* Dòng chữ hướng dẫn không viền, kích thước to rõ */}
-      <Text
-        position={[0, -1.25, 0.05]}
-        fontSize={0.22} 
-        color={isHovered ? "#ffcc00" : "#ffffff"}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {isHovered ? "👉 Nhấn để xem Album" : "📷 Bộ sưu tập ảnh"}
-      </Text>
-    </group>
-  );
-}
-
 // Component chính quản lý 4 bức tranh trên tường
 function OppositeWallPanels() {
   const imageSources = useMemo(
