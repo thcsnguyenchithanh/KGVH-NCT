@@ -2821,6 +2821,17 @@ function Room({
     <meshStandardMaterial color="#8B4513" roughness={0.7} />
   </mesh>
 </group>
+{/* 🌟 6. Tiêu đề tên trường phía trên tủ sách */}
+  <Text
+    position={[0, 2.65, 0.35]}
+    fontSize={0.22}
+    color="#ffd700"
+    anchorX="center"
+    anchorY="middle"
+    textAlign="center"
+  >
+    TỦ SÁCH THCS NGUYỄN CHÍ THANH
+  </Text>
        
     </group>
   );
