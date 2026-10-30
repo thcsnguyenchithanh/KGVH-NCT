@@ -414,6 +414,10 @@ export const EXHIBITION_DATA = [
        { id: 9, src: `${import.meta.env.BASE_URL}sanhNct/9.jpg`, alt: "Sảnh trường 9" },
        { id: 10, src: `${import.meta.env.BASE_URL}sanhNct/10.jpg`, alt: "Sảnh trường 10" },
        { id: 11, src: `${import.meta.env.BASE_URL}sanhNct/11.jpg`, alt: "Sảnh trường 11" },
+       { id: 12, src: `${import.meta.env.BASE_URL}sanhNct/12.jpg`, alt: "Sảnh trường 12" },
+{ id: 13, src: `${import.meta.env.BASE_URL}sanhNct/13.jpg`, alt: "Sảnh trường 13" },
+{ id: 14, src: `${import.meta.env.BASE_URL}sanhNct/14.jpg`, alt: "Sảnh trường 14" },
+{ id: 15, src: `${import.meta.env.BASE_URL}sanhNct/15.jpg`, alt: "Sảnh trường 15" },
 
     ],
   },
@@ -438,6 +442,17 @@ export const EXHIBITION_DATA = [
       { id: 14, src: `${import.meta.env.BASE_URL}picThuvien/14.jpg`, alt: "Tư liệu thư viện 14" },
       { id: 15, src: `${import.meta.env.BASE_URL}picThuvien/15.jpg`, alt: "Tư liệu thư viện 15" },
       { id: 16, src: `${import.meta.env.BASE_URL}picThuvien/16.jpg`, alt: "Tư liệu thư viện 16" },
+     
+{ id: 18, src: `${import.meta.env.BASE_URL}picThuvien/18.jpg`, alt: "Tư liệu thư viện 18" },
+{ id: 19, src: `${import.meta.env.BASE_URL}picThuvien/19.jpg`, alt: "Tư liệu thư viện 19" },
+{ id: 20, src: `${import.meta.env.BASE_URL}picThuvien/20.jpg`, alt: "Tư liệu thư viện 20" },
+{ id: 21, src: `${import.meta.env.BASE_URL}picThuvien/21.jpg`, alt: "Tư liệu thư viện 21" },
+{ id: 22, src: `${import.meta.env.BASE_URL}picThuvien/22.jpg`, alt: "Tư liệu thư viện 22" },
+{ id: 23, src: `${import.meta.env.BASE_URL}picThuvien/23.jpg`, alt: "Tư liệu thư viện 23" },
+{ id: 24, src: `${import.meta.env.BASE_URL}picThuvien/24.jpg`, alt: "Tư liệu thư viện 24" },
+{ id: 25, src: `${import.meta.env.BASE_URL}picThuvien/25.jpg`, alt: "Tư liệu thư viện 25" },
+{ id: 26, src: `${import.meta.env.BASE_URL}picThuvien/26.jpg`, alt: "Tư liệu thư viện 26" },
+{ id: 27, src: `${import.meta.env.BASE_URL}picThuvien/27.jpg`, alt: "Tư liệu thư viện 27" },
     ],
   },
   
