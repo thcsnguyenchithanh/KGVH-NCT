@@ -1074,8 +1074,6 @@ function SubImageGallery() {
     </div>
   );
 }
-
-// Giữ nguyên phần styles cũ của bạn không thay đổi gì cả
 const styles = {
   overlay: {
     position: "fixed",
@@ -1083,7 +1081,8 @@ const styles = {
     left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.85)",
+    backgroundColor: "rgba(255, 255, 255, 0.75)", // Nền mờ sáng nhẹ nhàng
+    backdropFilter: "blur(5px)", // Hiệu ứng làm mờ hiện đại phía sau
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -1093,29 +1092,30 @@ const styles = {
     width: "92%",
     maxWidth: "1300px",
     height: "92vh",
-    backgroundColor: "#1a1a1a",
-    borderRadius: "12px",
+    backgroundColor: "#ffffff", // Chuyển nền modal sang màu trắng tinh khiết
+    borderRadius: "16px",
     display: "flex",
     flexDirection: "column",
     padding: "25px",
-    boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.12)", // Đổ bóng nhẹ nhàng, thanh thoát
   },
   header: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    color: "#fff",
-    borderBottom: "1px solid #333",
-    paddingBottom: "10px",
+    color: "#1f2937", // Chữ tiêu đề tối màu sắc nét trên nền trắng
+    borderBottom: "1px solid #e5e7eb", // Đường viền xám nhạt tinh tế
+    paddingBottom: "15px",
   },
   closeBtn: {
-    backgroundColor: "#da251d",
+    backgroundColor: "#ef4444", // Nút đỏ tươi nổi bật
     color: "#fff",
     border: "none",
     padding: "8px 16px",
-    borderRadius: "6px",
+    borderRadius: "8px",
     cursor: "pointer",
     fontWeight: "bold",
+    transition: "background-color 0.2s",
   },
   previewContainer: {
     position: "relative",
@@ -1125,64 +1125,69 @@ const styles = {
     alignItems: "center",
     margin: "15px 0",
     overflow: "hidden",
+    backgroundColor: "#f9fafb", // Nền khung xem ảnh có màu trắng ngà rất sáng
+    borderRadius: "12px",
   },
   largeImage: {
     maxHeight: "100%",
     maxWidth: "96%",
     objectFit: "contain",
     borderRadius: "8px",
-    boxShadow: "0 4px 16px rgba(0,0,0,0.6)",
+    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.08)", // Đổ bóng nhẹ nhàng cho ảnh chính
   },
   arrowBtnLeft: {
     position: "absolute",
-    left: "15px",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    color: "#fff",
-    border: "2px solid rgba(255, 255, 255, 0.3)",
+    left: "20px",
+    backgroundColor: "rgba(255, 255, 255, 0.95)", // Nền nút màu trắng nổi bật
+    color: "#1f2937", // Biểu tượng mũi tên tối màu dễ nhìn
+    border: "1px solid #d1d5db", // Viền xám mảnh trang nhã
     fontSize: "24px",
-    width: "50px",
-    height: "50px",
+    width: "48px",
+    height: "48px",
     borderRadius: "50%",
     cursor: "pointer",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     zIndex: 10,
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
     transition: "all 0.2s ease",
   },
   arrowBtnRight: {
     position: "absolute",
-    right: "15px",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    color: "#fff",
-    border: "2px solid rgba(255, 255, 255, 0.3)",
+    right: "20px",
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    color: "#1f2937",
+    border: "1px solid #d1d5db",
     fontSize: "24px",
-    width: "50px",
-    height: "50px",
+    width: "48px",
+    height: "48px",
     borderRadius: "50%",
     cursor: "pointer",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     zIndex: 10,
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
     transition: "all 0.2s ease",
   },
   thumbnailList: {
     display: "flex",
     gap: "12px",
     overflowX: "auto",
-    padding: "10px 5px 15px 5px",
-    borderTop: "1px solid #333",
+    padding: "15px 5px 10px 5px",
+    borderTop: "1px solid #e5e7eb", // Viền ngăn cách sáng sủa
     flexShrink: 0,
   },
   thumbnail: {
     width: "110px",
     height: "80px",
     objectFit: "cover",
-    borderRadius: "6px",
+    borderRadius: "8px",
     cursor: "pointer",
     border: "2px solid transparent",
     flexShrink: 0,
+    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.05)",
     transition: "all 0.2s ease",
   },
 };
