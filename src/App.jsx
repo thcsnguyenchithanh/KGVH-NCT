@@ -7,6 +7,7 @@ import WallImage from "./WallImage";
 import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from "./BookShelf";
+import SchoolBookshelfModal from "./components/SchoolBookshelfModal";
 
 import Room8 from "./Room8";
 
@@ -3331,6 +3332,7 @@ export default function App() {
       </Canvas>
 {/* 2. Giao diện 2D (SubImageGallery nằm bên ngoài Canvas để hiển thị đè lên trên) */}
       <SubImageGallery />
+      <SchoolBookshelfModal /> {/* 🌟 Thêm component tủ sách vào đây */}
       
       <ImageFullscreen />
       {/* DANH SÁCH ĐIỀU HƯỚNG 13 MỤC */}
