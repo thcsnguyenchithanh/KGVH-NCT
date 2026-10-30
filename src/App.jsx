@@ -898,10 +898,86 @@ function LeftWallPanels() {
 
 //--------------------------------------------------------------------------------------------------------
 
-function OppositeWallPanels() {
-  // 🌟 Quản lý index của bức tranh đang được rê chuột vào
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+// Component con cho từng bức tranh để xử lý animation mượt mà riêng biệt
+function WallPanelItem({ category, texture, xPos }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const groupRef = useRef();
 
+  // 🌟 Sử dụng useFrame và lerp để tạo hiệu ứng chuyển động mượt mà (easing)
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+
+    // Mục tiêu: Phóng to nhẹ lên 1.05 và nhô ra phía trước (z = 0.1) khi hover
+    const targetScale = isHovered ? 1.05 : 1.0;
+    const targetZ = isHovered ? 0.12 : 0.0;
+
+    // Lerp scale mượt mà theo thời gian thực (delta)
+    groupRef.current.scale.x = THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, delta * 12);
+    groupRef.current.scale.y = THREE.MathUtils.lerp(groupRef.current.scale.y, targetScale, delta * 12);
+    groupRef.current.scale.z = THREE.MathUtils.lerp(groupRef.current.scale.z, targetScale, delta * 12);
+
+    // Lerp vị trí trục Z để tạo cảm giác bức tranh nổi hẳn lên tường
+    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetZ, delta * 12);
+  });
+
+  return (
+    <group 
+      ref={groupRef}
+      position={[xPos, 0, 0]}
+    >
+      {/* Khung viền gỗ phía sau */}
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[3.2, 2.2, 0.05]} />
+        <meshStandardMaterial 
+          color={isHovered ? "#8b1e1e" : "#680f0f"} 
+          roughness={0.6} 
+        />
+      </mesh>
+
+      {/* Bề mặt khung tranh click để mở danh sách ảnh con */}
+      <mesh
+        position={[0, 0, 0.03]}
+        onClick={(e) => {
+          e.stopPropagation();
+          window.dispatchEvent(
+            new CustomEvent("open-sub-gallery", {
+              detail: {
+                title: category.title,
+                panels: category.panels,
+              },
+            })
+          );
+        }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setIsHovered(true);
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerOut={() => {
+          setIsHovered(false);
+          document.body.style.cursor = "default";
+        }}
+      >
+        <planeGeometry args={[3.0, 2.0]} />
+        <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
+      </mesh>
+
+      {/* Dòng chữ hướng dẫn không viền, kích thước to rõ */}
+      <Text
+        position={[0, -1.25, 0.05]}
+        fontSize={0.22} 
+        color={isHovered ? "#ffcc00" : "#ffffff"}
+        anchorX="center"
+        anchorY="middle"
+      >
+        {isHovered ? "👉 Nhấn để xem Album" : "📷 Bộ sưu tập ảnh"}
+      </Text>
+    </group>
+  );
+}
+
+// Component chính quản lý 4 bức tranh trên tường
+function OppositeWallPanels() {
   const imageSources = useMemo(
     () => EXHIBITION_DATA.map((item) => item.coverImage),
     []
@@ -912,70 +988,14 @@ function OppositeWallPanels() {
 
   return (
     <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
-      {EXHIBITION_DATA.map((category, index) => {
-        const isHovered = hoveredIndex === index;
-
-        return (
-          <group 
-            key={category.id} 
-            position={[xPositions[index], 0, 0]}
-            // 🌟 Hiệu ứng phóng to nhẹ toàn bộ khung tranh khi rê chuột vào
-            scale={isHovered ? [1.03, 1.03, 1.03] : [1, 1, 1]}
-          >
-            
-            {/* Khung viền gỗ phía sau (Sáng màu hơn khi hover để tạo điểm nhấn) */}
-            <mesh position={[0, 0, 0]}>
-              <boxGeometry args={[3.2, 2.2, 0.05]} />
-              <meshStandardMaterial 
-                color={isHovered ? "#8b1e1e" : "#680f0f"} 
-                roughness={0.6} 
-              />
-            </mesh>
-
-            {/* Bề mặt khung tranh click để mở danh sách ảnh con */}
-            <mesh
-              position={[0, 0, 0.03]}
-              onClick={(e) => {
-                e.stopPropagation();
-                window.dispatchEvent(
-                  new CustomEvent("open-sub-gallery", {
-                    detail: {
-                      title: category.title,
-                      panels: category.panels,
-                    },
-                  })
-                );
-              }}
-              onPointerOver={(e) => {
-                e.stopPropagation();
-                setHoveredIndex(index);
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={() => {
-                setHoveredIndex(null);
-                document.body.style.cursor = "default";
-              }}
-            >
-              <planeGeometry args={[3.0, 2.0]} />
-              <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
-            </mesh>
-
-            {/* 🌟 Dòng chữ chú thích giúp người dùng biết đây là album có thể bấm vào */}
-            <Text
-              position={[0, -1.25, 0.05]}
-              fontSize={0.16}
-              color={isHovered ? "#ffcc00" : "#ffffff"} // Đổi sang màu vàng nổi bật khi rê chuột
-              anchorX="center"
-              anchorY="middle"
-              outlineWidth={0.01}
-              outlineColor="#000000"
-            >
-              {isHovered ? "👉 Nhấn để xem Album" : "📷 Bộ sưu tập ảnh"}
-            </Text>
-
-          </group>
-        );
-      })}
+      {EXHIBITION_DATA.map((category, index) => (
+        <WallPanelItem
+          key={category.id}
+          category={category}
+          texture={textures[index]}
+          xPos={xPositions[index]}
+        />
+      ))}
     </group>
   );
 }
