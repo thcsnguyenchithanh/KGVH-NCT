@@ -2786,8 +2786,8 @@ function Room({
     <OppositeWallPanels/>
     
     {/* Đặt chậu cây ở góc phòng bên trái và bên phải */}
-      <PottedPlant position={[-4, 0, 6]} scale={1.2} />
-      <PottedPlant position={[4, 0, 6]} scale={1.2} />
+      <PottedPlant position={[-7, 0, 6]} scale={1.2} />
+      <PottedPlant position={[7, 0, 6]} scale={1.2} />
       <PottedPlant position={[-6, 0, 0.2]} scale={1.2} />
       <PottedPlant position={[6, 0, 0.2]} scale={1.2} />
 
