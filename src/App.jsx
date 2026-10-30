@@ -2928,7 +2928,7 @@ function Room({
   {/* 🌟 Tiêu đề tên trường phía trên tủ sách */}
   <Text
     position={[0, 2.65, 0.35]}
-    fontSize={1.22}
+    fontSize={0.25}
     color="#ffffff"
     anchorX="center"
     anchorY="middle"
