@@ -2772,8 +2772,8 @@ function Room({
       </group>
 
       <group 
-  position={[11.78, 0, 5.8]}  // 🌟 Nằm trên cùng mặt tường phải, dịch sang phải theo trục Z để đứng cạnh bảng Bảo tàng 3D
-  rotation={[0, -Math.PI / 2, 0]} // Xoay áp sát vào tường giống hệt góc của bảng Bảo tàng 3D
+  position={[11.78, 0, 5.8]}  
+  rotation={[0, -Math.PI / 2, 0]} 
   onClick={(e) => {
     e.stopPropagation();
     window.dispatchEvent(new CustomEvent("open-school-bookshelf"));
@@ -2820,8 +2820,97 @@ function Room({
     <boxGeometry args={[1.9, 0.1, 0.6]} />
     <meshStandardMaterial color="#8B4513" roughness={0.7} />
   </mesh>
-</group>
-{/* 🌟 6. Tiêu đề tên trường phía trên tủ sách */}
+
+  {/* ========================================================= */}
+  /* 📚 CÁC CUỐN SÁCH ĐƯỢC XẾP TRÊN CÁC TẦNG KỆ                   */
+  /* ========================================================= */}
+
+  {/* --- Tầng 1 (Dưới cùng): Sách đứng và một chồng sách nằm ngang --- */}
+  <group position={[0, 0.15, 0]}>
+    {/* Sách đứng bên trái */}
+    <mesh position={[-0.7, 0.25, 0]}>
+      <boxGeometry args={[0.12, 0.5, 0.4]} />
+      <meshStandardMaterial color="#b22222" roughness={0.5} /> {/* Đỏ */}
+    </mesh>
+    <mesh position={[-0.57, 0.23, 0]}>
+      <boxGeometry args={[0.1, 0.45, 0.38]} />
+      <meshStandardMaterial color="#1e90ff" roughness={0.5} /> {/* Xanh dương */}
+    </mesh>
+    <mesh position={[-0.44, 0.26, 0]}>
+      <boxGeometry args={[0.13, 0.52, 0.42]} />
+      <meshStandardMaterial color="#daa520" roughness={0.5} /> {/* Vàng */}
+    </mesh>
+    <mesh position={[-0.29, 0.24, 0]}>
+      <boxGeometry args={[0.11, 0.48, 0.39]} />
+      <meshStandardMaterial color="#2e8b57" roughness={0.5} /> {/* Xanh lá */}
+    </mesh>
+
+    {/* Sách nằm chồng lên nhau bên phải */}
+    <mesh position={[0.5, 0.12, 0]} rotation={[0, 0, Math.PI / 12]}>
+      <boxGeometry args={[0.35, 0.14, 0.42]} />
+      <meshStandardMaterial color="#483d8b" roughness={0.5} /> {/* Tím than */}
+    </mesh>
+    <mesh position={[0.5, 0.26, 0]}>
+      <boxGeometry args={[0.32, 0.13, 0.4]} />
+      <meshStandardMaterial color="#8b008b" roughness={0.5} /> {/* Hồng tím */}
+    </mesh>
+  </group>
+
+  {/* --- Tầng 2: Các dãy sách đứng đan xen màu sắc --- */}
+  <group position={[0, 0.78, 0]}>
+    <mesh position={[-0.6, 0.24, 0]}>
+      <boxGeometry args={[0.1, 0.45, 0.38]} />
+      <meshStandardMaterial color="#cd853f" roughness={0.5} /> {/* Nâu cam */}
+    </mesh>
+    <mesh position={[-0.48, 0.22, 0]}>
+      <boxGeometry args={[0.12, 0.42, 0.38]} />
+      <meshStandardMaterial color="#4682b4" roughness={0.5} /> {/* Xanh thép */}
+    </mesh>
+    <mesh position={[-0.34, 0.25, 0]}>
+      <boxGeometry args={[0.11, 0.48, 0.4]} />
+      <meshStandardMaterial color="#556b2f" roughness={0.5} /> {/* Xanh rêu */}
+    </mesh>
+
+    <mesh position={[0.4, 0.23, 0]}>
+      <boxGeometry args={[0.1, 0.44, 0.38]} />
+      <meshStandardMaterial color="#dc143c" roughness={0.5} /> {/* Đỏ sẫm */}
+    </mesh>
+    <mesh position={[0.53, 0.25, 0]}>
+      <boxGeometry args={[0.13, 0.48, 0.4]} />
+      <meshStandardMaterial color="#ff8c00" roughness={0.5} /> {/* Cam */}
+    </mesh>
+  </group>
+
+  {/* --- Tầng 3: Kệ sách trưng bày điểm nhấn --- */}
+  <group position={[0, 1.38, 0]}>
+    <mesh position={[-0.65, 0.24, 0]}>
+      <boxGeometry args={[0.12, 0.46, 0.38]} />
+      <meshStandardMaterial color="#20b2aa" roughness={0.5} /> {/* Xanh ngọc */}
+    </mesh>
+    <mesh position={[-0.51, 0.22, 0]}>
+      <boxGeometry args={[0.1, 0.42, 0.38]} />
+      <meshStandardMaterial color="#9932cc" roughness={0.5} /> {/* Tím */}
+    </mesh>
+
+    <mesh position={[0.45, 0.23, 0]}>
+      <boxGeometry args={[0.11, 0.44, 0.38]} />
+      <meshStandardMaterial color="#b8860b" roughness={0.5} /> {/* Vàng đồng */}
+    </mesh>
+  </group>
+
+  {/* --- Tầng 4 (Trên cùng): Sách gọn gàng --- */}
+  <group position={[0, 1.98, 0]}>
+    <mesh position={[-0.55, 0.21, 0]}>
+      <boxGeometry args={[0.1, 0.4, 0.36]} />
+      <meshStandardMaterial color="#4169e1" roughness={0.5} /> {/* Xanh hoàng gia */}
+    </mesh>
+    <mesh position={[-0.43, 0.23, 0]}>
+      <boxGeometry args={[0.11, 0.43, 0.38]} />
+      <meshStandardMaterial color="#a0522d" roughness={0.5} /> {/* Nâu sienna */}
+    </mesh>
+  </group>
+
+  {/* 🌟 Tiêu đề tên trường phía trên tủ sách */}
   <Text
     position={[0, 2.65, 0.35]}
     fontSize={0.22}
@@ -2832,6 +2921,8 @@ function Room({
   >
     TỦ SÁCH THCS NGUYỄN CHÍ THANH
   </Text>
+</group>
+
        
     </group>
   );
