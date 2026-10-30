@@ -2770,6 +2770,57 @@ function Room({
           BẢO TÀNG 3D
         </Text>
       </group>
+
+      <group 
+  position={[11.78, 0, 4.8]}  // 🌟 Nằm trên cùng mặt tường phải, dịch sang phải theo trục Z để đứng cạnh bảng Bảo tàng 3D
+  rotation={[0, -Math.PI / 2, 0]} // Xoay áp sát vào tường giống hệt góc của bảng Bảo tàng 3D
+  onClick={(e) => {
+    e.stopPropagation();
+    window.dispatchEvent(new CustomEvent("open-school-bookshelf"));
+  }}
+>
+  {/* 1. Khung tủ bên trái */}
+  <mesh position={[-0.9, 1.2, 0]}>
+    <boxGeometry args={[0.1, 2.4, 0.6]} />
+    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+  </mesh>
+
+  {/* 2. Khung tủ bên phải */}
+  <mesh position={[0.9, 1.2, 0]}>
+    <boxGeometry args={[0.1, 2.4, 0.6]} />
+    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+  </mesh>
+
+  {/* 3. Tấm lưng phía sau tủ */}
+  <mesh position={[0, 1.2, -0.28]}>
+    <boxGeometry args={[1.9, 2.4, 0.05]} />
+    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+  </mesh>
+
+  {/* 4. Các tầng kệ sách */}
+  <mesh position={[0, 0.1, 0]}>
+    <boxGeometry args={[1.9, 0.1, 0.6]} />
+    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+  </mesh>
+  <mesh position={[0, 0.7, 0]}>
+    <boxGeometry args={[1.8, 0.08, 0.55]} />
+    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+  </mesh>
+  <mesh position={[0, 1.3, 0]}>
+    <boxGeometry args={[1.8, 0.08, 0.55]} />
+    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+  </mesh>
+  <mesh position={[0, 1.9, 0]}>
+    <boxGeometry args={[1.8, 0.08, 0.55]} />
+    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+  </mesh>
+
+  {/* 5. Tấm mái đỉnh tủ */}
+  <mesh position={[0, 2.35, 0]}>
+    <boxGeometry args={[1.9, 0.1, 0.6]} />
+    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+  </mesh>
+</group>
        
     </group>
   );
@@ -3328,56 +3379,7 @@ export default function App() {
           setSelectedKhu3Topic={setSelectedKhu3Topic}
           onSelectImage={setSelectedImage}
         />
-        <group 
-  position={[4.6, 0, -4.5]}  // 🌟 Tăng x từ 3.8 lên 4.6 để đẩy tủ sát hẳn sang tường bên phải
-  rotation={[0, -Math.PI / 4, 0]} // Góc xoay chéo 45 độ ôm sát góc phòng
-  onClick={(e) => {
-    e.stopPropagation();
-    window.dispatchEvent(new CustomEvent("open-school-bookshelf"));
-  }}
->
-  {/* 1. Khung tủ bên trái */}
-  <mesh position={[-0.9, 1.2, 0]}>
-    <boxGeometry args={[0.1, 2.4, 0.6]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
-  </mesh>
-
-  {/* 2. Khung tủ bên phải */}
-  <mesh position={[0.9, 1.2, 0]}>
-    <boxGeometry args={[0.1, 2.4, 0.6]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
-  </mesh>
-
-  {/* 3. Tấm lưng phía sau tủ */}
-  <mesh position={[0, 1.2, -0.28]}>
-    <boxGeometry args={[1.9, 2.4, 0.05]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
-  </mesh>
-
-  {/* 4. Các tầng kệ sách */}
-  <mesh position={[0, 0.1, 0]}>
-    <boxGeometry args={[1.9, 0.1, 0.6]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
-  </mesh>
-  <mesh position={[0, 0.7, 0]}>
-    <boxGeometry args={[1.8, 0.08, 0.55]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
-  </mesh>
-  <mesh position={[0, 1.3, 0]}>
-    <boxGeometry args={[1.8, 0.08, 0.55]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
-  </mesh>
-  <mesh position={[0, 1.9, 0]}>
-    <boxGeometry args={[1.8, 0.08, 0.55]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
-  </mesh>
-
-  {/* 5. Tấm mái đỉnh tủ */}
-  <mesh position={[0, 2.35, 0]}>
-    <boxGeometry args={[1.9, 0.1, 0.6]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
-  </mesh>
-</group>
+        
       </Canvas>
 {/* 2. Giao diện 2D (SubImageGallery nằm bên ngoài Canvas để hiển thị đè lên trên) */}
       <SubImageGallery />
