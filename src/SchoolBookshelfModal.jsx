@@ -163,7 +163,8 @@ const styles = {
     left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "rgba(167, 176, 176, 0.8)",
+    backgroundColor: "rgba(0, 0, 0, 0.4)", // Giảm độ tối lớp nền mờ phía sau
+    backdropFilter: "blur(5px)", // Hiệu ứng mờ nhẹ làm nổi bật modal
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -173,30 +174,31 @@ const styles = {
     width: "90%",
     maxWidth: "1100px",
     height: "85vh",
-    backgroundColor: "#5a5656",
-    borderRadius: "12px",
+    backgroundColor: "#ffffff", // Chuyển nền modal sang màu trắng sạch sẽ
+    borderRadius: "16px",
     display: "flex",
     flexDirection: "column",
-    padding: "25px",
-    boxShadow: "0 8px 32px rgba(108, 132, 147, 0.6)",
+    padding: "30px",
+    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.15)", // Đổ bóng nhẹ nhàng, thanh thoát
   },
   header: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    color: "#fff",
-    borderBottom: "1px solid #333",
+    color: "#1f2937", // Chữ tiêu đề tối màu trên nền sáng
+    borderBottom: "1px solid #e5e7eb",
     paddingBottom: "15px",
     marginBottom: "20px",
   },
   closeBtn: {
-    backgroundColor: "#da251d",
+    backgroundColor: "#ef4444", // Đỏ tươi nổi bật
     color: "#fff",
     border: "none",
     padding: "8px 16px",
-    borderRadius: "6px",
+    borderRadius: "8px",
     cursor: "pointer",
-    fontWeight: "bold",
+    fontWeight: "600",
+    transition: "background-color 0.2s",
   },
   gridContainer: {
     flex: 1,
@@ -207,38 +209,39 @@ const styles = {
     paddingRight: "10px",
   },
   bookCard: {
-    backgroundColor: "#2a2a2a",
-    borderRadius: "8px",
-    padding: "12px",
+    backgroundColor: "#f9fafb", // Nền thẻ sách trắng ngà rất sáng
+    borderRadius: "12px",
+    padding: "14px",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center", // Đã sửa lỗi chính tả từ alignItem thành alignItems
+    alignItems: "center",
     textAlign: "center",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-    cursor: "pointer", // 🌟 Biến con trỏ thành hình bàn tay khi rê chuột vào sách
-    transition: "transform 0.2s ease",
+    border: "1px solid #f3f4f6", // Viền mảnh tinh tế
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.02)",
+    cursor: "pointer",
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
   },
   bookImage: {
     width: "100%",
     height: "220px",
     objectFit: "cover",
-    borderRadius: "6px",
+    borderRadius: "8px",
     marginBottom: "10px",
   },
   bookTitle: {
-    color: "#fff",
+    color: "#374151", // Màu chữ tên sách đậm vừa phải, dễ đọc
     fontSize: "14px",
-    fontWeight: "500",
+    fontWeight: "600",
     margin: "5px 0 0 0",
   },
-  // 🌟 CSS cho Modal xem ảnh lớn
+  // 🌟 Khung xem ảnh lớn (Lightbox) tươi sáng hơn
   previewOverlay: {
     position: "fixed",
     top: 0,
     left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.9)",
+    backgroundColor: "rgba(0, 0, 0, 0.6)", // Nền mờ nhẹ hơn trước
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -246,15 +249,15 @@ const styles = {
   },
   previewContent: {
     position: "relative",
-    backgroundColor: "#252525",
-    padding: "20px",
-    borderRadius: "12px",
+    backgroundColor: "#ffffff", // Khung nền trắng tinh khiết
+    padding: "25px",
+    borderRadius: "16px",
     maxWidth: "500px",
     width: "90%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
+    boxShadow: "0 20px 50px rgba(0, 0, 0, 0.2)",
   },
   previewImage: {
     width: "100%",
@@ -263,21 +266,21 @@ const styles = {
     borderRadius: "8px",
   },
   previewTitle: {
-    color: "#fff",
+    color: "#1f2937",
     fontSize: "16px",
     textAlign: "center",
     marginTop: "15px",
-    fontWeight: "600",
+    fontWeight: "700",
   },
   closePreviewBtn: {
     position: "absolute",
-    top: "10px",
-    right: "10px",
-    backgroundColor: "#da251d",
+    top: "12px",
+    right: "12px",
+    backgroundColor: "#ef4444",
     color: "#fff",
     border: "none",
-    width: "30px",
-    height: "30px",
+    width: "32px",
+    height: "32px",
     borderRadius: "50%",
     cursor: "pointer",
     fontWeight: "bold",
