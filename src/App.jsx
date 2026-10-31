@@ -2869,51 +2869,48 @@ function Room({
       <group 
   position={[11.78, 0, 5.8]}  
   rotation={[0, -Math.PI / 2, 0]} 
-  onClick={(e) => {
-    e.stopPropagation();
-    window.dispatchEvent(new CustomEvent("open-school-bookshelf"));
-  }}
+  scale={[1.3, 1.3, 1.3]} // 🌟 Phóng to toàn bộ tủ sách lên 1.3 lần
 >
   {/* 1. Khung tủ bên trái */}
   <mesh position={[-0.9, 1.2, 0]}>
     <boxGeometry args={[0.1, 2.4, 0.6]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+    <meshStandardMaterial color="#A0522D" roughness={0.4} metalness={0.1} /> 
   </mesh>
 
   {/* 2. Khung tủ bên phải */}
   <mesh position={[0.9, 1.2, 0]}>
     <boxGeometry args={[0.1, 2.4, 0.6]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+    <meshStandardMaterial color="#A0522D" roughness={0.4} metalness={0.1} /> 
   </mesh>
 
   {/* 3. Tấm lưng phía sau tủ */}
   <mesh position={[0, 1.2, -0.28]}>
     <boxGeometry args={[1.9, 2.4, 0.05]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+    <meshStandardMaterial color="#8B4513" roughness={0.5} />
   </mesh>
 
   {/* 4. Các tầng kệ sách */}
   <mesh position={[0, 0.1, 0]}>
     <boxGeometry args={[1.9, 0.1, 0.6]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+    <meshStandardMaterial color="#CD853F" roughness={0.4} />
   </mesh>
   <mesh position={[0, 0.7, 0]}>
     <boxGeometry args={[1.8, 0.08, 0.55]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+    <meshStandardMaterial color="#CD853F" roughness={0.4} />
   </mesh>
   <mesh position={[0, 1.3, 0]}>
     <boxGeometry args={[1.8, 0.08, 0.55]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+    <meshStandardMaterial color="#CD853F" roughness={0.4} />
   </mesh>
   <mesh position={[0, 1.9, 0]}>
     <boxGeometry args={[1.8, 0.08, 0.55]} />
-    <meshStandardMaterial color="#A0522D" roughness={0.6} />
+    <meshStandardMaterial color="#CD853F" roughness={0.4} />
   </mesh>
 
   {/* 5. Tấm mái đỉnh tủ */}
   <mesh position={[0, 2.35, 0]}>
     <boxGeometry args={[1.9, 0.1, 0.6]} />
-    <meshStandardMaterial color="#8B4513" roughness={0.7} />
+    <meshStandardMaterial color="#A0522D" roughness={0.4} metalness={0.1} />
   </mesh>
 
   {/* ========================================================= */}
@@ -2925,29 +2922,29 @@ function Room({
     {/* Sách đứng bên trái */}
     <mesh position={[-0.7, 0.25, 0]}>
       <boxGeometry args={[0.12, 0.5, 0.4]} />
-      <meshStandardMaterial color="#b22222" roughness={0.5} /> {/* Đỏ */}
+      <meshStandardMaterial color="#dc2626" roughness={0.3} /> {/* Đỏ tươi */}
     </mesh>
     <mesh position={[-0.57, 0.23, 0]}>
       <boxGeometry args={[0.1, 0.45, 0.38]} />
-      <meshStandardMaterial color="#1e90ff" roughness={0.5} /> {/* Xanh dương */}
+      <meshStandardMaterial color="#2563eb" roughness={0.3} /> {/* Xanh dương tươi */}
     </mesh>
     <mesh position={[-0.44, 0.26, 0]}>
       <boxGeometry args={[0.13, 0.52, 0.42]} />
-      <meshStandardMaterial color="#daa520" roughness={0.5} /> {/* Vàng */}
+      <meshStandardMaterial color="#eab308" roughness={0.3} /> {/* Vàng tươi */}
     </mesh>
     <mesh position={[-0.29, 0.24, 0]}>
       <boxGeometry args={[0.11, 0.48, 0.39]} />
-      <meshStandardMaterial color="#2e8b57" roughness={0.5} /> {/* Xanh lá */}
+      <meshStandardMaterial color="#16a34a" roughness={0.3} /> {/* Xanh lá tươi */}
     </mesh>
 
     {/* Sách nằm chồng lên nhau bên phải */}
     <mesh position={[0.5, 0.12, 0]} rotation={[0, 0, Math.PI / 12]}>
       <boxGeometry args={[0.35, 0.14, 0.42]} />
-      <meshStandardMaterial color="#483d8b" roughness={0.5} /> {/* Tím than */}
+      <meshStandardMaterial color="#7c3aed" roughness={0.3} />
     </mesh>
     <mesh position={[0.5, 0.26, 0]}>
       <boxGeometry args={[0.32, 0.13, 0.4]} />
-      <meshStandardMaterial color="#8b008b" roughness={0.5} /> {/* Hồng tím */}
+      <meshStandardMaterial color="#db2777" roughness={0.3} />
     </mesh>
   </group>
 
@@ -2955,24 +2952,24 @@ function Room({
   <group position={[0, 0.78, 0]}>
     <mesh position={[-0.6, 0.24, 0]}>
       <boxGeometry args={[0.1, 0.45, 0.38]} />
-      <meshStandardMaterial color="#cd853f" roughness={0.5} /> {/* Nâu cam */}
+      <meshStandardMaterial color="#d97706" roughness={0.3} />
     </mesh>
     <mesh position={[-0.48, 0.22, 0]}>
       <boxGeometry args={[0.12, 0.42, 0.38]} />
-      <meshStandardMaterial color="#4682b4" roughness={0.5} /> {/* Xanh thép */}
+      <meshStandardMaterial color="#0284c7" roughness={0.3} />
     </mesh>
     <mesh position={[-0.34, 0.25, 0]}>
       <boxGeometry args={[0.11, 0.48, 0.4]} />
-      <meshStandardMaterial color="#556b2f" roughness={0.5} /> {/* Xanh rêu */}
+      <meshStandardMaterial color="#65a30d" roughness={0.3} />
     </mesh>
 
     <mesh position={[0.4, 0.23, 0]}>
       <boxGeometry args={[0.1, 0.44, 0.38]} />
-      <meshStandardMaterial color="#dc143c" roughness={0.5} /> {/* Đỏ sẫm */}
+      <meshStandardMaterial color="#e11d48" roughness={0.3} />
     </mesh>
     <mesh position={[0.53, 0.25, 0]}>
       <boxGeometry args={[0.13, 0.48, 0.4]} />
-      <meshStandardMaterial color="#ff8c00" roughness={0.5} /> {/* Cam */}
+      <meshStandardMaterial color="#f97316" roughness={0.3} />
     </mesh>
   </group>
 
@@ -2980,16 +2977,16 @@ function Room({
   <group position={[0, 1.38, 0]}>
     <mesh position={[-0.65, 0.24, 0]}>
       <boxGeometry args={[0.12, 0.46, 0.38]} />
-      <meshStandardMaterial color="#20b2aa" roughness={0.5} /> {/* Xanh ngọc */}
+      <meshStandardMaterial color="#0d9488" roughness={0.3} />
     </mesh>
     <mesh position={[-0.51, 0.22, 0]}>
       <boxGeometry args={[0.1, 0.42, 0.38]} />
-      <meshStandardMaterial color="#9932cc" roughness={0.5} /> {/* Tím */}
+      <meshStandardMaterial color="#9333ea" roughness={0.3} />
     </mesh>
 
     <mesh position={[0.45, 0.23, 0]}>
       <boxGeometry args={[0.11, 0.44, 0.38]} />
-      <meshStandardMaterial color="#b8860b" roughness={0.5} /> {/* Vàng đồng */}
+      <meshStandardMaterial color="#ca8a04" roughness={0.3} />
     </mesh>
   </group>
 
@@ -2997,19 +2994,19 @@ function Room({
   <group position={[0, 1.98, 0]}>
     <mesh position={[-0.55, 0.21, 0]}>
       <boxGeometry args={[0.1, 0.4, 0.36]} />
-      <meshStandardMaterial color="#4169e1" roughness={0.5} /> {/* Xanh hoàng gia */}
+      <meshStandardMaterial color="#3b82f6" roughness={0.3} />
     </mesh>
     <mesh position={[-0.43, 0.23, 0]}>
       <boxGeometry args={[0.11, 0.43, 0.38]} />
-      <meshStandardMaterial color="#a0522d" roughness={0.5} /> {/* Nâu sienna */}
+      <meshStandardMaterial color="#b45309" roughness={0.3} />
     </mesh>
   </group>
 
   {/* 🌟 Tiêu đề tên trường phía trên tủ sách */}
   <Text
     position={[0, 2.65, 0.35]}
-    fontSize={0.23}
-    color="#770707"
+    fontSize={0.25}
+    color="#991b1b"
     anchorX="center"
     anchorY="middle"
     textAlign="center"
