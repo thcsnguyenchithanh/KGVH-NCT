@@ -2866,8 +2866,8 @@ function Room({
         </Text>
       </group>
 
-     <group 
-  position={[11.78, 1.5, 5.8]}  // 🌟 Nâng trục Y lên 1.5 để tủ treo cao lên tường
+    <group 
+  position={[11.78, 1.1, 5.8]}  // 🌟 Đã hạ thấp trục Y xuống 1.1 để tủ vừa tầm hơn
   rotation={[0, -Math.PI / 2, 0]} 
   scale={[1.3, 1.3, 1.3]}        // Phóng to tủ cho nổi bật
 >
