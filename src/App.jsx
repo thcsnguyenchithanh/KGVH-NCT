@@ -55,7 +55,7 @@ export const CONTENT_LIST = [
 ];
 
 const spots1 = CONTENT_LIST.filter(item => item.type === "spot");
-const [spotIndex, setSpotIndex] = useState(0);
+
 
 const spots = [
   { id: 0, name: "Lối vào", position: [0, 1.6, 2.0] },
@@ -3269,7 +3269,7 @@ export default function App() {
       window.removeEventListener("open-map", openMap);
     };
   }, []);
-
+  const [previousSpotIndex, setPreviousSpotIndex] = useState(0);
 
   const moveToSpot = (nextIndex) => {
     if (nextIndex === spotIndex) return;
