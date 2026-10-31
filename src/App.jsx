@@ -54,6 +54,9 @@ export const CONTENT_LIST = [
   },
 ];
 
+const spots1 = CONTENT_LIST.filter(item => item.type === "spot");
+const [spotIndex, setSpotIndex] = useState(0);
+
 const spots = [
   { id: 0, name: "Lối vào", position: [0, 1.6, 2.0] },
   { id: 1, name: "Hình ảnh về Bác Hồ", position: [-8.5, 1.6, -3] },
@@ -3266,7 +3269,7 @@ export default function App() {
       window.removeEventListener("open-map", openMap);
     };
   }, []);
-  const [previousSpotIndex, setPreviousSpotIndex] = useState(0);
+
 
   const moveToSpot = (nextIndex) => {
     if (nextIndex === spotIndex) return;
@@ -4290,7 +4293,7 @@ max-width: 1400px;
       <div className="controls">
                 <div>🖱 Kéo chuột: Xoay góc nhìn 360°</div>     
         <div>📍 Nhấp biển chỉ dẫn: Di chuyển đến khu vực</div>     
-        <div>Vị trí: {spots[spotIndex].name}</div>   
+        <div>Vị trí: {spots1[spotIndex].name}</div>   
       </div>
       {/**ROOM 1 */}
       {showLibrary && (
