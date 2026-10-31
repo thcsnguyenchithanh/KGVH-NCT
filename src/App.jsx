@@ -2867,9 +2867,9 @@ function Room({
       </group>
 
     <group 
-  position={[11.78, 1.1, 5.8]}  // 🌟 Đã hạ thấp trục Y xuống 1.1 để tủ vừa tầm hơn
+  position={[11.78, 1.1, 5.8]}  
   rotation={[0, -Math.PI / 2, 0]} 
-  scale={[1.3, 1.3, 1.3]}        // Phóng to tủ cho nổi bật
+  scale={[1.3, 1.3, 1.3]}        
 >
   {/* 1. Khung tủ bên trái */}
   <mesh position={[-0.9, 1.2, 0]}>
@@ -2913,11 +2913,7 @@ function Room({
     <meshStandardMaterial color="#A0522D" roughness={0.4} metalness={0.1} />
   </mesh>
 
-  {/* ========================================================= */}
-  /* 📚 CÁC CUỐN SÁCH ĐƯỢC XẾP TRÊN CÁC TẦNG KỆ                   */
-  /* ========================================================= */}
-
-  {/* --- Tầng 1 (Dưới cùng) --- */}
+  {/* --- Các tầng sách bên trong --- */}
   <group position={[0, 0.15, 0]}>
     <mesh position={[-0.7, 0.25, 0]}>
       <boxGeometry args={[0.12, 0.5, 0.4]} />
@@ -2935,7 +2931,6 @@ function Room({
       <boxGeometry args={[0.11, 0.48, 0.39]} />
       <meshStandardMaterial color="#16a34a" roughness={0.3} />
     </mesh>
-
     <mesh position={[0.5, 0.12, 0]} rotation={[0, 0, Math.PI / 12]}>
       <boxGeometry args={[0.35, 0.14, 0.42]} />
       <meshStandardMaterial color="#7c3aed" roughness={0.3} />
@@ -2946,7 +2941,6 @@ function Room({
     </mesh>
   </group>
 
-  {/* --- Tầng 2 --- */}
   <group position={[0, 0.78, 0]}>
     <mesh position={[-0.6, 0.24, 0]}>
       <boxGeometry args={[0.1, 0.45, 0.38]} />
@@ -2960,7 +2954,6 @@ function Room({
       <boxGeometry args={[0.11, 0.48, 0.4]} />
       <meshStandardMaterial color="#65a30d" roughness={0.3} />
     </mesh>
-
     <mesh position={[0.4, 0.23, 0]}>
       <boxGeometry args={[0.1, 0.44, 0.38]} />
       <meshStandardMaterial color="#e11d48" roughness={0.3} />
@@ -2971,7 +2964,6 @@ function Room({
     </mesh>
   </group>
 
-  {/* --- Tầng 3 --- */}
   <group position={[0, 1.38, 0]}>
     <mesh position={[-0.65, 0.24, 0]}>
       <boxGeometry args={[0.12, 0.46, 0.38]} />
@@ -2981,14 +2973,12 @@ function Room({
       <boxGeometry args={[0.1, 0.42, 0.38]} />
       <meshStandardMaterial color="#9333ea" roughness={0.3} />
     </mesh>
-
     <mesh position={[0.45, 0.23, 0]}>
       <boxGeometry args={[0.11, 0.44, 0.38]} />
       <meshStandardMaterial color="#ca8a04" roughness={0.3} />
     </mesh>
   </group>
 
-  {/* --- Tầng 4 (Trên cùng) --- */}
   <group position={[0, 1.98, 0]}>
     <mesh position={[-0.55, 0.21, 0]}>
       <boxGeometry args={[0.1, 0.4, 0.36]} />
@@ -3000,10 +2990,10 @@ function Room({
     </mesh>
   </group>
 
-  {/* 🌟 Tiêu đề tên trường phía trên tủ sách */}
+  {/* Tiêu đề tên trường phía trên tủ sách */}
   <Text
     position={[0, 2.65, 0.35]}
-    fontSize={0.22}
+    fontSize={0.25}
     color="#991b1b"
     anchorX="center"
     anchorY="middle"
@@ -3011,6 +3001,25 @@ function Room({
   >
     TỦ SÁCH THCS NGUYỄN CHÍ THANH
   </Text>
+
+  {/* 🌟 6. VÙNG NHẬN DIỆN CLICK (HITBOX VÔ HÌNH PHÍA TRƯỚC TỦ) */}
+  <mesh
+    position={[0, 1.2, 0.32]}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.dispatchEvent(new CustomEvent("open-school-bookshelf"));
+    }}
+    onPointerOver={(e) => {
+      e.stopPropagation();
+      document.body.style.cursor = "pointer";
+    }}
+    onPointerOut={() => {
+      document.body.style.cursor = "default";
+    }}
+  >
+    <planeGeometry args={[1.9, 2.4]} />
+    <meshBasicMaterial visible={false} /> {/* Không hiển thị màu, chỉ dùng để bắt sự kiện click */}
+  </mesh>
 </group>
 
        
