@@ -4291,7 +4291,8 @@ max-width: 1400px;
       <div className="controls">
                 <div>🖱 Kéo chuột: Xoay góc nhìn 360°</div>     
         <div>📍 Nhấp biển chỉ dẫn: Di chuyển đến khu vực</div>     
-        <div>Vị trí: {spots[spotIndex].name}</div>   
+     
+          {/** --------   <div>Vị trí: {spots[spotIndex].name}</div>   ---------------------------------------------------------------------------------------*/}
       </div>
       {/**ROOM 1 */}
       {showLibrary && (
