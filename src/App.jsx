@@ -2866,10 +2866,10 @@ function Room({
         </Text>
       </group>
 
-      <group 
-  position={[11.78, 0, 5.8]}  
+     <group 
+  position={[11.78, 1.5, 5.8]}  // 🌟 Nâng trục Y lên 1.5 để tủ treo cao lên tường
   rotation={[0, -Math.PI / 2, 0]} 
-  scale={[1.3, 1.3, 1.3]} // 🌟 Phóng to toàn bộ tủ sách lên 1.3 lần
+  scale={[1.3, 1.3, 1.3]}        // Phóng to tủ cho nổi bật
 >
   {/* 1. Khung tủ bên trái */}
   <mesh position={[-0.9, 1.2, 0]}>
@@ -2917,27 +2917,25 @@ function Room({
   /* 📚 CÁC CUỐN SÁCH ĐƯỢC XẾP TRÊN CÁC TẦNG KỆ                   */
   /* ========================================================= */}
 
-  {/* --- Tầng 1 (Dưới cùng): Sách đứng và một chồng sách nằm ngang --- */}
+  {/* --- Tầng 1 (Dưới cùng) --- */}
   <group position={[0, 0.15, 0]}>
-    {/* Sách đứng bên trái */}
     <mesh position={[-0.7, 0.25, 0]}>
       <boxGeometry args={[0.12, 0.5, 0.4]} />
-      <meshStandardMaterial color="#dc2626" roughness={0.3} /> {/* Đỏ tươi */}
+      <meshStandardMaterial color="#dc2626" roughness={0.3} />
     </mesh>
     <mesh position={[-0.57, 0.23, 0]}>
       <boxGeometry args={[0.1, 0.45, 0.38]} />
-      <meshStandardMaterial color="#2563eb" roughness={0.3} /> {/* Xanh dương tươi */}
+      <meshStandardMaterial color="#2563eb" roughness={0.3} />
     </mesh>
     <mesh position={[-0.44, 0.26, 0]}>
       <boxGeometry args={[0.13, 0.52, 0.42]} />
-      <meshStandardMaterial color="#eab308" roughness={0.3} /> {/* Vàng tươi */}
+      <meshStandardMaterial color="#eab308" roughness={0.3} />
     </mesh>
     <mesh position={[-0.29, 0.24, 0]}>
       <boxGeometry args={[0.11, 0.48, 0.39]} />
-      <meshStandardMaterial color="#16a34a" roughness={0.3} /> {/* Xanh lá tươi */}
+      <meshStandardMaterial color="#16a34a" roughness={0.3} />
     </mesh>
 
-    {/* Sách nằm chồng lên nhau bên phải */}
     <mesh position={[0.5, 0.12, 0]} rotation={[0, 0, Math.PI / 12]}>
       <boxGeometry args={[0.35, 0.14, 0.42]} />
       <meshStandardMaterial color="#7c3aed" roughness={0.3} />
@@ -2948,7 +2946,7 @@ function Room({
     </mesh>
   </group>
 
-  {/* --- Tầng 2: Các dãy sách đứng đan xen màu sắc --- */}
+  {/* --- Tầng 2 --- */}
   <group position={[0, 0.78, 0]}>
     <mesh position={[-0.6, 0.24, 0]}>
       <boxGeometry args={[0.1, 0.45, 0.38]} />
@@ -2973,7 +2971,7 @@ function Room({
     </mesh>
   </group>
 
-  {/* --- Tầng 3: Kệ sách trưng bày điểm nhấn --- */}
+  {/* --- Tầng 3 --- */}
   <group position={[0, 1.38, 0]}>
     <mesh position={[-0.65, 0.24, 0]}>
       <boxGeometry args={[0.12, 0.46, 0.38]} />
@@ -2990,7 +2988,7 @@ function Room({
     </mesh>
   </group>
 
-  {/* --- Tầng 4 (Trên cùng): Sách gọn gàng --- */}
+  {/* --- Tầng 4 (Trên cùng) --- */}
   <group position={[0, 1.98, 0]}>
     <mesh position={[-0.55, 0.21, 0]}>
       <boxGeometry args={[0.1, 0.4, 0.36]} />
@@ -3005,7 +3003,7 @@ function Room({
   {/* 🌟 Tiêu đề tên trường phía trên tủ sách */}
   <Text
     position={[0, 2.65, 0.35]}
-    fontSize={0.25}
+    fontSize={0.22}
     color="#991b1b"
     anchorX="center"
     anchorY="middle"
