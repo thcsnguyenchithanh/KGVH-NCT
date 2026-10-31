@@ -54,8 +54,6 @@ export const CONTENT_LIST = [
   },
 ];
 
-const spots1 = CONTENT_LIST.filter(item => item.type === "spot");
-
 
 const spots = [
   { id: 0, name: "Lối vào", position: [0, 1.6, 2.0] },
@@ -4293,7 +4291,7 @@ max-width: 1400px;
       <div className="controls">
                 <div>🖱 Kéo chuột: Xoay góc nhìn 360°</div>     
         <div>📍 Nhấp biển chỉ dẫn: Di chuyển đến khu vực</div>     
-        <div>Vị trí: {spots1[spotIndex].name}</div>   
+        <div>Vị trí: {spots[spotIndex].name}</div>   
       </div>
       {/**ROOM 1 */}
       {showLibrary && (
