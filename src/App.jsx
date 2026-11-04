@@ -1616,13 +1616,12 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
-          {/* Cột trụ trang trí 2 bên */}
+          {/* Cột trụ trang trí 2 bên (Đã sửa sạch lỗi cú pháp) */}
           <mesh position={[-1.25, 1.68, 1.3]}>
             <boxGeometry args={[0.2, 3.04, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
           <mesh position={[1.25, 1.68, 1.3]}>
-            <boxGeometry args={[0.2, 1.68, 1.3]}>
             <boxGeometry args={[0.2, 3.04, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
@@ -1654,7 +1653,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             {space.title}
           </Text>
 
-          {/* 🌟 BẢNG THÔNG TIN TƯƠNG TÁC NỔI BẬT (ĐÃ NÂNG CẤP GIAO DIỆN) */}
+          {/* BẢNG THÔNG TIN TƯƠNG TÁC NỔI BẬT */}
           <group
             position={[0, 1.6, 1.0]}
             onClick={(e) => {
@@ -1668,22 +1667,21 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               document.body.style.cursor = "auto";
             }}
           >
-            {/* 1. Viền ngoài nổi màu vàng gỗ sang trọng */}
+            {/* Viền ngoài nổi màu gỗ sang trọng */}
             <RoundedBox args={[1.8, 1.7, 0.08]} radius={0.06} smoothness={4}>
               <meshStandardMaterial color="#b45309" roughness={0.4} />
             </RoundedBox>
 
-            {/* 2. Tấm nền trắng kem phía trong nhô nhẹ lên */}
+            {/* Tấm nền trắng kem phía trong */}
             <RoundedBox position={[0, 0, 0.03]} args={[1.68, 1.58, 0.06]} radius={0.04} smoothness={4}>
               <meshStandardMaterial color="#ffffff" roughness={0.3} />
             </RoundedBox>
 
-            {/* 3. Tiêu đề Tên Phòng */}
+            {/* Tiêu đề Tên Phòng */}
             <Text
               position={[0, 0.35, 0.07]}
               fontSize={0.26}
               color="#991b1b"
-              fontStyle="bold"
               anchorX="center"
               anchorY="middle"
               material-toneMapped={false}
@@ -1691,7 +1689,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               {`PHÒNG ${space.id}`}
             </Text>
 
-            {/* 4. Khối nút bấm CTA "NHẤN ĐỂ THAM QUAN" nổi bật */}
+            {/* Khối nút bấm CTA "NHẤN ĐỂ THAM QUAN" */}
             <group position={[0, -0.3, 0.07]}>
               <RoundedBox args={[1.4, 0.38, 0.05]} radius={0.08} smoothness={4}>
                 <meshStandardMaterial color="#b91c1c" roughness={0.3} />
