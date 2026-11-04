@@ -1413,7 +1413,7 @@ function SecondRoomBanners() {
               onPointerOver={() => { document.body.style.cursor = "pointer"; }}
               onPointerOut={() => { document.body.style.cursor = "default"; }}
             >
-             <planeGeometry args={[1.8, 2.5]} />
+              <planeGeometry args={[1.6, 2.3]} />
               <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
             </mesh>
           </group>
@@ -2630,39 +2630,38 @@ function Room({
             {/* Trần */}   
       <mesh position={[0, ROOM.height, 0]} rotation={[Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[ROOM.width, ROOM.depth]} />
-                <meshStandardMaterial color="#f8fafc" side={THREE.DoubleSide} />
+                <meshStandardMaterial color="#f5f1e8" side={THREE.DoubleSide} />
            
       </mesh>
       {/* Hoa văn trống đồng trên trần sảnh chính */}
       <CeilingDrum y={ROOM.height - 0.02} size={6} />      {/* Tường sau */}   
       <mesh position={[0, ROOM.height / 2, -ROOM.depth / 2]}>
-  <boxGeometry args={[ROOM.width, ROOM.height, 0.3]} />
-  {/* ĐỔI THÀNH DÒNG NÀY: */}
-  <meshStandardMaterial color="#f8fafc" roughness={0.9} />
-</mesh>
+                <boxGeometry args={[ROOM.width, ROOM.height, 0.3]} />
+                <meshStandardMaterial color="#eee6d7" />   
+      </mesh>
                   {/* Tường phải của sảnh chính */}
       <mesh position={[12, ROOM.height / 2, 0]}>
         <boxGeometry args={[0.3, ROOM.height, ROOM.depth]} />
-       <meshStandardMaterial color="#f8fafc" roughness={0.9} />
+        <meshStandardMaterial color="#eee6d7" />
       </mesh>
       {/* Vách trước Room 1 */}
       <mesh position={[0, ROOM.height / 2, ROOM.depth / 2]}>
         <boxGeometry args={[ROOM.width, ROOM.height, 0.3]} />
-        <meshStandardMaterial color="#f8fafc" roughness={0.9} />
+        <meshStandardMaterial color="#eee6d7" />
       </mesh>
       {/* Tường trái: chừa lối cửa tại z = 5.75 */}
       <mesh position={[-12, ROOM.height / 2, -2.25]}>
         <boxGeometry args={[0.3, ROOM.height, 13.5]} />
-      <meshStandardMaterial color="#f8fafc" roughness={0.9} />
+        <meshStandardMaterial color="#eee6d7" />
       </mesh>
       <mesh position={[-12, ROOM.height / 2, 8]}>
         <boxGeometry args={[0.3, ROOM.height, 2]} />
-        <meshStandardMaterial color="#f8fafc" />
+        <meshStandardMaterial color="#eee6d7" />
       </mesh>
       {/* Phần tường phía trên cửa */}
       <mesh position={[-12, 4, 5.75]}>
         <boxGeometry args={[0.3, 3, 2.5]} />
-        <meshStandardMaterial color="#f8fafc" />
+        <meshStandardMaterial color="#eee6d7" />
       </mesh>
       {/* Khung cửa */}
       <group position={[-11.82, 0, 5.75]}>
