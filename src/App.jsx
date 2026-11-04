@@ -1602,43 +1602,42 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             document.body.style.cursor = "auto";
           }}
         >
-          {/* Sàn gian trưng bày (Mở rộng diện tích và dùng màu gỗ sáng sạch sẽ) */}
+          {/* Sàn gian trưng bày (Mở rộng rộng rãi hơn) */}
           <mesh position={[0, 0.08, 0]}>
-            <boxGeometry args={[3.6, 0.16, 3.0]} />
+            <boxGeometry args={[3.8, 0.16, 3.2]} />
             <meshStandardMaterial color="#6d4c41" roughness={0.7} />
           </mesh>
 
-          {/* Vách sau (Tăng cao lên 3.2, rộng 3.6 và đổi màu trắng sáng Light Theme) */}
-          <mesh position={[0, 1.6, -1.5]}>
-            <boxGeometry args={[3.6, 3.2, 0.15]} />
+          {/* Vách sau */}
+          <mesh position={[0, 1.6, -1.6]}>
+            <boxGeometry args={[3.8, 3.2, 0.15]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách trái */}
-          <mesh position={[-1.725, 1.6, 0]}>
-            <boxGeometry args={[0.15, 3.2, 3.0]} />
+          <mesh position={[-1.825, 1.6, 0]}>
+            <boxGeometry args={[0.15, 3.2, 3.2]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách phải */}
-          <mesh position={[1.725, 1.6, 0]}>
-            <boxGeometry args={[0.15, 3.2, 3.0]} />
+          <mesh position={[1.825, 1.6, 0]}>
+            <boxGeometry args={[0.15, 3.2, 3.2]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
-
-          {/* Cột trụ trang trí 2 bên góc trước tạo chiều sâu kiến trúc */}
-          <mesh position={[-1.725, 1.6, 1.4]}>
+        {/* Cột trụ trang trí 2 bên (Được đặt gọn gàng, tách biệt tọa độ Z để tránh lỗi sọc bề mặt) */}
+          <mesh position={[-1.75, 1.6, 1.3]}>
             <boxGeometry args={[0.2, 3.2, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
-          <mesh position={[1.725, 1.6, 1.4]}>
+          <mesh position={[1.75, 1.6, 1.3]}>
             <boxGeometry args={[0.2, 3.2, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
 
-          {/* Bảng tên lớn phía trên (Đổi sang màu xanh than lịch lãm hiện đại) */}
-          <mesh position={[0, 3.0, 1.42]}>
-            <boxGeometry args={[3.2, 0.5, 0.15]} />
+          {/* Bảng tên lớn phía trên (Đẩy hẳn ra phía trước Z = 1.45 để không bị lẹm vào cột) */}
+          <mesh position={[0, 3.0, 1.45]}>
+            <boxGeometry args={[3.2, 0.5, 0.12]} />
             <meshStandardMaterial
               color="#334155"
               metalness={0.2}
@@ -1647,7 +1646,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           </mesh>
 
           <Text
-            position={[0, 3.0, 1.5]}
+            position={[0, 3.0, 1.52]}
             fontSize={0.22}
             color="#fef08a"
             anchorX="center"
