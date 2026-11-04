@@ -3128,7 +3128,8 @@ function Scene({
           )
         }
       />
-      {room2Active && !insideSpaceRoom && (
+      {/* 🌟 Thay đổi điều kiện ở đây: Luôn hiển thị SecondRoom (trừ khi đang xem chi tiết gian hàng insideSpaceRoom) */}
+      {!insideSpaceRoom && (
         <SecondRoom
           onSpaceClick={onSpaceClick}
           setKhu1Content={setKhu1Content}
