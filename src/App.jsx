@@ -2625,7 +2625,7 @@ function Room({
       {/* Sàn */}   
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
                 <planeGeometry args={[ROOM.width, ROOM.depth]} />
-                <meshStandardMaterial color="#4f3a25" />   
+  <meshStandardMaterial color="#5c4033" roughness={0.7} />   
       </mesh>
             {/* Trần */}   
       <mesh position={[0, ROOM.height, 0]} rotation={[Math.PI / 2, 0, 0]}>
@@ -2636,32 +2636,33 @@ function Room({
       {/* Hoa văn trống đồng trên trần sảnh chính */}
       <CeilingDrum y={ROOM.height - 0.02} size={6} />      {/* Tường sau */}   
       <mesh position={[0, ROOM.height / 2, -ROOM.depth / 2]}>
-                <boxGeometry args={[ROOM.width, ROOM.height, 0.3]} />
-                <meshStandardMaterial color="#eee6d7" />   
-      </mesh>
+  <boxGeometry args={[ROOM.width, ROOM.height, 0.3]} />
+  {/* ĐỔI THÀNH DÒNG NÀY: */}
+  <meshStandardMaterial color="#f8fafc" roughness={0.9} />
+</mesh>
                   {/* Tường phải của sảnh chính */}
       <mesh position={[12, ROOM.height / 2, 0]}>
         <boxGeometry args={[0.3, ROOM.height, ROOM.depth]} />
-        <meshStandardMaterial color="#eee6d7" />
+       <meshStandardMaterial color="#f8fafc" roughness={0.9} />
       </mesh>
       {/* Vách trước Room 1 */}
       <mesh position={[0, ROOM.height / 2, ROOM.depth / 2]}>
         <boxGeometry args={[ROOM.width, ROOM.height, 0.3]} />
-        <meshStandardMaterial color="#eee6d7" />
+        <meshStandardMaterial color="#f8fafc" roughness={0.9} />
       </mesh>
       {/* Tường trái: chừa lối cửa tại z = 5.75 */}
       <mesh position={[-12, ROOM.height / 2, -2.25]}>
         <boxGeometry args={[0.3, ROOM.height, 13.5]} />
-        <meshStandardMaterial color="#eee6d7" />
+      <meshStandardMaterial color="#f8fafc" roughness={0.9} />
       </mesh>
       <mesh position={[-12, ROOM.height / 2, 8]}>
         <boxGeometry args={[0.3, ROOM.height, 2]} />
-        <meshStandardMaterial color="#eee6d7" />
+        <meshStandardMaterial color="#f8fafc" />
       </mesh>
       {/* Phần tường phía trên cửa */}
       <mesh position={[-12, 4, 5.75]}>
         <boxGeometry args={[0.3, 3, 2.5]} />
-        <meshStandardMaterial color="#eee6d7" />
+        <meshStandardMaterial color="#f8fafc" />
       </mesh>
       {/* Khung cửa */}
       <group position={[-11.82, 0, 5.75]}>
