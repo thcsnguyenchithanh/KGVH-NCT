@@ -1599,22 +1599,22 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             <meshStandardMaterial color="#6d4c41" roughness={0.7} />
           </mesh>
 
-          {/* 🌟 Vách sau: Đổi sang màu xám nhạt hiện đại (#e2e8f0) để không bị trùng với tường nền */}
+          {/* Vách sau */}
           <mesh position={[0, 1.68, -1.6]}>
             <boxGeometry args={[2.8, 3.04, 0.15]} />
-            <meshStandardMaterial color="#e2e8f0" roughness={0.8} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách trái */}
           <mesh position={[-1.325, 1.68, 0]}>
             <boxGeometry args={[0.15, 3.04, 3.0]} />
-            <meshStandardMaterial color="#cbd5e1" roughness={0.8} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách phải */}
           <mesh position={[1.325, 1.68, 0]}>
             <boxGeometry args={[0.15, 3.04, 3.0]} />
-            <meshStandardMaterial color="#cbd5e1" roughness={0.8} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Cột trụ trang trí 2 bên */}
@@ -1637,13 +1637,14 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             />
           </mesh>
 
+          {/* 🌟 Tiêu đề tên phòng (Đã điều chỉnh fontSize và maxWidth để không bị xuống dòng) */}
           <Text
             position={[0, 3.0, 1.52]}
-            fontSize={0.15}
+            fontSize={0.15}         /* Giảm kích thước chữ giúp tiêu đề dài xếp đủ trên 1 dòng */
             color="#fef08a"
             anchorX="center"
             anchorY="middle"
-            maxWidth={2.3}
+            maxWidth={2.3}          /* Tăng khung chứa chữ tối đa */
             textAlign="center"
             outlineWidth={0.003}
             outlineColor="#1e293b"
@@ -1654,7 +1655,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             {space.title}
           </Text>
 
-          {/* BẢNG THÔNG TIN TƯƠNG TÁC PHONG CÁCH HIỆN ĐẠI */}
+          {/* BẢNG THÔNG TIN TƯƠNG TÁC PHONG CÁCH HIỆN ĐẠI (MINIMALIST / TECH) */}
           <group
             position={[0, 1.6, 1.0]}
             onClick={(e) => {
@@ -1668,17 +1669,17 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               document.body.style.cursor = "auto";
             }}
           >
-            {/* Viền ngoài mỏng màu xám bạc */}
+            {/* 1. Viền ngoài mỏng màu xám bạc */}
             <RoundedBox args={[1.7, 1.5, 0.02]} radius={0.08} smoothness={4}>
-              <meshStandardMaterial color="#94a3b8" roughness={0.2} metalness={0.1} />
+              <meshStandardMaterial color="#cbd5e1" roughness={0.2} metalness={0.1} />
             </RoundedBox>
 
-            {/* Tấm nền trắng tinh khôi */}
+            {/* 2. Tấm nền trắng tinh khôi */}
             <RoundedBox position={[0, 0, 0.015]} args={[1.64, 1.44, 0.02]} radius={0.06} smoothness={4}>
               <meshStandardMaterial color="#ffffff" roughness={0.1} />
             </RoundedBox>
 
-            {/* Tiêu đề Tên Phòng */}
+            {/* 3. Tiêu đề Tên Phòng */}
             <Text
               position={[0, 0.3, 0.03]}
               fontSize={0.24}
@@ -1690,7 +1691,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               {`PHÒNG ${space.id}`}
             </Text>
 
-            {/* Nút bấm Modern Tech màu đen tuyền sang trọng */}
+            {/* 4. Nút bấm Modern Tech màu đen tuyền sang trọng */}
             <group position={[0, -0.28, 0.03]}>
               <RoundedBox args={[1.35, 0.36, 0.02]} radius={0.08} smoothness={4}>
                 <meshStandardMaterial color="#0f172a" roughness={0.3} />
@@ -1739,54 +1740,54 @@ function SpaceInteriorRoom({
 
   return (
     <group position={[-22, 0, 5.75]}>
-      {/* ================= TƯỜNG ĐỐI DIỆN (BACK WALL) ================= */}
-      <group position={[0, 2, -3.89]} rotation={[0, 0, 0]}>
+      {/* Tường đối diện: Đưa vào group chung để ghim chặt vào tường chính giữa */}
+      <group position={[0, 2, -3.82]} rotation={[0, 0, 0]}>
         <mesh position={[0, 0, -0.01]}>
-          <planeGeometry args={[9.8, 3.8]} />
+          <planeGeometry args={[9, 3.8]} />
           <meshStandardMaterial color="#f4efe6" roughness={0.9} />
         </mesh>
 
-        {/* Hiển thị ảnh phủ kín tường cho các phòng thông thường (1, 4, 5, 6...) */}
+        {/* 1. Ảnh tường đối diện (Dành cho Khu 1, 3 và Khu 7) */}
         {space.id !== 2 &&
-          space.id !== 3 &&
           space.id !== 7 &&
-          space.id !== 8 && (
+          space.id !== 8 &&
+          space.id !== 5 &&
+          space.id !== 6 && (
             <WallImage
               src={
-                space.id === 6
-                  ? SPACE_CONTENT[6].bgWall6
-                  : space.id === 5
-                    ? SPACE_CONTENT[5].bgWall5
-                    : space.id === 4
-                      ? SPACE_CONTENT[4].bgWall4
-                      : space.id === 7
-                        ? SPACE_CONTENT[7].bgWall7
-                        : SPACE_CONTENT[1].imageBg1
+                space.id === 7
+                  ? SPACE_CONTENT[7].bgWall7
+                  : space.id === 3
+                    ? SPACE_CONTENT[3].bgWall
+                    : SPACE_CONTENT[1].imageBg1
               }
-              alt={`Tường giữa Phòng ${space.id}`}
+              alt="Hình tường đối diện"
               position={[0, 0, 0.01]}
-              width={9.6}
-              height={3.6}
+              width={7.5}
+              height={3.2}
             />
           )}
 
-        {/* KHU 7: Hiển thị video nhúng bám sát tường */}
+        {/* KHU 7: Hiển thị ảnh nền bgWall7 kết hợp khung video7 ở giữa */}
         {space.id === 7 && (
           <>
+            {/* Ảnh nền tường giữa Khu 7 */}
             <WallImage
               src={SPACE_CONTENT[7].bgWall7}
               alt="Nền tường giữa Khu 7"
               position={[0, 0, 0.01]}
-              width={9.6}
-              height={3.6}
+              width={7.5}
+              height={3.2}
             />
+
+            {/* Khung chứa video7 nhúng trực tiếp bám sát tường giữa */}
             <Html
-              position={[0, -0.2, 0.03]}
+              position={[0, -0.2, 0.03]} // Nổi lên một chút so với ảnh nền
               transform
-              distanceFactor={1.5}
-              occlude /* Khóa lớp không gian 3D, tránh đè lên UI DOM */
+              distanceFactor={1.5} // Điều chỉnh độ lớn hiển thị trong không gian 3D
+              occlude
               style={{
-                width: "960px",
+                width: "960px", // Kích thước khung video (có thể chỉnh lại tuỳ ý)
                 height: "540px",
                 overflow: "hidden",
                 border: "3px solid #70472e",
@@ -1808,31 +1809,49 @@ function SpaceInteriorRoom({
             </Html>
           </>
         )}
-
-        {/* Xử lý tương tác click phóng to cho Phòng 4, 5, 6 */}
         {(space.id === 6 || space.id === 5 || space.id === 4) && (
           <group position={[0, 0, 0.01]}>
+            {/* 1. Hiển thị ảnh tường 3D bình thường */}
+            <WallImage
+              src={
+                space.id === 6
+                  ? SPACE_CONTENT[6].bgWall6
+                  : space.id === 5
+                    ? SPACE_CONTENT[5].bgWall5
+                    : SPACE_CONTENT[4].bgWall4
+              }
+              alt={`Nền tường giữa Khu ${space.id}`}
+              position={[0, 0, 0.01]}
+              width={7.5}
+              height={3.2}
+            />
+
+            {/* 2. Lớp phủ Html đè lên tường để bắt sự kiện click chính xác */}
             <Html
               position={[0, 0, 0.02]}
               transform
               distanceFactor={1.5}
-              occlude
               style={{
-                width: "960px",
-                height: "360px",
-                pointerEvents: "auto",
+                width: "750px", // Khớp chính xác với chiều rộng tường (7.5 đơn vị 3D)
+                height: "320px", // Khớp chính xác với chiều cao tường (3.2 đơn vị 3D)
+                pointerEvents: "auto", // Cho phép nhận sự kiện chuột
               }}
             >
               <div
                 onMouseDown={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
+
+                  // Lấy đúng dữ liệu theo từng phòng (5 hoặc 6)
+                  // Lấy đúng đường dẫn ảnh nền tường giữa tùy theo ID phòng hiện tại
                   const bgSrc =
                     space.id === 6
                       ? SPACE_CONTENT[6].bgWall6
                       : space.id === 5
                         ? SPACE_CONTENT[5].bgWall5
                         : SPACE_CONTENT[4].bgWall4;
+
+                  // Lấy đúng đường dẫn file audio thuyết minh tương ứng
                   const audioSrc =
                     space.id === 6
                       ? SPACE_CONTENT[6].audioBg6
@@ -1840,6 +1859,7 @@ function SpaceInteriorRoom({
                         ? SPACE_CONTENT[5].audioBg5
                         : SPACE_CONTENT[4].audioBg4;
 
+                  // Mở phóng to ảnh
                   window.dispatchEvent(
                     new CustomEvent("open-wall-image", {
                       detail: {
@@ -1848,6 +1868,8 @@ function SpaceInteriorRoom({
                       },
                     }),
                   );
+
+                  // Phát audio tương ứng và tự động ngắt âm thanh khác
                   if (window.setActiveAudioGlobal) {
                     window.setActiveAudioGlobal(audioSrc);
                   }
@@ -1856,21 +1878,75 @@ function SpaceInteriorRoom({
                   width: "100%",
                   height: "100%",
                   cursor: "pointer",
-                  background: "rgba(0, 0, 0, 0.01)",
+                  background: "rgba(0, 0, 0, 0.01)", // <--- ĐIỂM QUAN TRỌNG: Giúp bắt sự kiện click ngay từ lần đầu tiên!
                 }}
                 title="Nhấn để nghe thuyết minh và phóng to ảnh"
               />
             </Html>
           </group>
         )}
+        {/* KHU 8: Tường giữa hiển thị Banner và Video nhúng chuẩn mẫu */}
+        {space.id === 8 && (
+          <>
+            {/* Banner đỏ phía trên tường giữa */}
+            <mesh position={[0, 1.4, 0.01]}>
+              <planeGeometry args={[8.6, 0.7]} />
+              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
+            </mesh>
+            <Text
+              position={[0, 1.4, 0.02]}
+              fontSize={0.24}
+              color="#ffd700"
+              anchorX="center"
+              anchorY="middle"
+            >
+              BÁC HỒ TRONG TRÁI TIM THẦY VÀ TRÒ NHÀ TRƯỜNG
+            </Text>
 
-        {/* KHU 2: Padlet tường đối diện */}
+            {/* Khung video chính giữa */}
+            {!wallImageFull && !isVideoHidden && (
+              <group
+                position={[0, -0.2, 0.02]}
+                onClick={() =>
+                  onOpenVideo && onOpenVideo(SPACE_CONTENT[8].video8)
+                }
+              >
+                <Html
+                  position={[0, -0.2, 0.05]}
+                  transform
+                  distanceFactor={1.5}
+                  occlude
+                  style={{
+                    width: "1250px",
+  height: "703px",
+                    overflow: "hidden",
+                    border: "2px solid #ffd700",
+                    borderRadius: "6px",
+                    background: "#000",
+                    pointerEvents: "auto",
+                  }}
+                >
+                  <div style={{ width: "100%", height: "100%" }}>
+                    <iframe
+                      src={SPACE_CONTENT[8].video8}
+                      title="Thước phim nhà trường"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                      style={{ width: "100%", height: "100%", border: 0 }}
+                    />
+                  </div>
+                </Html>
+              </group>
+            )}
+          </>
+        )}
+
+        {/* 2. Padlet trên tường đối diện (Dành riêng cho Khu 2) */}
         {space.id === 2 && !isPadletFullScreen && (
           <Html
-            position={[0, 0, 0.04]}
+            position={[0, 0, 0.04]} // Áp sát mặt tường, nằm đè lên trên nền
             transform
             distanceFactor={2}
-            occlude
             style={{
               width: "1280px",
               height: "720px",
@@ -1882,7 +1958,9 @@ function SpaceInteriorRoom({
               pointerEvents: "auto",
             }}
           >
-            <div style={{ width: "100%", height: "100%", position: "relative" }}>
+            <div
+              style={{ width: "100%", height: "100%", position: "relative" }}
+            >
               <iframe
                 src={SPACE_CONTENT[2].padlet}
                 title="Padlet Khu 2"
@@ -1895,6 +1973,7 @@ function SpaceInteriorRoom({
                   pointerEvents: "none",
                 }}
               />
+
               <button
                 onPointerDown={(e) => e.stopPropagation()}
                 onMouseDown={(e) => e.stopPropagation()}
@@ -1926,15 +2005,34 @@ function SpaceInteriorRoom({
         )}
       </group>
 
-      {/* ================= TƯỜNG TRÁI (LEFT WALL) ================= */}
-      <group position={[-4.89, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+      {/* Tường trái:  */}
+      <group position={[-4.82, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
         <mesh position={[0, 0, -0.02]}>
-          <planeGeometry args={[7.8, 3.8]} />
-          <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+          <planeGeometry args={[6.5, 3.8]} />
+          {space.id === 3 ? (
+          <meshBasicMaterial map={bgTextureid3} side={THREE.DoubleSide} />
+    ) : (
+      <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+    )}
         </mesh>
 
-        {space.id === 6 || space.id === 5 || space.id === 4 ? (
+        {space.id === 3 ? (
+          <>
+            {SPACE_CONTENT[3].topics.map((topic, index) => (
+              <TopicMeshCard
+                key={topic.id}
+                topic={topic}
+                index={index}
+                onClick={(t) => {
+          // Cho phép truyền dữ liệu chủ đề ra ngoài cho tất cả các ID (1 đến 6)
+          setSelectedKhu3Topic(t);
+        }}
+              />
+            ))}
+          </>
+        ) : space.id === 6 || space.id === 5 || space.id === 4 ? (
           <group position={[0, 0, 0]}>
+            {/* 1. Hiển thị ảnh tường trái 3D */}
             <WallImage
               src={
                 space.id === 6
@@ -1943,21 +2041,26 @@ function SpaceInteriorRoom({
                     ? SPACE_CONTENT[5].imageTrai5
                     : SPACE_CONTENT[4].imageTrai4
               }
-              alt={`Tường trái Phòng ${space.id}`}
+              alt={`Hình tường trái Phòng ${space.id}`}
               position={[0, 0, 0]}
-              width={7.6}
-              height={3.6}
+              width={6.5}
+              height={3.8}
             />
+
+            {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
             <mesh
               position={[0, 0, 0.02]}
               onClick={(e) => {
                 e.stopPropagation();
+
+                const currentRoomId = space.id;
                 const imgSrc =
                   space.id === 6
                     ? SPACE_CONTENT[6].imageTrai6
                     : space.id === 5
                       ? SPACE_CONTENT[5].imageTrai5
                       : SPACE_CONTENT[4].imageTrai4;
+
                 const audioSrc =
                   space.id === 6
                     ? SPACE_CONTENT[6].audioTrai6
@@ -1965,6 +2068,7 @@ function SpaceInteriorRoom({
                       ? SPACE_CONTENT[5].audioTrai5
                       : SPACE_CONTENT[4].audioTrai4;
 
+                // Mở phóng to ảnh
                 window.dispatchEvent(
                   new CustomEvent("open-wall-image", {
                     detail: {
@@ -1973,6 +2077,8 @@ function SpaceInteriorRoom({
                     },
                   }),
                 );
+
+                // Phát audio thuyết minh ngay lập tức
                 if (window.setActiveAudioGlobal) {
                   window.setActiveAudioGlobal(audioSrc);
                 }
@@ -1984,10 +2090,68 @@ function SpaceInteriorRoom({
                 document.body.style.cursor = "default";
               }}
             >
-              <planeGeometry args={[7.6, 3.6]} />
+              <planeGeometry args={[6.5, 3.8]} />
               <meshBasicMaterial transparent opacity={0} />
             </mesh>
           </group>
+        ) : space.id === 8 ? (
+          // KHU 8: Tường trái - KỂ CHUYỆN VỀ BÁC (Banner + 6 ảnh 2 hàng)
+          <>
+            <mesh position={[0, 1.4, 0.01]}>
+              <planeGeometry args={[6.2, 0.7]} />
+              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
+            </mesh>
+            <Text
+              position={[0, 1.4, 0.02]}
+              fontSize={0.28}
+              color="#ffd700"
+              anchorX="center"
+              anchorY="middle"
+            >
+              KỂ CHUYỆN VỀ BÁC
+            </Text>
+
+            <group position={[0, -0.3, 0.01]}>
+              {SPACE_CONTENT[8].imageTrai8.map((imgSrc, idx) => {
+                const col = idx % 3;
+                const row = Math.floor(idx / 3);
+                const xPos = -1.8 + col * 1.8; // Đã thêm dấu nhân *
+                const yPos = row === 0 ? 0.6 : -0.6;
+
+                return (
+                  <group
+                    key={`trai8-${idx}`}
+                    position={[xPos, yPos, 0]}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
+                    }}
+                    onPointerOver={() => {
+                      document.body.style.cursor = "pointer";
+                    }}
+                    onPointerOut={() => {
+                      document.body.style.cursor = "default";
+                    }}
+                  >
+                    {/* 1. Khung tranh gỗ (nằm ở gốc z = 0) */}
+                    <mesh position={[0, 0, 0]}>
+                      <boxGeometry args={[1.65, 1.15, 0.02]} />
+                      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+                    </mesh>
+
+                    {/* 2. Mặt ảnh đẩy hẳn ra phía trước (z = 0.025) để tránh lỗi chớp giật */}
+                    <WallImage
+                      src={imgSrc}
+                      alt={`Kể chuyện về Bác ${idx + 1}`}
+                      position={[0, 0, 0.025]}
+                      width={1.55}
+                      height={1.05}
+                    />
+                  </group>
+                );
+              })}
+            </group>
+          </>
         ) : (
           <WallImage
             src={
@@ -1995,27 +2159,29 @@ function SpaceInteriorRoom({
                 ? SPACE_CONTENT[7].imageTrai7
                 : space.id === 2
                   ? SPACE_CONTENT[2].imageTrai2
-                  : space.id === 1
-                    ? SPACE_CONTENT[1].imageTrai1
-                    : SPACE_CONTENT[space.id]?.imageTrai || SPACE_CONTENT[1].imageTrai1
+                  : SPACE_CONTENT[1].imageTrai1
             }
             alt="Hình tường trái"
             position={[0, 0, 0]}
-            width={7.6}
-            height={3.6}
+            width={6.5}
+            height={3.8}
           />
         )}
       </group>
 
-      {/* ================= TƯỜNG PHẢI (RIGHT WALL) ================= */}
-      <group position={[4.89, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <mesh position={[0, 0, -0.02]}>
-          <planeGeometry args={[7.8, 3.8]} />
-          <meshStandardMaterial color="#f4efe6" roughness={0.9} />
-        </mesh>
-
-        {space.id === 6 || space.id === 5 || space.id === 4 ? (
+      {/* Tường phải: Video YouTube Khu 3 áp sát tường tối đa */}
+      <group position={[4.82, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+        {space.id === 7 ? (
+          <WallImage
+            src={SPACE_CONTENT[7].imagePhai7}
+            alt="Tường phải Khu 7"
+            position={[0, 0, 0]}
+            width={6.5}
+            height={3.8}
+          />
+        ) : space.id === 6 || space.id === 5 || space.id === 4 ? (
           <group position={[0, 0, 0]}>
+            {/* 1. Hiển thị ảnh tường phải 3D */}
             <WallImage
               src={
                 space.id === 6
@@ -2024,22 +2190,29 @@ function SpaceInteriorRoom({
                     ? SPACE_CONTENT[5].imagePhai5
                     : SPACE_CONTENT[4].imagePhai4
               }
-              alt={`Tường phải Phòng ${space.id}`}
+              alt={`Hình tường phải Phòng ${space.id}`}
               position={[0, 0, 0]}
-              width={7.6}
-              height={3.6}
+              width={6.5}
+              height={3.8}
             />
+
+            {/* 2. Tấm mesh trong suốt tương tác trực tiếp bằng Raycast (Bấm 1 phát ăn ngay) */}
             <mesh
               position={[0, 0, 0.02]}
               onClick={(e) => {
                 e.stopPropagation();
+
+                const isRoom6 = space.id === 6;
                 const currentRoomId = space.id;
+                // Lấy đường dẫn ảnh tường phải (hoặc tường trái/tường giữa tùy bạn áp dụng)
                 const imgSrc =
                   currentRoomId === 6
                     ? SPACE_CONTENT[6].imagePhai6
                     : currentRoomId === 5
                       ? SPACE_CONTENT[5].imagePhai5
                       : SPACE_CONTENT[4].imagePhai4;
+
+                // Lấy đường dẫn audio thuyết minh tương ứng
                 const audioSrc =
                   currentRoomId === 6
                     ? SPACE_CONTENT[6].audioPhai6
@@ -2047,6 +2220,7 @@ function SpaceInteriorRoom({
                       ? SPACE_CONTENT[5].audioPhai5
                       : SPACE_CONTENT[4].audioPhai4;
 
+                // Mở phóng to ảnh
                 window.dispatchEvent(
                   new CustomEvent("open-wall-image", {
                     detail: {
@@ -2055,6 +2229,8 @@ function SpaceInteriorRoom({
                     },
                   }),
                 );
+
+                // Phát audio thuyết minh ngay lập tức
                 if (window.setActiveAudioGlobal) {
                   window.setActiveAudioGlobal(audioSrc);
                 }
@@ -2066,23 +2242,110 @@ function SpaceInteriorRoom({
                 document.body.style.cursor = "default";
               }}
             >
-              <planeGeometry args={[7.6, 3.6]} />
+              <planeGeometry args={[6.5, 3.8]} />
               <meshBasicMaterial transparent opacity={0} />
             </mesh>
           </group>
+        ) : space.id === 8 ? (
+          // KHU 8: Tường phải - LÀM THEO LỜI BÁC (Banner + 6 ảnh 2 hàng)
+          <>
+            <mesh position={[0, 0, -0.02]}>
+              <planeGeometry args={[6.5, 3.8]} />
+              <meshStandardMaterial color="#f4efe6" roughness={0.9} />
+            </mesh>
+
+            <mesh position={[0, 1.4, 0.01]}>
+              <planeGeometry args={[6.2, 0.7]} />
+              <meshStandardMaterial color="#7a1c1c" roughness={0.5} />
+            </mesh>
+            <Text
+              position={[0, 1.4, 0.02]}
+              fontSize={0.28}
+              color="#ffd700"
+              anchorX="center"
+              anchorY="middle"
+            >
+              LÀM THEO LỜI BÁC
+            </Text>
+
+            <group position={[0, -0.3, 0.01]}>
+              {SPACE_CONTENT[8].imagePhai8.map((imgSrc, idx) => {
+                const col = idx % 3;
+                const row = Math.floor(idx / 3);
+                const xPos = -1.8 + col * 1.8; // Đã thêm dấu nhân *
+                const yPos = row === 0 ? 0.6 : -0.6;
+
+                return (
+                  <group
+                    key={`phai8-${idx}`}
+                    position={[xPos, yPos, 0]}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsVideoHidden(true); // <--- Bấm vào tranh sẽ ẩn video tường giữa đi
+                    }}
+                    onPointerOver={() => {
+                      document.body.style.cursor = "pointer";
+                    }}
+                    onPointerOut={() => {
+                      document.body.style.cursor = "default";
+                    }}
+                  >
+                    {/* 1. Khung tranh gỗ (nằm ở z = 0) */}
+                    <mesh position={[0, 0, 0]}>
+                      <boxGeometry args={[1.65, 1.15, 0.02]} />
+                      <meshStandardMaterial color="#4a2e18" roughness={0.6} />
+                    </mesh>
+
+                    {/* 2. Mặt ảnh đẩy hẳn ra phía trước (z = 0.025) để tránh lỗi chớp giật */}
+                    <WallImage
+                      src={imgSrc}
+                      alt={`Làm theo lời Bác ${idx + 1}`}
+                      position={[0, 0, 0.025]}
+                      width={1.55}
+                      height={1.05}
+                    />
+                  </group>
+                );
+              })}
+            </group>
+          </>
+        ) : space.id === 3 && !isVideoHidden && !wallImageFull ? (
+          <Html
+            position={[0, 0, 0.001]} // <--- Đưa sát rạt vào mặt tường (Z cực nhỏ để không bị lơ lửng)
+            transform
+            distanceFactor={1.2}
+            occlude // Khóa chặt theo không gian 3D của Three.js
+            style={{
+              width: "1680px",
+  height: "945px",
+              overflow: "hidden",
+              border: "2px solid #70472e",
+              borderRadius: "6px",
+              background: "#000",
+              pointerEvents: "auto",
+            }}
+          >
+            <div style={{ width: "100%", height: "100%" }}>
+              <iframe
+                src={SPACE_CONTENT[3].video3}
+                title="Video tường phải Khu 3"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                style={{ width: "100%", height: "100%", border: 0 }}
+              />
+            </div>
+          </Html>
         ) : (
           <WallImage
             src={
-              space.id === 7
-                ? SPACE_CONTENT[7].imagePhai7
-                : space.id === 2
-                  ? SPACE_CONTENT[2].imagePhai2
-                  : SPACE_CONTENT[1].imagePhai
+              space.id === 2
+                ? SPACE_CONTENT[2].imagePhai2
+                : SPACE_CONTENT[1].imagePhai
             }
             alt="Hình tường phải"
             position={[0, 0, 0]}
-            width={7.6}
-            height={3.6}
+            width={6.5}
+            height={3.8}
           />
         )}
       </group>
@@ -2093,22 +2356,27 @@ function SpaceInteriorRoom({
         <meshStandardMaterial color="#4f3a25" />
       </mesh>
 
-      {/* Trần & Trống đồng xài chung */}
+      {/* Trần */}
       <mesh position={[0, 4, 0]}>
         <boxGeometry args={[10, 0.2, 8]} />
         <meshStandardMaterial color="#eee6d7" />
       </mesh>
-      <CeilingDrum y={3.89} size={6} />
+      {/* Hoa văn trống đồng trên trần */}
+     <CeilingDrum y={3.89} size={4} />
 
-      {/* Vách cấu trúc phòng 3D */}
+      {/* Vách sau - đối diện cửa */}
       <mesh position={[0, 2, -4]}>
         <boxGeometry args={[10, 4, 0.2]} />
         <meshStandardMaterial color="#eee6d7" />
       </mesh>
+
+      {/* Vách trái */}
       <mesh position={[-5, 2, 0]}>
         <boxGeometry args={[0.2, 4, 8]} />
         <meshStandardMaterial color="#eee6d7" />
       </mesh>
+
+      {/* Vách phải */}
       <mesh position={[5, 2, 0]}>
         <boxGeometry args={[0.2, 4, 8]} />
         <meshStandardMaterial color="#eee6d7" />
@@ -2116,7 +2384,7 @@ function SpaceInteriorRoom({
 
       {/* Tiêu đề phòng */}
       <Text
-        position={[0, 3.4, -3.85]}
+        position={[0, 3.3, -3.85]}
         fontSize={0.3}
         color="#70472e"
         anchorX="center"
@@ -2126,6 +2394,74 @@ function SpaceInteriorRoom({
       >
         {space.title}
       </Text>
+
+      {/* Chỉ hiển thị bàn và màn hình trên bàn khi KHÔNG phải là Khu 3 */}
+      {space.id !== 3 &&
+        space.id !== 7 &&
+        space.id !== 8 &&
+        space.id !== 6 &&
+        space.id !== 5 &&
+        space.id !== 4 && (
+          <>
+            {/* Bàn tròn giữa phòng */}
+            <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
+              <cylinderGeometry args={[1.25, 1.25, 0.15, 64]} />
+              <meshStandardMaterial color="#70472e" roughness={0.55} />
+            </mesh>
+
+            {/* Trụ bàn */}
+            <mesh position={[0, 0.43, 0]} castShadow>
+              <cylinderGeometry args={[0.18, 0.3, 0.7, 32]} />
+              <meshStandardMaterial color="#503321" />
+            </mesh>
+
+            {/* Đế bàn */}
+            <mesh position={[0, 0.1, 0]} castShadow>
+              <cylinderGeometry args={[0.65, 0.65, 0.12, 48]} />
+              <meshStandardMaterial color="#503321" />
+            </mesh>
+
+            {/* Màn hình video trên bàn tròn */}
+            {!wallImageFull && !isPadletFullScreen && (
+              <Html
+                position={[0, 1.05, 0]}
+                transform
+                distanceFactor={1.5}
+                style={{
+                  width: "320px",
+                  height: "200px",
+                  overflow: "hidden",
+                  border: "3px solid #70472e",
+                  borderRadius: "10px",
+                  boxSizing: "border-box",
+                  background: "#000",
+                  zIndex: 1000,
+                  pointerEvents: "auto",
+                }}
+              >
+                <div style={{ width: "100%", height: "100%" }}>
+                  <iframe
+                    src={
+                      space.id === 1
+                        ? SPACE_CONTENT[1].video
+                        : space.id === 2
+                          ? SPACE_CONTENT[2].video2
+                          : SPACE_CONTENT[space.id].video
+                    }
+                    title="Video trên bàn"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      border: 0,
+                    }}
+                  />
+                </div>
+              </Html>
+            )}
+          </>
+        )}
 
       {/* Nút quay lại */}
       {!isPadletFullScreen && (
@@ -2147,6 +2483,7 @@ function SpaceInteriorRoom({
             <boxGeometry args={[2.5, 0.55, 0.12]} />
             <meshStandardMaterial color="#7c2929" />
           </mesh>
+
           <Text
             position={[0, 0, 0.07]}
             fontSize={0.17}
@@ -2161,6 +2498,7 @@ function SpaceInteriorRoom({
     </group>
   );
 }
+
 ///căn phòng thứ 2
 
 function SecondRoom({ onSpaceClick, setKhu1Content }) {
