@@ -1583,7 +1583,6 @@ const spaces = [
     color: "#7c2929",
   },
 ];
-
 function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   return (
     <group>
@@ -1603,50 +1602,60 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             document.body.style.cursor = "auto";
           }}
         >
-          {/* Sàn gian trưng bày */}
+          {/* Sàn gian trưng bày (Mở rộng diện tích và dùng màu gỗ sáng sạch sẽ) */}
           <mesh position={[0, 0.08, 0]}>
-            <boxGeometry args={[2.25, 0.16, 1.9]} />
-            <meshStandardMaterial color="#4f3a25" />
+            <boxGeometry args={[3.6, 0.16, 3.0]} />
+            <meshStandardMaterial color="#6d4c41" roughness={0.7} />
           </mesh>
 
-          {/* Vách sau */}
-          <mesh position={[0, 1.1, -0.9]}>
-            <boxGeometry args={[2.25, 2.2, 0.12]} />
-            <meshStandardMaterial color="#771e07" />
+          {/* Vách sau (Tăng cao lên 3.2, rộng 3.6 và đổi màu trắng sáng Light Theme) */}
+          <mesh position={[0, 1.6, -1.5]}>
+            <boxGeometry args={[3.6, 3.2, 0.15]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách trái */}
-          <mesh position={[-1.06, 1.1, 0]}>
-            <boxGeometry args={[0.12, 2.2, 1.9]} />
-            <meshStandardMaterial color="#771e07" />
+          <mesh position={[-1.725, 1.6, 0]}>
+            <boxGeometry args={[0.15, 3.2, 3.0]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách phải */}
-          <mesh position={[1.06, 1.1, 0]}>
-            <boxGeometry args={[0.12, 2.2, 1.9]} />
-            <meshStandardMaterial color="#771e07" />
+          <mesh position={[1.725, 1.6, 0]}>
+            <boxGeometry args={[0.15, 3.2, 3.0]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
-          {/* Bảng tên */}
-          <mesh position={[0, 2.05, 0.83]}>
-            <boxGeometry args={[2.05, 0.42, 0.12]} />
+          {/* Cột trụ trang trí 2 bên góc trước tạo chiều sâu kiến trúc */}
+          <mesh position={[-1.725, 1.6, 1.4]}>
+            <boxGeometry args={[0.2, 3.2, 0.2]} />
+            <meshStandardMaterial color="#8d6e63" roughness={0.5} />
+          </mesh>
+          <mesh position={[1.725, 1.6, 1.4]}>
+            <boxGeometry args={[0.2, 3.2, 0.2]} />
+            <meshStandardMaterial color="#8d6e63" roughness={0.5} />
+          </mesh>
+
+          {/* Bảng tên lớn phía trên (Đổi sang màu xanh than lịch lãm hiện đại) */}
+          <mesh position={[0, 3.0, 1.42]}>
+            <boxGeometry args={[3.2, 0.5, 0.15]} />
             <meshStandardMaterial
-              color={space.color}
+              color="#334155"
               metalness={0.2}
               roughness={0.5}
             />
           </mesh>
 
           <Text
-            position={[0, 2.05, 0.9]}
-            fontSize={0.15}
-            color="#FFF0C2"
+            position={[0, 3.0, 1.5]}
+            fontSize={0.22}
+            color="#fef08a"
             anchorX="center"
             anchorY="middle"
-            maxWidth={2.1}
+            maxWidth={3.0}
             textAlign="center"
             outlineWidth={0.003}
-            outlineColor="#cd2512"
+            outlineColor="#1e293b"
             letterSpacing={0.005}
             lineHeight={1.3}
             material-toneMapped={false}
@@ -1654,29 +1663,31 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             {space.title}
           </Text>
 
-          {/* Bảng tương tác cho cả 8 khu */}
-          <group>
-            <mesh position={[0, 1.05, 0.84]}>
-              <planeGeometry args={[1.35, 1.15]} />
-              <meshBasicMaterial color="#d8c9ad" />
+          {/* Bảng thông tin tương tác bên trong gian phòng */}
+          <group position={[0, 0, 0.3]}>
+            <mesh position={[0, 1.5, 1.1]}>
+              <planeGeometry args={[2.0, 1.6]} />
+              <meshBasicMaterial color="#ffffff" />
             </mesh>
 
             <Text
-              position={[0, 1.15, 0.87]}
-              fontSize={0.19}
-              color="#d21a1a"
+              position={[0, 1.8, 1.12]}
+              fontSize={0.26}
+              color="#b91c1c"
               anchorX="center"
               anchorY="middle"
+              material-toneMapped={false}
             >
               {`PHÒNG ${space.id}`}
             </Text>
 
             <Text
-              position={[0, 0.85, 0.87]}
-              fontSize={0.12}
-              color="#680f0f"
+              position={[0, 1.2, 1.12]}
+              fontSize={0.16}
+              color="#475569"
               anchorX="center"
               anchorY="middle"
+              material-toneMapped={false}
             >
               NHẤN ĐỂ THAM QUAN
             </Text>
