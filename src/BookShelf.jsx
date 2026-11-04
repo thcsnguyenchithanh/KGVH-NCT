@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTexture } from '@react-three/drei';
+import { useTexture, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function BookShelf({ onOpenLibrary, ...props }) {
@@ -26,6 +26,24 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
           <planeGeometry args={[3.0, 0.9]} />
           <meshBasicMaterial map={bookTextures[0]} transparent side={THREE.DoubleSide} />
         </mesh>
+      </group>
+
+      {/* 🌟 1.1. BIỂN HƯỚNG DẪN TƯƠNG TÁC (Giúp người chơi biết tủ có thể nhấn vào) */}
+      <group position={[0, 2.05, 0.15]}>
+        <mesh>
+          <boxGeometry args={[2.4, 0.35, 0.05]} />
+          <meshStandardMaterial color="#1e293b" roughness={0.3} />
+        </mesh>
+        <Text
+          position={[0, 0, 0.04]}
+          fontSize={0.13}
+          color="#fef08a"
+          anchorX="center"
+          anchorY="middle"
+          material-toneMapped={false}
+        >
+          👆 NHẤN ĐỂ XEM SÁCH
+        </Text>
       </group>
 
       {/* 2. Khung kệ gỗ chính */}
@@ -76,7 +94,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* Sách xếp nằm chồng góc phải (Cuốn 2 - Đã sửa sạch lỗi cú pháp thừa thẻ và argsInteropServices) */}
+      {/* Sách xếp nằm chồng góc phải (Cuốn 2) */}
       <group position={[1.15, -1.1, 0.3]}>
         <mesh>
           <boxGeometry args={[0.85, 0.1, 0.55]} />
