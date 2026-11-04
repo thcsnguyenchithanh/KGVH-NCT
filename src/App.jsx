@@ -766,8 +766,8 @@ function RightWallPanels() {
           onPointerOver={() => { document.body.style.cursor = "pointer"; }}
           onPointerOut={() => { document.body.style.cursor = "default"; }}
         >
-          <planeGeometry args={[2.15, 3.15]} />
-  <meshBasicMaterial map={panel1} side={THREE.DoubleSide} toneMapped={false} />
+          <planeGeometry args={[2.0, 3.0]} />
+          <meshBasicMaterial map={panel1} side={THREE.DoubleSide} />
         </mesh>
       </group>
 
@@ -2476,7 +2476,7 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
   return (
     <group>
       {/* Biển nhấn quay về sảnh chính */}
-      <group position={[-12.3, 1.5, 5.75]}>
+      <group position={[-12.3, 2.8, 5.75]}>
         <RoundedBox
           args={[0.16, 0.6, 2]}
           radius={0.07}
@@ -2698,7 +2698,7 @@ function Room({
         </group>
 
         {/* Biển nhấn để vào phòng trưng bày */}
-        <group position={[0, 1.5, 0]}>
+        <group position={[0, 2.8, 0]}> {/* 🌟 Tăng từ 1.5 lên 2.8 để đưa lên trên khung cửa */}
           <RoundedBox
             args={[0.16, 0.6, 2.0]}
             radius={0.07}
