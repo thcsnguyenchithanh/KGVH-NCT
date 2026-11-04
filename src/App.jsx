@@ -1592,45 +1592,44 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           key={space.id}
           position={space.position}
           rotation={[0, space.rotation, 0]}
-          // 🌟 Đã gỡ bỏ onClick ở nhóm ngoài để tránh việc bấm nhầm vào tường/sàn
         >
-          {/* Sàn gian trưng bày (Thu hẹp chiều ngang còn 3.2 để tạo khoảng trống giữa các phòng) */}
+          {/* Sàn gian trưng bày (Thu hẹp chiều ngang còn 2.8 để tạo khoảng trống lớn giữa các phòng) */}
           <mesh position={[0, 0.08, 0]}>
-            <boxGeometry args={[3.2, 0.16, 3.0]} />
+            <boxGeometry args={[2.8, 0.16, 3.0]} />
             <meshStandardMaterial color="#6d4c41" roughness={0.7} />
           </mesh>
 
           {/* Vách sau */}
           <mesh position={[0, 1.6, -1.6]}>
-            <boxGeometry args={[3.2, 3.2, 0.15]} />
+            <boxGeometry args={[2.8, 3.2, 0.15]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách trái */}
-          <mesh position={[-1.525, 1.6, 0]}>
+          <mesh position={[-1.325, 1.6, 0]}>
             <boxGeometry args={[0.15, 3.2, 3.0]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách phải */}
-          <mesh position={[1.525, 1.6, 0]}>
+          <mesh position={[1.325, 1.6, 0]}>
             <boxGeometry args={[0.15, 3.2, 3.0]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Cột trụ trang trí 2 bên */}
-          <mesh position={[-1.45, 1.6, 1.3]}>
+          <mesh position={[-1.25, 1.6, 1.3]}>
             <boxGeometry args={[0.2, 3.2, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
-          <mesh position={[1.45, 1.6, 1.3]}>
+          <mesh position={[1.25, 1.6, 1.3]}>
             <boxGeometry args={[0.2, 3.2, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
 
           {/* Bảng tên lớn phía trên */}
           <mesh position={[0, 3.0, 1.45]}>
-            <boxGeometry args={[2.8, 0.5, 0.12]} />
+            <boxGeometry args={[2.4, 0.5, 0.12]} />
             <meshStandardMaterial
               color="#334155"
               metalness={0.2}
@@ -1640,11 +1639,11 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 
           <Text
             position={[0, 3.0, 1.52]}
-            fontSize={0.2}
+            fontSize={0.19}
             color="#fef08a"
             anchorX="center"
             anchorY="middle"
-            maxWidth={2.6}
+            maxWidth={2.2}
             textAlign="center"
             outlineWidth={0.003}
             outlineColor="#1e293b"
@@ -1655,7 +1654,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             {space.title}
           </Text>
 
-          {/* 🌟 BẢNG THÔNG TIN TƯƠNG TÁC (CHỈ KHI BẤM VÀO ĐÂY MỚI VÀO PHÒNG) */}
+          {/* BẢNG THÔNG TIN TƯƠNG TÁC (CHỈ BẤM VÀO ĐÂY MỚI VÀO PHÒNG) */}
           <group 
             position={[0, 0, 0.3]}
             onClick={(e) => {
@@ -1671,13 +1670,13 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           >
             {/* Tấm nền trắng hiển thị nội dung nhấn */}
             <mesh position={[0, 1.5, 1.1]}>
-              <planeGeometry args={[1.8, 1.5]} />
+              <planeGeometry args={[1.6, 1.5]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
 
             <Text
               position={[0, 1.8, 1.12]}
-              fontSize={0.24}
+              fontSize={0.22}
               color="#b91c1c"
               anchorX="center"
               anchorY="middle"
@@ -1688,7 +1687,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 
             <Text
               position={[0, 1.2, 1.12]}
-              fontSize={0.15}
+              fontSize={0.14}
               color="#475569"
               anchorX="center"
               anchorY="middle"
