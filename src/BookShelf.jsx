@@ -64,22 +64,21 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       </group>
 
       {/* 4. TẦNG DƯỚI: Sách xếp chồng và các cuốn sách đứng hiển thị rõ bìa */}
-      {/* Sách xếp nằm chồng góc phải */}
+      {/* Sách xếp nằm chồng góc phải (Cuốn 1) */}
       <group position={[1.1, -1.3, 0.3]} rotation={[0, 0, 0.05]}>
         <mesh>
           <boxGeometry args={[0.9, 0.12, 0.6]} />
           <meshStandardMaterial color="#294c60" roughness={0.5} />
         </mesh>
-        {/* Dán ảnh số 4 lên bề mặt cuốn sách chồng trên cùng */}
         <mesh position={[0, 0.07, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[0.85, 0.55]} />
           <meshBasicMaterial map={bookTextures[3]} side={THREE.DoubleSide} />
         </mesh>
       </group>
 
+      {/* Sách xếp nằm chồng góc phải (Cuốn 2 - Đã sửa sạch lỗi cú pháp thừa thẻ và argsInteropServices) */}
       <group position={[1.15, -1.1, 0.3]}>
         <mesh>
-          <boxGeometry argsInteropServices={[0.85, 0.1, 0.55]} />
           <boxGeometry args={[0.85, 0.1, 0.55]} />
           <meshStandardMaterial color="#8b2626" roughness={0.5} />
         </mesh>
