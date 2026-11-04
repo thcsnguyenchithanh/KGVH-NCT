@@ -2475,42 +2475,64 @@ function SpaceInteriorRoom({
 function SecondRoom({ onSpaceClick, setKhu1Content }) {
   return (
     <group>
-      {/* Biển nhấn quay về sảnh chính */}
-      <group position={[-12.3, 3, 5.75]}>
-        <RoundedBox
-          args={[0.16, 0.6, 2]}
-          radius={0.07}
-          smoothness={6}
+      {/* Biển nhấn quay về sảnh chính & Khung cửa thông về Sảnh chính */}
+      <group position={[-12.3, 0, 5.75]}>
+        {/* 🌟 Khối trong suốt bắt sự kiện click trực tiếp vào khoảng không của khung cửa */}
+        <mesh
+          position={[0, 1.25, 0]}
           onClick={(e) => {
             e.stopPropagation();
-            console.log("Đã nhấn biển SẢNH CHÍNH");
+            console.log("Đã nhấn lối đi về SẢNH CHÍNH");
             window.dispatchEvent(new Event("leave-second-room"));
           }}
           onPointerOver={() => {
             document.body.style.cursor = "pointer";
           }}
           onPointerOut={() => {
-            document.body.style.cursor = "auto";
+            document.body.style.cursor = "default";
           }}
         >
-          <meshStandardMaterial
-            color="#681b1b"
-            side={THREE.DoubleSide}
-            roughness={0.7}
-          />
-        </RoundedBox>
-        <Text
-          position={[-0.09, 0, 0]}
-          rotation={[0, -Math.PI / 2, 0]}
-          fontSize={0.3}
-          color="#ffe6a0"
-          anchorX="center"
-          anchorY="middle"
-          renderOrder={10}
-          material-side={THREE.DoubleSide}
-        >
-          SẢNH CHÍNH
-        </Text>
+          <boxGeometry args={[0.4, 2.4, 2.2]} />
+          <meshBasicMaterial visible={false} />
+        </mesh>
+
+        {/* Biển chữ SẢNH CHÍNH ở phía trên */}
+        <group position={[0, 3, 0]}>
+          <RoundedBox
+            args={[0.16, 0.6, 2]}
+            radius={0.07}
+            smoothness={6}
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log("Đã nhấn biển SẢNH CHÍNH");
+              window.dispatchEvent(new Event("leave-second-room"));
+            }}
+            onPointerOver={() => {
+              document.body.style.cursor = "pointer";
+            }}
+            onPointerOut={() => {
+              document.body.style.cursor = "auto";
+            }}
+          >
+            <meshStandardMaterial
+              color="#681b1b"
+              side={THREE.DoubleSide}
+              roughness={0.7}
+            />
+          </RoundedBox>
+          <Text
+            position={[-0.09, 0, 0]}
+            rotation={[0, -Math.PI / 2, 0]}
+            fontSize={0.3}
+            color="#ffe6a0"
+            anchorX="center"
+            anchorY="middle"
+            renderOrder={10}
+            material-side={THREE.DoubleSide}
+          >
+            SẢNH CHÍNH
+          </Text>
+        </group>
       </group>
 
       {/* Sàn phòng 2: rộng 20, sâu 14 */}
