@@ -2564,10 +2564,10 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
         </group>
       </group>
 
-      {/* Sàn phòng 2: rộng 20, sâu 14 */}
+      {/* 🌟 Sàn phòng 2: Chuyển sang tông màu gỗ sáng hiện đại, trang nhã */}
       <mesh position={[-22, 0, 5.75]} receiveShadow>
         <boxGeometry args={[20, 0.2, 14]} />
-        <meshStandardMaterial color="#4f3a25" />
+        <meshStandardMaterial color="#bcaaa4" roughness={0.6} />
       </mesh>
 
       {/* Trần */}
@@ -2577,36 +2577,38 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
       </mesh>
       {/* Hoa văn trống đồng trên trần phòng 2 */}
       <CeilingDrum position={[-22, 0, 5.75]} y={5.5 - 0.11} size={6} />
+      
       {/* Tường cuối phòng */}
       <mesh position={[-32, 2.75, 5.75]}>
         <boxGeometry args={[0.25, 5.5, 14]} />
-        <meshStandardMaterial color="#eee6d7" />
+        <meshStandardMaterial color="#f8fafc" roughness={0.9} />
       </mesh>
 
       {/* Hai tường bên */}
       {[-1.25, 12.75].map((z) => (
         <mesh key={z} position={[-22, 2.75, z]}>
           <boxGeometry args={[20, 5.5, 0.25]} />
-          <meshStandardMaterial color="#eee6d7" />
+          <meshStandardMaterial color="#f8fafc" roughness={0.9} />
         </mesh>
       ))}
 
       {/* Vách nối bên phải cửa vào Room 2 */}
       <mesh position={[-12, 2.75, 10.8]}>
         <boxGeometry args={[0.25, 5.5, 3.6]} />
-        <meshStandardMaterial color="#eee6d7" />
+        <meshStandardMaterial color="#f8fafc" roughness={0.9} />
       </mesh>
 
-      {/* Tiêu đề trên tường đối diện cửa */}
+      {/* 🌟 Tiêu đề trên tường đối diện cửa: Đổi sang màu xanh than cao cấp */}
       <Text
         position={[-31.75, 4.6, 5.75]}
         rotation={[0, Math.PI / 2, 0]}
         fontSize={0.5}
-        color="#7c2929"
+        color="#1e293b"
         anchorX="center"
         anchorY="middle"
         maxWidth={16}
         textAlign="center"
+        material-toneMapped={false}
       >
         KHÔNG GIAN TRƯNG BÀY
       </Text>
