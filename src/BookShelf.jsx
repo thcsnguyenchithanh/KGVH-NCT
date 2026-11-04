@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTexture, Html } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function BookShelf({ onOpenLibrary, ...props }) {
+  // Tạo state quản lý trạng thái hiển thị của bảng hướng dẫn (mặc định là hiện)
+  const [showBadge, setShowBadge] = useState(true);
+
   // Load toàn bộ 16 ảnh từ thư mục "pic room3"
   const bookImagePaths = Array.from(
     { length: 16 }, 
@@ -15,6 +18,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       {...props}
       onClick={(e) => {
         e.stopPropagation();
+        setShowBadge(false); // Ẩn bảng màu đỏ đi khi người dùng nhấn vào tủ
         if (onOpenLibrary) onOpenLibrary();
       }}
       onPointerOver={() => { document.body.style.cursor = "pointer"; }}
@@ -28,35 +32,34 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 🌟 1.1. NÚT HTML HƯỚNG DẪN TƯƠNG TÁC (Nổi bật, sắc nét, ai nhìn cũng thấy để bấm) */}
-      <Html
-        position={[0, 2.1, 0.25]}
-        center
-        transform
-        distanceFactor={1.5}
-        style={{ pointerEvents: 'none' }}
-      >
-        <div style={{
-          background: 'linear-gradient(135deg, #e11d48, #be123c)',
-          color: '#ffffff',
-          padding: '6px 14px',
-          borderRadius: '20px',
-          fontSize: '12px',
-          fontWeight: 'bold',
-          boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
-          border: '2px solid #fef08a',
-          whiteSpace: 'nowrap',
-          textAlign: 'center',
-          userSelect: 'none',
-          display: 'flex',
-          alignItem: 'center',
-          gap: '4px'
-        }}>
-          👆 NHẤN ĐỂ XEM SÁCH
-        </div>
-      </Html>
+      {/* 🌟 2. NÚT HTML HƯỚNG DẪN TO RÕ & TỰ ẨN KHI CLICK */}
+      {showBadge && (
+        <Html
+          position={[0, 1.8, 0.35]} // Đặt ngay vị trí dễ thấy giữa tủ
+          center
+          transform
+          distanceFactor={1.8} // Phóng to quy mô hiển thị trong không gian 3D
+          style={{ pointerEvents: 'none' }}
+        >
+          <div style={{
+            background: 'linear-gradient(135deg, #ef4444, #dc2626)', // Màu đỏ rực rỡ
+            color: '#ffffff',
+            padding: '10px 22px',
+            borderRadius: '30px',
+            fontSize: '16px', // Chữ to rõ, không bị nhỏ như con kiến nữa
+            fontWeight: 'bold',
+            boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
+            border: '3px solid #fef08a', // Viền vàng nổi bật
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+            userSelect: 'none',
+          }}>
+            👆 NHẤN ĐỂ XEM SÁCH
+          </div>
+        </Html>
+      )}
 
-      {/* 2. Khung kệ gỗ chính */}
+      {/* 3. Khung kệ gỗ chính */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[3.6, 4.4, 0.6]} />
         <meshStandardMaterial color="#71472d" roughness={0.6} />
@@ -74,7 +77,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         <meshStandardMaterial color="#5c3d2e" roughness={0.7} />
       </mesh>
 
-      {/* 3. TẦNG TRÊN: Trưng bày sách dựng và ảnh tư liệu to rõ */}
+      {/* 4. TẦNG TRÊN: Sách dựng và ảnh tư liệu */}
       <group position={[-1.0, 1.2, 0.33]}>
         <mesh>
           <planeGeometry args={[0.7, 0.95]} />
@@ -89,7 +92,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 4. TẦNG DƯỚI: Sách xếp chồng và các cuốn sách đứng */}
+      {/* 5. TẦNG DƯỚI: Sách xếp chồng và sách đứng */}
       <group position={[1.1, -1.3, 0.3]} rotation={[0, 0, 0.05]}>
         <mesh>
           <boxGeometry args={[0.9, 0.12, 0.6]} />
@@ -129,7 +132,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         );
       })}
 
-      {/* Chậu cây trang trí nhỏ */}
+      {/* Chậu cây trang trí */}
       <group position={[-1.1, 0.3, 0.33]}>
         <mesh position={[0, -0.15, 0]}>
           <cylinderGeometry args={[0.15, 0.12, 0.3, 16]} />
