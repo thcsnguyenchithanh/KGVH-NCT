@@ -1583,7 +1583,6 @@ const spaces = [
     color: "#7c2929",
   },
 ];
-
 function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   return (
     <group>
@@ -1593,37 +1592,37 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           position={space.position}
           rotation={[0, space.rotation, 0]}
         >
-          {/* Sàn gian trưng bày (Thu hẹp chiều ngang còn 2.8 để tạo khoảng trống lớn giữa các phòng) */}
+          {/* Sàn gian trưng bày (Mặt trên cùng nằm ở y = 0.16) */}
           <mesh position={[0, 0.08, 0]}>
             <boxGeometry args={[2.8, 0.16, 3.0]} />
             <meshStandardMaterial color="#6d4c41" roughness={0.7} />
           </mesh>
 
-          {/* Vách sau */}
-          <mesh position={[0, 1.6, -1.6]}>
-            <boxGeometry args={[2.8, 3.2, 0.15]} />
+          {/* Vách sau (Bắt đầu từ y = 0.16, chiều cao 3.04 -> tâm đặt ở y = 1.68) */}
+          <mesh position={[0, 1.68, -1.6]}>
+            <boxGeometry args={[2.8, 3.04, 0.15]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách trái */}
-          <mesh position={[-1.325, 1.6, 0]}>
-            <boxGeometry args={[0.15, 3.2, 3.0]} />
+          <mesh position={[-1.325, 1.68, 0]}>
+            <boxGeometry args={[0.15, 3.04, 3.0]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách phải */}
-          <mesh position={[1.325, 1.6, 0]}>
-            <boxGeometry args={[0.15, 3.2, 3.0]} />
+          <mesh position={[1.325, 1.68, 0]}>
+            <boxGeometry args={[0.15, 3.04, 3.0]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
-          {/* Cột trụ trang trí 2 bên */}
-          <mesh position={[-1.25, 1.6, 1.3]}>
-            <boxGeometry args={[0.2, 3.2, 0.2]} />
+          {/* Cột trụ trang trí 2 bên (Đặt khớp chuẩn trên mặt sàn y = 1.68) */}
+          <mesh position={[-1.25, 1.68, 1.3]}>
+            <boxGeometry args={[0.2, 3.04, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
-          <mesh position={[1.25, 1.6, 1.3]}>
-            <boxGeometry args={[0.2, 3.2, 0.2]} />
+          <mesh position={[1.25, 1.68, 1.3]}>
+            <boxGeometry args={[0.2, 3.04, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
 
