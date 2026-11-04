@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useTexture, Html } from '@react-three/drei';
+import { useTexture, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function BookShelf({ onOpenLibrary, ...props }) {
-  // Tạo state quản lý trạng thái hiển thị của bảng hướng dẫn (mặc định là hiện)
+  // State quản lý việc ẩn/hiện bảng hướng dẫn 3D khi người dùng nhấn vào tủ
   const [showBadge, setShowBadge] = useState(true);
 
   // Load toàn bộ 16 ảnh từ thư mục "pic room3"
@@ -18,7 +18,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       {...props}
       onClick={(e) => {
         e.stopPropagation();
-        setShowBadge(false); // Ẩn bảng màu đỏ đi khi người dùng nhấn vào tủ
+        setShowBadge(false); // Tự động ẩn bảng thông báo ngay khi click vào tủ
         if (onOpenLibrary) onOpenLibrary();
       }}
       onPointerOver={() => { document.body.style.cursor = "pointer"; }}
@@ -32,31 +32,42 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 🌟 2. NÚT HTML HƯỚNG DẪN TO RÕ & TỰ ẨN KHI CLICK */}
+      {/* 🌟 2. BẢNG HƯỚNG DẪN 3D (Dùng Mesh và Text thuần túy, to rõ, tự ẩn khi click) */}
       {showBadge && (
-        <Html
-          position={[0, 1.8, 0.35]} // Đặt ngay vị trí dễ thấy giữa tủ
-          center
-          transform
-          distanceFactor={1.8} // Phóng to quy mô hiển thị trong không gian 3D
-          style={{ pointerEvents: 'none' }}
-        >
-          <div style={{
-            background: 'linear-gradient(135deg, #ef4444, #dc2626)', // Màu đỏ rực rỡ
-            color: '#ffffff',
-            padding: '10px 22px',
-            borderRadius: '30px',
-            fontSize: '16px', // Chữ to rõ, không bị nhỏ như con kiến nữa
-            fontWeight: 'bold',
-            boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
-            border: '3px solid #fef08a', // Viền vàng nổi bật
-            whiteSpace: 'nowrap',
-            textAlign: 'center',
-            userSelect: 'none',
-          }}>
-            👆 NHẤN ĐỂ XEM SÁCH
-          </div>
-        </Html>
+        <group position={[0, 1.8, 0.35]}>
+          {/* Tấm nền bảng thông báo 3D */}
+          <mesh>
+            <planeGeometry args={[3.0, 0.65]} />
+            <meshStandardMaterial color="#0f172a" roughness={0.3} />
+          </mesh>
+          {/* Viền vàng nổi bật xung quanh bảng */}
+          <mesh position={[0, 0, -0.01]}>
+            <planeGeometry args={[3.06, 0.71]} />
+            <meshBasicMaterial color="#eab308" />
+          </mesh>
+          {/* Dòng tiêu đề 3D */}
+          <Text
+            position={[0, 0.13, 0.02]}
+            fontSize={0.14}
+            color="#fef08a"
+            anchorX="center"
+            anchorY="middle"
+            material-toneMapped={false}
+          >
+            📚 THƯ VIỆN SÁCH TRỰC TUYẾN
+          </Text>
+          {/* Dòng hướng dẫn 3D */}
+          <Text
+            position={[0, -0.12, 0.02]}
+            fontSize={0.095}
+            color="#cbd5e1"
+            anchorX="center"
+            anchorY="middle"
+            material-toneMapped={false}
+          >
+            ✨ Nhấn vào đây để xem chi tiết sách
+          </Text>
+        </group>
       )}
 
       {/* 3. Khung kệ gỗ chính */}
