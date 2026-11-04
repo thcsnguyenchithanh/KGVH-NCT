@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTexture, Text } from '@react-three/drei';
+import { useTexture, Html } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function BookShelf({ onOpenLibrary, ...props }) {
@@ -28,23 +28,33 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 🌟 1.1. BIỂN HƯỚNG DẪN TƯƠNG TÁC (Giúp người chơi biết tủ có thể nhấn vào) */}
-      <group position={[0, 2.05, 0.15]}>
-        <mesh>
-          <boxGeometry args={[2.4, 0.35, 0.05]} />
-          <meshStandardMaterial color="#1e293b" roughness={0.3} />
-        </mesh>
-        <Text
-          position={[0, 0, 0.04]}
-          fontSize={0.13}
-          color="#fef08a"
-          anchorX="center"
-          anchorY="middle"
-          material-toneMapped={false}
-        >
+      {/* 🌟 1.1. NÚT HTML HƯỚNG DẪN TƯƠNG TÁC (Nổi bật, sắc nét, ai nhìn cũng thấy để bấm) */}
+      <Html
+        position={[0, 2.1, 0.25]}
+        center
+        transform
+        distanceFactor={1.5}
+        style={{ pointerEvents: 'none' }}
+      >
+        <div style={{
+          background: 'linear-gradient(135deg, #e11d48, #be123c)',
+          color: '#ffffff',
+          padding: '6px 14px',
+          borderRadius: '20px',
+          fontSize: '12px',
+          fontWeight: 'bold',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
+          border: '2px solid #fef08a',
+          whiteSpace: 'nowrap',
+          textAlign: 'center',
+          userSelect: 'none',
+          display: 'flex',
+          alignItem: 'center',
+          gap: '4px'
+        }}>
           👆 NHẤN ĐỂ XEM SÁCH
-        </Text>
-      </group>
+        </div>
+      </Html>
 
       {/* 2. Khung kệ gỗ chính */}
       <mesh position={[0, 0, 0]}>
@@ -65,7 +75,6 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       </mesh>
 
       {/* 3. TẦNG TRÊN: Trưng bày sách dựng và ảnh tư liệu to rõ */}
-      {/* Ô trên trái: Sách dựng (Dùng ảnh 2.png) */}
       <group position={[-1.0, 1.2, 0.33]}>
         <mesh>
           <planeGeometry args={[0.7, 0.95]} />
@@ -73,7 +82,6 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* Ô trên phải: Khung ảnh lịch sử (Dùng ảnh 3.png) */}
       <group position={[1.1, 1.2, 0.33]}>
         <mesh>
           <planeGeometry args={[1.0, 1.15]} />
@@ -81,8 +89,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 4. TẦNG DƯỚI: Sách xếp chồng và các cuốn sách đứng hiển thị rõ bìa */}
-      {/* Sách xếp nằm chồng góc phải (Cuốn 1) */}
+      {/* 4. TẦNG DƯỚI: Sách xếp chồng và các cuốn sách đứng */}
       <group position={[1.1, -1.3, 0.3]} rotation={[0, 0, 0.05]}>
         <mesh>
           <boxGeometry args={[0.9, 0.12, 0.6]} />
@@ -94,7 +101,6 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* Sách xếp nằm chồng góc phải (Cuốn 2) */}
       <group position={[1.15, -1.1, 0.3]}>
         <mesh>
           <boxGeometry args={[0.85, 0.1, 0.55]} />
@@ -106,17 +112,15 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* Dãy sách đứng dựng phía dưới (Hiển thị trực diện ảnh bìa rõ nét) */}
+      {/* Dãy sách đứng dựng phía dưới */}
       {[-1.2, -0.85, -0.5, 0.15, 0.55].map((xPos, idx) => {
-        const textureIndex = 5 + (idx % 11); // Lấy tiếp các ảnh từ 6.png đến 16.png
+        const textureIndex = 5 + (idx % 11);
         return (
           <group key={idx} position={[xPos, -1.3, 0.33]}>
-            {/* Khối gáy/thân sách */}
             <mesh>
               <boxGeometry args={[0.26, 0.95, 0.35]} />
               <meshStandardMaterial color="#3b4d61" roughness={0.4} />
             </mesh>
-            {/* Mặt trước dán ảnh bìa sách phóng to, rõ nét tuyệt đối */}
             <mesh position={[0, 0, 0.181]}>
               <planeGeometry args={[0.25, 0.92]} />
               <meshBasicMaterial map={bookTextures[textureIndex]} side={THREE.DoubleSide} />
