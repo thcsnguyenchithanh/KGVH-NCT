@@ -1583,6 +1583,7 @@ const spaces = [
     color: "#7c2929",
   },
 ];
+
 function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   return (
     <group>
@@ -1616,7 +1617,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
-          {/* Cột trụ trang trí 2 bên (Đã sửa sạch lỗi cú pháp) */}
+          {/* Cột trụ trang trí 2 bên */}
           <mesh position={[-1.25, 1.68, 1.3]}>
             <boxGeometry args={[0.2, 3.04, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
@@ -1636,24 +1637,25 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             />
           </mesh>
 
+          {/* 🌟 Tiêu đề tên phòng (Đã điều chỉnh fontSize và maxWidth để không bị xuống dòng) */}
           <Text
             position={[0, 3.0, 1.52]}
-            fontSize={0.19}
+            fontSize={0.15}         /* Giảm kích thước chữ giúp tiêu đề dài xếp đủ trên 1 dòng */
             color="#fef08a"
             anchorX="center"
             anchorY="middle"
-            maxWidth={2.2}
+            maxWidth={2.3}          /* Tăng khung chứa chữ tối đa */
             textAlign="center"
             outlineWidth={0.003}
             outlineColor="#1e293b"
             letterSpacing={0.005}
-            lineHeight={1.3}
+            lineHeight={1.2}
             material-toneMapped={false}
           >
             {space.title}
           </Text>
 
-          {/* BẢNG THÔNG TIN TƯƠNG TÁC NỔI BẬT */}
+          {/* BẢNG THÔNG TIN TƯƠNG TÁC PHONG CÁCH HIỆN ĐẠI (MINIMALIST / TECH) */}
           <group
             position={[0, 1.6, 1.0]}
             onClick={(e) => {
@@ -1667,21 +1669,21 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               document.body.style.cursor = "auto";
             }}
           >
-            {/* Viền ngoài nổi màu gỗ sang trọng */}
-            <RoundedBox args={[1.8, 1.7, 0.08]} radius={0.06} smoothness={4}>
-              <meshStandardMaterial color="#b45309" roughness={0.4} />
+            {/* 1. Viền ngoài mỏng màu xám bạc */}
+            <RoundedBox args={[1.7, 1.5, 0.02]} radius={0.08} smoothness={4}>
+              <meshStandardMaterial color="#cbd5e1" roughness={0.2} metalness={0.1} />
             </RoundedBox>
 
-            {/* Tấm nền trắng kem phía trong */}
-            <RoundedBox position={[0, 0, 0.03]} args={[1.68, 1.58, 0.06]} radius={0.04} smoothness={4}>
-              <meshStandardMaterial color="#ffffff" roughness={0.3} />
+            {/* 2. Tấm nền trắng tinh khôi */}
+            <RoundedBox position={[0, 0, 0.015]} args={[1.64, 1.44, 0.02]} radius={0.06} smoothness={4}>
+              <meshStandardMaterial color="#ffffff" roughness={0.1} />
             </RoundedBox>
 
-            {/* Tiêu đề Tên Phòng */}
+            {/* 3. Tiêu đề Tên Phòng */}
             <Text
-              position={[0, 0.35, 0.07]}
-              fontSize={0.26}
-              color="#991b1b"
+              position={[0, 0.3, 0.03]}
+              fontSize={0.24}
+              color="#0f172a"
               anchorX="center"
               anchorY="middle"
               material-toneMapped={false}
@@ -1689,21 +1691,22 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               {`PHÒNG ${space.id}`}
             </Text>
 
-            {/* Khối nút bấm CTA "NHẤN ĐỂ THAM QUAN" */}
-            <group position={[0, -0.3, 0.07]}>
-              <RoundedBox args={[1.4, 0.38, 0.05]} radius={0.08} smoothness={4}>
-                <meshStandardMaterial color="#b91c1c" roughness={0.3} />
+            {/* 4. Nút bấm Modern Tech màu đen tuyền sang trọng */}
+            <group position={[0, -0.28, 0.03]}>
+              <RoundedBox args={[1.35, 0.36, 0.02]} radius={0.08} smoothness={4}>
+                <meshStandardMaterial color="#0f172a" roughness={0.3} />
               </RoundedBox>
 
               <Text
-                position={[0, 0, 0.04]}
-                fontSize={0.13}
+                position={[0, 0, 0.015]}
+                fontSize={0.12}
                 color="#ffffff"
                 anchorX="center"
                 anchorY="middle"
+                letterSpacing={0.02}
                 material-toneMapped={false}
               >
-                NHẤN ĐỂ THAM QUAN
+                XEM CHI TIẾT →
               </Text>
             </group>
           </group>
