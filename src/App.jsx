@@ -2814,10 +2814,10 @@ function Room({
     <OppositeWallPanels/>
     
     {/* Đặt chậu cây ở góc phòng bên trái và bên phải */}
-      <PottedPlant position={[-7, 0, 6]} scale={1.2} />
-      <PottedPlant position={[7, 0, 6]} scale={1.2} />
-      <PottedPlant position={[-6, 0, 0.2]} scale={1.2} />
-      <PottedPlant position={[6, 0, 0.2]} scale={1.2} />
+     <PottedPlant position={[-10, 0, 7]} scale={1.1} />
+    <PottedPlant position={[10, 0, 7]} scale={1.1} />
+    <PottedPlant position={[-10, 0, -7]} scale={1.1} />
+    <PottedPlant position={[10, 0, -7]} scale={1.1} />
 
 
 {/* 2. Dây cờ trang trí vắt ngang trần sảnh */}
@@ -3064,9 +3064,15 @@ function Scene({
 }) {
   return (
     <>
-            <color attach="background" args={["#b9d2e3"]} />
-            <ambientLight intensity={1.5} />
-            <directionalLight position={[4, 8, 5]} intensity={2} castShadow />
+            <color attach="background" args={["#eef2f7"]} />
+           <ambientLight intensity={1.2} />
+           <directionalLight 
+        position={[5, 10, 5]} 
+        intensity={1.4} 
+        castShadow 
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+      />
          
       <Room
         onOpenVideo={onOpenVideo}
