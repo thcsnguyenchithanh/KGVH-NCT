@@ -2696,6 +2696,23 @@ function Room({
             <meshStandardMaterial color="#d4af37" />
           </mesh>
         </group>
+        {/* 🌟 THÊM KHỐI TRONG SUỐT BẮT SỰ KIỆN CLICK VÀO CỬA */}
+        <mesh
+          position={[0, 1.25, 0]}
+          onClick={(e) => {
+            e.stopPropagation();
+            window.dispatchEvent(new Event("enter-second-room"));
+          }}
+          onPointerOver={() => {
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = "default";
+          }}
+        >
+          <boxGeometry args={[0.4, 2.4, 2.2]} />
+          <meshBasicMaterial visible={false} />
+        </mesh>
 
         {/* Biển nhấn để vào phòng trưng bày */}
         <group position={[0, 3, 0]}> {/* 🌟 Tăng từ 1.5 lên 2.8 để đưa lên trên khung cửa */}
