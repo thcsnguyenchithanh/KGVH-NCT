@@ -1583,6 +1583,7 @@ const spaces = [
     color: "#7c2929",
   },
 ];
+
 function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
   return (
     <group>
@@ -1591,53 +1592,45 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
           key={space.id}
           position={space.position}
           rotation={[0, space.rotation, 0]}
-          onClick={(e) => {
-            e.stopPropagation();
-            onSelect(space);
-          }}
-          onPointerOver={() => {
-            document.body.style.cursor = "pointer";
-          }}
-          onPointerOut={() => {
-            document.body.style.cursor = "auto";
-          }}
+          // 🌟 Đã gỡ bỏ onClick ở nhóm ngoài để tránh việc bấm nhầm vào tường/sàn
         >
-          {/* Sàn gian trưng bày (Mở rộng rộng rãi hơn) */}
+          {/* Sàn gian trưng bày (Thu hẹp chiều ngang còn 3.2 để tạo khoảng trống giữa các phòng) */}
           <mesh position={[0, 0.08, 0]}>
-            <boxGeometry args={[3.8, 0.16, 3.2]} />
+            <boxGeometry args={[3.2, 0.16, 3.0]} />
             <meshStandardMaterial color="#6d4c41" roughness={0.7} />
           </mesh>
 
           {/* Vách sau */}
           <mesh position={[0, 1.6, -1.6]}>
-            <boxGeometry args={[3.8, 3.2, 0.15]} />
+            <boxGeometry args={[3.2, 3.2, 0.15]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách trái */}
-          <mesh position={[-1.825, 1.6, 0]}>
-            <boxGeometry args={[0.15, 3.2, 3.2]} />
+          <mesh position={[-1.525, 1.6, 0]}>
+            <boxGeometry args={[0.15, 3.2, 3.0]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
 
           {/* Vách phải */}
-          <mesh position={[1.825, 1.6, 0]}>
-            <boxGeometry args={[0.15, 3.2, 3.2]} />
+          <mesh position={[1.525, 1.6, 0]}>
+            <boxGeometry args={[0.15, 3.2, 3.0]} />
             <meshStandardMaterial color="#f8fafc" roughness={0.9} />
           </mesh>
-        {/* Cột trụ trang trí 2 bên (Được đặt gọn gàng, tách biệt tọa độ Z để tránh lỗi sọc bề mặt) */}
-          <mesh position={[-1.75, 1.6, 1.3]}>
+
+          {/* Cột trụ trang trí 2 bên */}
+          <mesh position={[-1.45, 1.6, 1.3]}>
             <boxGeometry args={[0.2, 3.2, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
-          <mesh position={[1.75, 1.6, 1.3]}>
+          <mesh position={[1.45, 1.6, 1.3]}>
             <boxGeometry args={[0.2, 3.2, 0.2]} />
             <meshStandardMaterial color="#8d6e63" roughness={0.5} />
           </mesh>
 
-          {/* Bảng tên lớn phía trên (Đẩy hẳn ra phía trước Z = 1.45 để không bị lẹm vào cột) */}
+          {/* Bảng tên lớn phía trên */}
           <mesh position={[0, 3.0, 1.45]}>
-            <boxGeometry args={[3.2, 0.5, 0.12]} />
+            <boxGeometry args={[2.8, 0.5, 0.12]} />
             <meshStandardMaterial
               color="#334155"
               metalness={0.2}
@@ -1647,11 +1640,11 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 
           <Text
             position={[0, 3.0, 1.52]}
-            fontSize={0.22}
+            fontSize={0.2}
             color="#fef08a"
             anchorX="center"
             anchorY="middle"
-            maxWidth={3.0}
+            maxWidth={2.6}
             textAlign="center"
             outlineWidth={0.003}
             outlineColor="#1e293b"
@@ -1662,16 +1655,29 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             {space.title}
           </Text>
 
-          {/* Bảng thông tin tương tác bên trong gian phòng */}
-          <group position={[0, 0, 0.3]}>
+          {/* 🌟 BẢNG THÔNG TIN TƯƠNG TÁC (CHỈ KHI BẤM VÀO ĐÂY MỚI VÀO PHÒNG) */}
+          <group 
+            position={[0, 0, 0.3]}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(space);
+            }}
+            onPointerOver={() => {
+              document.body.style.cursor = "pointer";
+            }}
+            onPointerOut={() => {
+              document.body.style.cursor = "auto";
+            }}
+          >
+            {/* Tấm nền trắng hiển thị nội dung nhấn */}
             <mesh position={[0, 1.5, 1.1]}>
-              <planeGeometry args={[2.0, 1.6]} />
+              <planeGeometry args={[1.8, 1.5]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
 
             <Text
               position={[0, 1.8, 1.12]}
-              fontSize={0.26}
+              fontSize={0.24}
               color="#b91c1c"
               anchorX="center"
               anchorY="middle"
@@ -1682,7 +1688,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
 
             <Text
               position={[0, 1.2, 1.12]}
-              fontSize={0.16}
+              fontSize={0.15}
               color="#475569"
               anchorX="center"
               anchorY="middle"
