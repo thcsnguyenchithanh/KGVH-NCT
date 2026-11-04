@@ -1599,22 +1599,22 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             <meshStandardMaterial color="#6d4c41" roughness={0.7} />
           </mesh>
 
-          {/* Vách sau */}
+          {/* 🌟 Vách sau: Đổi sang màu xám nhạt hiện đại (#e2e8f0) để không bị trùng với tường nền */}
           <mesh position={[0, 1.68, -1.6]}>
             <boxGeometry args={[2.8, 3.04, 0.15]} />
-            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
+            <meshStandardMaterial color="#e2e8f0" roughness={0.8} />
           </mesh>
 
           {/* Vách trái */}
           <mesh position={[-1.325, 1.68, 0]}>
             <boxGeometry args={[0.15, 3.04, 3.0]} />
-            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
+            <meshStandardMaterial color="#cbd5e1" roughness={0.8} />
           </mesh>
 
           {/* Vách phải */}
           <mesh position={[1.325, 1.68, 0]}>
             <boxGeometry args={[0.15, 3.04, 3.0]} />
-            <meshStandardMaterial color="#f8fafc" roughness={0.9} />
+            <meshStandardMaterial color="#cbd5e1" roughness={0.8} />
           </mesh>
 
           {/* Cột trụ trang trí 2 bên */}
@@ -1637,14 +1637,13 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             />
           </mesh>
 
-          {/* 🌟 Tiêu đề tên phòng (Đã điều chỉnh fontSize và maxWidth để không bị xuống dòng) */}
           <Text
             position={[0, 3.0, 1.52]}
-            fontSize={0.15}         /* Giảm kích thước chữ giúp tiêu đề dài xếp đủ trên 1 dòng */
+            fontSize={0.15}
             color="#fef08a"
             anchorX="center"
             anchorY="middle"
-            maxWidth={2.3}          /* Tăng khung chứa chữ tối đa */
+            maxWidth={2.3}
             textAlign="center"
             outlineWidth={0.003}
             outlineColor="#1e293b"
@@ -1655,7 +1654,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
             {space.title}
           </Text>
 
-          {/* BẢNG THÔNG TIN TƯƠNG TÁC PHONG CÁCH HIỆN ĐẠI (MINIMALIST / TECH) */}
+          {/* BẢNG THÔNG TIN TƯƠNG TÁC PHONG CÁCH HIỆN ĐẠI */}
           <group
             position={[0, 1.6, 1.0]}
             onClick={(e) => {
@@ -1669,17 +1668,17 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               document.body.style.cursor = "auto";
             }}
           >
-            {/* 1. Viền ngoài mỏng màu xám bạc */}
+            {/* Viền ngoài mỏng màu xám bạc */}
             <RoundedBox args={[1.7, 1.5, 0.02]} radius={0.08} smoothness={4}>
-              <meshStandardMaterial color="#cbd5e1" roughness={0.2} metalness={0.1} />
+              <meshStandardMaterial color="#94a3b8" roughness={0.2} metalness={0.1} />
             </RoundedBox>
 
-            {/* 2. Tấm nền trắng tinh khôi */}
+            {/* Tấm nền trắng tinh khôi */}
             <RoundedBox position={[0, 0, 0.015]} args={[1.64, 1.44, 0.02]} radius={0.06} smoothness={4}>
               <meshStandardMaterial color="#ffffff" roughness={0.1} />
             </RoundedBox>
 
-            {/* 3. Tiêu đề Tên Phòng */}
+            {/* Tiêu đề Tên Phòng */}
             <Text
               position={[0, 0.3, 0.03]}
               fontSize={0.24}
@@ -1691,7 +1690,7 @@ function InteractiveSpaces({ onSelect, onOpenKhu1Content }) {
               {`PHÒNG ${space.id}`}
             </Text>
 
-            {/* 4. Nút bấm Modern Tech màu đen tuyền sang trọng */}
+            {/* Nút bấm Modern Tech màu đen tuyền sang trọng */}
             <group position={[0, -0.28, 0.03]}>
               <RoundedBox args={[1.35, 0.36, 0.02]} radius={0.08} smoothness={4}>
                 <meshStandardMaterial color="#0f172a" roughness={0.3} />
