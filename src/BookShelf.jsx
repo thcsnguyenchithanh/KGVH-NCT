@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import { useTexture, Text } from '@react-three/drei';
+import React from 'react';
+import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function BookShelf({ onOpenLibrary, ...props }) {
-  // State quản lý việc ẩn/hiện bảng hướng dẫn 3D khi người dùng nhấn vào tủ
-  const [showBadge, setShowBadge] = useState(true);
-
   // Load toàn bộ 16 ảnh từ thư mục "pic room3"
   const bookImagePaths = Array.from(
     { length: 16 }, 
@@ -18,7 +15,6 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       {...props}
       onClick={(e) => {
         e.stopPropagation();
-        setShowBadge(false); // Tự động ẩn bảng thông báo ngay khi click vào tủ
         if (onOpenLibrary) onOpenLibrary();
       }}
       onPointerOver={() => { document.body.style.cursor = "pointer"; }}
@@ -32,45 +28,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 🌟 2. BẢNG HƯỚNG DẪN 3D (Dùng Mesh và Text thuần túy, to rõ, tự ẩn khi click) */}
-      {showBadge && (
-        <group position={[0, 1.8, 0.35]}>
-          {/* Tấm nền bảng thông báo 3D */}
-          <mesh>
-            <planeGeometry args={[3.0, 0.65]} />
-            <meshStandardMaterial color="#0f172a" roughness={0.3} />
-          </mesh>
-          {/* Viền vàng nổi bật xung quanh bảng */}
-          <mesh position={[0, 0, -0.01]}>
-            <planeGeometry args={[3.06, 0.71]} />
-            <meshBasicMaterial color="#eab308" />
-          </mesh>
-          {/* Dòng tiêu đề 3D */}
-          <Text
-            position={[0, 0.13, 0.02]}
-            fontSize={0.14}
-            color="#fef08a"
-            anchorX="center"
-            anchorY="middle"
-            material-toneMapped={false}
-          >
-            📚 THƯ VIỆN SÁCH TRỰC TUYẾN
-          </Text>
-          {/* Dòng hướng dẫn 3D */}
-          <Text
-            position={[0, -0.12, 0.02]}
-            fontSize={0.095}
-            color="#cbd5e1"
-            anchorX="center"
-            anchorY="middle"
-            material-toneMapped={false}
-          >
-            ✨ Nhấn vào đây để xem chi tiết sách
-          </Text>
-        </group>
-      )}
-
-      {/* 3. Khung kệ gỗ chính */}
+      {/* 2. Khung kệ gỗ chính */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[3.6, 4.4, 0.6]} />
         <meshStandardMaterial color="#71472d" roughness={0.6} />
@@ -88,7 +46,8 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         <meshStandardMaterial color="#5c3d2e" roughness={0.7} />
       </mesh>
 
-      {/* 4. TẦNG TRÊN: Sách dựng và ảnh tư liệu */}
+      {/* 3. TẦNG TRÊN: Trưng bày sách dựng và ảnh tư liệu to rõ */}
+      {/* Ô trên trái: Sách dựng (Dùng ảnh 2.png) */}
       <group position={[-1.0, 1.2, 0.33]}>
         <mesh>
           <planeGeometry args={[0.7, 0.95]} />
@@ -96,6 +55,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
+      {/* Ô trên phải: Khung ảnh lịch sử (Dùng ảnh 3.png) */}
       <group position={[1.1, 1.2, 0.33]}>
         <mesh>
           <planeGeometry args={[1.0, 1.15]} />
@@ -103,12 +63,14 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 5. TẦNG DƯỚI: Sách xếp chồng và sách đứng */}
+      {/* 4. TẦNG DƯỚI: Sách xếp chồng và các cuốn sách đứng hiển thị rõ bìa */}
+      {/* Sách xếp nằm chồng góc phải */}
       <group position={[1.1, -1.3, 0.3]} rotation={[0, 0, 0.05]}>
         <mesh>
           <boxGeometry args={[0.9, 0.12, 0.6]} />
           <meshStandardMaterial color="#294c60" roughness={0.5} />
         </mesh>
+        {/* Dán ảnh số 4 lên bề mặt cuốn sách chồng trên cùng */}
         <mesh position={[0, 0.07, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[0.85, 0.55]} />
           <meshBasicMaterial map={bookTextures[3]} side={THREE.DoubleSide} />
@@ -117,6 +79,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
 
       <group position={[1.15, -1.1, 0.3]}>
         <mesh>
+          <boxGeometry argsInteropServices={[0.85, 0.1, 0.55]} />
           <boxGeometry args={[0.85, 0.1, 0.55]} />
           <meshStandardMaterial color="#8b2626" roughness={0.5} />
         </mesh>
@@ -126,15 +89,17 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* Dãy sách đứng dựng phía dưới */}
+      {/* Dãy sách đứng dựng phía dưới (Hiển thị trực diện ảnh bìa rõ nét) */}
       {[-1.2, -0.85, -0.5, 0.15, 0.55].map((xPos, idx) => {
-        const textureIndex = 5 + (idx % 11);
+        const textureIndex = 5 + (idx % 11); // Lấy tiếp các ảnh từ 6.png đến 16.png
         return (
           <group key={idx} position={[xPos, -1.3, 0.33]}>
+            {/* Khối gáy/thân sách */}
             <mesh>
               <boxGeometry args={[0.26, 0.95, 0.35]} />
               <meshStandardMaterial color="#3b4d61" roughness={0.4} />
             </mesh>
+            {/* Mặt trước dán ảnh bìa sách phóng to, rõ nét tuyệt đối */}
             <mesh position={[0, 0, 0.181]}>
               <planeGeometry args={[0.25, 0.92]} />
               <meshBasicMaterial map={bookTextures[textureIndex]} side={THREE.DoubleSide} />
@@ -143,7 +108,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         );
       })}
 
-      {/* Chậu cây trang trí */}
+      {/* Chậu cây trang trí nhỏ */}
       <group position={[-1.1, 0.3, 0.33]}>
         <mesh position={[0, -0.15, 0]}>
           <cylinderGeometry args={[0.15, 0.12, 0.3, 16]} />
