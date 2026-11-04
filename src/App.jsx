@@ -1413,7 +1413,7 @@ function SecondRoomBanners() {
               onPointerOver={() => { document.body.style.cursor = "pointer"; }}
               onPointerOut={() => { document.body.style.cursor = "default"; }}
             >
-              <planeGeometry args={[1.6, 2.3]} />
+             <planeGeometry args={[1.8, 2.5]} />
               <meshBasicMaterial map={textures[index]} side={THREE.DoubleSide} />
             </mesh>
           </group>
@@ -2630,7 +2630,7 @@ function Room({
             {/* Trần */}   
       <mesh position={[0, ROOM.height, 0]} rotation={[Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[ROOM.width, ROOM.depth]} />
-                <meshStandardMaterial color="#f5f1e8" side={THREE.DoubleSide} />
+                <meshStandardMaterial color="#f8fafc" side={THREE.DoubleSide} />
            
       </mesh>
       {/* Hoa văn trống đồng trên trần sảnh chính */}
