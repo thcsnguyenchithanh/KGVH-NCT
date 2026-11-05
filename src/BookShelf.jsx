@@ -1,26 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTexture, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function BookShelf({ onOpenLibrary, ...props }) {
-  // State quản lý hiển thị biển hướng dẫn
-  const [showBadge, setShowBadge] = useState(true);
-
-  // Tự động hiển thị lại biển hướng dẫn khi người dùng thoát khỏi giao diện xem sách
-  useEffect(() => {
-    const handleRestoreBadge = () => setShowBadge(true);
-    
-    window.addEventListener('close-library', handleRestoreBadge);
-    window.addEventListener('close-modal', handleRestoreBadge);
-    window.addEventListener('back-to-main', handleRestoreBadge);
-
-    return () => {
-      window.removeEventListener('close-library', handleRestoreBadge);
-      window.removeEventListener('close-modal', handleRestoreBadge);
-      window.removeEventListener('back-to-main', handleRestoreBadge);
-    };
-  }, []);
-
   // Load toàn bộ 16 ảnh từ thư mục "pic room3"
   const bookImagePaths = Array.from(
     { length: 16 }, 
@@ -33,57 +15,55 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       {...props}
       onClick={(e) => {
         e.stopPropagation();
-        setShowBadge(false); // Ẩn tạm thời khi click vào tủ để mở sách
         if (onOpenLibrary) onOpenLibrary();
       }}
       onPointerOver={() => { document.body.style.cursor = "pointer"; }}
       onPointerOut={() => { document.body.style.cursor = "auto"; }}
     >
-      {/* 🌟 1. BIỂN HƯỚNG DẪN 3D NỔI BẬT (THIẾT KẾ CÓ ĐỘ DÀY THỰC TẾ, KHÔNG CÒN GIẢ) */}
-      {showBadge && (
-        <group position={[0, 2.4, 0.35]}>
-          {/* Khung gỗ/kim loại nổi khối 3D phía sau */}
-          <mesh position={[0, 0, -0.02]}>
-            <boxGeometry args={[3.4, 0.85, 0.06]} />
-            <meshStandardMaterial color="#5c3d2e" roughness={0.4} />
-          </mesh>
+      {/* 🌟 BIỂN HIỆU 3D CỐ ĐỊNH, SẮC NÉT (Khối hộp 3D nguyên khối, không bị lỗi lẹm hình) */}
+      <group position={[0, 2.5, 0.2]}>
+        {/* Khung nền biển hiệu 3D dày dặn */}
+        <mesh>
+          <boxGeometry args={[3.4, 0.85, 0.08]} />
+          <meshStandardMaterial color="#1e293b" roughness={0.3} metalness={0.2} />
+        </mesh>
 
-          {/* Lớp nền bảng màu xanh đen sang trọng */}
-          <mesh position={[0, 0, 0.01]}>
-            <planeGeometry args={[3.28, 0.75]} />
-            <meshStandardMaterial color="#0f172a" roughness={0.3} />
-          </mesh>
+        {/* Viền vàng nổi bật xung quanh biển */}
+        <mesh position={[0, 0, 0.042]}>
+          <planeGeometry args={[3.32, 0.77]} />
+          <meshBasicMaterial color="#eab308" />
+        </mesh>
+        
+        {/* Nền trong của biển */}
+        <mesh position={[0, 0, 0.045]}>
+          <planeGeometry args={[3.24, 0.69]} />
+          <meshBasicMaterial color="#0f172a" />
+        </mesh>
 
-          {/* Viền vàng trang trí */}
-          <mesh position={[0, 0, 0.015]}>
-            <ringGeometry args={[0, 0]} /> {/* Giữ chỗ hoặc tạo khung viền nếu cần */}
-          </mesh>
+        {/* Dòng tiêu đề chính */}
+        <Text
+          position={[0, 0.15, 0.05]}
+          fontSize={0.15}
+          color="#fef08a"
+          anchorX="center"
+          anchorY="middle"
+          material-toneMapped={false}
+        >
+          📚 THƯ VIỆN SÁCH TRỰC TUYẾN
+        </Text>
 
-          {/* Dòng tiêu đề chính */}
-          <Text
-            position={[0, 0.16, 0.03]}
-            fontSize={0.15}
-            color="#fef08a"
-            anchorX="center"
-            anchorY="middle"
-            material-toneMapped={false}
-          >
-            📚 THƯ VIỆN SÁCH TRỰC TUYẾN
-          </Text>
-
-          {/* Dòng chữ hướng dẫn nhấn vào */}
-          <Text
-            position={[0, -0.14, 0.03]}
-            fontSize={0.105}
-            color="#cbd5e1"
-            anchorX="center"
-            anchorY="middle"
-            material-toneMapped={false}
-          >
-            ✨ Nhấn vào tủ để xem chi tiết sách
-          </Text>
-        </group>
-      )}
+        {/* Dòng hướng dẫn tương tác */}
+        <Text
+          position={[0, -0.14, 0.05]}
+          fontSize={0.105}
+          color="#38bdf8"
+          anchorX="center"
+          anchorY="middle"
+          material-toneMapped={false}
+        >
+          ✨ Nhấn vào tủ để xem chi tiết sách
+        </Text>
+      </group>
 
       {/* 2. Khung kệ gỗ chính */}
       <mesh position={[0, 0, 0]}>
