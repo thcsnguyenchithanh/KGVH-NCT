@@ -20,13 +20,46 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       onPointerOver={() => { document.body.style.cursor = "pointer"; }}
       onPointerOut={() => { document.body.style.cursor = "auto"; }}
     >
-      {/* 1. Biển tiêu đề phía trên tủ (Dùng ảnh 1.png) */}
-      <group position={[0, 2.6, 0.12]}>
-        <mesh>
-          <planeGeometry args={[3.0, 0.9]} />
-          <meshBasicMaterial map={bookTextures[0]} transparent side={THREE.DoubleSide} />
-        </mesh>
-      </group>
+      {/* 🌟 1. THAY THẾ BIỂN ẢNH BẰNG BẢNG CHỮ 3D NỔI BẬT (DÙNG MESH + TEXT THUẦN TÚY) */}
+      {showBadge && (
+        <group position={[0, 2.4, 0.35]}>
+          {/* Mặt nền màu xanh đen sang trọng */}
+          <mesh>
+            <planeGeometry args={[3.4, 0.8]} />
+            <meshStandardMaterial color="#0f172a" roughness={0.3} />
+          </mesh>
+
+          {/* Viền màu vàng nổi bật phía sau */}
+          <mesh position={[0, 0, -0.01]}>
+            <planeGeometry args={[3.48, 0.88]} />
+            <meshBasicMaterial color="#eab308" />
+          </mesh>
+
+          {/* Dòng tiêu đề chính */}
+          <Text
+            position={[0, 0.18, 0.02]}
+            fontSize={0.16}
+            color="#fef08a"
+            anchorX="center"
+            anchorY="middle"
+            material-toneMapped={false}
+          >
+            📚 THƯ VIỆN SÁCH TRỰC TUYẾN
+          </Text>
+
+          {/* Dòng chữ hướng dẫn nhấn vào */}
+          <Text
+            position={[0, -0.15, 0.02]}
+            fontSize={0.11}
+            color="#cbd5e1"
+            anchorX="center"
+            anchorY="middle"
+            material-toneMapped={false}
+          >
+            ✨ Nhấn vào tủ để xem chi tiết sách
+          </Text>
+        </group>
+      )}
 
       {/* 2. Khung kệ gỗ chính */}
       <mesh position={[0, 0, 0]}>
