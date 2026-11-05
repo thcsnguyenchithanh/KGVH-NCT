@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 // Ví dụ component màn hình video thuần 3D cho bàn phòng 1
-function Pure3DVideoScreen({ videoSrc }) {
+export default function Pure3DVideoScreen({ videoSrc }) {
   const videoRef = useRef(null);
   const [videoTexture, setVideoTexture] = useState(null);
 
