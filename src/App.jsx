@@ -8,6 +8,7 @@ import CeilingDrum from "./CeilingDrum";
 import TopicMeshCard from "./TopicMeshCard";
 import BookShelf from "./BookShelf";
 import SchoolBookshelfModal from "./SchoolBookshelfModal";
+import Pure3DVideoScreen from './Pure3DVideoScreen'; 
 
 import Room8 from "./Room8";
 
@@ -2423,42 +2424,15 @@ function SpaceInteriorRoom({
 
             {/* Màn hình video trên bàn tròn */}
             {!wallImageFull && !isPadletFullScreen && (
-              <Html
-                position={[0, 1.05, 0]}
-                transform
-                distanceFactor={1.5}
-                style={{
-                  width: "320px",
-                  height: "200px",
-                  overflow: "hidden",
-                  border: "3px solid #70472e",
-                  borderRadius: "10px",
-                  boxSizing: "border-box",
-                  background: "#000",
-                  zIndex: 1000,
-                  pointerEvents: "auto",
-                }}
-              >
-                <div style={{ width: "100%", height: "100%" }}>
-                  <iframe
-                    src={
-                      space.id === 1
-                        ? SPACE_CONTENT[1].video
-                        : space.id === 2
-                          ? SPACE_CONTENT[2].video2
-                          : SPACE_CONTENT[space.id].video
-                    }
-                    title="Video trên bàn"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      border: 0,
-                    }}
-                  />
-                </div>
-              </Html>
+              <Pure3DVideoScreen
+                videoSrc={
+                  space.id === 1
+                    ? SPACE_CONTENT[1].video
+                    : space.id === 2
+                      ? SPACE_CONTENT[2].video2
+                      : SPACE_CONTENT[space.id].video
+                }
+              />
             )}
           </>
         )}
