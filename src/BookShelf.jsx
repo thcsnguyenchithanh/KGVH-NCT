@@ -1,9 +1,12 @@
-import React from 'react';
-import { useTexture } from '@react-three/drei';
+import React, { useState } from 'react';
+import { useTexture, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function BookShelf({ onOpenLibrary, ...props }) {
-  // Load toàn bộ 16 ảnh từ thư mục "pic room3"
+  // State quản lý việc ẩn/hiện bảng tiêu đề & hướng dẫn khi người dùng nhấn vào tủ
+  const [showBadge, setShowBadge] = useState(true);
+
+  // Load 16 ảnh bìa sách từ thư mục "pic room3"
   const bookImagePaths = Array.from(
     { length: 16 }, 
     (_, i) => `${import.meta.env.BASE_URL}pic room3/${i + 1}.png`
@@ -15,6 +18,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
       {...props}
       onClick={(e) => {
         e.stopPropagation();
+        setShowBadge(false); // Ẩn bảng chữ nổi bật ngay khi click vào tủ
         if (onOpenLibrary) onOpenLibrary();
       }}
       onPointerOver={() => { document.body.style.cursor = "pointer"; }}
@@ -79,8 +83,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         <meshStandardMaterial color="#5c3d2e" roughness={0.7} />
       </mesh>
 
-      {/* 3. TẦNG TRÊN: Trưng bày sách dựng và ảnh tư liệu to rõ */}
-      {/* Ô trên trái: Sách dựng (Dùng ảnh 2.png) */}
+      {/* 3. TẦNG TRÊN: Trưng bày sách dựng và ảnh tư liệu */}
       <group position={[-1.0, 1.2, 0.33]}>
         <mesh>
           <planeGeometry args={[0.7, 0.95]} />
@@ -88,7 +91,6 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* Ô trên phải: Khung ảnh lịch sử (Dùng ảnh 3.png) */}
       <group position={[1.1, 1.2, 0.33]}>
         <mesh>
           <planeGeometry args={[1.0, 1.15]} />
@@ -96,14 +98,12 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* 4. TẦNG DƯỚI: Sách xếp chồng và các cuốn sách đứng hiển thị rõ bìa */}
-      {/* Sách xếp nằm chồng góc phải */}
+      {/* 4. TẦNG DƯỚI: Sách xếp chồng và sách đứng */}
       <group position={[1.1, -1.3, 0.3]} rotation={[0, 0, 0.05]}>
         <mesh>
           <boxGeometry args={[0.9, 0.12, 0.6]} />
           <meshStandardMaterial color="#294c60" roughness={0.5} />
         </mesh>
-        {/* Dán ảnh số 4 lên bề mặt cuốn sách chồng trên cùng */}
         <mesh position={[0, 0.07, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[0.85, 0.55]} />
           <meshBasicMaterial map={bookTextures[3]} side={THREE.DoubleSide} />
@@ -112,7 +112,6 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
 
       <group position={[1.15, -1.1, 0.3]}>
         <mesh>
-          <boxGeometry argsInteropServices={[0.85, 0.1, 0.55]} />
           <boxGeometry args={[0.85, 0.1, 0.55]} />
           <meshStandardMaterial color="#8b2626" roughness={0.5} />
         </mesh>
@@ -122,17 +121,15 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         </mesh>
       </group>
 
-      {/* Dãy sách đứng dựng phía dưới (Hiển thị trực diện ảnh bìa rõ nét) */}
+      {/* Dãy sách đứng dựng phía dưới */}
       {[-1.2, -0.85, -0.5, 0.15, 0.55].map((xPos, idx) => {
-        const textureIndex = 5 + (idx % 11); // Lấy tiếp các ảnh từ 6.png đến 16.png
+        const textureIndex = 5 + (idx % 11);
         return (
           <group key={idx} position={[xPos, -1.3, 0.33]}>
-            {/* Khối gáy/thân sách */}
             <mesh>
               <boxGeometry args={[0.26, 0.95, 0.35]} />
               <meshStandardMaterial color="#3b4d61" roughness={0.4} />
             </mesh>
-            {/* Mặt trước dán ảnh bìa sách phóng to, rõ nét tuyệt đối */}
             <mesh position={[0, 0, 0.181]}>
               <planeGeometry args={[0.25, 0.92]} />
               <meshBasicMaterial map={bookTextures[textureIndex]} side={THREE.DoubleSide} />
@@ -141,7 +138,7 @@ export default function BookShelf({ onOpenLibrary, ...props }) {
         );
       })}
 
-      {/* Chậu cây trang trí nhỏ */}
+      {/* Chậu cây trang trí */}
       <group position={[-1.1, 0.3, 0.33]}>
         <mesh position={[0, -0.15, 0]}>
           <cylinderGeometry args={[0.15, 0.12, 0.3, 16]} />
