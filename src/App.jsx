@@ -406,21 +406,7 @@ export const EXHIBITION_DATA = [
     panels: [
       // Sẽ thêm danh sách ảnh con của sảnh trường vào đây sau
       
-       { id: 2, src: `${import.meta.env.BASE_URL}sanhNct/2.jpg`, alt: "Sảnh trường 2" },
-       { id: 3, src: `${import.meta.env.BASE_URL}sanhNct/3.jpg`, alt: "Sảnh trường 3" },
-       { id: 4, src: `${import.meta.env.BASE_URL}sanhNct/4.jpg`, alt: "Sảnh trường 4" },
-       { id: 5, src: `${import.meta.env.BASE_URL}sanhNct/5.jpg`, alt: "Sảnh trường 5" },
-       { id: 6, src: `${import.meta.env.BASE_URL}sanhNct/6.jpg`, alt: "Sảnh trường 6" },
-       { id: 7, src: `${import.meta.env.BASE_URL}sanhNct/7.jpg`, alt: "Sảnh trường 7" },
-       { id: 8, src: `${import.meta.env.BASE_URL}sanhNct/8.jpg`, alt: "Sảnh trường 8" },
-       { id: 9, src: `${import.meta.env.BASE_URL}sanhNct/9.jpg`, alt: "Sảnh trường 9" },
-       { id: 10, src: `${import.meta.env.BASE_URL}sanhNct/10.jpg`, alt: "Sảnh trường 10" },
-       { id: 11, src: `${import.meta.env.BASE_URL}sanhNct/11.jpg`, alt: "Sảnh trường 11" },
-       { id: 12, src: `${import.meta.env.BASE_URL}sanhNct/12.jpg`, alt: "Sảnh trường 12" },
-{ id: 13, src: `${import.meta.env.BASE_URL}sanhNct/13.jpg`, alt: "Sảnh trường 13" },
-{ id: 14, src: `${import.meta.env.BASE_URL}sanhNct/14.jpg`, alt: "Sảnh trường 14" },
-{ id: 15, src: `${import.meta.env.BASE_URL}sanhNct/15.jpg`, alt: "Sảnh trường 15" },
-{ id: 16, src: `${import.meta.env.BASE_URL}sanhNct/16.jpg`, alt: "Sảnh trường 16" },
+      
 { id: 17, src: `${import.meta.env.BASE_URL}sanhNct/17.jpg`, alt: "Sảnh trường 17" },
 { id: 18, src: `${import.meta.env.BASE_URL}sanhNct/18.jpg`, alt: "Sảnh trường 18" },
 { id: 19, src: `${import.meta.env.BASE_URL}sanhNct/19.jpg`, alt: "Sảnh trường 19" },
