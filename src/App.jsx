@@ -41,7 +41,7 @@ export const CONTENT_LIST = [
   { id: 7, name: "Hành trình theo dấu chân Bác", type: "space" },
   { id: 8, name: "Những câu chuyện về Bác", type: "space" },
   { id: 9, name: "Bác Hồ với thiếu niên, nhi đồng và giáo dục", type: "space" },
-  { id: 10, name: "Tư tưởng, đạo đức, phong cách Hồ Chí Minh", type: "space" },
+  { id: 10, name: "Đẩy mạnh học tập, thực hành tư tưởng, đạo đức, phương pháp, phong cách Hồ Chí Minh trong giai đoạn phát triển mới", type: "space" },
   {
     id: 11,
     name: "Di sản Hồ Chí Minh",
@@ -1549,7 +1549,7 @@ const spaces = [
   },
   {
     id: 5,
-    title: "Tư tưởng, đạo đức, phong cách Hồ Chí Minh",
+    title: "Đẩy mạnh học tập, thực hành tư tưởng, đạo đức, phương pháp, phong cách Hồ Chí Minh trong giai đoạn phát triển mới",
     description:
       "Đây là phòng trọng tâm giúp người tham quan tìm hiểu những giá trị nổi bật trong tư tưởng, đạo đức và phong cách của Người. Nội dung có thể chia thành các khu: yêu nước, thương dân; cần, kiệm, liêm, chính; trách nhiệm, kỷ luật; giản dị, khiêm tốn; tự học và học tập suốt đời; nói đi đôi với làm. Mỗi nội dung nên gắn với những việc làm cụ thể để giáo viên và học sinh có thể vận dụng trong học tập, công tác và đời sống.",
     position: [-4.8, 0, 5.2],
