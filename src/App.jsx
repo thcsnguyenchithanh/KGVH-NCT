@@ -405,7 +405,7 @@ export const EXHIBITION_DATA = [
     coverImage: `${import.meta.env.BASE_URL}sanhNct/10.jpg`,
     panels: [
       // Sẽ thêm danh sách ảnh con của sảnh trường vào đây sau
-       { id: 1, src: `${import.meta.env.BASE_URL}sanhNct/1.jpg`, alt: "Sảnh trường 1" },
+      
        { id: 2, src: `${import.meta.env.BASE_URL}sanhNct/2.jpg`, alt: "Sảnh trường 2" },
        { id: 3, src: `${import.meta.env.BASE_URL}sanhNct/3.jpg`, alt: "Sảnh trường 3" },
        { id: 4, src: `${import.meta.env.BASE_URL}sanhNct/4.jpg`, alt: "Sảnh trường 4" },
