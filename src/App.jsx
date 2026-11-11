@@ -401,7 +401,7 @@ const SPACE_CONTENT = {
 export const EXHIBITION_DATA = [
   {
     id: "sanh",
-    title: "Sảnh Trường",
+    title: "Chi bộ truờng THCS Nguyễn Chí Thanh",
     coverImage: `${import.meta.env.BASE_URL}sanhNct/10.jpg`,
     panels: [
       // Sẽ thêm danh sách ảnh con của sảnh trường vào đây sau
