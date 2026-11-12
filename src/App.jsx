@@ -2523,9 +2523,9 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
     <group>
       {/* Biển nhấn quay về sảnh chính & Khung cửa thông về Sảnh chính */}
       <group position={[-12.3, 0, 5.75]}>
-        {/* Khối trong suốt bắt sự kiện click trực tiếp vào khoảng không của khung cửa */}
+        {/* 🌟 Khối trong suốt bắt sự kiện click trực tiếp vào khoảng không của khung cửa (cao 4.4) */}
         <mesh
-          position={[0, 1.85, 0]}
+          position={[0, 2.2, 0]}
           onClick={(e) => {
             e.stopPropagation();
             console.log("Đã nhấn lối đi về SẢNH CHÍNH");
@@ -2538,12 +2538,12 @@ function SecondRoom({ onSpaceClick, setKhu1Content }) {
             document.body.style.cursor = "default";
           }}
         >
-          <boxGeometry args={[0.4, 3.7, 2.2]} />
+          <boxGeometry args={[0.4, 4.4, 2.2]} />
           <meshBasicMaterial visible={false} />
         </mesh>
 
-        {/* Biển chữ SẢNH CHÍNH ở phía trên (Nâng lên y = 4.3) */}
-        <group position={[0, 4.3, 0]}>
+        {/* Biển chữ SẢNH CHÍNH ở phía trên (Nâng lên y = 4.9 khớp với bên Sảnh chính) */}
+        <group position={[0, 4.9, 0]}>
           <RoundedBox
             args={[0.16, 0.6, 2]}
             radius={0.07}
@@ -2727,40 +2727,40 @@ function Room({
         <meshStandardMaterial color="#eee6d7" />
       </mesh>
    {/* Phần tường phía trên cửa */}
-      <mesh position={[-12, 4.65, 5.75]}>
-        <boxGeometry args={[0.3, 1.7, 2.5]} />
+      <mesh position={[-12, 5.0, 5.75]}>
+        <boxGeometry args={[0.3, 1.0, 2.5]} />
         <meshStandardMaterial color="#eee6d7" />
       </mesh>
       {/* Khung cửa */}
       <group position={[-11.82, 0, 5.75]}>
         {/* Cột khung cửa trái */}
-        <mesh position={[0, 1.9, -1.2]}>
-          <boxGeometry args={[0.2, 3.8, 0.15]} />
+        <mesh position={[0, 2.25, -1.2]}>
+          <boxGeometry args={[0.2, 4.5, 0.15]} />
           <meshStandardMaterial color="#70472d" />
         </mesh>
 
         {/* Cột khung cửa phải */}
-        <mesh position={[0, 1.9, 1.2]}>
-          <boxGeometry args={[0.2, 3.8, 0.15]} />
+        <mesh position={[0, 2.25, 1.2]}>
+          <boxGeometry args={[0.2, 4.5, 0.15]} />
           <meshStandardMaterial color="#70472d" />
         </mesh>
 
-        {/* Thanh ngang trên cùng của khung cửa (cao ngang viền trên khung ảnh: 3.8) */}
-        <mesh position={[0, 3.8, 0]}>
+        {/* Thanh ngang trên cùng của khung cửa (đạt độ cao 4.5 bằng mép hình) */}
+        <mesh position={[0, 4.5, 0]}>
           <boxGeometry args={[0.2, 0.15, 2.5]} />
           <meshStandardMaterial color="#70472d" />
         </mesh>
 
         {/* Cánh cửa luôn mở */}
         <group position={[0, 0, -1.1]} rotation={[0, -Math.PI / 2, 0]}>
-          {/* Cánh cửa cao 3.7 */}
-          <mesh position={[0, 1.85, 1.1]}>
-            <boxGeometry args={[0.12, 3.7, 2.2]} />
+          {/* Cánh cửa cao 4.4 */}
+          <mesh position={[0, 2.2, 1.1]}>
+            <boxGeometry args={[0.12, 4.4, 2.2]} />
             <meshStandardMaterial color="#a87b51" side={THREE.DoubleSide} />
           </mesh>
 
           {/* Tay nắm */}
-          <mesh position={[0.09, 1.4, 1.85]}>
+          <mesh position={[0.09, 2.2, 1.85]}>
             <sphereGeometry args={[0.07, 12, 12]} />
             <meshStandardMaterial color="#d4af37" />
           </mesh>
@@ -2768,7 +2768,7 @@ function Room({
 
         {/* Khối trong suốt bắt sự kiện click vào cửa */}
         <mesh
-          position={[0, 1.85, 0]}
+          position={[0, 2.25, 0]}
           onClick={(e) => {
             e.stopPropagation();
             window.dispatchEvent(new Event("enter-second-room"));
@@ -2780,12 +2780,12 @@ function Room({
             document.body.style.cursor = "default";
           }}
         >
-          <boxGeometry args={[0.4, 3.7, 2.2]} />
+          <boxGeometry args={[0.4, 4.4, 2.2]} />
           <meshBasicMaterial visible={false} />
         </mesh>
 
-        {/* Biển nhấn để vào phòng trưng bày (Đẩy lên y = 4.3 cho nằm trên khung cửa) */}
-        <group position={[0, 4.3, 0]}>
+        {/* Biển nhấn để vào phòng trưng bày (Đẩy lên y = 4.9 để nằm phía trên cửa) */}
+        <group position={[0, 4.9, 0]}>
           <RoundedBox
             args={[0.16, 0.6, 2.0]}
             radius={0.07}
