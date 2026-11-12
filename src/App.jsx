@@ -1020,7 +1020,7 @@ function OppositeWallPanels() {
       <Text
         position={[0, 2.65, 0.02]} // Đẩy lên cao hẳn (2.65) để tách biệt rõ với dòng 2
         fontSize={0.24}
-        color="#e7b535"           // Chữ màu trắng
+        color="#e2ae2d"           // Chữ màu trắng
         anchorX="center"
         anchorY="middle"
       >
