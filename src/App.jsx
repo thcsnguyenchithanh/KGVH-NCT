@@ -2852,7 +2852,7 @@ function Room({
         </Text>
            </group>
       {/* ================= MÀN HÌNH TƯ LIỆU MỚI (Dùng FramedVideoScreen) ================= */}
-      <group position={[0, 2.7, -8.25]}>
+      <group position={[0, 2.4, -8.25]}>
         <FramedVideoScreen onOpen={onOpenVideo} />
       </group>
 
