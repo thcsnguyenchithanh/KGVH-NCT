@@ -1015,10 +1015,10 @@ function OppositeWallPanels() {
     <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
       
       {/* 🌟 TIÊU ĐỀ LỚN GẮN TRÊN TƯỜNG (Nằm phía trên các bức tranh) */}
-     {/* Tiêu đề chính (Dòng 1) - Kích thước vừa phải */}
+    {/* Tiêu đề chính (Dòng 1) - Đẩy cao lên thêm */}
       <Text
-        position={[0, 1.95, 0.02]} // Nâng nhẹ lên 1.95 để nhường chỗ cho dòng dưới
-        fontSize={0.24}           // Nhỏ hơn dòng 2
+        position={[0, 2.2, 0.02]}  // Tăng Y từ 1.95 lên 2.2 để tạo khoảng thoáng với 2 hàng chữ bên dưới
+        fontSize={0.24}
         color="#b91c1c"
         anchorX="center"
         anchorY="middle"
@@ -1026,17 +1026,17 @@ function OppositeWallPanels() {
         KHÔNG GIAN VĂN HÓA THỰC TẾ - TRƯỜNG THCS NGUYỄN CHÍ THANH
       </Text>
 
-      {/* Dòng khẩu hiệu (Dòng 2) - Kích thước lớn hơn */}
+      {/* Dòng khẩu hiệu (Dòng 2) - Ngắt thành 2 hàng cân đối */}
       <Text
-        position={[0, 1.45, 0.02]}
-        fontSize={0.32}           // Lớn hơn dòng 1 (bạn có thể tăng lên 0.35 nếu muốn nổi bật hơn nữa)
+        position={[0, 1.55, 0.02]} // Căn chỉnh vị trí trung tâm của khối 2 hàng chữ
+        fontSize={0.32}
         color="#dc2626"
         anchorX="center"
         anchorY="middle"
-        maxWidth={12}             // Điều chỉnh số này nếu muốn chữ trải dài 1 hàng hoặc ngắt thành 2 hàng
         textAlign="center"
+        lineHeight={1.25}          // Khoảng cách giữa 2 hàng chữ cho thoáng mắt
       >
-        ĐẨY MẠNH HỌC TẬP, THỰC HÀNH TƯ TƯỞNG, ĐẠO ĐỨC, PHƯƠNG PHÁP, PHONG CÁCH HỒ CHÍ MINH TRONG GIAI ĐOẠN PHÁT TRIỂN MỚI
+        {"ĐẨY MẠNH HỌC TẬP, THỰC HÀNH TƯ TƯỞNG, ĐẠO ĐỨC,\nPHƯƠNG PHÁP, PHONG CÁCH HỒ CHÍ MINH TRONG GIAI ĐOẠN PHÁT TRIỂN MỚI"}
       </Text>
 
       {/* Hiển thị 4 bức tranh album */}
