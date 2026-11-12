@@ -1015,14 +1015,28 @@ function OppositeWallPanels() {
     <group position={[0, 2.7, ROOM.depth / 2 - 0.2]} rotation={[0, Math.PI, 0]}>
       
       {/* 🌟 TIÊU ĐỀ LỚN GẮN TRÊN TƯỜNG (Nằm phía trên các bức tranh) */}
+      {/* Tiêu đề chính - Đã đẩy cao lên */}
       <Text
-        position={[0, 1.5, 0.02]} // Đặt ở giữa và dịch lên phía trên các khung tranh
+        position={[0, 1.85, 0.02]} // Tăng Y từ 1.5 lên 1.85 để tạo khoảng trống bên dưới
         fontSize={0.32}           // Kích thước chữ to, trang trọng
-        color="#1f2937"           // Màu chữ tối (hoặc bạn có thể đổi thành "#ffffff" nếu muốn chữ trắng sáng)
+        color="#1f2937"           // Màu chữ tối (hoặc "#ffffff" nếu nền tối)
         anchorX="center"
         anchorY="middle"
       >
         KHÔNG GIAN VĂN HÓA THỰC TẾ - TRƯỜNG THCS NGUYỄN CHÍ THANH
+      </Text>
+
+      {/* Dòng phụ đề bên dưới */}
+      <Text
+        position={[0, 1.45, 0.02]} // Đặt thấp hơn tiêu đề chính (Y = 1.45)
+        fontSize={0.18}           // Kích thước chữ nhỏ hơn cho hài hòa
+        color="#374151"           // Màu chữ phụ nhẹ hơn một chút (hoặc "#e5e7eb" nếu nền tối)
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={12}             // Giới hạn chiều rộng để tự động xuống dòng nếu chữ quá dài
+        textAlign="center"        // Căn giữa nếu bị xuống dòng
+      >
+        Đẩy mạnh học tập, thực hành tư tưởng, đạo đức, phương pháp, phong cách Hồ Chí Minh trong giai đoạn phát triển mới
       </Text>
 
       {/* Hiển thị 4 bức tranh album */}
