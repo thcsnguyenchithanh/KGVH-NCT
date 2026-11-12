@@ -74,7 +74,7 @@ const targets = [
 // Cấu trúc dữ liệu hình ảnh cho Sảnh chính
 const SANH_CONTENT = {
   // Ảnh nền sảnh chính
-  background: `${import.meta.env.BASE_URL}sanh/bgs.png`,
+  background: `${import.meta.env.BASE_URL}sanh/bgs.jpg`,
 
   // Nhóm hình bác
   banners: [
