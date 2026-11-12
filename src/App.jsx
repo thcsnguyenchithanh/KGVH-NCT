@@ -714,7 +714,7 @@ function FramedVideoScreen({ onOpen }) {
       {/* ================= LỚP 2: MÀN HÌNH VIDEO LỒNG TRONG KHUNG ================= */}
       <mesh
         // Điều chỉnh tọa độ Y (số thứ 2) để kéo video lên/xuống cho khớp ô đen
-        position={[0, -1.70, 0.02]} 
+        position={[0, -1.60, 0.02]} 
         onClick={(e) => {
           e.stopPropagation();
           onOpen?.();
