@@ -1016,27 +1016,28 @@ function OppositeWallPanels() {
       
       {/* 🌟 TIÊU ĐỀ LỚN GẮN TRÊN TƯỜNG (Nằm phía trên các bức tranh) */}
     {/* Tiêu đề chính (Dòng 1) - Đẩy cao lên thêm */}
+      {/* Tiêu đề chính (Dòng 1) - Màu trắng, đẩy lên cao */}
       <Text
-        position={[0, 2.2, 0.02]}  // Tăng Y từ 1.95 lên 2.2 để tạo khoảng thoáng với 2 hàng chữ bên dưới
+        position={[0, 2.65, 0.02]} // Đẩy lên cao hẳn (2.65) để tách biệt rõ với dòng 2
         fontSize={0.24}
-        color="#b91c1c"
+        color="#e7b535"           // Chữ màu trắng
         anchorX="center"
         anchorY="middle"
       >
         KHÔNG GIAN VĂN HÓA THỰC TẾ - TRƯỜNG THCS NGUYỄN CHÍ THANH
       </Text>
 
-      {/* Dòng khẩu hiệu (Dòng 2) - Ngắt thành 2 hàng cân đối */}
+      {/* Dòng khẩu hiệu (Dòng 2) - Màu đỏ, cũng nâng lên cao hơn */}
       <Text
-        position={[0, 1.55, 0.02]} // Căn chỉnh vị trí trung tâm của khối 2 hàng chữ
+        position={[0, 1.85, 0.02]} // Nâng lên 1.85 (cách dòng 1 một khoảng 0.8 đơn vị)
         fontSize={0.32}
-        color="#dc2626"
+        color="#dc2626"           // Chữ màu đỏ
         anchorX="center"
         anchorY="middle"
         textAlign="center"
-        lineHeight={1.25}          // Khoảng cách giữa 2 hàng chữ cho thoáng mắt
+        lineHeight={1.25}
       >
-        {"ĐẨY MẠNH HỌC TẬP, THỰC HÀNH TƯ TƯỞNG, ĐẠO ĐỨC,\nPHƯƠNG PHÁP, PHONG CÁCH HỒ CHÍ MINH TRONG GIAI ĐOẠN PHÁT TRIỂN MỚI"}
+        {"ĐẨY MẠNH HỌC TẬP, THỰC HÀNH TƯ TƯỞNG, ĐẠO ĐỨC,\nPHƯƠNG PHÁP, PHONG CÁCH HỒ CHÍ THANH TRONG GIAI ĐOẠN PHÁT TRIỂN MỚI"}
       </Text>
 
       {/* Hiển thị 4 bức tranh album */}
