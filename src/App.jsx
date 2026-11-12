@@ -1036,7 +1036,7 @@ function OppositeWallPanels() {
         maxWidth={12}             // Điều chỉnh số này nếu muốn chữ trải dài 1 hàng hoặc ngắt thành 2 hàng
         textAlign="center"
       >
-        Đẩy mạnh học tập, thực hành tư tưởng, đạo đức, phương pháp, phong cách Hồ Chí Minh trong giai đoạn phát triển mới
+        ĐẨY MẠNH HỌC TẬP, THỰC HÀNH TƯ TƯỞNG, ĐẠO ĐỨC, PHƯƠNG PHÁP, PHONG CÁCH HỒ CHÍ MINH TRONG GIAI ĐOẠN PHÁT TRIỂN MỚI
       </Text>
 
       {/* Hiển thị 4 bức tranh album */}
