@@ -1018,9 +1018,9 @@ function OppositeWallPanels() {
     {/* Tiêu đề chính (Dòng 1) - Đẩy cao lên thêm */}
       {/* Tiêu đề chính (Dòng 1) - Màu trắng, đẩy lên cao */}
       <Text
-        position={[0, 2.65, 0.02]} // Đẩy lên cao hẳn (2.65) để tách biệt rõ với dòng 2
+        position={[0, 2.60, 0.02]} // Đẩy lên cao hẳn (2.65) để tách biệt rõ với dòng 2
         fontSize={0.24}
-        color="#e2ae2d"           // Chữ màu trắng
+        color="#abaaa8"           // Chữ màu trắng
         anchorX="center"
         anchorY="middle"
       >
